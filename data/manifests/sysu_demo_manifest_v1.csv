@@ -1,0 +1,16 @@
+patient_id,relative_path,label,num_frames,fps,width,height,is_fixture_sample
+SYSU_HCC_001,Focal-liver-lesions-dataset-in-CEUS-master/Focal-liver-lesions-dataset-in-CEUS-master/SYSU-CEUS/HCC/001.avi,HCC,2221,15.0,768,576,True
+SYSU_HCC_002,Focal-liver-lesions-dataset-in-CEUS-master/Focal-liver-lesions-dataset-in-CEUS-master/SYSU-CEUS/HCC/002.avi,HCC,2982,15.0,768,576,True
+SYSU_HCC_003,Focal-liver-lesions-dataset-in-CEUS-master/Focal-liver-lesions-dataset-in-CEUS-master/SYSU-CEUS/HCC/003.avi,HCC,2529,15.0,768,576,True
+SYSU_HCC_004,Focal-liver-lesions-dataset-in-CEUS-master/Focal-liver-lesions-dataset-in-CEUS-master/SYSU-CEUS/HCC/004.avi,HCC,2595,15.0,768,576,True
+SYSU_HCC_005,Focal-liver-lesions-dataset-in-CEUS-master/Focal-liver-lesions-dataset-in-CEUS-master/SYSU-CEUS/HCC/005.avi,HCC,2730,15.0,768,576,True
+SYSU_HEM_001,Focal-liver-lesions-dataset-in-CEUS-master/Focal-liver-lesions-dataset-in-CEUS-master/SYSU-CEUS/HEM/001.avi,Hemangioma,2471,15.0,768,576,True
+SYSU_HEM_002,Focal-liver-lesions-dataset-in-CEUS-master/Focal-liver-lesions-dataset-in-CEUS-master/SYSU-CEUS/HEM/002.avi,Hemangioma,3424,15.0,720,576,True
+SYSU_HEM_003,Focal-liver-lesions-dataset-in-CEUS-master/Focal-liver-lesions-dataset-in-CEUS-master/SYSU-CEUS/HEM/003.avi,Hemangioma,2350,15.0,768,576,True
+SYSU_HEM_004,Focal-liver-lesions-dataset-in-CEUS-master/Focal-liver-lesions-dataset-in-CEUS-master/SYSU-CEUS/HEM/004.avi,Hemangioma,4687,15.0,768,576,True
+SYSU_HEM_005,Focal-liver-lesions-dataset-in-CEUS-master/Focal-liver-lesions-dataset-in-CEUS-master/SYSU-CEUS/HEM/005.avi,Hemangioma,2296,15.0,768,576,True
+SYSU_FNH_001,Focal-liver-lesions-dataset-in-CEUS-master/Focal-liver-lesions-dataset-in-CEUS-master/SYSU-CEUS/FNH/001.avi,FNH,1434,10.0,768,576,True
+SYSU_FNH_002,Focal-liver-lesions-dataset-in-CEUS-master/Focal-liver-lesions-dataset-in-CEUS-master/SYSU-CEUS/FNH/002.avi,FNH,1539,10.0,768,576,True
+SYSU_FNH_003,Focal-liver-lesions-dataset-in-CEUS-master/Focal-liver-lesions-dataset-in-CEUS-master/SYSU-CEUS/FNH/003.avi,FNH,1400,10.0,768,576,True
+SYSU_FNH_004,Focal-liver-lesions-dataset-in-CEUS-master/Focal-liver-lesions-dataset-in-CEUS-master/SYSU-CEUS/FNH/004.avi,FNH,929,10.0,768,576,True
+SYSU_FNH_005,Focal-liver-lesions-dataset-in-CEUS-master/Focal-liver-lesions-dataset-in-CEUS-master/SYSU-CEUS/FNH/005.avi,FNH,1723,10.0,768,576,True
