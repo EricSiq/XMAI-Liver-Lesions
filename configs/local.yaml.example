@@ -1,0 +1,15 @@
+# ==========================================
+# Local environment configuration template
+# Copy this file to configs/local.yaml and adjust paths to your machine
+# ==========================================
+
+workspace_root: "C:/Users/erics/Downloads/XMAI Liver Lesions"
+raw_smc_root: "C:/Users/erics/Downloads/XMAI Liver Lesions/SMC-LUD Liver Ultrasound Dataset (HCC vs Hemangioma)"
+raw_tcia_root: "C:/Users/erics/Downloads/XMAI Liver Lesions/TCIA"
+raw_aul_root: "C:/Users/erics/Downloads/XMAI Liver Lesions/AUL"
+raw_sysu_root: "C:/Users/erics/Downloads/XMAI Liver Lesions/Focal-liver-lesions-dataset-in-CEUS-master/Focal-liver-lesions-dataset-in-CEUS-master"
+artifact_root: "C:/Users/erics/Downloads/XMAI Liver Lesions/artifacts"
+
+num_workers: 4
+device: "cuda"  # "cuda" or "cpu"
+seed: 42

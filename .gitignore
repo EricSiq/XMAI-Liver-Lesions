@@ -1,0 +1,57 @@
+# ==========================================
+# XMAI Git Ignore Policy
+# Safeguarding raw patient data, derived artifacts, and local environments
+# ==========================================
+
+# Virtual Environments
+.venv/
+venv/
+env/
+ENV/
+
+# Python byte code and caches
+__pycache__/
+*.py[cod]
+*$py.class
+*.so
+*.egg-info/
+.pytest_cache/
+.mypy_cache/
+.ruff_cache/
+
+# Raw Medical Datasets (STRICT: Never commit raw patient data or images)
+AUL/
+Focal-liver-lesions-dataset-in-CEUS-master/
+MedPix-2.0-main/
+SMC-LUD Liver Ultrasound Dataset (HCC vs Hemangioma)/
+TCIA/
+
+# Derived Data and Large Caches
+data/processed/
+*.cache/
+.cache/
+
+# Run Artifacts, Checkpoints, and Predictions
+artifacts/
+checkpoints/
+*.pth
+*.pt
+*.ckpt
+*.onnx
+
+# Experiment Tracking Logs
+wandb/
+mlruns/
+lightning_logs/
+
+# Local Machine-Specific Configurations (Paths/Credentials)
+configs/local.yaml
+.env
+
+# Editor & OS Metadata
+.vscode/
+.idea/
+.DS_Store
+Thumbs.db
+ehthumbs.db
+Desktop.ini

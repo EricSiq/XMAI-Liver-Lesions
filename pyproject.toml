@@ -1,0 +1,62 @@
+[build-system]
+requires = ["setuptools>=61.0"]
+build-backend = "setuptools.build_meta"
+
+[project]
+name = "xmai"
+version = "0.1.0"
+description = "Explainable Multimodal AI for Differential Diagnosis of Focal Liver Lesions"
+readme = "README.md"
+requires-python = ">=3.11"
+authors = [
+    { name = "Eric Siqueira", email = "eric.siqueira.btech2023@sitpune.edu.in" },
+    { name = "Ameya Tipnis" },
+    { name = "Asho Thekkeparampil" },
+    { name = "Bhoomika Kapde" }
+]
+dependencies = [
+    "numpy>=1.26.0,<2.1.0",
+    "pandas>=2.2.0,<3.0.0",
+    "pyyaml>=6.0.1",
+    "pydantic>=2.7.0,<3.0.0",
+    "tqdm>=4.66.0",
+    "rich>=13.7.0",
+    "Pillow>=10.2.0",
+    "opencv-python-headless>=4.9.0",
+    "scikit-image>=0.22.0",
+    "pydicom>=2.4.4",
+    "pylibjpeg>=2.0.0",
+    "pylibjpeg-libjpeg>=1.3.4",
+    "pylibjpeg-openjpeg>=1.3.3",
+    "scikit-learn>=1.4.0",
+    "scipy>=1.12.0",
+    "statsmodels>=0.14.0",
+    "matplotlib>=3.8.0",
+    "seaborn>=0.13.0",
+    "captum>=0.7.0",
+    "shap>=0.45.0"
+]
+
+[project.optional-dependencies]
+dev = [
+    "pytest>=8.1.0",
+    "ruff>=0.4.0"
+]
+
+[tool.setuptools.packages.find]
+where = ["src"]
+
+[tool.pytest.ini_options]
+testpaths = ["tests"]
+python_files = ["test_*.py"]
+python_classes = ["Test*"]
+python_functions = ["test_*"]
+addopts = "-v --strict-markers"
+
+[tool.ruff]
+line-length = 100
+target-version = "py311"
+
+[tool.ruff.lint]
+select = ["E", "F", "W", "I", "B"]
+ignore = ["E501"]
