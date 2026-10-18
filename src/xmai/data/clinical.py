@@ -7,7 +7,7 @@ Strictly ensures:
 - Blocks any leakage fields via assert_no_leakage_fields.
 """
 
-from typing import Dict, Optional, Tuple, Union
+from typing import Any, Dict, Optional, Tuple, Union
 import numpy as np
 import pandas as pd
 import torch
@@ -84,3 +84,56 @@ class ClinicalFeatureProcessor:
             feats.append(f)
             masks.append(m)
         return torch.stack(feats), torch.stack(masks)
+
+
+def generate_clinical_fold_report(manifest_df: pd.DataFrame) -> Dict[str, Any]:
+    """
+    Produces a detailed clinical feature report by fold, including
+    demographics, class balance, and missingness.
+    Conforms to tasks.md Section 2.2.
+    """
+    patient_df = manifest_df.drop_duplicates(subset=["patient_id"]).copy()
+    folds = sorted(patient_df["fold"].unique())
+
+    report: Dict[str, Any] = {
+        "cohort_summary": {
+            "total_patients": len(patient_df),
+            "hcc_patients": int((patient_df["label"] == "HCC").sum()),
+            "hem_patients": int((patient_df["label"] == "Hemangioma").sum()),
+            "hcc_age_mean": float(patient_df.loc[patient_df["label"] == "HCC", "age"].dropna().mean()),
+            "hem_age_mean": float(patient_df.loc[patient_df["label"] == "Hemangioma", "age"].dropna().mean()),
+            "hcc_male_ratio": float((patient_df.loc[patient_df["label"] == "HCC", "sex"] == "M").mean()),
+            "hem_male_ratio": float((patient_df.loc[patient_df["label"] == "Hemangioma", "sex"] == "M").mean()),
+        },
+        "folds": {},
+    }
+
+    for f in folds:
+        train_p = patient_df[patient_df["fold"] != f]
+        val_p = patient_df[patient_df["fold"] == f]
+
+        report["folds"][f"fold_{f}"] = {
+            "train": {
+                "patients": len(train_p),
+                "hcc": int((train_p["label"] == "HCC").sum()),
+                "hem": int((train_p["label"] == "Hemangioma").sum()),
+                "age_mean": float(train_p["age"].dropna().mean()),
+                "age_std": float(train_p["age"].dropna().std()),
+                "age_median": float(train_p["age"].dropna().median()),
+                "missing_age": int(train_p["age_missing"].sum()),
+                "male_ratio": float((train_p["sex"] == "M").mean()),
+            },
+            "val": {
+                "patients": len(val_p),
+                "hcc": int((val_p["label"] == "HCC").sum()),
+                "hem": int((val_p["label"] == "Hemangioma").sum()),
+                "age_mean": float(val_p["age"].dropna().mean()),
+                "age_std": float(val_p["age"].dropna().std()),
+                "age_median": float(val_p["age"].dropna().median()),
+                "missing_age": int(val_p["age_missing"].sum()),
+                "male_ratio": float((val_p["sex"] == "M").mean()),
+            },
+        }
+
+    return report
+

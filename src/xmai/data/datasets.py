@@ -61,8 +61,8 @@ class SMCDataset(Dataset):
         rel_path = row["relative_path"]
         abs_path = self.workspace_root / rel_path
 
-        # 1. Load B-mode image
-        img_tensor, orig_size = load_bmode_image(str(abs_path), transform=self.transform)
+        # 1. Load B-mode image with metadata
+        img_tensor, img_meta = load_bmode_image(str(abs_path), transform=self.transform)
 
         # 2. Extract clinical features
         clin_feat, clin_miss = self.clinical_processor.transform_row(row)
@@ -83,5 +83,6 @@ class SMCDataset(Dataset):
             "label": torch.tensor(label_int, dtype=torch.long),
             "patient_id": row["patient_id"],
             "image_path": rel_path,
-            "orig_size": orig_size,
+            "orig_size": img_meta["orig_size"],
+            "crop_box": torch.tensor(img_meta["crop_box"], dtype=torch.long),
         }

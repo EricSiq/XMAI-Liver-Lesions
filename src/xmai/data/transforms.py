@@ -3,12 +3,37 @@ Deterministic and reproducible image transforms for B-mode ultrasound.
 - Preserves aspect and crops cleanly to 224x224.
 - ImageNet normalization.
 - Training-only augmentations: horizontal flip, rotation <= 10 deg, brightness/contrast jitter.
+- Records original resolution and bounding coordinates for back-projection of explanation heatmaps.
 """
 
-from typing import Tuple
+from typing import Any, Dict, Optional, Tuple, Union
+import numpy as np
 from PIL import Image
 import torch
 from torchvision import transforms
+
+
+def crop_ultrasound_margins(
+    img: Image.Image,
+    threshold: int = 10,
+) -> Tuple[Image.Image, Tuple[int, int, int, int]]:
+    """
+    Detects and crops uninformative black margins surrounding the active ultrasound fan.
+    Returns (cropped_image, (left, top, right, bottom)).
+    """
+    arr = np.array(img.convert("L"))
+    active_rows = np.where(arr.max(axis=1) > threshold)[0]
+    active_cols = np.where(arr.max(axis=0) > threshold)[0]
+
+    if len(active_rows) > 0 and len(active_cols) > 0:
+        top, bottom = int(active_rows[0]), int(active_rows[-1]) + 1
+        left, right = int(active_cols[0]), int(active_cols[-1]) + 1
+        # Only crop if at least 5% border was detected to avoid overcropping
+        if (right - left) < 0.95 * img.width or (bottom - top) < 0.95 * img.height:
+            cropped = img.crop((left, top, right, bottom))
+            return cropped, (left, top, right, bottom)
+
+    return img, (0, 0, img.width, img.height)
 
 
 def get_bmode_transforms(
@@ -41,13 +66,31 @@ def get_bmode_transforms(
         ])
 
 
-def load_bmode_image(image_path: str, transform: transforms.Compose = None) -> Tuple[torch.Tensor, Tuple[int, int]]:
+def load_bmode_image(
+    image_path: str,
+    transform: Optional[transforms.Compose] = None,
+    auto_crop_margins: bool = False,
+) -> Tuple[torch.Tensor, Dict[str, Any]]:
     """
     Loads an ultrasound image, converts to RGB (3 channels),
-    records original resolution (H, W), and applies transform.
+    records original resolution (H, W) and transform metadata, and applies transform.
     """
     with Image.open(image_path) as img:
         img_rgb = img.convert("RGB")
-        orig_size = (img_rgb.height, img_rgb.width)
-        tensor = transform(img_rgb) if transform else transforms.ToTensor()(img_rgb)
-    return tensor, orig_size
+        orig_w, orig_h = img_rgb.width, img_rgb.height
+
+        if auto_crop_margins:
+            img_clean, crop_box = crop_ultrasound_margins(img_rgb)
+        else:
+            img_clean = img_rgb
+            crop_box = (0, 0, orig_w, orig_h)
+
+        tensor = transform(img_clean) if transform else transforms.ToTensor()(img_clean)
+
+        meta = {
+            "orig_size": (orig_h, orig_w),
+            "crop_box": crop_box,
+            "target_size": (tensor.shape[1], tensor.shape[2]),
+        }
+
+    return tensor, meta
