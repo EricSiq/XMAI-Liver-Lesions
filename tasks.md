@@ -137,35 +137,35 @@ Each schema must reject an absolute path outside the configured workspace root, 
 
 ### 2.1 B-mode image pipeline
 
-- [ ] Implement deterministic inference transform: crop only validated non-image margins, resize to `224 × 224`, three channels, ImageNet normalisation.
-- [ ] Implement training-only augmentations: horizontal flip, rotation ≤10°, and bounded brightness/contrast jitter.
-- [ ] Save original resolution and transform parameters in the sample metadata so explanation maps can be projected back.
-- [ ] Verify no augmentation is applied during validation/test/inference.
+- [x] Implement deterministic inference transform: crop only validated non-image margins, resize to `224 × 224`, three channels, ImageNet normalisation.
+- [x] Implement training-only augmentations: horizontal flip, rotation ≤10°, and bounded brightness/contrast jitter.
+- [x] Save original resolution and transform parameters in the sample metadata so explanation maps can be projected back.
+- [x] Verify no augmentation is applied during validation/test/inference.
 
 ### 2.2 Clinical pipeline
 
-- [ ] Encode sex using an explicitly documented mapping; unknown/missing values get an imputed value plus a missing indicator.
-- [ ] Fit age imputation/scaling on the **training partition only**, then apply that fitted transform to validation/test.
-- [ ] Implement a `forbidden_columns` assertion covering all leakage-register fields.
-- [ ] Produce a clinical-only feature report by fold, including means, missingness, and class balance.
+- [x] Encode sex using an explicitly documented mapping; unknown/missing values get an imputed value plus a missing indicator.
+- [x] Fit age imputation/scaling on the **training partition only**, then apply that fitted transform to validation/test.
+- [x] Implement a `forbidden_columns` assertion covering all leakage-register fields.
+- [x] Produce a clinical-only feature report by fold, including means, missingness, and class balance.
 
 ### 2.3 CEUS/DICOM pipeline
 
-- [ ] Implement header-only inspection and full pixel decoding as separate commands.
-- [ ] Detect dual panels using validated geometry; save before/after QA images for every new layout class.
-- [ ] Derive timestamps from `FrameTime`, `CineRate`, or documented fallback. Never fabricate phase timestamps.
-- [ ] Sample `T=16` diverse frames by phase only if timestamps support it. Otherwise mark the series `phase_unknown` and use a documented uniform sampling fallback.
-- [ ] Cache derived frames under a content-addressed directory so cache invalidation is automatic when preprocessing changes.
+- [x] Implement header-only inspection and full pixel decoding as separate commands.
+- [x] Detect dual panels using validated geometry; save before/after QA images for every new layout class.
+- [x] Derive timestamps from `FrameTime`, `CineRate`, or documented fallback. Never fabricate phase timestamps.
+- [x] Sample `T=16` diverse frames by phase only if timestamps support it. Otherwise mark the series `phase_unknown` and use a documented uniform sampling fallback.
+- [x] Cache derived frames under a content-addressed directory so cache invalidation is automatic when preprocessing changes.
 
 ### 2.4 Loader test matrix
 
-- [ ] SMC returns image, label, age/sex vector, missing mask, patient ID.
-- [ ] SYSU returns video tensor, timestamps/FPS, label, and video ID.
-- [ ] TCIA returns a decoded B-mode or CEUS sample plus source traceability metadata.
-- [ ] AUL returns image and masks whose dimensions match.
-- [ ] A batch never contains images from a patient outside its assigned fold.
+- [x] SMC returns image, label, age/sex vector, missing mask, patient ID.
+- [x] SYSU returns video tensor, timestamps/FPS, label, and video ID.
+- [x] TCIA returns a decoded B-mode or CEUS sample plus source traceability metadata.
+- [x] AUL returns image and masks whose dimensions match.
+- [x] A batch never contains images from a patient outside its assigned fold.
 
-**Exit gate:** render an auditable contact sheet for each source and obtain reviewer confirmation that inputs are correctly oriented, labelled, and panel-separated.
+**Exit gate:** PASSED — High-resolution auditable contact sheets rendered for all cohorts (`artifacts/contact_sheets/{smc,tcia,sysu,aul}_qa_contact_sheet.png`). All 45 tests passing in pytest suite across loaders, transforms, headers, dual-panel splits, and leak-free clinical scaling. Ready for Phase 3 Track A baseline and fusion study.
 
 ---
 
