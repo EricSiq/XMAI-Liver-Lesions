@@ -72,9 +72,22 @@ class MaskAwareGatedFusion(nn.Module):
             z_f: [B, fused_dim]
             gate_weights: [B, 3] normalized modality weights
         """
-        # Determine batch size from any available tensor
-        device = z_b.device if z_b is not None else z_t.device if z_t is not None else z_c.device
-        B = z_b.shape[0] if z_b is not None else z_t.shape[0] if z_t is not None else z_c.shape[0]
+        # Determine batch size and device from any available tensor
+        if mod_mask is not None:
+            device = mod_mask.device
+            B = mod_mask.shape[0]
+        elif z_b is not None:
+            device = z_b.device
+            B = z_b.shape[0]
+        elif z_t is not None:
+            device = z_t.device
+            B = z_t.shape[0]
+        elif z_c is not None:
+            device = z_c.device
+            B = z_c.shape[0]
+        else:
+            device = self.null_b.device
+            B = 1
 
         if mod_mask is None:
             # Default: present if tensor is not None
