@@ -98,6 +98,24 @@ def test_prediction_row_rejects_unnormalized_probabilities():
             modality_mask=[1, 0, 1],
         )
 
+    # Test NaN probability rejection
+    with pytest.raises(ValueError):
+        PredictionRow(
+            patient_id="HCC_NaN",
+            track="A",
+            fold=0,
+            seed=42,
+            model_id="A4_gated_fusion",
+            true_label="HCC",
+            pred_label="HCC",
+            prob_vector={"HCC": float("nan"), "Hemangioma": float("nan")},
+            margin=0.0,
+            is_calibrated=True,
+            is_low_margin=False,
+            is_error=False,
+            modality_mask=[1, 0, 1],
+        )
+
 
 def test_leakage_assertion():
     # Clean features: must pass

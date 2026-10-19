@@ -147,7 +147,7 @@ def test_scientific_manuscript_generation(mock_predictions, tmp_path):
         "A7": mock_predictions,
     }
 
-    md_tab, tex_tab = generate_ablation_tables(preds_dict, tmp_path)
+    md_tab, tex_tab = generate_ablation_tables(preds_dict, tmp_path, n_bootstraps=20)
     assert "A1: B-mode Only" in md_tab
     assert "\\begin{table*}" in tex_tab
     assert (tmp_path / "ablation_table.md").exists()
@@ -157,7 +157,7 @@ def test_scientific_manuscript_generation(mock_predictions, tmp_path):
     assert "Uncal ECE" in cal_tab
     assert (tmp_path / "calibration_ablation.md").exists()
 
-    pair_tab = generate_pairwise_statistical_comparison(preds_dict, tmp_path)
+    pair_tab = generate_pairwise_statistical_comparison(preds_dict, tmp_path, n_bootstraps=20)
     assert "Pairwise Statistical Significance" in pair_tab
     assert (tmp_path / "pairwise_statistical_comparison.md").exists()
 

@@ -3,6 +3,7 @@ Pydantic schemas and leakage barriers for XMAI dataset manifests and predictions
 Strictly enforces patient-level tracking, valid label spaces, and blocks leakage fields.
 """
 
+import math
 from typing import Dict, List, Literal, Optional, Union
 from pydantic import BaseModel, Field, field_validator, model_validator
 
@@ -116,6 +117,8 @@ class PredictionRow(BaseModel):
     @model_validator(mode="after")
     def validate_probabilities(self) -> "PredictionRow":
         probs = list(self.prob_vector.values())
+        if any(math.isnan(p) or math.isinf(p) for p in probs):
+            raise ValueError(f"Probabilities must be finite numbers, got {probs}")
         total = sum(probs)
         if abs(total - 1.0) > 1e-4:
             raise ValueError(f"Probability vector must sum to 1.0 within tolerance, got {total}")

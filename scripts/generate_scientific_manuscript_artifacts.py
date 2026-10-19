@@ -50,6 +50,7 @@ def load_all_predictions(results_dir: Path) -> Dict[str, List[PredictionRow]]:
 def generate_ablation_tables(
     preds_dict: Dict[str, List[PredictionRow]],
     out_dir: Path,
+    n_bootstraps: int = 1000,
 ) -> Tuple[str, str]:
     """Generates 7-model comparative ablation table in Markdown and LaTeX."""
     model_meta = {
@@ -72,9 +73,9 @@ def generate_ablation_tables(
         m = compute_patient_metrics(preds)
         name, arch = model_meta[m_id]
 
-        acc_ci = compute_bootstrap_ci(preds, "accuracy", n_bootstraps=1000, seed=42)
-        bal_ci = compute_bootstrap_ci(preds, "balanced_accuracy", n_bootstraps=1000, seed=42)
-        auc_ci = compute_bootstrap_ci(preds, "auc", n_bootstraps=1000, seed=42)
+        acc_ci = compute_bootstrap_ci(preds, "accuracy", n_bootstraps=n_bootstraps, seed=42)
+        bal_ci = compute_bootstrap_ci(preds, "balanced_accuracy", n_bootstraps=n_bootstraps, seed=42)
+        auc_ci = compute_bootstrap_ci(preds, "auc", n_bootstraps=n_bootstraps, seed=42)
 
         # Markdown row
         rows.append([
@@ -132,6 +133,7 @@ def generate_ablation_tables(
 def generate_pairwise_statistical_comparison(
     preds_dict: Dict[str, List[PredictionRow]],
     out_dir: Path,
+    n_bootstraps: int = 2000,
 ) -> str:
     """Generates pairwise comparison of A4 Gated Fusion against other models."""
     base_a1 = preds_dict["A1"]
@@ -139,14 +141,14 @@ def generate_pairwise_statistical_comparison(
     target_a4 = preds_dict["A4"]
 
     # vs A1 (Image Only)
-    diff_a1_bal = compute_paired_bootstrap_difference(base_a1, target_a4, "balanced_accuracy", n_bootstraps=2000, seed=42)
-    diff_a1_auc = compute_paired_bootstrap_difference(base_a1, target_a4, "auc", n_bootstraps=2000, seed=42)
+    diff_a1_bal = compute_paired_bootstrap_difference(base_a1, target_a4, "balanced_accuracy", n_bootstraps=n_bootstraps, seed=42)
+    diff_a1_auc = compute_paired_bootstrap_difference(base_a1, target_a4, "auc", n_bootstraps=n_bootstraps, seed=42)
     mcnemar_a1 = compute_mcnemar_test(base_a1, target_a4)
     h1_a1 = analyze_low_margin_decile(base_a1, target_a4)
 
     # vs A3 (Concat Fusion)
-    diff_a3_bal = compute_paired_bootstrap_difference(base_a3, target_a4, "balanced_accuracy", n_bootstraps=2000, seed=42)
-    diff_a3_auc = compute_paired_bootstrap_difference(base_a3, target_a4, "auc", n_bootstraps=2000, seed=42)
+    diff_a3_bal = compute_paired_bootstrap_difference(base_a3, target_a4, "balanced_accuracy", n_bootstraps=n_bootstraps, seed=42)
+    diff_a3_auc = compute_paired_bootstrap_difference(base_a3, target_a4, "auc", n_bootstraps=n_bootstraps, seed=42)
     mcnemar_a3 = compute_mcnemar_test(base_a3, target_a4)
 
     comparison_md = (
