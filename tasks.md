@@ -183,28 +183,28 @@ For multi-image patients, the locked primary aggregation is the **arithmetic mea
 
 ### 3.2 Fusion candidates
 
-- [ ] A3: embedding concatenation.
-- [ ] A4: gated fusion (primary fusion model).
-- [ ] A5: FiLM conditioning, only after A3/A4 run successfully.
-- [ ] Implement modality masks and null embeddings even though Track A normally has M1/M3.
-- [ ] Implement modality dropout (`p=0.2`, never all modalities absent) only for fusion training.
+- [x] A3: embedding concatenation (`A3ConcatFusion`).
+- [x] A4: gated fusion (`A4GatedFusion`, primary fusion model).
+- [x] A5: FiLM conditioning (`A5FiLMFusion`), only after A3/A4 run successfully.
+- [x] Implement modality masks and null embeddings even though Track A normally has M1/M3.
+- [x] Implement modality dropout (`p=0.2`, never all modalities absent) only for fusion training.
 
 ### 3.3 Validation discipline
 
-- [ ] Outer repeated stratified 5-fold CV; use an inner validation split from each training fold for early stopping and temperature scaling.
-- [ ] Keep model selection, early stopping, temperature fitting, and any threshold selection inside training/validation data.
-- [ ] Save the exact fold-level checkpoints, calibrated predictions, configs, and training logs.
-- [ ] Run five initialisation seeds only after the pipeline works end-to-end with one seed.
+- [x] Outer repeated stratified 5-fold CV; use an inner validation split from each training fold for early stopping and temperature scaling.
+- [x] Keep model selection, early stopping, temperature fitting, and any threshold selection inside training/validation data.
+- [x] Save the exact fold-level checkpoints, calibrated predictions, configs, and training logs (`results/track_a/`).
+- [x] Run five initialisation seeds only after the pipeline works end-to-end with one seed.
 
 ### 3.4 Track A controls and outputs
 
-- [ ] A7 context-shuffle control: shuffle age/sex at the patient level within the specified strata, retrain, and compare with A4.
-- [ ] Compute rescue, harm, net gain, image-only error set, and pre-specified low-margin decile using out-of-fold predictions.
-- [ ] Compute patient-level bootstrap CIs (2,000 resamples) and paired bootstrap differences.
-- [ ] Report accuracy, balanced accuracy, sensitivity, specificity, F1, AUC, log-loss, Brier score, and ECE with counts and CIs.
-- [ ] Treat near-ceiling performance as a finding, not evidence to relax leakage checks.
+- [x] A7 context-shuffle control: shuffle age/sex at the patient level within the specified strata, retrain, and compare with A4.
+- [x] Compute rescue, harm, net gain, image-only error set, and pre-specified low-margin decile using out-of-fold predictions.
+- [x] Compute patient-level bootstrap CIs (2,000 resamples) and paired bootstrap differences.
+- [x] Report accuracy, balanced accuracy, sensitivity, specificity, F1, AUC, log-loss, Brier score, and ECE with counts and CIs.
+- [x] Treat near-ceiling performance as a finding, not evidence to relax leakage checks.
 
-**Exit gate:** a reviewer can reproduce one full Track A run from a single command and trace every output row to an input image/patient/fold.
+**Exit gate:** PASSED — Reproducible single-command execution via `scripts/run_track_a_experiment.py`. Full model family (A1, A2, A3, A4, A5, A6, A7), inner-validation early stopping, temperature calibration, patient aggregation, paired bootstrap CIs, McNemar discordance testing, and Hypothesis H1 low-margin decile analysis verified. Out-of-fold predictions saved to `results/track_a/`. All 50 tests passing. Ready for Phase 4 Track B temporal CEUS and Phase 5 Track C external evaluation.
 
 ---
 
