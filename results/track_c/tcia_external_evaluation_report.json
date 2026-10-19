@@ -1,0 +1,91 @@
+{
+  "hcc_cohort": {
+    "n_total": 107,
+    "n_detected": 107,
+    "sensitivity": 1.0,
+    "wilson_ci_95": [
+      0.9653,
+      1.0
+    ]
+  },
+  "non_hcc_descriptive": [
+    {
+      "patient_id": "LiverUS-13",
+      "series_uid": "1.3.6.1.4.1.14519.5.2.1.1188.2803.301540498121552110213558208406",
+      "harmonized_diagnosis": "ICC",
+      "is_dual_panel": true,
+      "prob_Hemangioma_or_non_HCC": 0.0235,
+      "prob_HCC": 0.9765,
+      "pred_label": "HCC",
+      "correct": false
+    },
+    {
+      "patient_id": "LiverUS-29",
+      "series_uid": "1.3.6.1.4.1.14519.5.2.1.1188.2803.181268971780610528341510906895",
+      "harmonized_diagnosis": "BENIGN_UNSPECIFIED",
+      "is_dual_panel": true,
+      "prob_Hemangioma_or_non_HCC": 0.0191,
+      "prob_HCC": 0.9809,
+      "pred_label": "HCC",
+      "correct": false
+    },
+    {
+      "patient_id": "LiverUS-34",
+      "series_uid": "1.3.6.1.4.1.14519.5.2.1.1188.2803.449752730569057508720989518527",
+      "harmonized_diagnosis": "BENIGN_UNSPECIFIED",
+      "is_dual_panel": true,
+      "prob_Hemangioma_or_non_HCC": 0.0501,
+      "prob_HCC": 0.9499,
+      "pred_label": "HCC",
+      "correct": false
+    },
+    {
+      "patient_id": "LiverUS-84",
+      "series_uid": "1.3.6.1.4.1.14519.5.2.1.1188.2803.127201590790554274361285212356",
+      "harmonized_diagnosis": "ICC",
+      "is_dual_panel": true,
+      "prob_Hemangioma_or_non_HCC": 0.1001,
+      "prob_HCC": 0.8999,
+      "pred_label": "HCC",
+      "correct": false
+    },
+    {
+      "patient_id": "LiverUS-86",
+      "series_uid": "1.3.6.1.4.1.14519.5.2.1.1188.2803.107705246080914591037161918079",
+      "harmonized_diagnosis": "BENIGN_UNSPECIFIED",
+      "is_dual_panel": true,
+      "prob_Hemangioma_or_non_HCC": 0.0375,
+      "prob_HCC": 0.9625,
+      "pred_label": "HCC",
+      "correct": false
+    },
+    {
+      "patient_id": "LiverUS-91",
+      "series_uid": "1.3.6.1.4.1.14519.5.2.1.1188.2803.147949868737130066737906282162",
+      "harmonized_diagnosis": "ICC",
+      "is_dual_panel": true,
+      "prob_Hemangioma_or_non_HCC": 0.0229,
+      "prob_HCC": 0.9771,
+      "pred_label": "HCC",
+      "correct": false
+    },
+    {
+      "patient_id": "LiverUS-92",
+      "series_uid": "1.3.6.1.4.1.14519.5.2.1.1188.2803.149553266215500945276426772625",
+      "harmonized_diagnosis": "BENIGN_ABSCESS",
+      "is_dual_panel": true,
+      "prob_Hemangioma_or_non_HCC": 0.015,
+      "prob_HCC": 0.985,
+      "pred_label": "HCC",
+      "correct": false
+    }
+  ],
+  "excluded_patients_count": 0,
+  "acquisition_shortcut_correlation": -0.0749,
+  "reporting_boundaries": {
+    "multiclass_accuracy_reported": false,
+    "specificity_reported": false,
+    "scanner_generalisation_claimed": false,
+    "reason": "Severe 107:7 class imbalance and lack of verified multi-class negative controls."
+  }
+}

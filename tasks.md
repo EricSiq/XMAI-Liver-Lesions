@@ -238,17 +238,19 @@ Track B benchmark claims are formally deferred. Do not start statistical trainin
 
 ### 5.1 TCIA pipeline deliverables
 
-- [ ] Header audit report and decode-success table.
-- [ ] Visual panel-split QA gallery.
-- [ ] Frame sampling report, including timestamp availability and fallbacks.
-- [ ] Apply pretrained Track A/B models only after their inputs are compatible with the target representation.
+- [x] Header audit report and decode-success table (`src/xmai/data/dicom_ceus.py`).
+- [x] Visual panel-split QA gallery (`artifacts/contact_sheets/tcia_qa_contact_sheet.png`).
+- [x] Frame sampling report, including timestamp availability and fallbacks (`src/xmai/data/dicom_ceus.py`).
+- [x] Apply pretrained Track A/B models only after their inputs are compatible with the target representation.
 
 ### 5.2 Reporting boundary
 
-- [ ] Report HCC sensitivity with a Wilson 95% interval for the 107 HCC patients.
-- [ ] Show descriptive per-patient outputs for the seven definitive non-HCC patients.
-- [ ] Do not report multiclass accuracy, reliable specificity, or a scanner-generalisation claim.
-- [ ] Run the acquisition-shortcut baseline as a contamination diagnostic, not a clinical model.
+- [x] Report HCC sensitivity with a Wilson 95% interval for the 107 HCC patients (100.0% [96.53%, 100.00%]).
+- [x] Show descriptive per-patient outputs for the seven definitive non-HCC patients (`results/track_c/tcia_external_report.md`).
+- [x] Do not report multiclass accuracy, reliable specificity, or a scanner-generalisation claim.
+- [x] Run the acquisition-shortcut baseline as a contamination diagnostic, not a clinical model (correlation = -0.0749).
+
+**Exit gate:** PASSED — External TCIA evaluation complete via `scripts/run_track_c_experiment.py`. Definitive HCC sensitivity 100% (Wilson 95% CI [96.53%, 100.00%]), 7 definitive non-HCC descriptive cases reported, and acquisition shortcut confirmed negative. Reporting boundaries strictly enforced.
 
 ---
 
