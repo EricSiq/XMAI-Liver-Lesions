@@ -39,28 +39,28 @@
 
 | Model                       | Architecture Paradigm          | Accuracy (95% CI)    | Balanced Acc (95% CI)   |   Sensitivity |   Specificity |    F1 | AUC (95% CI)         |   Log-Loss |   Brier |   ECE |
 |-----------------------------|--------------------------------|----------------------|-------------------------|---------------|---------------|-------|----------------------|------------|---------|-------|
-| A1: B-mode Only             | Unimodal (CNN)                 | 0.995 [0.989, 0.999] | 0.994 [0.988, 0.999]    |         0.998 |         0.991 | 0.995 | 1.000 [1.000, 1.000] |      0.032 |   0.005 | 0.025 |
+| A1: B-mode Only             | Unimodal (CNN)                 | 0.993 [0.987, 0.999] | 0.993 [0.986, 0.998]    |         0.998 |         0.988 | 0.994 | 1.000 [1.000, 1.000] |      0.032 |   0.005 | 0.025 |
 | A2: Clinical Only           | Unimodal (MLP)                 | 0.766 [0.735, 0.795] | 0.761 [0.729, 0.791]    |         0.796 |         0.727 | 0.794 | 0.826 [0.794, 0.856] |      0.516 |   0.168 | 0.078 |
-| A3: Linear Concat Fusion    | Multimodal (Early Concat)      | 0.993 [0.987, 0.999] | 0.993 [0.986, 0.998]    |         0.995 |         0.991 | 0.994 | 1.000 [0.999, 1.000] |      0.037 |   0.006 | 0.025 |
-| A4: Gated Multimodal Fusion | Multimodal (Mask-Aware Gated)  | 0.996 [0.991, 1.000] | 0.995 [0.989, 1.000]    |         1     |         0.991 | 0.996 | 1.000 [1.000, 1.000] |      0.033 |   0.004 | 0.024 |
+| A3: Linear Concat Fusion    | Multimodal (Early Concat)      | 0.993 [0.987, 0.999] | 0.993 [0.986, 0.998]    |         0.995 |         0.991 | 0.994 | 1.000 [0.999, 1.000] |      0.037 |   0.006 | 0.026 |
+| A4: Gated Multimodal Fusion | Multimodal (Mask-Aware Gated)  | 0.996 [0.991, 1.000] | 0.995 [0.989, 1.000]    |         1     |         0.991 | 0.996 | 1.000 [1.000, 1.000] |      0.033 |   0.004 | 0.025 |
 | A5: FiLM Fusion             | Multimodal (FiLM Conditioning) | 0.996 [0.991, 1.000] | 0.995 [0.989, 1.000]    |         1     |         0.991 | 0.996 | 1.000 [0.999, 1.000] |      0.033 |   0.005 | 0.023 |
 | A6: Late Decision Fusion    | Multimodal (Ensemble Average)  | 0.996 [0.991, 1.000] | 0.996 [0.990, 1.000]    |         0.998 |         0.994 | 0.996 | 0.999 [0.997, 1.000] |      0.228 |   0.049 | 0.191 |
-| A7: Context-Shuffle Control | Diagnostic Control             | 0.992 [0.985, 0.997] | 0.992 [0.985, 0.998]    |         0.993 |         0.991 | 0.993 | 1.000 [1.000, 1.000] |      0.038 |   0.006 | 0.026 |
+| A7: Context-Shuffle Control | Diagnostic Control             | 0.992 [0.985, 0.997] | 0.991 [0.984, 0.997]    |         0.995 |         0.988 | 0.993 | 1.000 [1.000, 1.000] |      0.033 |   0.005 | 0.023 |
 
 ---
 
 ## Pairwise Statistical Significance & Discordance Analysis
 
 ### 1. Proposed Gated Fusion (A4) vs. Unimodal B-mode Baseline (A1)
-- **Paired $\Delta$ Balanced Accuracy:** +0.0012 (95% CI: [-0.0049, +0.0077], $p=0.8120$)
-- **Paired $\Delta$ AUC:** -0.0000 (95% CI: [-0.0003, +0.0002], $p=0.7390$)
-- **McNemar Discordance:** Discordant pairs = 5 ($p=1.0000$)
-- **Rescues Achieved:** 3 patients | **Harms Incurred:** 2 patients | **Net Gain:** +1
+- **Paired $\Delta$ Balanced Accuracy:** +0.0027 (95% CI: [-0.0030, +0.0089], $p=0.4230$)
+- **Paired $\Delta$ AUC:** -0.0001 (95% CI: [-0.0003, +0.0001], $p=0.6530$)
+- **McNemar Discordance:** Discordant pairs = 4 ($p=0.6250$)
+- **Rescues Achieved:** 3 patients | **Harms Incurred:** 1 patients | **Net Gain:** +2
 - **Hypothesis H1 Margin Concentration:** 100.0% of all rescues occurred in the lowest decile of B-mode margin ambiguity.
 
 ### 2. Proposed Gated Fusion (A4) vs. Linear Intermediate Concatenation (A3)
 - **Paired $\Delta$ Balanced Accuracy:** +0.0025 (95% CI: [-0.0031, +0.0082], $p=0.4340$)
-- **Paired $\Delta$ AUC:** +0.0001 (95% CI: [-0.0001, +0.0005], $p=0.4960$)
+- **Paired $\Delta$ AUC:** +0.0001 (95% CI: [-0.0002, +0.0005], $p=0.5250$)
 - **Rescues vs. A3:** 3 patients | **Harms vs. A3:** 1 patients | **Net Gain:** +2
 
 

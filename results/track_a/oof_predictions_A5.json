@@ -6564,10 +6564,10 @@
     "true_label": "HCC",
     "pred_label": "HCC",
     "prob_vector": {
-      "Hemangioma": 0.027246,
-      "HCC": 0.972754
+      "Hemangioma": 0.02165,
+      "HCC": 0.97835
     },
-    "margin": 0.945508,
+    "margin": 0.956699,
     "is_calibrated": true,
     "is_low_margin": false,
     "is_error": false,
@@ -6586,10 +6586,10 @@
     "true_label": "HCC",
     "pred_label": "HCC",
     "prob_vector": {
-      "Hemangioma": 0.009066,
-      "HCC": 0.990934
+      "Hemangioma": 0.005835,
+      "HCC": 0.994165
     },
-    "margin": 0.981868,
+    "margin": 0.988329,
     "is_calibrated": true,
     "is_low_margin": false,
     "is_error": false,
@@ -6608,10 +6608,10 @@
     "true_label": "HCC",
     "pred_label": "HCC",
     "prob_vector": {
-      "Hemangioma": 0.0098,
-      "HCC": 0.9902
+      "Hemangioma": 0.007454,
+      "HCC": 0.992546
     },
-    "margin": 0.980401,
+    "margin": 0.985092,
     "is_calibrated": true,
     "is_low_margin": false,
     "is_error": false,
@@ -6630,10 +6630,10 @@
     "true_label": "HCC",
     "pred_label": "HCC",
     "prob_vector": {
-      "Hemangioma": 0.014665,
-      "HCC": 0.985335
+      "Hemangioma": 0.018495,
+      "HCC": 0.981505
     },
-    "margin": 0.97067,
+    "margin": 0.96301,
     "is_calibrated": true,
     "is_low_margin": false,
     "is_error": false,
@@ -6652,10 +6652,10 @@
     "true_label": "HCC",
     "pred_label": "HCC",
     "prob_vector": {
-      "Hemangioma": 0.017334,
-      "HCC": 0.982666
+      "Hemangioma": 0.032303,
+      "HCC": 0.967697
     },
-    "margin": 0.965332,
+    "margin": 0.935393,
     "is_calibrated": true,
     "is_low_margin": false,
     "is_error": false,
@@ -6674,10 +6674,10 @@
     "true_label": "HCC",
     "pred_label": "HCC",
     "prob_vector": {
-      "Hemangioma": 0.009123,
-      "HCC": 0.990877
+      "Hemangioma": 0.006488,
+      "HCC": 0.993512
     },
-    "margin": 0.981754,
+    "margin": 0.987025,
     "is_calibrated": true,
     "is_low_margin": false,
     "is_error": false,
@@ -6696,10 +6696,10 @@
     "true_label": "HCC",
     "pred_label": "HCC",
     "prob_vector": {
-      "Hemangioma": 0.013647,
-      "HCC": 0.986353
+      "Hemangioma": 0.012116,
+      "HCC": 0.987884
     },
-    "margin": 0.972705,
+    "margin": 0.975768,
     "is_calibrated": true,
     "is_low_margin": false,
     "is_error": false,
@@ -6718,10 +6718,10 @@
     "true_label": "HCC",
     "pred_label": "HCC",
     "prob_vector": {
-      "Hemangioma": 0.008268,
-      "HCC": 0.991732
+      "Hemangioma": 0.005861,
+      "HCC": 0.994139
     },
-    "margin": 0.983464,
+    "margin": 0.988278,
     "is_calibrated": true,
     "is_low_margin": false,
     "is_error": false,
@@ -6740,10 +6740,10 @@
     "true_label": "HCC",
     "pred_label": "HCC",
     "prob_vector": {
-      "Hemangioma": 0.009167,
-      "HCC": 0.990833
+      "Hemangioma": 0.007267,
+      "HCC": 0.992733
     },
-    "margin": 0.981666,
+    "margin": 0.985466,
     "is_calibrated": true,
     "is_low_margin": false,
     "is_error": false,
@@ -6762,10 +6762,10 @@
     "true_label": "HCC",
     "pred_label": "HCC",
     "prob_vector": {
-      "Hemangioma": 0.013488,
-      "HCC": 0.986512
+      "Hemangioma": 0.011816,
+      "HCC": 0.988184
     },
-    "margin": 0.973025,
+    "margin": 0.976369,
     "is_calibrated": true,
     "is_low_margin": false,
     "is_error": false,
@@ -6784,10 +6784,10 @@
     "true_label": "HCC",
     "pred_label": "HCC",
     "prob_vector": {
-      "Hemangioma": 0.008274,
-      "HCC": 0.991726
+      "Hemangioma": 0.00603,
+      "HCC": 0.99397
     },
-    "margin": 0.983452,
+    "margin": 0.98794,
     "is_calibrated": true,
     "is_low_margin": false,
     "is_error": false,
@@ -6806,12 +6806,12 @@
     "true_label": "HCC",
     "pred_label": "HCC",
     "prob_vector": {
-      "Hemangioma": 0.016054,
-      "HCC": 0.983946
+      "Hemangioma": 0.087053,
+      "HCC": 0.912947
     },
-    "margin": 0.967892,
+    "margin": 0.825894,
     "is_calibrated": true,
-    "is_low_margin": false,
+    "is_low_margin": true,
     "is_error": false,
     "modality_mask": [
       1,
@@ -6828,10 +6828,10 @@
     "true_label": "HCC",
     "pred_label": "HCC",
     "prob_vector": {
-      "Hemangioma": 0.010134,
-      "HCC": 0.989866
+      "Hemangioma": 0.009789,
+      "HCC": 0.990211
     },
-    "margin": 0.979731,
+    "margin": 0.980422,
     "is_calibrated": true,
     "is_low_margin": false,
     "is_error": false,
@@ -6850,10 +6850,10 @@
     "true_label": "HCC",
     "pred_label": "HCC",
     "prob_vector": {
-      "Hemangioma": 0.00963,
-      "HCC": 0.99037
+      "Hemangioma": 0.030334,
+      "HCC": 0.969666
     },
-    "margin": 0.980739,
+    "margin": 0.939332,
     "is_calibrated": true,
     "is_low_margin": false,
     "is_error": false,
@@ -6872,12 +6872,12 @@
     "true_label": "HCC",
     "pred_label": "HCC",
     "prob_vector": {
-      "Hemangioma": 0.019628,
-      "HCC": 0.980372
+      "Hemangioma": 0.045382,
+      "HCC": 0.954618
     },
-    "margin": 0.960744,
+    "margin": 0.909237,
     "is_calibrated": true,
-    "is_low_margin": false,
+    "is_low_margin": true,
     "is_error": false,
     "modality_mask": [
       1,
@@ -6894,10 +6894,10 @@
     "true_label": "HCC",
     "pred_label": "HCC",
     "prob_vector": {
-      "Hemangioma": 0.014987,
-      "HCC": 0.985013
+      "Hemangioma": 0.023662,
+      "HCC": 0.976338
     },
-    "margin": 0.970025,
+    "margin": 0.952677,
     "is_calibrated": true,
     "is_low_margin": false,
     "is_error": false,
@@ -6916,10 +6916,10 @@
     "true_label": "HCC",
     "pred_label": "HCC",
     "prob_vector": {
-      "Hemangioma": 0.008562,
-      "HCC": 0.991438
+      "Hemangioma": 0.008986,
+      "HCC": 0.991014
     },
-    "margin": 0.982876,
+    "margin": 0.982028,
     "is_calibrated": true,
     "is_low_margin": false,
     "is_error": false,
@@ -6938,10 +6938,10 @@
     "true_label": "HCC",
     "pred_label": "HCC",
     "prob_vector": {
-      "Hemangioma": 0.011703,
-      "HCC": 0.988297
+      "Hemangioma": 0.013294,
+      "HCC": 0.986706
     },
-    "margin": 0.976594,
+    "margin": 0.973411,
     "is_calibrated": true,
     "is_low_margin": false,
     "is_error": false,
@@ -6960,10 +6960,10 @@
     "true_label": "HCC",
     "pred_label": "HCC",
     "prob_vector": {
-      "Hemangioma": 0.013769,
-      "HCC": 0.986231
+      "Hemangioma": 0.01182,
+      "HCC": 0.98818
     },
-    "margin": 0.972462,
+    "margin": 0.976361,
     "is_calibrated": true,
     "is_low_margin": false,
     "is_error": false,
@@ -6982,10 +6982,10 @@
     "true_label": "HCC",
     "pred_label": "HCC",
     "prob_vector": {
-      "Hemangioma": 0.008642,
-      "HCC": 0.991358
+      "Hemangioma": 0.006128,
+      "HCC": 0.993872
     },
-    "margin": 0.982716,
+    "margin": 0.987743,
     "is_calibrated": true,
     "is_low_margin": false,
     "is_error": false,
@@ -7004,10 +7004,10 @@
     "true_label": "HCC",
     "pred_label": "HCC",
     "prob_vector": {
-      "Hemangioma": 0.010255,
-      "HCC": 0.989745
+      "Hemangioma": 0.017484,
+      "HCC": 0.982516
     },
-    "margin": 0.979491,
+    "margin": 0.965033,
     "is_calibrated": true,
     "is_low_margin": false,
     "is_error": false,
@@ -7026,10 +7026,10 @@
     "true_label": "HCC",
     "pred_label": "HCC",
     "prob_vector": {
-      "Hemangioma": 0.015157,
-      "HCC": 0.984843
+      "Hemangioma": 0.033644,
+      "HCC": 0.966356
     },
-    "margin": 0.969686,
+    "margin": 0.932712,
     "is_calibrated": true,
     "is_low_margin": false,
     "is_error": false,
@@ -7048,10 +7048,10 @@
     "true_label": "HCC",
     "pred_label": "HCC",
     "prob_vector": {
-      "Hemangioma": 0.014052,
-      "HCC": 0.985948
+      "Hemangioma": 0.014431,
+      "HCC": 0.985569
     },
-    "margin": 0.971896,
+    "margin": 0.971139,
     "is_calibrated": true,
     "is_low_margin": false,
     "is_error": false,
@@ -7070,10 +7070,10 @@
     "true_label": "HCC",
     "pred_label": "HCC",
     "prob_vector": {
-      "Hemangioma": 0.010993,
-      "HCC": 0.989007
+      "Hemangioma": 0.01472,
+      "HCC": 0.98528
     },
-    "margin": 0.978014,
+    "margin": 0.970559,
     "is_calibrated": true,
     "is_low_margin": false,
     "is_error": false,
@@ -7092,10 +7092,10 @@
     "true_label": "HCC",
     "pred_label": "HCC",
     "prob_vector": {
-      "Hemangioma": 0.011411,
-      "HCC": 0.988589
+      "Hemangioma": 0.015631,
+      "HCC": 0.984369
     },
-    "margin": 0.977178,
+    "margin": 0.968739,
     "is_calibrated": true,
     "is_low_margin": false,
     "is_error": false,
@@ -7114,10 +7114,10 @@
     "true_label": "HCC",
     "pred_label": "HCC",
     "prob_vector": {
-      "Hemangioma": 0.008979,
-      "HCC": 0.991021
+      "Hemangioma": 0.006574,
+      "HCC": 0.993426
     },
-    "margin": 0.982042,
+    "margin": 0.986851,
     "is_calibrated": true,
     "is_low_margin": false,
     "is_error": false,
@@ -7136,10 +7136,10 @@
     "true_label": "HCC",
     "pred_label": "HCC",
     "prob_vector": {
-      "Hemangioma": 0.056865,
-      "HCC": 0.943135
+      "Hemangioma": 0.044795,
+      "HCC": 0.955205
     },
-    "margin": 0.886271,
+    "margin": 0.91041,
     "is_calibrated": true,
     "is_low_margin": true,
     "is_error": false,
@@ -7158,12 +7158,12 @@
     "true_label": "HCC",
     "pred_label": "HCC",
     "prob_vector": {
-      "Hemangioma": 0.025724,
-      "HCC": 0.974276
+      "Hemangioma": 0.046693,
+      "HCC": 0.953307
     },
-    "margin": 0.948553,
+    "margin": 0.906613,
     "is_calibrated": true,
-    "is_low_margin": false,
+    "is_low_margin": true,
     "is_error": false,
     "modality_mask": [
       1,
@@ -7180,10 +7180,10 @@
     "true_label": "HCC",
     "pred_label": "HCC",
     "prob_vector": {
-      "Hemangioma": 0.015698,
-      "HCC": 0.984302
+      "Hemangioma": 0.014586,
+      "HCC": 0.985414
     },
-    "margin": 0.968604,
+    "margin": 0.970829,
     "is_calibrated": true,
     "is_low_margin": false,
     "is_error": false,
@@ -7202,10 +7202,10 @@
     "true_label": "HCC",
     "pred_label": "HCC",
     "prob_vector": {
-      "Hemangioma": 0.010931,
-      "HCC": 0.989069
+      "Hemangioma": 0.007474,
+      "HCC": 0.992526
     },
-    "margin": 0.978138,
+    "margin": 0.985052,
     "is_calibrated": true,
     "is_low_margin": false,
     "is_error": false,
@@ -7224,10 +7224,10 @@
     "true_label": "HCC",
     "pred_label": "HCC",
     "prob_vector": {
-      "Hemangioma": 0.012855,
-      "HCC": 0.987145
+      "Hemangioma": 0.019309,
+      "HCC": 0.980691
     },
-    "margin": 0.974291,
+    "margin": 0.961382,
     "is_calibrated": true,
     "is_low_margin": false,
     "is_error": false,
@@ -7246,10 +7246,10 @@
     "true_label": "HCC",
     "pred_label": "HCC",
     "prob_vector": {
-      "Hemangioma": 0.009426,
-      "HCC": 0.990574
+      "Hemangioma": 0.00798,
+      "HCC": 0.99202
     },
-    "margin": 0.981147,
+    "margin": 0.984041,
     "is_calibrated": true,
     "is_low_margin": false,
     "is_error": false,
@@ -7268,10 +7268,10 @@
     "true_label": "HCC",
     "pred_label": "HCC",
     "prob_vector": {
-      "Hemangioma": 0.013819,
-      "HCC": 0.986181
+      "Hemangioma": 0.020859,
+      "HCC": 0.979141
     },
-    "margin": 0.972362,
+    "margin": 0.958283,
     "is_calibrated": true,
     "is_low_margin": false,
     "is_error": false,
@@ -7290,10 +7290,10 @@
     "true_label": "HCC",
     "pred_label": "HCC",
     "prob_vector": {
-      "Hemangioma": 0.015337,
-      "HCC": 0.984663
+      "Hemangioma": 0.020724,
+      "HCC": 0.979276
     },
-    "margin": 0.969326,
+    "margin": 0.958551,
     "is_calibrated": true,
     "is_low_margin": false,
     "is_error": false,
@@ -7312,10 +7312,10 @@
     "true_label": "HCC",
     "pred_label": "HCC",
     "prob_vector": {
-      "Hemangioma": 0.028541,
-      "HCC": 0.971459
+      "Hemangioma": 0.030187,
+      "HCC": 0.969813
     },
-    "margin": 0.942918,
+    "margin": 0.939627,
     "is_calibrated": true,
     "is_low_margin": false,
     "is_error": false,
@@ -7334,10 +7334,10 @@
     "true_label": "HCC",
     "pred_label": "HCC",
     "prob_vector": {
-      "Hemangioma": 0.013878,
-      "HCC": 0.986122
+      "Hemangioma": 0.018998,
+      "HCC": 0.981002
     },
-    "margin": 0.972245,
+    "margin": 0.962004,
     "is_calibrated": true,
     "is_low_margin": false,
     "is_error": false,
@@ -7356,10 +7356,10 @@
     "true_label": "HCC",
     "pred_label": "HCC",
     "prob_vector": {
-      "Hemangioma": 0.009923,
-      "HCC": 0.990077
+      "Hemangioma": 0.007311,
+      "HCC": 0.992689
     },
-    "margin": 0.980154,
+    "margin": 0.985379,
     "is_calibrated": true,
     "is_low_margin": false,
     "is_error": false,
@@ -7378,10 +7378,10 @@
     "true_label": "HCC",
     "pred_label": "HCC",
     "prob_vector": {
-      "Hemangioma": 0.008806,
-      "HCC": 0.991194
+      "Hemangioma": 0.009384,
+      "HCC": 0.990616
     },
-    "margin": 0.982388,
+    "margin": 0.981232,
     "is_calibrated": true,
     "is_low_margin": false,
     "is_error": false,
@@ -7400,12 +7400,12 @@
     "true_label": "HCC",
     "pred_label": "HCC",
     "prob_vector": {
-      "Hemangioma": 0.029899,
-      "HCC": 0.970101
+      "Hemangioma": 0.165439,
+      "HCC": 0.834561
     },
-    "margin": 0.940201,
+    "margin": 0.669123,
     "is_calibrated": true,
-    "is_low_margin": false,
+    "is_low_margin": true,
     "is_error": false,
     "modality_mask": [
       1,
@@ -7422,10 +7422,10 @@
     "true_label": "HCC",
     "pred_label": "HCC",
     "prob_vector": {
-      "Hemangioma": 0.014021,
-      "HCC": 0.985979
+      "Hemangioma": 0.015456,
+      "HCC": 0.984544
     },
-    "margin": 0.971958,
+    "margin": 0.969088,
     "is_calibrated": true,
     "is_low_margin": false,
     "is_error": false,
@@ -7444,10 +7444,10 @@
     "true_label": "HCC",
     "pred_label": "HCC",
     "prob_vector": {
-      "Hemangioma": 0.011617,
-      "HCC": 0.988383
+      "Hemangioma": 0.014703,
+      "HCC": 0.985297
     },
-    "margin": 0.976766,
+    "margin": 0.970593,
     "is_calibrated": true,
     "is_low_margin": false,
     "is_error": false,
@@ -7466,10 +7466,10 @@
     "true_label": "HCC",
     "pred_label": "HCC",
     "prob_vector": {
-      "Hemangioma": 0.008863,
-      "HCC": 0.991137
+      "Hemangioma": 0.00796,
+      "HCC": 0.99204
     },
-    "margin": 0.982274,
+    "margin": 0.98408,
     "is_calibrated": true,
     "is_low_margin": false,
     "is_error": false,
@@ -7488,10 +7488,10 @@
     "true_label": "HCC",
     "pred_label": "HCC",
     "prob_vector": {
-      "Hemangioma": 0.016975,
-      "HCC": 0.983025
+      "Hemangioma": 0.028995,
+      "HCC": 0.971005
     },
-    "margin": 0.966051,
+    "margin": 0.942009,
     "is_calibrated": true,
     "is_low_margin": false,
     "is_error": false,
@@ -7510,10 +7510,10 @@
     "true_label": "HCC",
     "pred_label": "HCC",
     "prob_vector": {
-      "Hemangioma": 0.010212,
-      "HCC": 0.989788
+      "Hemangioma": 0.006517,
+      "HCC": 0.993483
     },
-    "margin": 0.979577,
+    "margin": 0.986965,
     "is_calibrated": true,
     "is_low_margin": false,
     "is_error": false,
@@ -7532,10 +7532,10 @@
     "true_label": "HCC",
     "pred_label": "HCC",
     "prob_vector": {
-      "Hemangioma": 0.013053,
-      "HCC": 0.986947
+      "Hemangioma": 0.01549,
+      "HCC": 0.98451
     },
-    "margin": 0.973894,
+    "margin": 0.96902,
     "is_calibrated": true,
     "is_low_margin": false,
     "is_error": false,
@@ -7554,10 +7554,10 @@
     "true_label": "HCC",
     "pred_label": "HCC",
     "prob_vector": {
-      "Hemangioma": 0.008515,
-      "HCC": 0.991485
+      "Hemangioma": 0.007297,
+      "HCC": 0.992703
     },
-    "margin": 0.982969,
+    "margin": 0.985405,
     "is_calibrated": true,
     "is_low_margin": false,
     "is_error": false,
@@ -7576,10 +7576,10 @@
     "true_label": "HCC",
     "pred_label": "HCC",
     "prob_vector": {
-      "Hemangioma": 0.009875,
-      "HCC": 0.990125
+      "Hemangioma": 0.011106,
+      "HCC": 0.988894
     },
-    "margin": 0.980251,
+    "margin": 0.977788,
     "is_calibrated": true,
     "is_low_margin": false,
     "is_error": false,
@@ -7598,10 +7598,10 @@
     "true_label": "HCC",
     "pred_label": "HCC",
     "prob_vector": {
-      "Hemangioma": 0.024495,
-      "HCC": 0.975505
+      "Hemangioma": 0.025326,
+      "HCC": 0.974674
     },
-    "margin": 0.951011,
+    "margin": 0.949349,
     "is_calibrated": true,
     "is_low_margin": false,
     "is_error": false,
@@ -7620,10 +7620,10 @@
     "true_label": "HCC",
     "pred_label": "HCC",
     "prob_vector": {
-      "Hemangioma": 0.014714,
-      "HCC": 0.985286
+      "Hemangioma": 0.013529,
+      "HCC": 0.986471
     },
-    "margin": 0.970572,
+    "margin": 0.972942,
     "is_calibrated": true,
     "is_low_margin": false,
     "is_error": false,
@@ -7642,10 +7642,10 @@
     "true_label": "HCC",
     "pred_label": "HCC",
     "prob_vector": {
-      "Hemangioma": 0.017778,
-      "HCC": 0.982222
+      "Hemangioma": 0.018442,
+      "HCC": 0.981558
     },
-    "margin": 0.964444,
+    "margin": 0.963117,
     "is_calibrated": true,
     "is_low_margin": false,
     "is_error": false,
@@ -7664,10 +7664,10 @@
     "true_label": "HCC",
     "pred_label": "HCC",
     "prob_vector": {
-      "Hemangioma": 0.010194,
-      "HCC": 0.989806
+      "Hemangioma": 0.007509,
+      "HCC": 0.992491
     },
-    "margin": 0.979613,
+    "margin": 0.984983,
     "is_calibrated": true,
     "is_low_margin": false,
     "is_error": false,
@@ -7686,10 +7686,10 @@
     "true_label": "HCC",
     "pred_label": "HCC",
     "prob_vector": {
-      "Hemangioma": 0.021586,
-      "HCC": 0.978414
+      "Hemangioma": 0.016777,
+      "HCC": 0.983223
     },
-    "margin": 0.956827,
+    "margin": 0.966446,
     "is_calibrated": true,
     "is_low_margin": false,
     "is_error": false,
@@ -7708,10 +7708,10 @@
     "true_label": "HCC",
     "pred_label": "HCC",
     "prob_vector": {
-      "Hemangioma": 0.008578,
-      "HCC": 0.991422
+      "Hemangioma": 0.00883,
+      "HCC": 0.99117
     },
-    "margin": 0.982843,
+    "margin": 0.98234,
     "is_calibrated": true,
     "is_low_margin": false,
     "is_error": false,
@@ -7730,10 +7730,10 @@
     "true_label": "HCC",
     "pred_label": "HCC",
     "prob_vector": {
-      "Hemangioma": 0.014091,
-      "HCC": 0.985909
+      "Hemangioma": 0.009054,
+      "HCC": 0.990946
     },
-    "margin": 0.971818,
+    "margin": 0.981892,
     "is_calibrated": true,
     "is_low_margin": false,
     "is_error": false,
@@ -7752,10 +7752,10 @@
     "true_label": "HCC",
     "pred_label": "HCC",
     "prob_vector": {
-      "Hemangioma": 0.013144,
-      "HCC": 0.986856
+      "Hemangioma": 0.012166,
+      "HCC": 0.987834
     },
-    "margin": 0.973712,
+    "margin": 0.975668,
     "is_calibrated": true,
     "is_low_margin": false,
     "is_error": false,
@@ -7774,10 +7774,10 @@
     "true_label": "HCC",
     "pred_label": "HCC",
     "prob_vector": {
-      "Hemangioma": 0.014549,
-      "HCC": 0.985451
+      "Hemangioma": 0.019242,
+      "HCC": 0.980758
     },
-    "margin": 0.970902,
+    "margin": 0.961517,
     "is_calibrated": true,
     "is_low_margin": false,
     "is_error": false,
@@ -7796,10 +7796,10 @@
     "true_label": "HCC",
     "pred_label": "HCC",
     "prob_vector": {
-      "Hemangioma": 0.01149,
-      "HCC": 0.98851
+      "Hemangioma": 0.011684,
+      "HCC": 0.988316
     },
-    "margin": 0.97702,
+    "margin": 0.976631,
     "is_calibrated": true,
     "is_low_margin": false,
     "is_error": false,
@@ -7818,10 +7818,10 @@
     "true_label": "HCC",
     "pred_label": "HCC",
     "prob_vector": {
-      "Hemangioma": 0.008841,
-      "HCC": 0.991159
+      "Hemangioma": 0.007724,
+      "HCC": 0.992276
     },
-    "margin": 0.982317,
+    "margin": 0.984551,
     "is_calibrated": true,
     "is_low_margin": false,
     "is_error": false,
@@ -7840,10 +7840,10 @@
     "true_label": "HCC",
     "pred_label": "HCC",
     "prob_vector": {
-      "Hemangioma": 0.018714,
-      "HCC": 0.981286
+      "Hemangioma": 0.022494,
+      "HCC": 0.977506
     },
-    "margin": 0.962572,
+    "margin": 0.955013,
     "is_calibrated": true,
     "is_low_margin": false,
     "is_error": false,
@@ -7862,10 +7862,10 @@
     "true_label": "HCC",
     "pred_label": "HCC",
     "prob_vector": {
-      "Hemangioma": 0.018052,
-      "HCC": 0.981948
+      "Hemangioma": 0.022761,
+      "HCC": 0.977239
     },
-    "margin": 0.963895,
+    "margin": 0.954477,
     "is_calibrated": true,
     "is_low_margin": false,
     "is_error": false,
@@ -7884,10 +7884,10 @@
     "true_label": "HCC",
     "pred_label": "HCC",
     "prob_vector": {
-      "Hemangioma": 0.011338,
-      "HCC": 0.988662
+      "Hemangioma": 0.007406,
+      "HCC": 0.992594
     },
-    "margin": 0.977323,
+    "margin": 0.985188,
     "is_calibrated": true,
     "is_low_margin": false,
     "is_error": false,
@@ -7906,10 +7906,10 @@
     "true_label": "HCC",
     "pred_label": "HCC",
     "prob_vector": {
-      "Hemangioma": 0.010893,
-      "HCC": 0.989107
+      "Hemangioma": 0.012275,
+      "HCC": 0.987725
     },
-    "margin": 0.978213,
+    "margin": 0.975449,
     "is_calibrated": true,
     "is_low_margin": false,
     "is_error": false,
@@ -7928,10 +7928,10 @@
     "true_label": "HCC",
     "pred_label": "HCC",
     "prob_vector": {
-      "Hemangioma": 0.066136,
-      "HCC": 0.933864
+      "Hemangioma": 0.078564,
+      "HCC": 0.921436
     },
-    "margin": 0.867728,
+    "margin": 0.842873,
     "is_calibrated": true,
     "is_low_margin": true,
     "is_error": false,
@@ -7950,10 +7950,10 @@
     "true_label": "HCC",
     "pred_label": "HCC",
     "prob_vector": {
-      "Hemangioma": 0.011952,
-      "HCC": 0.988048
+      "Hemangioma": 0.014397,
+      "HCC": 0.985603
     },
-    "margin": 0.976096,
+    "margin": 0.971206,
     "is_calibrated": true,
     "is_low_margin": false,
     "is_error": false,
@@ -7972,10 +7972,10 @@
     "true_label": "HCC",
     "pred_label": "HCC",
     "prob_vector": {
-      "Hemangioma": 0.010204,
-      "HCC": 0.989796
+      "Hemangioma": 0.015446,
+      "HCC": 0.984554
     },
-    "margin": 0.979592,
+    "margin": 0.969108,
     "is_calibrated": true,
     "is_low_margin": false,
     "is_error": false,
@@ -7994,10 +7994,10 @@
     "true_label": "HCC",
     "pred_label": "HCC",
     "prob_vector": {
-      "Hemangioma": 0.007659,
-      "HCC": 0.992341
+      "Hemangioma": 0.006292,
+      "HCC": 0.993708
     },
-    "margin": 0.984681,
+    "margin": 0.987417,
     "is_calibrated": true,
     "is_low_margin": false,
     "is_error": false,
@@ -8016,10 +8016,10 @@
     "true_label": "HCC",
     "pred_label": "HCC",
     "prob_vector": {
-      "Hemangioma": 0.028254,
-      "HCC": 0.971746
+      "Hemangioma": 0.023457,
+      "HCC": 0.976543
     },
-    "margin": 0.943492,
+    "margin": 0.953085,
     "is_calibrated": true,
     "is_low_margin": false,
     "is_error": false,
@@ -8038,12 +8038,12 @@
     "true_label": "HCC",
     "pred_label": "HCC",
     "prob_vector": {
-      "Hemangioma": 0.029653,
-      "HCC": 0.970347
+      "Hemangioma": 0.066497,
+      "HCC": 0.933503
     },
-    "margin": 0.940694,
+    "margin": 0.867005,
     "is_calibrated": true,
-    "is_low_margin": false,
+    "is_low_margin": true,
     "is_error": false,
     "modality_mask": [
       1,
@@ -8060,10 +8060,10 @@
     "true_label": "HCC",
     "pred_label": "HCC",
     "prob_vector": {
-      "Hemangioma": 0.009712,
-      "HCC": 0.990288
+      "Hemangioma": 0.007442,
+      "HCC": 0.992558
     },
-    "margin": 0.980576,
+    "margin": 0.985116,
     "is_calibrated": true,
     "is_low_margin": false,
     "is_error": false,
@@ -8082,10 +8082,10 @@
     "true_label": "HCC",
     "pred_label": "HCC",
     "prob_vector": {
-      "Hemangioma": 0.006903,
-      "HCC": 0.993097
+      "Hemangioma": 0.007683,
+      "HCC": 0.992317
     },
-    "margin": 0.986194,
+    "margin": 0.984633,
     "is_calibrated": true,
     "is_low_margin": false,
     "is_error": false,
@@ -8104,10 +8104,10 @@
     "true_label": "HCC",
     "pred_label": "HCC",
     "prob_vector": {
-      "Hemangioma": 0.015144,
-      "HCC": 0.984856
+      "Hemangioma": 0.022482,
+      "HCC": 0.977518
     },
-    "margin": 0.969712,
+    "margin": 0.955035,
     "is_calibrated": true,
     "is_low_margin": false,
     "is_error": false,
@@ -8126,10 +8126,10 @@
     "true_label": "HCC",
     "pred_label": "HCC",
     "prob_vector": {
-      "Hemangioma": 0.008696,
-      "HCC": 0.991304
+      "Hemangioma": 0.008715,
+      "HCC": 0.991285
     },
-    "margin": 0.982607,
+    "margin": 0.982571,
     "is_calibrated": true,
     "is_low_margin": false,
     "is_error": false,
@@ -8148,10 +8148,10 @@
     "true_label": "HCC",
     "pred_label": "HCC",
     "prob_vector": {
-      "Hemangioma": 0.014604,
-      "HCC": 0.985396
+      "Hemangioma": 0.021709,
+      "HCC": 0.978291
     },
-    "margin": 0.970792,
+    "margin": 0.956581,
     "is_calibrated": true,
     "is_low_margin": false,
     "is_error": false,
@@ -8170,10 +8170,10 @@
     "true_label": "HCC",
     "pred_label": "HCC",
     "prob_vector": {
-      "Hemangioma": 0.016257,
-      "HCC": 0.983743
+      "Hemangioma": 0.020167,
+      "HCC": 0.979833
     },
-    "margin": 0.967485,
+    "margin": 0.959666,
     "is_calibrated": true,
     "is_low_margin": false,
     "is_error": false,
@@ -8192,10 +8192,10 @@
     "true_label": "HCC",
     "pred_label": "HCC",
     "prob_vector": {
-      "Hemangioma": 0.008713,
-      "HCC": 0.991287
+      "Hemangioma": 0.009632,
+      "HCC": 0.990368
     },
-    "margin": 0.982573,
+    "margin": 0.980735,
     "is_calibrated": true,
     "is_low_margin": false,
     "is_error": false,
@@ -8214,10 +8214,10 @@
     "true_label": "HCC",
     "pred_label": "HCC",
     "prob_vector": {
-      "Hemangioma": 0.013187,
-      "HCC": 0.986813
+      "Hemangioma": 0.011363,
+      "HCC": 0.988637
     },
-    "margin": 0.973625,
+    "margin": 0.977273,
     "is_calibrated": true,
     "is_low_margin": false,
     "is_error": false,
@@ -8236,10 +8236,10 @@
     "true_label": "HCC",
     "pred_label": "HCC",
     "prob_vector": {
-      "Hemangioma": 0.010253,
-      "HCC": 0.989747
+      "Hemangioma": 0.007521,
+      "HCC": 0.992479
     },
-    "margin": 0.979494,
+    "margin": 0.984958,
     "is_calibrated": true,
     "is_low_margin": false,
     "is_error": false,
@@ -8258,10 +8258,10 @@
     "true_label": "HCC",
     "pred_label": "HCC",
     "prob_vector": {
-      "Hemangioma": 0.020074,
-      "HCC": 0.979926
+      "Hemangioma": 0.02457,
+      "HCC": 0.97543
     },
-    "margin": 0.959851,
+    "margin": 0.95086,
     "is_calibrated": true,
     "is_low_margin": false,
     "is_error": false,
@@ -8280,10 +8280,10 @@
     "true_label": "HCC",
     "pred_label": "HCC",
     "prob_vector": {
-      "Hemangioma": 0.011786,
-      "HCC": 0.988214
+      "Hemangioma": 0.006941,
+      "HCC": 0.993059
     },
-    "margin": 0.976429,
+    "margin": 0.986117,
     "is_calibrated": true,
     "is_low_margin": false,
     "is_error": false,
@@ -8302,10 +8302,10 @@
     "true_label": "HCC",
     "pred_label": "HCC",
     "prob_vector": {
-      "Hemangioma": 0.017634,
-      "HCC": 0.982366
+      "Hemangioma": 0.02088,
+      "HCC": 0.97912
     },
-    "margin": 0.964733,
+    "margin": 0.958239,
     "is_calibrated": true,
     "is_low_margin": false,
     "is_error": false,
@@ -8324,10 +8324,10 @@
     "true_label": "HCC",
     "pred_label": "HCC",
     "prob_vector": {
-      "Hemangioma": 0.008723,
-      "HCC": 0.991277
+      "Hemangioma": 0.005748,
+      "HCC": 0.994252
     },
-    "margin": 0.982554,
+    "margin": 0.988504,
     "is_calibrated": true,
     "is_low_margin": false,
     "is_error": false,
@@ -8346,10 +8346,10 @@
     "true_label": "HCC",
     "pred_label": "HCC",
     "prob_vector": {
-      "Hemangioma": 0.008208,
-      "HCC": 0.991792
+      "Hemangioma": 0.010326,
+      "HCC": 0.989674
     },
-    "margin": 0.983585,
+    "margin": 0.979347,
     "is_calibrated": true,
     "is_low_margin": false,
     "is_error": false,
@@ -8368,12 +8368,12 @@
     "true_label": "HCC",
     "pred_label": "HCC",
     "prob_vector": {
-      "Hemangioma": 0.026901,
-      "HCC": 0.973099
+      "Hemangioma": 0.040848,
+      "HCC": 0.959152
     },
-    "margin": 0.946198,
+    "margin": 0.918304,
     "is_calibrated": true,
-    "is_low_margin": false,
+    "is_low_margin": true,
     "is_error": false,
     "modality_mask": [
       1,
@@ -8390,10 +8390,10 @@
     "true_label": "HCC",
     "pred_label": "HCC",
     "prob_vector": {
-      "Hemangioma": 0.008995,
-      "HCC": 0.991005
+      "Hemangioma": 0.007642,
+      "HCC": 0.992358
     },
-    "margin": 0.982009,
+    "margin": 0.984717,
     "is_calibrated": true,
     "is_low_margin": false,
     "is_error": false,
@@ -8412,10 +8412,10 @@
     "true_label": "Hemangioma",
     "pred_label": "Hemangioma",
     "prob_vector": {
-      "Hemangioma": 0.98925,
-      "HCC": 0.01075
+      "Hemangioma": 0.991835,
+      "HCC": 0.008165
     },
-    "margin": 0.9785,
+    "margin": 0.983671,
     "is_calibrated": true,
     "is_low_margin": false,
     "is_error": false,
@@ -8434,10 +8434,10 @@
     "true_label": "Hemangioma",
     "pred_label": "Hemangioma",
     "prob_vector": {
-      "Hemangioma": 0.990121,
-      "HCC": 0.009879
+      "Hemangioma": 0.989613,
+      "HCC": 0.010387
     },
-    "margin": 0.980242,
+    "margin": 0.979226,
     "is_calibrated": true,
     "is_low_margin": false,
     "is_error": false,
@@ -8456,10 +8456,10 @@
     "true_label": "Hemangioma",
     "pred_label": "Hemangioma",
     "prob_vector": {
-      "Hemangioma": 0.950915,
-      "HCC": 0.049085
+      "Hemangioma": 0.963694,
+      "HCC": 0.036306
     },
-    "margin": 0.901831,
+    "margin": 0.927388,
     "is_calibrated": true,
     "is_low_margin": true,
     "is_error": false,
@@ -8478,10 +8478,10 @@
     "true_label": "Hemangioma",
     "pred_label": "Hemangioma",
     "prob_vector": {
-      "Hemangioma": 0.900481,
-      "HCC": 0.099519
+      "Hemangioma": 0.937559,
+      "HCC": 0.062441
     },
-    "margin": 0.800963,
+    "margin": 0.875119,
     "is_calibrated": true,
     "is_low_margin": true,
     "is_error": false,
@@ -8500,12 +8500,12 @@
     "true_label": "Hemangioma",
     "pred_label": "Hemangioma",
     "prob_vector": {
-      "Hemangioma": 0.961847,
-      "HCC": 0.038153
+      "Hemangioma": 0.983451,
+      "HCC": 0.016549
     },
-    "margin": 0.923693,
+    "margin": 0.966901,
     "is_calibrated": true,
-    "is_low_margin": true,
+    "is_low_margin": false,
     "is_error": false,
     "modality_mask": [
       1,
@@ -8522,10 +8522,10 @@
     "true_label": "Hemangioma",
     "pred_label": "Hemangioma",
     "prob_vector": {
-      "Hemangioma": 0.982151,
-      "HCC": 0.017849
+      "Hemangioma": 0.987418,
+      "HCC": 0.012582
     },
-    "margin": 0.964303,
+    "margin": 0.974835,
     "is_calibrated": true,
     "is_low_margin": false,
     "is_error": false,
@@ -8544,10 +8544,10 @@
     "true_label": "Hemangioma",
     "pred_label": "Hemangioma",
     "prob_vector": {
-      "Hemangioma": 0.984661,
-      "HCC": 0.015339
+      "Hemangioma": 0.987776,
+      "HCC": 0.012224
     },
-    "margin": 0.969321,
+    "margin": 0.975551,
     "is_calibrated": true,
     "is_low_margin": false,
     "is_error": false,
@@ -8566,10 +8566,10 @@
     "true_label": "Hemangioma",
     "pred_label": "Hemangioma",
     "prob_vector": {
-      "Hemangioma": 0.988037,
-      "HCC": 0.011963
+      "Hemangioma": 0.988631,
+      "HCC": 0.011369
     },
-    "margin": 0.976074,
+    "margin": 0.977262,
     "is_calibrated": true,
     "is_low_margin": false,
     "is_error": false,
@@ -8588,10 +8588,10 @@
     "true_label": "Hemangioma",
     "pred_label": "Hemangioma",
     "prob_vector": {
-      "Hemangioma": 0.988929,
-      "HCC": 0.011071
+      "Hemangioma": 0.994833,
+      "HCC": 0.005167
     },
-    "margin": 0.977857,
+    "margin": 0.989667,
     "is_calibrated": true,
     "is_low_margin": false,
     "is_error": false,
@@ -8610,10 +8610,10 @@
     "true_label": "Hemangioma",
     "pred_label": "Hemangioma",
     "prob_vector": {
-      "Hemangioma": 0.97063,
-      "HCC": 0.02937
+      "Hemangioma": 0.986424,
+      "HCC": 0.013576
     },
-    "margin": 0.941261,
+    "margin": 0.972849,
     "is_calibrated": true,
     "is_low_margin": false,
     "is_error": false,
@@ -8632,10 +8632,10 @@
     "true_label": "Hemangioma",
     "pred_label": "Hemangioma",
     "prob_vector": {
-      "Hemangioma": 0.976524,
-      "HCC": 0.023476
+      "Hemangioma": 0.968124,
+      "HCC": 0.031876
     },
-    "margin": 0.953047,
+    "margin": 0.936248,
     "is_calibrated": true,
     "is_low_margin": false,
     "is_error": false,
@@ -8654,10 +8654,10 @@
     "true_label": "Hemangioma",
     "pred_label": "Hemangioma",
     "prob_vector": {
-      "Hemangioma": 0.981708,
-      "HCC": 0.018292
+      "Hemangioma": 0.988971,
+      "HCC": 0.011029
     },
-    "margin": 0.963415,
+    "margin": 0.977942,
     "is_calibrated": true,
     "is_low_margin": false,
     "is_error": false,
@@ -8676,10 +8676,10 @@
     "true_label": "Hemangioma",
     "pred_label": "Hemangioma",
     "prob_vector": {
-      "Hemangioma": 0.966039,
-      "HCC": 0.033961
+      "Hemangioma": 0.970793,
+      "HCC": 0.029207
     },
-    "margin": 0.932079,
+    "margin": 0.941586,
     "is_calibrated": true,
     "is_low_margin": false,
     "is_error": false,
@@ -8698,10 +8698,10 @@
     "true_label": "Hemangioma",
     "pred_label": "Hemangioma",
     "prob_vector": {
-      "Hemangioma": 0.988809,
-      "HCC": 0.011191
+      "Hemangioma": 0.993345,
+      "HCC": 0.006655
     },
-    "margin": 0.977619,
+    "margin": 0.98669,
     "is_calibrated": true,
     "is_low_margin": false,
     "is_error": false,
@@ -8720,12 +8720,12 @@
     "true_label": "Hemangioma",
     "pred_label": "Hemangioma",
     "prob_vector": {
-      "Hemangioma": 0.955791,
-      "HCC": 0.044209
+      "Hemangioma": 0.964947,
+      "HCC": 0.035053
     },
-    "margin": 0.911581,
+    "margin": 0.929893,
     "is_calibrated": true,
-    "is_low_margin": true,
+    "is_low_margin": false,
     "is_error": false,
     "modality_mask": [
       1,
@@ -8742,10 +8742,10 @@
     "true_label": "Hemangioma",
     "pred_label": "Hemangioma",
     "prob_vector": {
-      "Hemangioma": 0.988427,
-      "HCC": 0.011573
+      "Hemangioma": 0.991908,
+      "HCC": 0.008092
     },
-    "margin": 0.976855,
+    "margin": 0.983815,
     "is_calibrated": true,
     "is_low_margin": false,
     "is_error": false,
@@ -8764,10 +8764,10 @@
     "true_label": "Hemangioma",
     "pred_label": "Hemangioma",
     "prob_vector": {
-      "Hemangioma": 0.989707,
-      "HCC": 0.010293
+      "Hemangioma": 0.995284,
+      "HCC": 0.004716
     },
-    "margin": 0.979414,
+    "margin": 0.990569,
     "is_calibrated": true,
     "is_low_margin": false,
     "is_error": false,
@@ -8786,10 +8786,10 @@
     "true_label": "Hemangioma",
     "pred_label": "Hemangioma",
     "prob_vector": {
-      "Hemangioma": 0.987699,
-      "HCC": 0.012301
+      "Hemangioma": 0.991382,
+      "HCC": 0.008618
     },
-    "margin": 0.975398,
+    "margin": 0.982763,
     "is_calibrated": true,
     "is_low_margin": false,
     "is_error": false,
@@ -8808,10 +8808,10 @@
     "true_label": "Hemangioma",
     "pred_label": "Hemangioma",
     "prob_vector": {
-      "Hemangioma": 0.987641,
-      "HCC": 0.012359
+      "Hemangioma": 0.991552,
+      "HCC": 0.008448
     },
-    "margin": 0.975282,
+    "margin": 0.983104,
     "is_calibrated": true,
     "is_low_margin": false,
     "is_error": false,
@@ -8830,10 +8830,10 @@
     "true_label": "Hemangioma",
     "pred_label": "Hemangioma",
     "prob_vector": {
-      "Hemangioma": 0.987072,
-      "HCC": 0.012928
+      "Hemangioma": 0.993521,
+      "HCC": 0.006479
     },
-    "margin": 0.974145,
+    "margin": 0.987043,
     "is_calibrated": true,
     "is_low_margin": false,
     "is_error": false,
@@ -8852,10 +8852,10 @@
     "true_label": "Hemangioma",
     "pred_label": "Hemangioma",
     "prob_vector": {
-      "Hemangioma": 0.989182,
-      "HCC": 0.010818
+      "Hemangioma": 0.991034,
+      "HCC": 0.008966
     },
-    "margin": 0.978363,
+    "margin": 0.982067,
     "is_calibrated": true,
     "is_low_margin": false,
     "is_error": false,
@@ -8874,10 +8874,10 @@
     "true_label": "Hemangioma",
     "pred_label": "Hemangioma",
     "prob_vector": {
-      "Hemangioma": 0.989076,
-      "HCC": 0.010924
+      "Hemangioma": 0.993408,
+      "HCC": 0.006592
     },
-    "margin": 0.978151,
+    "margin": 0.986816,
     "is_calibrated": true,
     "is_low_margin": false,
     "is_error": false,
@@ -8896,10 +8896,10 @@
     "true_label": "Hemangioma",
     "pred_label": "Hemangioma",
     "prob_vector": {
-      "Hemangioma": 0.974443,
-      "HCC": 0.025557
+      "Hemangioma": 0.988367,
+      "HCC": 0.011633
     },
-    "margin": 0.948885,
+    "margin": 0.976733,
     "is_calibrated": true,
     "is_low_margin": false,
     "is_error": false,
@@ -8918,10 +8918,10 @@
     "true_label": "Hemangioma",
     "pred_label": "Hemangioma",
     "prob_vector": {
-      "Hemangioma": 0.988049,
-      "HCC": 0.011951
+      "Hemangioma": 0.993994,
+      "HCC": 0.006006
     },
-    "margin": 0.976098,
+    "margin": 0.987988,
     "is_calibrated": true,
     "is_low_margin": false,
     "is_error": false,
@@ -8940,12 +8940,12 @@
     "true_label": "Hemangioma",
     "pred_label": "Hemangioma",
     "prob_vector": {
-      "Hemangioma": 0.965195,
-      "HCC": 0.034805
+      "Hemangioma": 0.988143,
+      "HCC": 0.011857
     },
-    "margin": 0.930389,
+    "margin": 0.976286,
     "is_calibrated": true,
-    "is_low_margin": true,
+    "is_low_margin": false,
     "is_error": false,
     "modality_mask": [
       1,
@@ -8962,10 +8962,10 @@
     "true_label": "Hemangioma",
     "pred_label": "Hemangioma",
     "prob_vector": {
-      "Hemangioma": 0.987239,
-      "HCC": 0.012761
+      "Hemangioma": 0.988154,
+      "HCC": 0.011846
     },
-    "margin": 0.974477,
+    "margin": 0.976309,
     "is_calibrated": true,
     "is_low_margin": false,
     "is_error": false,
@@ -8984,10 +8984,10 @@
     "true_label": "Hemangioma",
     "pred_label": "Hemangioma",
     "prob_vector": {
-      "Hemangioma": 0.985767,
-      "HCC": 0.014233
+      "Hemangioma": 0.991412,
+      "HCC": 0.008588
     },
-    "margin": 0.971534,
+    "margin": 0.982825,
     "is_calibrated": true,
     "is_low_margin": false,
     "is_error": false,
@@ -9006,10 +9006,10 @@
     "true_label": "Hemangioma",
     "pred_label": "Hemangioma",
     "prob_vector": {
-      "Hemangioma": 0.974751,
-      "HCC": 0.025249
+      "Hemangioma": 0.986717,
+      "HCC": 0.013283
     },
-    "margin": 0.949503,
+    "margin": 0.973434,
     "is_calibrated": true,
     "is_low_margin": false,
     "is_error": false,
@@ -9028,10 +9028,10 @@
     "true_label": "Hemangioma",
     "pred_label": "Hemangioma",
     "prob_vector": {
-      "Hemangioma": 0.990937,
-      "HCC": 0.009063
+      "Hemangioma": 0.995435,
+      "HCC": 0.004565
     },
-    "margin": 0.981873,
+    "margin": 0.99087,
     "is_calibrated": true,
     "is_low_margin": false,
     "is_error": false,
@@ -9050,12 +9050,12 @@
     "true_label": "Hemangioma",
     "pred_label": "Hemangioma",
     "prob_vector": {
-      "Hemangioma": 0.961741,
-      "HCC": 0.038259
+      "Hemangioma": 0.970875,
+      "HCC": 0.029125
     },
-    "margin": 0.923482,
+    "margin": 0.941749,
     "is_calibrated": true,
-    "is_low_margin": true,
+    "is_low_margin": false,
     "is_error": false,
     "modality_mask": [
       1,
@@ -9072,10 +9072,10 @@
     "true_label": "Hemangioma",
     "pred_label": "Hemangioma",
     "prob_vector": {
-      "Hemangioma": 0.785426,
-      "HCC": 0.214574
+      "Hemangioma": 0.853531,
+      "HCC": 0.146469
     },
-    "margin": 0.570853,
+    "margin": 0.707061,
     "is_calibrated": true,
     "is_low_margin": true,
     "is_error": false,
@@ -9094,10 +9094,10 @@
     "true_label": "Hemangioma",
     "pred_label": "Hemangioma",
     "prob_vector": {
-      "Hemangioma": 0.98941,
-      "HCC": 0.01059
+      "Hemangioma": 0.991422,
+      "HCC": 0.008578
     },
-    "margin": 0.97882,
+    "margin": 0.982843,
     "is_calibrated": true,
     "is_low_margin": false,
     "is_error": false,
@@ -9116,10 +9116,10 @@
     "true_label": "Hemangioma",
     "pred_label": "Hemangioma",
     "prob_vector": {
-      "Hemangioma": 0.987994,
-      "HCC": 0.012006
+      "Hemangioma": 0.992768,
+      "HCC": 0.007232
     },
-    "margin": 0.975988,
+    "margin": 0.985537,
     "is_calibrated": true,
     "is_low_margin": false,
     "is_error": false,
@@ -9138,10 +9138,10 @@
     "true_label": "Hemangioma",
     "pred_label": "Hemangioma",
     "prob_vector": {
-      "Hemangioma": 0.988651,
-      "HCC": 0.011349
+      "Hemangioma": 0.992713,
+      "HCC": 0.007287
     },
-    "margin": 0.977302,
+    "margin": 0.985426,
     "is_calibrated": true,
     "is_low_margin": false,
     "is_error": false,
@@ -9160,10 +9160,10 @@
     "true_label": "Hemangioma",
     "pred_label": "Hemangioma",
     "prob_vector": {
-      "Hemangioma": 0.98661,
-      "HCC": 0.01339
+      "Hemangioma": 0.992067,
+      "HCC": 0.007933
     },
-    "margin": 0.973221,
+    "margin": 0.984135,
     "is_calibrated": true,
     "is_low_margin": false,
     "is_error": false,
@@ -9182,10 +9182,10 @@
     "true_label": "Hemangioma",
     "pred_label": "Hemangioma",
     "prob_vector": {
-      "Hemangioma": 0.950504,
-      "HCC": 0.049496
+      "Hemangioma": 0.874775,
+      "HCC": 0.125225
     },
-    "margin": 0.901009,
+    "margin": 0.749549,
     "is_calibrated": true,
     "is_low_margin": true,
     "is_error": false,
@@ -9204,10 +9204,10 @@
     "true_label": "Hemangioma",
     "pred_label": "Hemangioma",
     "prob_vector": {
-      "Hemangioma": 0.989221,
-      "HCC": 0.010779
+      "Hemangioma": 0.996163,
+      "HCC": 0.003837
     },
-    "margin": 0.978441,
+    "margin": 0.992327,
     "is_calibrated": true,
     "is_low_margin": false,
     "is_error": false,
@@ -9226,10 +9226,10 @@
     "true_label": "Hemangioma",
     "pred_label": "Hemangioma",
     "prob_vector": {
-      "Hemangioma": 0.986596,
-      "HCC": 0.013404
+      "Hemangioma": 0.994362,
+      "HCC": 0.005638
     },
-    "margin": 0.973191,
+    "margin": 0.988725,
     "is_calibrated": true,
     "is_low_margin": false,
     "is_error": false,
@@ -9248,12 +9248,12 @@
     "true_label": "Hemangioma",
     "pred_label": "Hemangioma",
     "prob_vector": {
-      "Hemangioma": 0.987749,
-      "HCC": 0.012251
+      "Hemangioma": 0.929224,
+      "HCC": 0.070776
     },
-    "margin": 0.975498,
+    "margin": 0.858447,
     "is_calibrated": true,
-    "is_low_margin": false,
+    "is_low_margin": true,
     "is_error": false,
     "modality_mask": [
       1,
@@ -9270,10 +9270,10 @@
     "true_label": "Hemangioma",
     "pred_label": "Hemangioma",
     "prob_vector": {
-      "Hemangioma": 0.989436,
-      "HCC": 0.010564
+      "Hemangioma": 0.995976,
+      "HCC": 0.004024
     },
-    "margin": 0.978873,
+    "margin": 0.991951,
     "is_calibrated": true,
     "is_low_margin": false,
     "is_error": false,
@@ -9292,10 +9292,10 @@
     "true_label": "Hemangioma",
     "pred_label": "Hemangioma",
     "prob_vector": {
-      "Hemangioma": 0.985844,
-      "HCC": 0.014156
+      "Hemangioma": 0.990905,
+      "HCC": 0.009095
     },
-    "margin": 0.971687,
+    "margin": 0.981811,
     "is_calibrated": true,
     "is_low_margin": false,
     "is_error": false,
@@ -9314,12 +9314,12 @@
     "true_label": "Hemangioma",
     "pred_label": "Hemangioma",
     "prob_vector": {
-      "Hemangioma": 0.975379,
-      "HCC": 0.024621
+      "Hemangioma": 0.884406,
+      "HCC": 0.115594
     },
-    "margin": 0.950757,
+    "margin": 0.768812,
     "is_calibrated": true,
-    "is_low_margin": false,
+    "is_low_margin": true,
     "is_error": false,
     "modality_mask": [
       1,
@@ -9336,12 +9336,12 @@
     "true_label": "Hemangioma",
     "pred_label": "Hemangioma",
     "prob_vector": {
-      "Hemangioma": 0.953413,
-      "HCC": 0.046587
+      "Hemangioma": 0.988234,
+      "HCC": 0.011766
     },
-    "margin": 0.906826,
+    "margin": 0.976468,
     "is_calibrated": true,
-    "is_low_margin": true,
+    "is_low_margin": false,
     "is_error": false,
     "modality_mask": [
       1,
@@ -9358,10 +9358,10 @@
     "true_label": "Hemangioma",
     "pred_label": "Hemangioma",
     "prob_vector": {
-      "Hemangioma": 0.975255,
-      "HCC": 0.024745
+      "Hemangioma": 0.982938,
+      "HCC": 0.017062
     },
-    "margin": 0.950509,
+    "margin": 0.965876,
     "is_calibrated": true,
     "is_low_margin": false,
     "is_error": false,
@@ -9380,10 +9380,10 @@
     "true_label": "Hemangioma",
     "pred_label": "Hemangioma",
     "prob_vector": {
-      "Hemangioma": 0.988642,
-      "HCC": 0.011358
+      "Hemangioma": 0.993669,
+      "HCC": 0.006331
     },
-    "margin": 0.977284,
+    "margin": 0.987338,
     "is_calibrated": true,
     "is_low_margin": false,
     "is_error": false,
@@ -9402,10 +9402,10 @@
     "true_label": "Hemangioma",
     "pred_label": "Hemangioma",
     "prob_vector": {
-      "Hemangioma": 0.987443,
-      "HCC": 0.012557
+      "Hemangioma": 0.992332,
+      "HCC": 0.007668
     },
-    "margin": 0.974886,
+    "margin": 0.984665,
     "is_calibrated": true,
     "is_low_margin": false,
     "is_error": false,
@@ -9424,10 +9424,10 @@
     "true_label": "Hemangioma",
     "pred_label": "Hemangioma",
     "prob_vector": {
-      "Hemangioma": 0.979427,
-      "HCC": 0.020573
+      "Hemangioma": 0.990096,
+      "HCC": 0.009904
     },
-    "margin": 0.958855,
+    "margin": 0.980192,
     "is_calibrated": true,
     "is_low_margin": false,
     "is_error": false,
@@ -9446,10 +9446,10 @@
     "true_label": "Hemangioma",
     "pred_label": "Hemangioma",
     "prob_vector": {
-      "Hemangioma": 0.981995,
-      "HCC": 0.018005
+      "Hemangioma": 0.986992,
+      "HCC": 0.013008
     },
-    "margin": 0.96399,
+    "margin": 0.973984,
     "is_calibrated": true,
     "is_low_margin": false,
     "is_error": false,
@@ -9468,10 +9468,10 @@
     "true_label": "Hemangioma",
     "pred_label": "Hemangioma",
     "prob_vector": {
-      "Hemangioma": 0.98907,
-      "HCC": 0.01093
+      "Hemangioma": 0.991738,
+      "HCC": 0.008262
     },
-    "margin": 0.978139,
+    "margin": 0.983475,
     "is_calibrated": true,
     "is_low_margin": false,
     "is_error": false,
@@ -9490,10 +9490,10 @@
     "true_label": "Hemangioma",
     "pred_label": "Hemangioma",
     "prob_vector": {
-      "Hemangioma": 0.983823,
-      "HCC": 0.016177
+      "Hemangioma": 0.987216,
+      "HCC": 0.012784
     },
-    "margin": 0.967645,
+    "margin": 0.974432,
     "is_calibrated": true,
     "is_low_margin": false,
     "is_error": false,
@@ -9512,10 +9512,10 @@
     "true_label": "Hemangioma",
     "pred_label": "Hemangioma",
     "prob_vector": {
-      "Hemangioma": 0.990196,
-      "HCC": 0.009804
+      "Hemangioma": 0.993909,
+      "HCC": 0.006091
     },
-    "margin": 0.980392,
+    "margin": 0.987817,
     "is_calibrated": true,
     "is_low_margin": false,
     "is_error": false,
@@ -9534,10 +9534,10 @@
     "true_label": "Hemangioma",
     "pred_label": "Hemangioma",
     "prob_vector": {
-      "Hemangioma": 0.977685,
-      "HCC": 0.022315
+      "Hemangioma": 0.981774,
+      "HCC": 0.018226
     },
-    "margin": 0.955371,
+    "margin": 0.963548,
     "is_calibrated": true,
     "is_low_margin": false,
     "is_error": false,
@@ -9556,10 +9556,10 @@
     "true_label": "Hemangioma",
     "pred_label": "Hemangioma",
     "prob_vector": {
-      "Hemangioma": 0.98877,
-      "HCC": 0.01123
+      "Hemangioma": 0.99609,
+      "HCC": 0.00391
     },
-    "margin": 0.97754,
+    "margin": 0.99218,
     "is_calibrated": true,
     "is_low_margin": false,
     "is_error": false,
@@ -9578,10 +9578,10 @@
     "true_label": "Hemangioma",
     "pred_label": "Hemangioma",
     "prob_vector": {
-      "Hemangioma": 0.983569,
-      "HCC": 0.016431
+      "Hemangioma": 0.992809,
+      "HCC": 0.007191
     },
-    "margin": 0.967137,
+    "margin": 0.985617,
     "is_calibrated": true,
     "is_low_margin": false,
     "is_error": false,
@@ -9600,12 +9600,12 @@
     "true_label": "Hemangioma",
     "pred_label": "Hemangioma",
     "prob_vector": {
-      "Hemangioma": 0.939482,
-      "HCC": 0.060518
+      "Hemangioma": 0.988242,
+      "HCC": 0.011758
     },
-    "margin": 0.878964,
+    "margin": 0.976485,
     "is_calibrated": true,
-    "is_low_margin": true,
+    "is_low_margin": false,
     "is_error": false,
     "modality_mask": [
       1,
@@ -9622,10 +9622,10 @@
     "true_label": "Hemangioma",
     "pred_label": "Hemangioma",
     "prob_vector": {
-      "Hemangioma": 0.980318,
-      "HCC": 0.019682
+      "Hemangioma": 0.978285,
+      "HCC": 0.021715
     },
-    "margin": 0.960636,
+    "margin": 0.95657,
     "is_calibrated": true,
     "is_low_margin": false,
     "is_error": false,
@@ -9644,12 +9644,12 @@
     "true_label": "Hemangioma",
     "pred_label": "Hemangioma",
     "prob_vector": {
-      "Hemangioma": 0.956488,
-      "HCC": 0.043512
+      "Hemangioma": 0.978059,
+      "HCC": 0.021941
     },
-    "margin": 0.912975,
+    "margin": 0.956117,
     "is_calibrated": true,
-    "is_low_margin": true,
+    "is_low_margin": false,
     "is_error": false,
     "modality_mask": [
       1,
@@ -9666,12 +9666,12 @@
     "true_label": "Hemangioma",
     "pred_label": "Hemangioma",
     "prob_vector": {
-      "Hemangioma": 0.88783,
-      "HCC": 0.11217
+      "Hemangioma": 0.966262,
+      "HCC": 0.033738
     },
-    "margin": 0.77566,
+    "margin": 0.932525,
     "is_calibrated": true,
-    "is_low_margin": true,
+    "is_low_margin": false,
     "is_error": false,
     "modality_mask": [
       1,
@@ -9688,10 +9688,10 @@
     "true_label": "Hemangioma",
     "pred_label": "Hemangioma",
     "prob_vector": {
-      "Hemangioma": 0.988475,
-      "HCC": 0.011525
+      "Hemangioma": 0.992939,
+      "HCC": 0.007061
     },
-    "margin": 0.97695,
+    "margin": 0.985877,
     "is_calibrated": true,
     "is_low_margin": false,
     "is_error": false,
@@ -9710,10 +9710,10 @@
     "true_label": "Hemangioma",
     "pred_label": "Hemangioma",
     "prob_vector": {
-      "Hemangioma": 0.985623,
-      "HCC": 0.014377
+      "Hemangioma": 0.991702,
+      "HCC": 0.008298
     },
-    "margin": 0.971247,
+    "margin": 0.983404,
     "is_calibrated": true,
     "is_low_margin": false,
     "is_error": false,
@@ -9732,10 +9732,10 @@
     "true_label": "Hemangioma",
     "pred_label": "Hemangioma",
     "prob_vector": {
-      "Hemangioma": 0.986495,
-      "HCC": 0.013505
+      "Hemangioma": 0.993225,
+      "HCC": 0.006775
     },
-    "margin": 0.97299,
+    "margin": 0.98645,
     "is_calibrated": true,
     "is_low_margin": false,
     "is_error": false,
@@ -9754,10 +9754,10 @@
     "true_label": "Hemangioma",
     "pred_label": "Hemangioma",
     "prob_vector": {
-      "Hemangioma": 0.986947,
-      "HCC": 0.013053
+      "Hemangioma": 0.991195,
+      "HCC": 0.008805
     },
-    "margin": 0.973894,
+    "margin": 0.98239,
     "is_calibrated": true,
     "is_low_margin": false,
     "is_error": false,
@@ -9776,10 +9776,10 @@
     "true_label": "Hemangioma",
     "pred_label": "Hemangioma",
     "prob_vector": {
-      "Hemangioma": 0.985265,
-      "HCC": 0.014735
+      "Hemangioma": 0.992097,
+      "HCC": 0.007903
     },
-    "margin": 0.970529,
+    "margin": 0.984194,
     "is_calibrated": true,
     "is_low_margin": false,
     "is_error": false,
@@ -9798,10 +9798,10 @@
     "true_label": "Hemangioma",
     "pred_label": "Hemangioma",
     "prob_vector": {
-      "Hemangioma": 0.980916,
-      "HCC": 0.019084
+      "Hemangioma": 0.985863,
+      "HCC": 0.014137
     },
-    "margin": 0.961832,
+    "margin": 0.971727,
     "is_calibrated": true,
     "is_low_margin": false,
     "is_error": false,
@@ -9820,10 +9820,10 @@
     "true_label": "Hemangioma",
     "pred_label": "Hemangioma",
     "prob_vector": {
-      "Hemangioma": 0.94084,
-      "HCC": 0.05916
+      "Hemangioma": 0.954589,
+      "HCC": 0.045411
     },
-    "margin": 0.881681,
+    "margin": 0.909178,
     "is_calibrated": true,
     "is_low_margin": true,
     "is_error": false,
