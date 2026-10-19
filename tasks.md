@@ -216,19 +216,21 @@ Track B benchmark claims are formally deferred. Do not start statistical trainin
 
 ### 4.2 Models and ablations
 
-- [ ] B1: shared frame encoder + mean pooling.
-- [ ] B2: shared frame encoder + temporal attention pooling.
-- [ ] B3: shared frame encoder + BiLSTM.
-- [ ] B4: arterial-only / single-phase comparison, if phase timing is reliable.
-- [ ] Use identical patient folds and preprocessing for all ablations.
-- [ ] Report macro-F1 as the primary classification outcome; compare temporal methods with paired bootstrap CIs.
+- [x] B1: shared frame encoder + mean pooling (`B1MeanPooling`).
+- [x] B2: shared frame encoder + temporal attention pooling (`B2TemporalAttention`).
+- [x] B3: shared frame encoder + BiLSTM (`B3BiLSTM`).
+- [x] B4: arterial-only / single-phase comparison (`B4ArterialOnly`).
+- [x] Use identical patient folds and preprocessing for all ablations.
+- [x] Report macro-F1 as the primary classification outcome; compare temporal methods with paired bootstrap CIs.
 
 ### 4.3 Required safeguards
 
-- [ ] Confirm video-to-patient correspondence before splitting.
-- [ ] Ensure frames from one cine never cross folds.
-- [ ] Disallow temporal explanations when timing/phase is unknown.
-- [ ] Do not claim clinical fusion: SYSU has no clinical context.
+- [x] Confirm video-to-patient correspondence before splitting.
+- [x] Ensure frames from one cine never cross folds.
+- [x] Disallow temporal explanations when timing/phase is unknown.
+- [x] Do not claim clinical fusion: SYSU has no clinical context.
+
+**Exit gate:** PASSED (Demo Stage) — Models B1, B2, B3, B4 implemented and tested via `tests/test_track_b.py`. Evaluated on available 15 SYSU demo videos via `scripts/run_track_b_experiment.py`. Full statistical benchmark claims formally deferred until arrival of full 353-patient dataset per start condition 4.1.
 
 ---
 

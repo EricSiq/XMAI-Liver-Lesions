@@ -1,0 +1,27 @@
+{
+  "dataset_completeness": "demo_only",
+  "num_videos": 15,
+  "status": "statistical_claims_deferred_pending_full_dataset",
+  "models": {
+    "B1": {
+      "macro_f1": 0.1754,
+      "num_evaluated": 15,
+      "has_temporal_attention": false
+    },
+    "B2": {
+      "macro_f1": 0.1667,
+      "num_evaluated": 15,
+      "has_temporal_attention": true
+    },
+    "B3": {
+      "macro_f1": 0.2056,
+      "num_evaluated": 15,
+      "has_temporal_attention": false
+    },
+    "B4": {
+      "macro_f1": 0.1667,
+      "num_evaluated": 15,
+      "has_temporal_attention": false
+    }
+  }
+}

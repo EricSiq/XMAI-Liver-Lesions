@@ -149,9 +149,9 @@ class CEUSEncoder(nn.Module):
         Output: z_C in [B, embed_dim]
         """
         B, T, C, H, W = ceus_frames.shape
-        flat_frames = ceus_frames.view(B * T, C, H, W)
+        flat_frames = ceus_frames.reshape(B * T, C, H, W)
         frame_feats = self.frame_encoder(flat_frames)  # [B*T, embed_dim]
-        seq_feats = frame_feats.view(B, T, -1)         # [B, T, embed_dim]
+        seq_feats = frame_feats.reshape(B, T, -1)         # [B, T, embed_dim]
 
         if self.pooling == "attention":
             z_C, weights = self.aggregator(seq_feats)
