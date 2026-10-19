@@ -130,3 +130,35 @@ def test_evaluation_visualizations(mock_predictions, tmp_path):
     plot_hypothesis_h1_breakdown(h1_dummy, h1_file)
     assert h1_file.exists() and h1_file.stat().st_size > 0
 
+
+def test_scientific_manuscript_generation(mock_predictions, tmp_path):
+    from scripts.generate_scientific_manuscript_artifacts import (
+        generate_ablation_tables,
+        generate_calibration_ablation_table,
+        generate_pairwise_statistical_comparison,
+    )
+    preds_dict = {
+        "A1": mock_predictions,
+        "A2": mock_predictions,
+        "A3": mock_predictions,
+        "A4": mock_predictions,
+        "A5": mock_predictions,
+        "A6": mock_predictions,
+        "A7": mock_predictions,
+    }
+
+    md_tab, tex_tab = generate_ablation_tables(preds_dict, tmp_path)
+    assert "A1: B-mode Only" in md_tab
+    assert "\\begin{table*}" in tex_tab
+    assert (tmp_path / "ablation_table.md").exists()
+    assert (tmp_path / "ablation_table.tex").exists()
+
+    cal_tab = generate_calibration_ablation_table(preds_dict, tmp_path)
+    assert "Uncal ECE" in cal_tab
+    assert (tmp_path / "calibration_ablation.md").exists()
+
+    pair_tab = generate_pairwise_statistical_comparison(preds_dict, tmp_path)
+    assert "Pairwise Statistical Significance" in pair_tab
+    assert (tmp_path / "pairwise_statistical_comparison.md").exists()
+
+

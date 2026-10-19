@@ -28,7 +28,7 @@ def main() -> None:
     out_dir.mkdir(parents=True, exist_ok=True)
 
     print("=== Generating XMAI Evaluation Figures ===")
-    models = ["A1", "A2", "A4", "A6_late_fusion"]
+    models = ["A1", "A2", "A3", "A4", "A5", "A6_late_fusion", "A7"]
     preds_dict = {}
 
     for m in models:

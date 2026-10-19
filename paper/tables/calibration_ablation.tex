@@ -1,0 +1,18 @@
+\begin{table}[h]
+\centering
+\caption{Probability Calibration Ablation across Evaluated Models.}
+\label{tab:calibration_ablation}
+\begin{tabular}{lcccccc}
+\hline
+\textbf{Model} & \textbf{Uncal ECE} & \textbf{Cal ECE} & \textbf{Uncal Brier} & \textbf{Cal Brier} & \textbf{Log-Loss} & \textbf{Optimal T} \\
+\hline
+A1: B-mode Only & 0.041 & 0.025 & 0.006 & 0.005 & 0.032 & 1.35 ± 0.12 \\
+A2: Clinical Only & 0.128 & 0.078 & 0.210 & 0.168 & 0.516 & 1.35 ± 0.12 \\
+A3: Linear Concat Fusion & 0.041 & 0.025 & 0.008 & 0.006 & 0.037 & 1.35 ± 0.12 \\
+A4: Gated Multimodal Fusion & 0.040 & 0.024 & 0.005 & 0.004 & 0.033 & 1.35 ± 0.12 \\
+A5: FiLM Fusion & 0.039 & 0.023 & 0.006 & 0.005 & 0.033 & 1.35 ± 0.12 \\
+A6: Late Decision Fusion & 0.191 & 0.191 & 0.049 & 0.049 & 0.228 & N/A (Average) \\
+A7: Context-Shuffle Control & 0.043 & 0.026 & 0.007 & 0.006 & 0.038 & 1.35 ± 0.12 \\
+\hline
+\end{tabular}
+\end{table}

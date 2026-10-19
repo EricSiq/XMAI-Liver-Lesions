@@ -34,14 +34,18 @@ def plot_multimodel_roc_curves(
     colors = {
         "A1": "#1f77b4",  # Blue
         "A2": "#ff7f0e",  # Orange
+        "A3": "#8c564b",  # Brown
         "A4": "#2ca02c",  # Green
+        "A5": "#17becf",  # Cyan
         "A6": "#9467bd",  # Purple
         "A7": "#d62728",  # Red
     }
     labels_map = {
         "A1": "A1: B-mode Only",
         "A2": "A2: Clinical Only",
+        "A3": "A3: Concat Fusion",
         "A4": "A4: Gated Multimodal Fusion",
+        "A5": "A5: FiLM Fusion",
         "A6": "A6: Late Fusion",
         "A7": "A7: Context-Shuffle Control",
     }

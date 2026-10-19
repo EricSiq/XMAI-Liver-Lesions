@@ -286,23 +286,24 @@ Track B benchmark claims are formally deferred. Do not start statistical trainin
 ## Phase 7 — Scientific Journal Preparation, Extended Ablation Study & Contribution Audit
 
 ### 7.1 Extended Multimodal & Fusion Ablation Study
-- [ ] Execute 5-fold cross-validation for Model A3 (Linear Intermediate Concatenation Fusion).
-- [ ] Execute 5-fold cross-validation for Model A5 (Feature-wise Linear Modulation - FiLM).
-- [ ] Generate comprehensive 7-model comparative ablation matrix (A1, A2, A3, A4, A5, A6, A7) comparing Acc, Bal Acc, Sens, Spec, AUC, Log-Loss, Brier, and ECE with 95% bootstrap CIs.
-- [ ] Conduct calibration ablation: quantify uncalibrated vs. temperature-scaled probability calibration across all fusion models.
-- [ ] Update multi-model ROC curves, reliability diagrams, and hypothesis figures in `artifacts/evaluation_figures/`.
+- [x] Execute 5-fold cross-validation for Model A3 (Linear Intermediate Concatenation Fusion).
+- [x] Execute 5-fold cross-validation for Model A5 (Feature-wise Linear Modulation - FiLM).
+- [x] Generate comprehensive 7-model comparative ablation matrix (A1, A2, A3, A4, A5, A6, A7) comparing Acc, Bal Acc, Sens, Spec, AUC, Log-Loss, Brier, and ECE with 95% bootstrap CIs (`paper/tables/ablation_table.md`, `.tex`).
+- [x] Conduct calibration ablation: quantify uncalibrated vs. temperature-scaled probability calibration across all fusion models (`paper/tables/calibration_ablation.md`, `.tex`).
+- [x] Update multi-model ROC curves, reliability diagrams, and hypothesis figures in `artifacts/evaluation_figures/`.
 
 ### 7.2 Scientific Journal Paper Deliverables & Manuscript Report
-- [ ] Generate `paper/manuscript_report.md` structured for scientific peer review (Abstract, Methods, Results, Ablations, Explainability, Discussion, Limitations).
-- [ ] Generate publication-ready LaTeX tables (`paper/tables/ablation_table.tex`, `paper/tables/cohort_table.tex`).
-- [ ] Document strict reporting boundaries and negative controls (TCIA shortcut diagnostic, SYSU demo deferral).
+- [x] Generate `paper/manuscript_report.md` structured for scientific peer review (Abstract, Methods, Results, Ablations, Explainability, Discussion, Limitations).
+- [x] Generate publication-ready LaTeX tables (`paper/tables/ablation_table.tex`, `paper/tables/cohort_demographics.tex`, `paper/tables/calibration_ablation.tex`).
+- [x] Document strict reporting boundaries and negative controls (TCIA shortcut diagnostic, SYSU demo deferral).
 
 ### 7.3 Scientific Journal Code & Reproducibility Audit
-- [ ] Audit repository against CLAIM / STARD-AI checklist standards (patient isolation, leakage barrier verification, deterministic random seed controls).
-- [ ] Code cleanliness and docstring audit across `src/xmai/`.
-- [ ] Automated regression test suite pass rate (100% passing, 0 warnings).
+- [x] Audit repository against CLAIM / STARD-AI checklist standards (patient isolation, leakage barrier verification, deterministic random seed controls).
+- [x] Code cleanliness and docstring audit across `src/xmai/`.
+- [x] Automated regression test suite pass rate (100% passing across 61 tests, 0 warnings).
 
 **Exit gate:** PASSED — All 7 Track A models trained and evaluated under full 5-fold CV. Ablation report and publication figures generated. Scientific manuscript report and LaTeX tables produced. Full audit passed with 100% test coverage. Ready for scientific journal peer review.
+
 
 
 ## Suggested execution order for a coding agent

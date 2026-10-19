@@ -122,7 +122,7 @@ def compute_bootstrap_ci(
             sens = np.sum((yt == 1) & (yp == 1)) / max(1, np.sum(yt == 1))
             spec = np.sum((yt == 0) & (yp == 0)) / max(1, np.sum(yt == 0))
             val = float(0.5 * (sens + spec))
-        elif metric_key == "auc":
+        elif metric_key in {"auc", "roc_auc"}:
             val = float(roc_auc_score(yt, ypr))
         else:
             # Fallback for other metrics
@@ -198,6 +198,9 @@ def compute_mcnemar_test(
         "both_wrong": both_wrong,
         "rescued_by_a": b,
         "rescued_by_b": c,
+        "n_discordant": n_discordant,
+        "discordant_pairs": n_discordant,
         "net_gain_a": b - c,
+        "net_gain_b": c - b,
         "mcnemar_p_value": float(p_value),
     }
