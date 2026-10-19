@@ -108,6 +108,25 @@ def main():
     print("=" * 60)
     print(f"\n[OK] Track A execution finished successfully. Report saved to {report_file}")
 
+    # Automatically update publication evaluation figures
+    try:
+        from xmai.evaluation.visualization import (
+            plot_multimodel_roc_curves,
+            plot_reliability_diagrams,
+            plot_hypothesis_h1_breakdown,
+        )
+        out_fig_dir = WORKSPACE_ROOT / "artifacts" / "evaluation_figures"
+        out_fig_dir.mkdir(parents=True, exist_ok=True)
+        plot_multimodel_roc_curves(all_models_preds, out_fig_dir / "multimodel_roc_curves.png")
+        plot_reliability_diagrams(all_models_preds, out_fig_dir / "reliability_diagrams.png")
+        if "A1" in all_models_preds and "A4" in all_models_preds:
+            from xmai.evaluation.track_a_analysis import analyze_low_margin_decile
+            h1_data = analyze_low_margin_decile(all_models_preds["A1"], all_models_preds["A4"])
+            plot_hypothesis_h1_breakdown(h1_data, out_fig_dir / "hypothesis_h1_breakdown.png")
+        print(f"[OK] Evaluation figures updated in {out_fig_dir}")
+    except Exception as e:
+        print(f"[WARN] Figure generation skipped: {e}")
+
 
 if __name__ == "__main__":
     main()
