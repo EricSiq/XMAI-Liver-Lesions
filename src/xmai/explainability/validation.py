@@ -157,3 +157,64 @@ def compare_gate_and_shapley(
             "dominant_shapley": mod_names[dominant_shap_idx],
         },
     }
+
+
+def run_temporal_phase_masking_test(
+    model: nn.Module,
+    video_tensor: torch.Tensor,
+    target_class: int = 0,
+) -> Dict[str, Any]:
+    """
+    Evaluates sensitivity of temporal CEUS model predictions to phase masking:
+    - Unmasked baseline
+    - Arterial phase masked (early 1/3 of frames zeroed)
+    - Late phase masked (late 1/3 of frames zeroed)
+    - Top-salient temporal attention frames masked
+    """
+    model.eval()
+    B, T, C, H, W = video_tensor.shape
+    with torch.no_grad():
+        orig_out = model(video_tensor)
+        orig_prob = float(orig_out["probs"][0, target_class].item())
+        weights = orig_out.get("temporal_weights", None)
+        if weights is not None:
+            weights_np = weights[0].cpu().numpy().tolist()
+        else:
+            weights_np = None
+
+    # Arterial phase: first T//3 frames
+    arterial_end = max(1, T // 3)
+    video_mask_arterial = video_tensor.clone()
+    video_mask_arterial[:, :arterial_end] = 0.0
+
+    # Late phase: last T//3 frames
+    late_start = max(0, T - arterial_end)
+    video_mask_late = video_tensor.clone()
+    video_mask_late[:, late_start:] = 0.0
+
+    with torch.no_grad():
+        prob_mask_arterial = float(model(video_mask_arterial)["probs"][0, target_class].item())
+        prob_mask_late = float(model(video_mask_late)["probs"][0, target_class].item())
+
+    # Top-attention frames masked if weights are available
+    if weights is not None:
+        top_k = max(1, T // 4)
+        top_indices = torch.topk(weights[0], k=top_k).indices
+        video_mask_top = video_tensor.clone()
+        video_mask_top[:, top_indices] = 0.0
+        with torch.no_grad():
+            prob_mask_top = float(model(video_mask_top)["probs"][0, target_class].item())
+    else:
+        prob_mask_top = prob_mask_arterial
+
+    return {
+        "original_probability": round(orig_prob, 4),
+        "mask_arterial_probability": round(prob_mask_arterial, 4),
+        "mask_late_probability": round(prob_mask_late, 4),
+        "mask_top_attention_probability": round(prob_mask_top, 4),
+        "arterial_drop": round(orig_prob - prob_mask_arterial, 4),
+        "late_drop": round(orig_prob - prob_mask_late, 4),
+        "top_attention_drop": round(orig_prob - prob_mask_top, 4),
+        "temporal_weights": [round(float(w), 4) for w in weights_np] if weights_np else None,
+    }
+

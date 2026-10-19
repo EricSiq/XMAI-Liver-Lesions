@@ -100,3 +100,33 @@ def test_mcnemar_discordance(mock_predictions):
     assert res["rescued_by_b"] == 1
     assert res["net_gain_a"] == 0
     assert res["mcnemar_p_value"] == 1.0
+
+
+def test_evaluation_visualizations(mock_predictions, tmp_path):
+    from xmai.evaluation.visualization import (
+        plot_multimodel_roc_curves,
+        plot_reliability_diagrams,
+        plot_hypothesis_h1_breakdown,
+    )
+    preds_dict = {"Model_A": mock_predictions, "Model_B": mock_predictions}
+
+    roc_file = tmp_path / "roc.png"
+    plot_multimodel_roc_curves(preds_dict, roc_file)
+    assert roc_file.exists() and roc_file.stat().st_size > 0
+
+    rel_file = tmp_path / "rel.png"
+    plot_reliability_diagrams(preds_dict, rel_file)
+    assert rel_file.exists() and rel_file.stat().st_size > 0
+
+    h1_dummy = {
+        "low_margin_rescues": 2,
+        "low_margin_harms": 1,
+        "low_margin_net_gain": 1,
+        "high_margin_rescues": 0,
+        "high_margin_harms": 2,
+        "high_margin_net_gain": -2,
+    }
+    h1_file = tmp_path / "h1.png"
+    plot_hypothesis_h1_breakdown(h1_dummy, h1_file)
+    assert h1_file.exists() and h1_file.stat().st_size > 0
+

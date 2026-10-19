@@ -74,3 +74,20 @@ def test_explanation_card_markdown():
     assert "Patient SMC_001" in md
     assert "0.9500" in md
     assert "0.9000" in md
+
+
+def test_temporal_phase_masking_test():
+    from xmai.explainability.validation import run_temporal_phase_masking_test
+    from xmai.models.track_b_models import B2TemporalAttention
+
+    model = B2TemporalAttention(num_classes=3, pretrained=False)
+    video = torch.randn(1, 16, 3, 224, 224)
+
+    results = run_temporal_phase_masking_test(model, video, target_class=0)
+    assert "original_probability" in results
+    assert "mask_arterial_probability" in results
+    assert "mask_late_probability" in results
+    assert "mask_top_attention_probability" in results
+    assert results["temporal_weights"] is not None
+    assert len(results["temporal_weights"]) == 16
+

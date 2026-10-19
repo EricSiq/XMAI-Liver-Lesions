@@ -103,7 +103,12 @@ def evaluate_tcia_external(
     excluded_df = results_df[~results_df["harmonized_diagnosis"].isin({"HCC", "ICC", "BENIGN_UNSPECIFIED", "BENIGN_ABSCESS"})]
 
     # 4. Acquisition shortcut baseline: assess correlation of num_frames / dual_panel with HCC
-    shortcut_corr = float(results_df["is_dual_panel"].corr(results_df["harmonized_diagnosis"] == "HCC"))
+    is_dual = results_df["is_dual_panel"].astype(float)
+    is_hcc = (results_df["harmonized_diagnosis"] == "HCC").astype(float)
+    if is_dual.std() > 0 and is_hcc.std() > 0:
+        shortcut_corr = float(is_dual.corr(is_hcc))
+    else:
+        shortcut_corr = 0.0
 
     report_data = {
         "hcc_cohort": {
