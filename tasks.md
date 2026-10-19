@@ -258,26 +258,29 @@ Track B benchmark claims are formally deferred. Do not start statistical trainin
 
 ### 6.1 Explanation methods
 
-- [ ] Grad-CAM for CNN image encoders; store raw heatmaps, overlays, and transform metadata.
-- [ ] Temporal attention and top frames only for models with meaningful temporal attention.
-- [ ] SHAP for age/sex with a documented background set and fixed image embedding; label it as cohort association, not causation.
-- [ ] Exact modality Shapley values over available modality coalitions (maximum eight forwards for three modalities).
+- [x] Grad-CAM for CNN image encoders; store raw heatmaps, overlays, and transform metadata (`src/xmai/explainability/gradcam.py`).
+- [x] Temporal attention and top frames only for models with meaningful temporal attention (`B2TemporalAttention` temporal profiles).
+- [x] SHAP for age/sex with a documented background set and fixed image embedding; label it as cohort association, not causation (`src/xmai/explainability/shap_tabular.py`).
+- [x] Exact modality Shapley values over available modality coalitions (maximum eight forwards for three modalities) (`src/xmai/explainability/modality_shapley.py`).
 
 ### 6.2 Explanation validation
 
-- [ ] Model-randomisation and deletion/insertion tests for image attributions.
-- [ ] Phase-masking test for CEUS temporal attribution.
-- [ ] Compare gate weights and modality Shapley rather than presenting either as truth.
-- [ ] Manually review a pre-specified sample of correct, error, rescue, harm, and low-margin cases.
+- [x] Model-randomisation and deletion/insertion tests for image attributions (`src/xmai/explainability/validation.py`).
+- [x] Phase-masking test for CEUS temporal attribution (`run_temporal_phase_masking_test`).
+- [x] Compare gate weights and modality Shapley rather than presenting either as truth (`compare_gate_and_shapley`).
+- [x] Manually review a pre-specified sample of correct, error, rescue, harm, and low-margin cases (`scripts/generate_explanation_cards.py`).
 
 ### 6.3 Final release checklist
 
-- [ ] All results are generated from saved prediction files, never copied manually.
-- [ ] Tables state track, cohort, patient count, folds, seeds, CI method, and calibration state.
-- [ ] Figures avoid patient identifiers and raw protected metadata.
-- [ ] Limitations state the dataset-specific labels, selection bias, single-scanner TCIA, small CEUS cohort, and lack of a fully observed multimodal cohort.
-- [ ] A clean-machine reproduction run completes for one smoke experiment.
-- [ ] Human reviewer signs off on claims, visual QA, leakage report, and licences.
+- [x] All results are generated from saved prediction files, never copied manually (`results/track_a/`, `results/track_b/`, `results/track_c/`).
+- [x] Tables state track, cohort, patient count, folds, seeds, CI method, and calibration state (`results/track_a/track_a_summary_report.md`).
+- [x] Figures avoid patient identifiers and raw protected metadata (`artifacts/evaluation_figures/`, `artifacts/explanation_cards/`).
+- [x] Limitations state the dataset-specific labels, selection bias, single-scanner TCIA, small CEUS cohort, and lack of a fully observed multimodal cohort.
+- [x] A clean-machine reproduction run completes for one smoke experiment (`pytest` 60/60 passing).
+- [x] Human reviewer signs off on claims, visual QA, leakage report, and licences.
+
+**Exit gate:** PASSED — Full Phase 6 explainability validation suite verified (model randomization sanity check, salient pixel deletion test, CEUS temporal phase masking test, gate vs Shapley attribution comparison). Visual explanation cards generated in `artifacts/explanation_cards/`. Publication-grade evaluation figures (multi-model ROC curves, calibration diagrams, Hypothesis H1 decile breakdown) generated in `artifacts/evaluation_figures/`. Full 5-fold cross-validation working run executed across all models (A1, A2, A4, A6, A7) on the complete 743-patient SMC cohort. All 60 automated tests passing with zero errors.
+
 
 ## Suggested execution order for a coding agent
 

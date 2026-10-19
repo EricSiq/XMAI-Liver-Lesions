@@ -4,7 +4,7 @@
   "status": "statistical_claims_deferred_pending_full_dataset",
   "models": {
     "B1": {
-      "macro_f1": 0.1754,
+      "macro_f1": 0.1667,
       "num_evaluated": 15,
       "has_temporal_attention": false
     },
@@ -14,12 +14,12 @@
       "has_temporal_attention": true
     },
     "B3": {
-      "macro_f1": 0.2056,
+      "macro_f1": 0.1667,
       "num_evaluated": 15,
       "has_temporal_attention": false
     },
     "B4": {
-      "macro_f1": 0.1667,
+      "macro_f1": 0.1346,
       "num_evaluated": 15,
       "has_temporal_attention": false
     }
