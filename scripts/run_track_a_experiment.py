@@ -26,7 +26,7 @@ RESULTS_DIR = WORKSPACE_ROOT / "results" / "track_a"
 def main():
     parser = argparse.ArgumentParser(description="Track A Multimodal Baseline & Fusion Runner")
     parser.add_argument("--manifest", type=str, default="data/manifests/smc_manifest_v1.csv")
-    parser.add_argument("--models", nargs="+", default=["A1", "A2", "A4", "A6"], help="Models to evaluate: A1, A2, A3, A4, A5, A6, A7")
+    parser.add_argument("--models", nargs="+", default=["A1", "A2", "A3", "A4", "A5", "A6", "A7"], help="Models to evaluate: A1, A2, A3, A4, A5, A6, A7")
     parser.add_argument("--folds", nargs="+", type=int, default=[0, 1, 2, 3, 4], help="Folds to run (default: 0 1 2 3 4)")
     parser.add_argument("--epochs", type=int, default=5, help="Number of training epochs per fold")
     parser.add_argument("--batch_size", type=int, default=16, help="Batch size")
@@ -88,17 +88,32 @@ def main():
             json.dump([r.model_dump() for r in model_preds], f, indent=2)
         print(f"[OK] Model {mid} complete: saved {len(model_preds)} patient predictions to {oof_path.name}")
 
-    # Compute A6 Late Fusion if requested and A1, A2 available
-    if "A6" in models_to_run and "A1" in all_models_preds and "A2" in all_models_preds:
-        print("\n--- Computing A6 Late Fusion (0.5 * P(A1) + 0.5 * P(A2)) ---")
-        a6_preds = run_track_a_late_fusion_cv(
-            a1_preds=all_models_preds["A1"],
-            a2_preds=all_models_preds["A2"],
-            weight_a1=0.5,
-            results_dir=RESULTS_DIR,
-        )
-        all_models_preds["A6"] = a6_preds
-        print(f"[OK] A6 Late Fusion complete: saved {len(a6_preds)} predictions.")
+    # Compute A6 Late Fusion if requested
+    if "A6" in models_to_run:
+        a1_preds = all_models_preds.get("A1")
+        a2_preds = all_models_preds.get("A2")
+        if a1_preds is None and (RESULTS_DIR / "oof_predictions_A1.json").exists():
+            with open(RESULTS_DIR / "oof_predictions_A1.json", "r", encoding="utf-8") as f:
+                a1_preds = [PredictionRow.model_validate(x) for x in json.load(f)]
+                all_models_preds["A1"] = a1_preds
+        if a2_preds is None and (RESULTS_DIR / "oof_predictions_A2.json").exists():
+            with open(RESULTS_DIR / "oof_predictions_A2.json", "r", encoding="utf-8") as f:
+                a2_preds = [PredictionRow.model_validate(x) for x in json.load(f)]
+                all_models_preds["A2"] = a2_preds
+
+        if a1_preds is not None and a2_preds is not None:
+            print("\n--- Computing A6 Late Fusion (0.5 * P(A1) + 0.5 * P(A2)) ---")
+            a6_preds = run_track_a_late_fusion_cv(
+                a1_preds=a1_preds,
+                a2_preds=a2_preds,
+                weight_a1=0.5,
+                results_dir=RESULTS_DIR,
+            )
+            all_models_preds["A6"] = a6_preds
+            # Save standard naming as well
+            with open(RESULTS_DIR / "oof_predictions_A6.json", "w", encoding="utf-8") as f:
+                json.dump([r.model_dump() for r in a6_preds], f, indent=2)
+            print(f"[OK] A6 Late Fusion complete: saved {len(a6_preds)} predictions.")
 
     # Generate Summary Report
     report_file = RESULTS_DIR / "track_a_summary_report.md"
