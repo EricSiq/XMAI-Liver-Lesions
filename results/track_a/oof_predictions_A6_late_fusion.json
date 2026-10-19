@@ -1,0 +1,3280 @@
+[
+  {
+    "patient_id": "HCC_1014",
+    "track": "A",
+    "fold": 0,
+    "seed": 42,
+    "model_id": "A6_late_fusion",
+    "true_label": "HCC",
+    "pred_label": "HCC",
+    "prob_vector": {
+      "Hemangioma": 0.395282,
+      "HCC": 0.604718
+    },
+    "margin": 0.209436,
+    "is_calibrated": true,
+    "is_low_margin": true,
+    "is_error": false,
+    "modality_mask": [
+      1,
+      0,
+      1
+    ]
+  },
+  {
+    "patient_id": "HCC_1032",
+    "track": "A",
+    "fold": 0,
+    "seed": 42,
+    "model_id": "A6_late_fusion",
+    "true_label": "HCC",
+    "pred_label": "HCC",
+    "prob_vector": {
+      "Hemangioma": 0.184804,
+      "HCC": 0.815196
+    },
+    "margin": 0.630392,
+    "is_calibrated": true,
+    "is_low_margin": false,
+    "is_error": false,
+    "modality_mask": [
+      1,
+      0,
+      1
+    ]
+  },
+  {
+    "patient_id": "HCC_1033",
+    "track": "A",
+    "fold": 0,
+    "seed": 42,
+    "model_id": "A6_late_fusion",
+    "true_label": "HCC",
+    "pred_label": "HCC",
+    "prob_vector": {
+      "Hemangioma": 0.247968,
+      "HCC": 0.752032
+    },
+    "margin": 0.504065,
+    "is_calibrated": true,
+    "is_low_margin": false,
+    "is_error": false,
+    "modality_mask": [
+      1,
+      0,
+      1
+    ]
+  },
+  {
+    "patient_id": "HCC_1037",
+    "track": "A",
+    "fold": 0,
+    "seed": 42,
+    "model_id": "A6_late_fusion",
+    "true_label": "HCC",
+    "pred_label": "HCC",
+    "prob_vector": {
+      "Hemangioma": 0.325342,
+      "HCC": 0.674658
+    },
+    "margin": 0.349316,
+    "is_calibrated": true,
+    "is_low_margin": false,
+    "is_error": false,
+    "modality_mask": [
+      1,
+      0,
+      1
+    ]
+  },
+  {
+    "patient_id": "HCC_106",
+    "track": "A",
+    "fold": 0,
+    "seed": 42,
+    "model_id": "A6_late_fusion",
+    "true_label": "HCC",
+    "pred_label": "HCC",
+    "prob_vector": {
+      "Hemangioma": 0.246268,
+      "HCC": 0.753732
+    },
+    "margin": 0.507465,
+    "is_calibrated": true,
+    "is_low_margin": false,
+    "is_error": false,
+    "modality_mask": [
+      1,
+      0,
+      1
+    ]
+  },
+  {
+    "patient_id": "HCC_1102",
+    "track": "A",
+    "fold": 0,
+    "seed": 42,
+    "model_id": "A6_late_fusion",
+    "true_label": "HCC",
+    "pred_label": "HCC",
+    "prob_vector": {
+      "Hemangioma": 0.262169,
+      "HCC": 0.73783
+    },
+    "margin": 0.475661,
+    "is_calibrated": true,
+    "is_low_margin": false,
+    "is_error": false,
+    "modality_mask": [
+      1,
+      0,
+      1
+    ]
+  },
+  {
+    "patient_id": "HCC_1123",
+    "track": "A",
+    "fold": 0,
+    "seed": 42,
+    "model_id": "A6_late_fusion",
+    "true_label": "HCC",
+    "pred_label": "HCC",
+    "prob_vector": {
+      "Hemangioma": 0.185305,
+      "HCC": 0.814696
+    },
+    "margin": 0.629391,
+    "is_calibrated": true,
+    "is_low_margin": false,
+    "is_error": false,
+    "modality_mask": [
+      1,
+      0,
+      1
+    ]
+  },
+  {
+    "patient_id": "HCC_1146",
+    "track": "A",
+    "fold": 0,
+    "seed": 42,
+    "model_id": "A6_late_fusion",
+    "true_label": "HCC",
+    "pred_label": "HCC",
+    "prob_vector": {
+      "Hemangioma": 0.149445,
+      "HCC": 0.850556
+    },
+    "margin": 0.701111,
+    "is_calibrated": true,
+    "is_low_margin": false,
+    "is_error": false,
+    "modality_mask": [
+      1,
+      0,
+      1
+    ]
+  },
+  {
+    "patient_id": "HCC_1183",
+    "track": "A",
+    "fold": 0,
+    "seed": 42,
+    "model_id": "A6_late_fusion",
+    "true_label": "HCC",
+    "pred_label": "HCC",
+    "prob_vector": {
+      "Hemangioma": 0.266653,
+      "HCC": 0.733347
+    },
+    "margin": 0.466694,
+    "is_calibrated": true,
+    "is_low_margin": false,
+    "is_error": false,
+    "modality_mask": [
+      1,
+      0,
+      1
+    ]
+  },
+  {
+    "patient_id": "HCC_1205",
+    "track": "A",
+    "fold": 0,
+    "seed": 42,
+    "model_id": "A6_late_fusion",
+    "true_label": "HCC",
+    "pred_label": "HCC",
+    "prob_vector": {
+      "Hemangioma": 0.154555,
+      "HCC": 0.845445
+    },
+    "margin": 0.69089,
+    "is_calibrated": true,
+    "is_low_margin": false,
+    "is_error": false,
+    "modality_mask": [
+      1,
+      0,
+      1
+    ]
+  },
+  {
+    "patient_id": "HCC_1209",
+    "track": "A",
+    "fold": 0,
+    "seed": 42,
+    "model_id": "A6_late_fusion",
+    "true_label": "HCC",
+    "pred_label": "HCC",
+    "prob_vector": {
+      "Hemangioma": 0.249967,
+      "HCC": 0.750033
+    },
+    "margin": 0.500066,
+    "is_calibrated": true,
+    "is_low_margin": false,
+    "is_error": false,
+    "modality_mask": [
+      1,
+      0,
+      1
+    ]
+  },
+  {
+    "patient_id": "HCC_1222",
+    "track": "A",
+    "fold": 0,
+    "seed": 42,
+    "model_id": "A6_late_fusion",
+    "true_label": "HCC",
+    "pred_label": "HCC",
+    "prob_vector": {
+      "Hemangioma": 0.187304,
+      "HCC": 0.812696
+    },
+    "margin": 0.625393,
+    "is_calibrated": true,
+    "is_low_margin": false,
+    "is_error": false,
+    "modality_mask": [
+      1,
+      0,
+      1
+    ]
+  },
+  {
+    "patient_id": "HCC_1258",
+    "track": "A",
+    "fold": 0,
+    "seed": 42,
+    "model_id": "A6_late_fusion",
+    "true_label": "HCC",
+    "pred_label": "HCC",
+    "prob_vector": {
+      "Hemangioma": 0.260505,
+      "HCC": 0.739495
+    },
+    "margin": 0.478991,
+    "is_calibrated": true,
+    "is_low_margin": false,
+    "is_error": false,
+    "modality_mask": [
+      1,
+      0,
+      1
+    ]
+  },
+  {
+    "patient_id": "HCC_1262",
+    "track": "A",
+    "fold": 0,
+    "seed": 42,
+    "model_id": "A6_late_fusion",
+    "true_label": "HCC",
+    "pred_label": "HCC",
+    "prob_vector": {
+      "Hemangioma": 0.259942,
+      "HCC": 0.740058
+    },
+    "margin": 0.480115,
+    "is_calibrated": true,
+    "is_low_margin": false,
+    "is_error": false,
+    "modality_mask": [
+      1,
+      0,
+      1
+    ]
+  },
+  {
+    "patient_id": "HCC_1271",
+    "track": "A",
+    "fold": 0,
+    "seed": 42,
+    "model_id": "A6_late_fusion",
+    "true_label": "HCC",
+    "pred_label": "HCC",
+    "prob_vector": {
+      "Hemangioma": 0.246217,
+      "HCC": 0.753783
+    },
+    "margin": 0.507566,
+    "is_calibrated": true,
+    "is_low_margin": false,
+    "is_error": false,
+    "modality_mask": [
+      1,
+      0,
+      1
+    ]
+  },
+  {
+    "patient_id": "HCC_1276",
+    "track": "A",
+    "fold": 0,
+    "seed": 42,
+    "model_id": "A6_late_fusion",
+    "true_label": "HCC",
+    "pred_label": "HCC",
+    "prob_vector": {
+      "Hemangioma": 0.189536,
+      "HCC": 0.810464
+    },
+    "margin": 0.620928,
+    "is_calibrated": true,
+    "is_low_margin": false,
+    "is_error": false,
+    "modality_mask": [
+      1,
+      0,
+      1
+    ]
+  },
+  {
+    "patient_id": "HCC_130",
+    "track": "A",
+    "fold": 0,
+    "seed": 42,
+    "model_id": "A6_late_fusion",
+    "true_label": "HCC",
+    "pred_label": "HCC",
+    "prob_vector": {
+      "Hemangioma": 0.148561,
+      "HCC": 0.851439
+    },
+    "margin": 0.702878,
+    "is_calibrated": true,
+    "is_low_margin": false,
+    "is_error": false,
+    "modality_mask": [
+      1,
+      0,
+      1
+    ]
+  },
+  {
+    "patient_id": "HCC_1300",
+    "track": "A",
+    "fold": 0,
+    "seed": 42,
+    "model_id": "A6_late_fusion",
+    "true_label": "HCC",
+    "pred_label": "HCC",
+    "prob_vector": {
+      "Hemangioma": 0.210015,
+      "HCC": 0.789984
+    },
+    "margin": 0.579969,
+    "is_calibrated": true,
+    "is_low_margin": false,
+    "is_error": false,
+    "modality_mask": [
+      1,
+      0,
+      1
+    ]
+  },
+  {
+    "patient_id": "HCC_132",
+    "track": "A",
+    "fold": 0,
+    "seed": 42,
+    "model_id": "A6_late_fusion",
+    "true_label": "HCC",
+    "pred_label": "HCC",
+    "prob_vector": {
+      "Hemangioma": 0.259535,
+      "HCC": 0.740464
+    },
+    "margin": 0.480929,
+    "is_calibrated": true,
+    "is_low_margin": false,
+    "is_error": false,
+    "modality_mask": [
+      1,
+      0,
+      1
+    ]
+  },
+  {
+    "patient_id": "HCC_1332",
+    "track": "A",
+    "fold": 0,
+    "seed": 42,
+    "model_id": "A6_late_fusion",
+    "true_label": "HCC",
+    "pred_label": "HCC",
+    "prob_vector": {
+      "Hemangioma": 0.251761,
+      "HCC": 0.748239
+    },
+    "margin": 0.496477,
+    "is_calibrated": true,
+    "is_low_margin": false,
+    "is_error": false,
+    "modality_mask": [
+      1,
+      0,
+      1
+    ]
+  },
+  {
+    "patient_id": "HCC_1362",
+    "track": "A",
+    "fold": 0,
+    "seed": 42,
+    "model_id": "A6_late_fusion",
+    "true_label": "HCC",
+    "pred_label": "HCC",
+    "prob_vector": {
+      "Hemangioma": 0.267755,
+      "HCC": 0.732245
+    },
+    "margin": 0.464491,
+    "is_calibrated": true,
+    "is_low_margin": false,
+    "is_error": false,
+    "modality_mask": [
+      1,
+      0,
+      1
+    ]
+  },
+  {
+    "patient_id": "HCC_1364",
+    "track": "A",
+    "fold": 0,
+    "seed": 42,
+    "model_id": "A6_late_fusion",
+    "true_label": "HCC",
+    "pred_label": "HCC",
+    "prob_vector": {
+      "Hemangioma": 0.215654,
+      "HCC": 0.784346
+    },
+    "margin": 0.568692,
+    "is_calibrated": true,
+    "is_low_margin": false,
+    "is_error": false,
+    "modality_mask": [
+      1,
+      0,
+      1
+    ]
+  },
+  {
+    "patient_id": "HCC_1385",
+    "track": "A",
+    "fold": 0,
+    "seed": 42,
+    "model_id": "A6_late_fusion",
+    "true_label": "HCC",
+    "pred_label": "HCC",
+    "prob_vector": {
+      "Hemangioma": 0.201155,
+      "HCC": 0.798845
+    },
+    "margin": 0.59769,
+    "is_calibrated": true,
+    "is_low_margin": false,
+    "is_error": false,
+    "modality_mask": [
+      1,
+      0,
+      1
+    ]
+  },
+  {
+    "patient_id": "HCC_14",
+    "track": "A",
+    "fold": 0,
+    "seed": 42,
+    "model_id": "A6_late_fusion",
+    "true_label": "HCC",
+    "pred_label": "HCC",
+    "prob_vector": {
+      "Hemangioma": 0.191179,
+      "HCC": 0.808821
+    },
+    "margin": 0.617643,
+    "is_calibrated": true,
+    "is_low_margin": false,
+    "is_error": false,
+    "modality_mask": [
+      1,
+      0,
+      1
+    ]
+  },
+  {
+    "patient_id": "HCC_140",
+    "track": "A",
+    "fold": 0,
+    "seed": 42,
+    "model_id": "A6_late_fusion",
+    "true_label": "HCC",
+    "pred_label": "HCC",
+    "prob_vector": {
+      "Hemangioma": 0.149844,
+      "HCC": 0.850156
+    },
+    "margin": 0.700311,
+    "is_calibrated": true,
+    "is_low_margin": false,
+    "is_error": false,
+    "modality_mask": [
+      1,
+      0,
+      1
+    ]
+  },
+  {
+    "patient_id": "HCC_1400",
+    "track": "A",
+    "fold": 0,
+    "seed": 42,
+    "model_id": "A6_late_fusion",
+    "true_label": "HCC",
+    "pred_label": "HCC",
+    "prob_vector": {
+      "Hemangioma": 0.25328,
+      "HCC": 0.74672
+    },
+    "margin": 0.49344,
+    "is_calibrated": true,
+    "is_low_margin": false,
+    "is_error": false,
+    "modality_mask": [
+      1,
+      0,
+      1
+    ]
+  },
+  {
+    "patient_id": "HCC_1404",
+    "track": "A",
+    "fold": 0,
+    "seed": 42,
+    "model_id": "A6_late_fusion",
+    "true_label": "HCC",
+    "pred_label": "HCC",
+    "prob_vector": {
+      "Hemangioma": 0.197253,
+      "HCC": 0.802747
+    },
+    "margin": 0.605493,
+    "is_calibrated": true,
+    "is_low_margin": false,
+    "is_error": false,
+    "modality_mask": [
+      1,
+      0,
+      1
+    ]
+  },
+  {
+    "patient_id": "HCC_1405",
+    "track": "A",
+    "fold": 0,
+    "seed": 42,
+    "model_id": "A6_late_fusion",
+    "true_label": "HCC",
+    "pred_label": "HCC",
+    "prob_vector": {
+      "Hemangioma": 0.145568,
+      "HCC": 0.854432
+    },
+    "margin": 0.708863,
+    "is_calibrated": true,
+    "is_low_margin": false,
+    "is_error": false,
+    "modality_mask": [
+      1,
+      0,
+      1
+    ]
+  },
+  {
+    "patient_id": "HCC_1435",
+    "track": "A",
+    "fold": 0,
+    "seed": 42,
+    "model_id": "A6_late_fusion",
+    "true_label": "HCC",
+    "pred_label": "HCC",
+    "prob_vector": {
+      "Hemangioma": 0.148339,
+      "HCC": 0.851662
+    },
+    "margin": 0.703323,
+    "is_calibrated": true,
+    "is_low_margin": false,
+    "is_error": false,
+    "modality_mask": [
+      1,
+      0,
+      1
+    ]
+  },
+  {
+    "patient_id": "HCC_1436",
+    "track": "A",
+    "fold": 0,
+    "seed": 42,
+    "model_id": "A6_late_fusion",
+    "true_label": "HCC",
+    "pred_label": "HCC",
+    "prob_vector": {
+      "Hemangioma": 0.194142,
+      "HCC": 0.805857
+    },
+    "margin": 0.611715,
+    "is_calibrated": true,
+    "is_low_margin": false,
+    "is_error": false,
+    "modality_mask": [
+      1,
+      0,
+      1
+    ]
+  },
+  {
+    "patient_id": "HCC_1460",
+    "track": "A",
+    "fold": 0,
+    "seed": 42,
+    "model_id": "A6_late_fusion",
+    "true_label": "HCC",
+    "pred_label": "HCC",
+    "prob_vector": {
+      "Hemangioma": 0.217615,
+      "HCC": 0.782385
+    },
+    "margin": 0.56477,
+    "is_calibrated": true,
+    "is_low_margin": true,
+    "is_error": false,
+    "modality_mask": [
+      1,
+      0,
+      1
+    ]
+  },
+  {
+    "patient_id": "HCC_1472",
+    "track": "A",
+    "fold": 0,
+    "seed": 42,
+    "model_id": "A6_late_fusion",
+    "true_label": "HCC",
+    "pred_label": "HCC",
+    "prob_vector": {
+      "Hemangioma": 0.276327,
+      "HCC": 0.723673
+    },
+    "margin": 0.447347,
+    "is_calibrated": true,
+    "is_low_margin": false,
+    "is_error": false,
+    "modality_mask": [
+      1,
+      0,
+      1
+    ]
+  },
+  {
+    "patient_id": "HCC_1473",
+    "track": "A",
+    "fold": 0,
+    "seed": 42,
+    "model_id": "A6_late_fusion",
+    "true_label": "HCC",
+    "pred_label": "HCC",
+    "prob_vector": {
+      "Hemangioma": 0.264228,
+      "HCC": 0.735772
+    },
+    "margin": 0.471545,
+    "is_calibrated": true,
+    "is_low_margin": false,
+    "is_error": false,
+    "modality_mask": [
+      1,
+      0,
+      1
+    ]
+  },
+  {
+    "patient_id": "HCC_1479",
+    "track": "A",
+    "fold": 0,
+    "seed": 42,
+    "model_id": "A6_late_fusion",
+    "true_label": "HCC",
+    "pred_label": "HCC",
+    "prob_vector": {
+      "Hemangioma": 0.190949,
+      "HCC": 0.809051
+    },
+    "margin": 0.618102,
+    "is_calibrated": true,
+    "is_low_margin": false,
+    "is_error": false,
+    "modality_mask": [
+      1,
+      0,
+      1
+    ]
+  },
+  {
+    "patient_id": "HCC_1494",
+    "track": "A",
+    "fold": 0,
+    "seed": 42,
+    "model_id": "A6_late_fusion",
+    "true_label": "HCC",
+    "pred_label": "HCC",
+    "prob_vector": {
+      "Hemangioma": 0.173961,
+      "HCC": 0.82604
+    },
+    "margin": 0.652079,
+    "is_calibrated": true,
+    "is_low_margin": false,
+    "is_error": false,
+    "modality_mask": [
+      1,
+      0,
+      1
+    ]
+  },
+  {
+    "patient_id": "HCC_1525",
+    "track": "A",
+    "fold": 0,
+    "seed": 42,
+    "model_id": "A6_late_fusion",
+    "true_label": "HCC",
+    "pred_label": "HCC",
+    "prob_vector": {
+      "Hemangioma": 0.245365,
+      "HCC": 0.754636
+    },
+    "margin": 0.509271,
+    "is_calibrated": true,
+    "is_low_margin": false,
+    "is_error": false,
+    "modality_mask": [
+      1,
+      0,
+      1
+    ]
+  },
+  {
+    "patient_id": "HCC_1528",
+    "track": "A",
+    "fold": 0,
+    "seed": 42,
+    "model_id": "A6_late_fusion",
+    "true_label": "HCC",
+    "pred_label": "HCC",
+    "prob_vector": {
+      "Hemangioma": 0.211932,
+      "HCC": 0.788067
+    },
+    "margin": 0.576135,
+    "is_calibrated": true,
+    "is_low_margin": false,
+    "is_error": false,
+    "modality_mask": [
+      1,
+      0,
+      1
+    ]
+  },
+  {
+    "patient_id": "HCC_1551",
+    "track": "A",
+    "fold": 0,
+    "seed": 42,
+    "model_id": "A6_late_fusion",
+    "true_label": "HCC",
+    "pred_label": "HCC",
+    "prob_vector": {
+      "Hemangioma": 0.247544,
+      "HCC": 0.752456
+    },
+    "margin": 0.504912,
+    "is_calibrated": true,
+    "is_low_margin": false,
+    "is_error": false,
+    "modality_mask": [
+      1,
+      0,
+      1
+    ]
+  },
+  {
+    "patient_id": "HCC_1603",
+    "track": "A",
+    "fold": 0,
+    "seed": 42,
+    "model_id": "A6_late_fusion",
+    "true_label": "HCC",
+    "pred_label": "HCC",
+    "prob_vector": {
+      "Hemangioma": 0.153701,
+      "HCC": 0.846299
+    },
+    "margin": 0.692599,
+    "is_calibrated": true,
+    "is_low_margin": false,
+    "is_error": false,
+    "modality_mask": [
+      1,
+      0,
+      1
+    ]
+  },
+  {
+    "patient_id": "HCC_161",
+    "track": "A",
+    "fold": 0,
+    "seed": 42,
+    "model_id": "A6_late_fusion",
+    "true_label": "HCC",
+    "pred_label": "HCC",
+    "prob_vector": {
+      "Hemangioma": 0.151884,
+      "HCC": 0.848116
+    },
+    "margin": 0.696232,
+    "is_calibrated": true,
+    "is_low_margin": false,
+    "is_error": false,
+    "modality_mask": [
+      1,
+      0,
+      1
+    ]
+  },
+  {
+    "patient_id": "HCC_1668",
+    "track": "A",
+    "fold": 0,
+    "seed": 42,
+    "model_id": "A6_late_fusion",
+    "true_label": "HCC",
+    "pred_label": "HCC",
+    "prob_vector": {
+      "Hemangioma": 0.252514,
+      "HCC": 0.747486
+    },
+    "margin": 0.494973,
+    "is_calibrated": true,
+    "is_low_margin": false,
+    "is_error": false,
+    "modality_mask": [
+      1,
+      0,
+      1
+    ]
+  },
+  {
+    "patient_id": "HCC_1689",
+    "track": "A",
+    "fold": 0,
+    "seed": 42,
+    "model_id": "A6_late_fusion",
+    "true_label": "HCC",
+    "pred_label": "HCC",
+    "prob_vector": {
+      "Hemangioma": 0.142195,
+      "HCC": 0.857805
+    },
+    "margin": 0.71561,
+    "is_calibrated": true,
+    "is_low_margin": false,
+    "is_error": false,
+    "modality_mask": [
+      1,
+      0,
+      1
+    ]
+  },
+  {
+    "patient_id": "HCC_1701",
+    "track": "A",
+    "fold": 0,
+    "seed": 42,
+    "model_id": "A6_late_fusion",
+    "true_label": "HCC",
+    "pred_label": "HCC",
+    "prob_vector": {
+      "Hemangioma": 0.2928,
+      "HCC": 0.7072
+    },
+    "margin": 0.4144,
+    "is_calibrated": true,
+    "is_low_margin": true,
+    "is_error": false,
+    "modality_mask": [
+      1,
+      0,
+      1
+    ]
+  },
+  {
+    "patient_id": "HCC_1715",
+    "track": "A",
+    "fold": 0,
+    "seed": 42,
+    "model_id": "A6_late_fusion",
+    "true_label": "HCC",
+    "pred_label": "HCC",
+    "prob_vector": {
+      "Hemangioma": 0.183581,
+      "HCC": 0.816419
+    },
+    "margin": 0.632838,
+    "is_calibrated": true,
+    "is_low_margin": false,
+    "is_error": false,
+    "modality_mask": [
+      1,
+      0,
+      1
+    ]
+  },
+  {
+    "patient_id": "HCC_1721",
+    "track": "A",
+    "fold": 0,
+    "seed": 42,
+    "model_id": "A6_late_fusion",
+    "true_label": "HCC",
+    "pred_label": "HCC",
+    "prob_vector": {
+      "Hemangioma": 0.18521,
+      "HCC": 0.81479
+    },
+    "margin": 0.62958,
+    "is_calibrated": true,
+    "is_low_margin": false,
+    "is_error": false,
+    "modality_mask": [
+      1,
+      0,
+      1
+    ]
+  },
+  {
+    "patient_id": "HCC_1759",
+    "track": "A",
+    "fold": 0,
+    "seed": 42,
+    "model_id": "A6_late_fusion",
+    "true_label": "HCC",
+    "pred_label": "HCC",
+    "prob_vector": {
+      "Hemangioma": 0.251397,
+      "HCC": 0.748603
+    },
+    "margin": 0.497207,
+    "is_calibrated": true,
+    "is_low_margin": false,
+    "is_error": false,
+    "modality_mask": [
+      1,
+      0,
+      1
+    ]
+  },
+  {
+    "patient_id": "HCC_1763",
+    "track": "A",
+    "fold": 0,
+    "seed": 42,
+    "model_id": "A6_late_fusion",
+    "true_label": "HCC",
+    "pred_label": "HCC",
+    "prob_vector": {
+      "Hemangioma": 0.485057,
+      "HCC": 0.514943
+    },
+    "margin": 0.029887,
+    "is_calibrated": true,
+    "is_low_margin": true,
+    "is_error": false,
+    "modality_mask": [
+      1,
+      0,
+      1
+    ]
+  },
+  {
+    "patient_id": "HCC_1787",
+    "track": "A",
+    "fold": 0,
+    "seed": 42,
+    "model_id": "A6_late_fusion",
+    "true_label": "HCC",
+    "pred_label": "HCC",
+    "prob_vector": {
+      "Hemangioma": 0.183757,
+      "HCC": 0.816243
+    },
+    "margin": 0.632486,
+    "is_calibrated": true,
+    "is_low_margin": false,
+    "is_error": false,
+    "modality_mask": [
+      1,
+      0,
+      1
+    ]
+  },
+  {
+    "patient_id": "HCC_1788",
+    "track": "A",
+    "fold": 0,
+    "seed": 42,
+    "model_id": "A6_late_fusion",
+    "true_label": "HCC",
+    "pred_label": "HCC",
+    "prob_vector": {
+      "Hemangioma": 0.149038,
+      "HCC": 0.850962
+    },
+    "margin": 0.701924,
+    "is_calibrated": true,
+    "is_low_margin": false,
+    "is_error": false,
+    "modality_mask": [
+      1,
+      0,
+      1
+    ]
+  },
+  {
+    "patient_id": "HCC_1796",
+    "track": "A",
+    "fold": 0,
+    "seed": 42,
+    "model_id": "A6_late_fusion",
+    "true_label": "HCC",
+    "pred_label": "HCC",
+    "prob_vector": {
+      "Hemangioma": 0.265746,
+      "HCC": 0.734255
+    },
+    "margin": 0.468509,
+    "is_calibrated": true,
+    "is_low_margin": false,
+    "is_error": false,
+    "modality_mask": [
+      1,
+      0,
+      1
+    ]
+  },
+  {
+    "patient_id": "HCC_1829",
+    "track": "A",
+    "fold": 0,
+    "seed": 42,
+    "model_id": "A6_late_fusion",
+    "true_label": "HCC",
+    "pred_label": "HCC",
+    "prob_vector": {
+      "Hemangioma": 0.260587,
+      "HCC": 0.739413
+    },
+    "margin": 0.478826,
+    "is_calibrated": true,
+    "is_low_margin": false,
+    "is_error": false,
+    "modality_mask": [
+      1,
+      0,
+      1
+    ]
+  },
+  {
+    "patient_id": "HCC_1941",
+    "track": "A",
+    "fold": 0,
+    "seed": 42,
+    "model_id": "A6_late_fusion",
+    "true_label": "HCC",
+    "pred_label": "HCC",
+    "prob_vector": {
+      "Hemangioma": 0.183865,
+      "HCC": 0.816134
+    },
+    "margin": 0.632269,
+    "is_calibrated": true,
+    "is_low_margin": false,
+    "is_error": false,
+    "modality_mask": [
+      1,
+      0,
+      1
+    ]
+  },
+  {
+    "patient_id": "HCC_1944",
+    "track": "A",
+    "fold": 0,
+    "seed": 42,
+    "model_id": "A6_late_fusion",
+    "true_label": "HCC",
+    "pred_label": "HCC",
+    "prob_vector": {
+      "Hemangioma": 0.189744,
+      "HCC": 0.810256
+    },
+    "margin": 0.620513,
+    "is_calibrated": true,
+    "is_low_margin": false,
+    "is_error": false,
+    "modality_mask": [
+      1,
+      0,
+      1
+    ]
+  },
+  {
+    "patient_id": "HCC_2073",
+    "track": "A",
+    "fold": 0,
+    "seed": 42,
+    "model_id": "A6_late_fusion",
+    "true_label": "HCC",
+    "pred_label": "HCC",
+    "prob_vector": {
+      "Hemangioma": 0.291478,
+      "HCC": 0.708522
+    },
+    "margin": 0.417044,
+    "is_calibrated": true,
+    "is_low_margin": false,
+    "is_error": false,
+    "modality_mask": [
+      1,
+      0,
+      1
+    ]
+  },
+  {
+    "patient_id": "HCC_2080",
+    "track": "A",
+    "fold": 0,
+    "seed": 42,
+    "model_id": "A6_late_fusion",
+    "true_label": "HCC",
+    "pred_label": "HCC",
+    "prob_vector": {
+      "Hemangioma": 0.339708,
+      "HCC": 0.660292
+    },
+    "margin": 0.320585,
+    "is_calibrated": true,
+    "is_low_margin": true,
+    "is_error": false,
+    "modality_mask": [
+      1,
+      0,
+      1
+    ]
+  },
+  {
+    "patient_id": "HCC_2103",
+    "track": "A",
+    "fold": 0,
+    "seed": 42,
+    "model_id": "A6_late_fusion",
+    "true_label": "HCC",
+    "pred_label": "HCC",
+    "prob_vector": {
+      "Hemangioma": 0.149638,
+      "HCC": 0.850362
+    },
+    "margin": 0.700724,
+    "is_calibrated": true,
+    "is_low_margin": false,
+    "is_error": false,
+    "modality_mask": [
+      1,
+      0,
+      1
+    ]
+  },
+  {
+    "patient_id": "HCC_2113",
+    "track": "A",
+    "fold": 0,
+    "seed": 42,
+    "model_id": "A6_late_fusion",
+    "true_label": "HCC",
+    "pred_label": "HCC",
+    "prob_vector": {
+      "Hemangioma": 0.305272,
+      "HCC": 0.694728
+    },
+    "margin": 0.389457,
+    "is_calibrated": true,
+    "is_low_margin": false,
+    "is_error": false,
+    "modality_mask": [
+      1,
+      0,
+      1
+    ]
+  },
+  {
+    "patient_id": "HCC_2116",
+    "track": "A",
+    "fold": 0,
+    "seed": 42,
+    "model_id": "A6_late_fusion",
+    "true_label": "HCC",
+    "pred_label": "HCC",
+    "prob_vector": {
+      "Hemangioma": 0.310825,
+      "HCC": 0.689175
+    },
+    "margin": 0.37835,
+    "is_calibrated": true,
+    "is_low_margin": false,
+    "is_error": false,
+    "modality_mask": [
+      1,
+      0,
+      1
+    ]
+  },
+  {
+    "patient_id": "HCC_2143",
+    "track": "A",
+    "fold": 0,
+    "seed": 42,
+    "model_id": "A6_late_fusion",
+    "true_label": "HCC",
+    "pred_label": "HCC",
+    "prob_vector": {
+      "Hemangioma": 0.29129,
+      "HCC": 0.70871
+    },
+    "margin": 0.41742,
+    "is_calibrated": true,
+    "is_low_margin": false,
+    "is_error": false,
+    "modality_mask": [
+      1,
+      0,
+      1
+    ]
+  },
+  {
+    "patient_id": "HCC_218",
+    "track": "A",
+    "fold": 0,
+    "seed": 42,
+    "model_id": "A6_late_fusion",
+    "true_label": "HCC",
+    "pred_label": "HCC",
+    "prob_vector": {
+      "Hemangioma": 0.218547,
+      "HCC": 0.781453
+    },
+    "margin": 0.562906,
+    "is_calibrated": true,
+    "is_low_margin": false,
+    "is_error": false,
+    "modality_mask": [
+      1,
+      0,
+      1
+    ]
+  },
+  {
+    "patient_id": "HCC_259",
+    "track": "A",
+    "fold": 0,
+    "seed": 42,
+    "model_id": "A6_late_fusion",
+    "true_label": "HCC",
+    "pred_label": "HCC",
+    "prob_vector": {
+      "Hemangioma": 0.260734,
+      "HCC": 0.739267
+    },
+    "margin": 0.478533,
+    "is_calibrated": true,
+    "is_low_margin": false,
+    "is_error": false,
+    "modality_mask": [
+      1,
+      0,
+      1
+    ]
+  },
+  {
+    "patient_id": "HCC_339",
+    "track": "A",
+    "fold": 0,
+    "seed": 42,
+    "model_id": "A6_late_fusion",
+    "true_label": "HCC",
+    "pred_label": "HCC",
+    "prob_vector": {
+      "Hemangioma": 0.246835,
+      "HCC": 0.753165
+    },
+    "margin": 0.506331,
+    "is_calibrated": true,
+    "is_low_margin": false,
+    "is_error": false,
+    "modality_mask": [
+      1,
+      0,
+      1
+    ]
+  },
+  {
+    "patient_id": "HCC_34",
+    "track": "A",
+    "fold": 0,
+    "seed": 42,
+    "model_id": "A6_late_fusion",
+    "true_label": "HCC",
+    "pred_label": "HCC",
+    "prob_vector": {
+      "Hemangioma": 0.259535,
+      "HCC": 0.740464
+    },
+    "margin": 0.480929,
+    "is_calibrated": true,
+    "is_low_margin": false,
+    "is_error": false,
+    "modality_mask": [
+      1,
+      0,
+      1
+    ]
+  },
+  {
+    "patient_id": "HCC_347",
+    "track": "A",
+    "fold": 0,
+    "seed": 42,
+    "model_id": "A6_late_fusion",
+    "true_label": "HCC",
+    "pred_label": "HCC",
+    "prob_vector": {
+      "Hemangioma": 0.258847,
+      "HCC": 0.741153
+    },
+    "margin": 0.482306,
+    "is_calibrated": true,
+    "is_low_margin": false,
+    "is_error": false,
+    "modality_mask": [
+      1,
+      0,
+      1
+    ]
+  },
+  {
+    "patient_id": "HCC_40",
+    "track": "A",
+    "fold": 0,
+    "seed": 42,
+    "model_id": "A6_late_fusion",
+    "true_label": "HCC",
+    "pred_label": "HCC",
+    "prob_vector": {
+      "Hemangioma": 0.147603,
+      "HCC": 0.852397
+    },
+    "margin": 0.704794,
+    "is_calibrated": true,
+    "is_low_margin": false,
+    "is_error": false,
+    "modality_mask": [
+      1,
+      0,
+      1
+    ]
+  },
+  {
+    "patient_id": "HCC_449",
+    "track": "A",
+    "fold": 0,
+    "seed": 42,
+    "model_id": "A6_late_fusion",
+    "true_label": "HCC",
+    "pred_label": "HCC",
+    "prob_vector": {
+      "Hemangioma": 0.261072,
+      "HCC": 0.738928
+    },
+    "margin": 0.477856,
+    "is_calibrated": true,
+    "is_low_margin": false,
+    "is_error": false,
+    "modality_mask": [
+      1,
+      0,
+      1
+    ]
+  },
+  {
+    "patient_id": "HCC_454",
+    "track": "A",
+    "fold": 0,
+    "seed": 42,
+    "model_id": "A6_late_fusion",
+    "true_label": "HCC",
+    "pred_label": "HCC",
+    "prob_vector": {
+      "Hemangioma": 0.259934,
+      "HCC": 0.740066
+    },
+    "margin": 0.480132,
+    "is_calibrated": true,
+    "is_low_margin": false,
+    "is_error": false,
+    "modality_mask": [
+      1,
+      0,
+      1
+    ]
+  },
+  {
+    "patient_id": "HCC_47",
+    "track": "A",
+    "fold": 0,
+    "seed": 42,
+    "model_id": "A6_late_fusion",
+    "true_label": "HCC",
+    "pred_label": "HCC",
+    "prob_vector": {
+      "Hemangioma": 0.148835,
+      "HCC": 0.851165
+    },
+    "margin": 0.70233,
+    "is_calibrated": true,
+    "is_low_margin": false,
+    "is_error": false,
+    "modality_mask": [
+      1,
+      0,
+      1
+    ]
+  },
+  {
+    "patient_id": "HCC_474",
+    "track": "A",
+    "fold": 0,
+    "seed": 42,
+    "model_id": "A6_late_fusion",
+    "true_label": "HCC",
+    "pred_label": "HCC",
+    "prob_vector": {
+      "Hemangioma": 0.262273,
+      "HCC": 0.737727
+    },
+    "margin": 0.475454,
+    "is_calibrated": true,
+    "is_low_margin": true,
+    "is_error": false,
+    "modality_mask": [
+      1,
+      0,
+      1
+    ]
+  },
+  {
+    "patient_id": "HCC_48",
+    "track": "A",
+    "fold": 0,
+    "seed": 42,
+    "model_id": "A6_late_fusion",
+    "true_label": "HCC",
+    "pred_label": "Hemangioma",
+    "prob_vector": {
+      "Hemangioma": 0.685059,
+      "HCC": 0.314941
+    },
+    "margin": 0.370119,
+    "is_calibrated": true,
+    "is_low_margin": true,
+    "is_error": true,
+    "modality_mask": [
+      1,
+      0,
+      1
+    ]
+  },
+  {
+    "patient_id": "HCC_579",
+    "track": "A",
+    "fold": 0,
+    "seed": 42,
+    "model_id": "A6_late_fusion",
+    "true_label": "HCC",
+    "pred_label": "HCC",
+    "prob_vector": {
+      "Hemangioma": 0.250223,
+      "HCC": 0.749776
+    },
+    "margin": 0.499553,
+    "is_calibrated": true,
+    "is_low_margin": false,
+    "is_error": false,
+    "modality_mask": [
+      1,
+      0,
+      1
+    ]
+  },
+  {
+    "patient_id": "HCC_609",
+    "track": "A",
+    "fold": 0,
+    "seed": 42,
+    "model_id": "A6_late_fusion",
+    "true_label": "HCC",
+    "pred_label": "HCC",
+    "prob_vector": {
+      "Hemangioma": 0.299965,
+      "HCC": 0.700035
+    },
+    "margin": 0.400069,
+    "is_calibrated": true,
+    "is_low_margin": true,
+    "is_error": false,
+    "modality_mask": [
+      1,
+      0,
+      1
+    ]
+  },
+  {
+    "patient_id": "HCC_612",
+    "track": "A",
+    "fold": 0,
+    "seed": 42,
+    "model_id": "A6_late_fusion",
+    "true_label": "HCC",
+    "pred_label": "HCC",
+    "prob_vector": {
+      "Hemangioma": 0.24554,
+      "HCC": 0.75446
+    },
+    "margin": 0.50892,
+    "is_calibrated": true,
+    "is_low_margin": false,
+    "is_error": false,
+    "modality_mask": [
+      1,
+      0,
+      1
+    ]
+  },
+  {
+    "patient_id": "HCC_618",
+    "track": "A",
+    "fold": 0,
+    "seed": 42,
+    "model_id": "A6_late_fusion",
+    "true_label": "HCC",
+    "pred_label": "HCC",
+    "prob_vector": {
+      "Hemangioma": 0.184197,
+      "HCC": 0.815803
+    },
+    "margin": 0.631606,
+    "is_calibrated": true,
+    "is_low_margin": false,
+    "is_error": false,
+    "modality_mask": [
+      1,
+      0,
+      1
+    ]
+  },
+  {
+    "patient_id": "HCC_62",
+    "track": "A",
+    "fold": 0,
+    "seed": 42,
+    "model_id": "A6_late_fusion",
+    "true_label": "HCC",
+    "pred_label": "HCC",
+    "prob_vector": {
+      "Hemangioma": 0.148886,
+      "HCC": 0.851114
+    },
+    "margin": 0.702228,
+    "is_calibrated": true,
+    "is_low_margin": false,
+    "is_error": false,
+    "modality_mask": [
+      1,
+      0,
+      1
+    ]
+  },
+  {
+    "patient_id": "HCC_625",
+    "track": "A",
+    "fold": 0,
+    "seed": 42,
+    "model_id": "A6_late_fusion",
+    "true_label": "HCC",
+    "pred_label": "HCC",
+    "prob_vector": {
+      "Hemangioma": 0.185154,
+      "HCC": 0.814846
+    },
+    "margin": 0.629691,
+    "is_calibrated": true,
+    "is_low_margin": false,
+    "is_error": false,
+    "modality_mask": [
+      1,
+      0,
+      1
+    ]
+  },
+  {
+    "patient_id": "HCC_64",
+    "track": "A",
+    "fold": 0,
+    "seed": 42,
+    "model_id": "A6_late_fusion",
+    "true_label": "HCC",
+    "pred_label": "HCC",
+    "prob_vector": {
+      "Hemangioma": 0.147274,
+      "HCC": 0.852726
+    },
+    "margin": 0.705452,
+    "is_calibrated": true,
+    "is_low_margin": false,
+    "is_error": false,
+    "modality_mask": [
+      1,
+      0,
+      1
+    ]
+  },
+  {
+    "patient_id": "HCC_66",
+    "track": "A",
+    "fold": 0,
+    "seed": 42,
+    "model_id": "A6_late_fusion",
+    "true_label": "HCC",
+    "pred_label": "HCC",
+    "prob_vector": {
+      "Hemangioma": 0.214117,
+      "HCC": 0.785883
+    },
+    "margin": 0.571765,
+    "is_calibrated": true,
+    "is_low_margin": false,
+    "is_error": false,
+    "modality_mask": [
+      1,
+      0,
+      1
+    ]
+  },
+  {
+    "patient_id": "HCC_760",
+    "track": "A",
+    "fold": 0,
+    "seed": 42,
+    "model_id": "A6_late_fusion",
+    "true_label": "HCC",
+    "pred_label": "HCC",
+    "prob_vector": {
+      "Hemangioma": 0.226926,
+      "HCC": 0.773074
+    },
+    "margin": 0.546149,
+    "is_calibrated": true,
+    "is_low_margin": true,
+    "is_error": false,
+    "modality_mask": [
+      1,
+      0,
+      1
+    ]
+  },
+  {
+    "patient_id": "HCC_767",
+    "track": "A",
+    "fold": 0,
+    "seed": 42,
+    "model_id": "A6_late_fusion",
+    "true_label": "HCC",
+    "pred_label": "HCC",
+    "prob_vector": {
+      "Hemangioma": 0.25614,
+      "HCC": 0.74386
+    },
+    "margin": 0.48772,
+    "is_calibrated": true,
+    "is_low_margin": false,
+    "is_error": false,
+    "modality_mask": [
+      1,
+      0,
+      1
+    ]
+  },
+  {
+    "patient_id": "HCC_824",
+    "track": "A",
+    "fold": 0,
+    "seed": 42,
+    "model_id": "A6_late_fusion",
+    "true_label": "HCC",
+    "pred_label": "HCC",
+    "prob_vector": {
+      "Hemangioma": 0.295886,
+      "HCC": 0.704114
+    },
+    "margin": 0.408229,
+    "is_calibrated": true,
+    "is_low_margin": false,
+    "is_error": false,
+    "modality_mask": [
+      1,
+      0,
+      1
+    ]
+  },
+  {
+    "patient_id": "HCC_839",
+    "track": "A",
+    "fold": 0,
+    "seed": 42,
+    "model_id": "A6_late_fusion",
+    "true_label": "HCC",
+    "pred_label": "HCC",
+    "prob_vector": {
+      "Hemangioma": 0.214618,
+      "HCC": 0.785381
+    },
+    "margin": 0.570763,
+    "is_calibrated": true,
+    "is_low_margin": false,
+    "is_error": false,
+    "modality_mask": [
+      1,
+      0,
+      1
+    ]
+  },
+  {
+    "patient_id": "HCC_861",
+    "track": "A",
+    "fold": 0,
+    "seed": 42,
+    "model_id": "A6_late_fusion",
+    "true_label": "HCC",
+    "pred_label": "HCC",
+    "prob_vector": {
+      "Hemangioma": 0.182822,
+      "HCC": 0.817178
+    },
+    "margin": 0.634356,
+    "is_calibrated": true,
+    "is_low_margin": false,
+    "is_error": false,
+    "modality_mask": [
+      1,
+      0,
+      1
+    ]
+  },
+  {
+    "patient_id": "HCC_953",
+    "track": "A",
+    "fold": 0,
+    "seed": 42,
+    "model_id": "A6_late_fusion",
+    "true_label": "HCC",
+    "pred_label": "HCC",
+    "prob_vector": {
+      "Hemangioma": 0.151379,
+      "HCC": 0.848621
+    },
+    "margin": 0.697242,
+    "is_calibrated": true,
+    "is_low_margin": false,
+    "is_error": false,
+    "modality_mask": [
+      1,
+      0,
+      1
+    ]
+  },
+  {
+    "patient_id": "HCC_967",
+    "track": "A",
+    "fold": 0,
+    "seed": 42,
+    "model_id": "A6_late_fusion",
+    "true_label": "HCC",
+    "pred_label": "HCC",
+    "prob_vector": {
+      "Hemangioma": 0.147252,
+      "HCC": 0.852748
+    },
+    "margin": 0.705496,
+    "is_calibrated": true,
+    "is_low_margin": false,
+    "is_error": false,
+    "modality_mask": [
+      1,
+      0,
+      1
+    ]
+  },
+  {
+    "patient_id": "Hem_115",
+    "track": "A",
+    "fold": 0,
+    "seed": 42,
+    "model_id": "A6_late_fusion",
+    "true_label": "Hemangioma",
+    "pred_label": "Hemangioma",
+    "prob_vector": {
+      "Hemangioma": 0.838078,
+      "HCC": 0.161923
+    },
+    "margin": 0.676155,
+    "is_calibrated": true,
+    "is_low_margin": false,
+    "is_error": false,
+    "modality_mask": [
+      1,
+      0,
+      1
+    ]
+  },
+  {
+    "patient_id": "Hem_119",
+    "track": "A",
+    "fold": 0,
+    "seed": 42,
+    "model_id": "A6_late_fusion",
+    "true_label": "Hemangioma",
+    "pred_label": "Hemangioma",
+    "prob_vector": {
+      "Hemangioma": 0.835703,
+      "HCC": 0.164297
+    },
+    "margin": 0.671406,
+    "is_calibrated": true,
+    "is_low_margin": false,
+    "is_error": false,
+    "modality_mask": [
+      1,
+      0,
+      1
+    ]
+  },
+  {
+    "patient_id": "Hem_137",
+    "track": "A",
+    "fold": 0,
+    "seed": 42,
+    "model_id": "A6_late_fusion",
+    "true_label": "Hemangioma",
+    "pred_label": "Hemangioma",
+    "prob_vector": {
+      "Hemangioma": 0.739685,
+      "HCC": 0.260315
+    },
+    "margin": 0.47937,
+    "is_calibrated": true,
+    "is_low_margin": false,
+    "is_error": false,
+    "modality_mask": [
+      1,
+      0,
+      1
+    ]
+  },
+  {
+    "patient_id": "Hem_162",
+    "track": "A",
+    "fold": 0,
+    "seed": 42,
+    "model_id": "A6_late_fusion",
+    "true_label": "Hemangioma",
+    "pred_label": "Hemangioma",
+    "prob_vector": {
+      "Hemangioma": 0.824231,
+      "HCC": 0.175769
+    },
+    "margin": 0.648462,
+    "is_calibrated": true,
+    "is_low_margin": false,
+    "is_error": false,
+    "modality_mask": [
+      1,
+      0,
+      1
+    ]
+  },
+  {
+    "patient_id": "Hem_168",
+    "track": "A",
+    "fold": 0,
+    "seed": 42,
+    "model_id": "A6_late_fusion",
+    "true_label": "Hemangioma",
+    "pred_label": "Hemangioma",
+    "prob_vector": {
+      "Hemangioma": 0.833662,
+      "HCC": 0.166337
+    },
+    "margin": 0.667325,
+    "is_calibrated": true,
+    "is_low_margin": false,
+    "is_error": false,
+    "modality_mask": [
+      1,
+      0,
+      1
+    ]
+  },
+  {
+    "patient_id": "Hem_173",
+    "track": "A",
+    "fold": 0,
+    "seed": 42,
+    "model_id": "A6_late_fusion",
+    "true_label": "Hemangioma",
+    "pred_label": "Hemangioma",
+    "prob_vector": {
+      "Hemangioma": 0.822022,
+      "HCC": 0.177978
+    },
+    "margin": 0.644044,
+    "is_calibrated": true,
+    "is_low_margin": false,
+    "is_error": false,
+    "modality_mask": [
+      1,
+      0,
+      1
+    ]
+  },
+  {
+    "patient_id": "Hem_178",
+    "track": "A",
+    "fold": 0,
+    "seed": 42,
+    "model_id": "A6_late_fusion",
+    "true_label": "Hemangioma",
+    "pred_label": "Hemangioma",
+    "prob_vector": {
+      "Hemangioma": 0.67826,
+      "HCC": 0.32174
+    },
+    "margin": 0.35652,
+    "is_calibrated": true,
+    "is_low_margin": false,
+    "is_error": false,
+    "modality_mask": [
+      1,
+      0,
+      1
+    ]
+  },
+  {
+    "patient_id": "Hem_188",
+    "track": "A",
+    "fold": 0,
+    "seed": 42,
+    "model_id": "A6_late_fusion",
+    "true_label": "Hemangioma",
+    "pred_label": "Hemangioma",
+    "prob_vector": {
+      "Hemangioma": 0.782975,
+      "HCC": 0.217026
+    },
+    "margin": 0.565949,
+    "is_calibrated": true,
+    "is_low_margin": false,
+    "is_error": false,
+    "modality_mask": [
+      1,
+      0,
+      1
+    ]
+  },
+  {
+    "patient_id": "Hem_193",
+    "track": "A",
+    "fold": 0,
+    "seed": 42,
+    "model_id": "A6_late_fusion",
+    "true_label": "Hemangioma",
+    "pred_label": "Hemangioma",
+    "prob_vector": {
+      "Hemangioma": 0.804237,
+      "HCC": 0.195763
+    },
+    "margin": 0.608473,
+    "is_calibrated": true,
+    "is_low_margin": false,
+    "is_error": false,
+    "modality_mask": [
+      1,
+      0,
+      1
+    ]
+  },
+  {
+    "patient_id": "Hem_214",
+    "track": "A",
+    "fold": 0,
+    "seed": 42,
+    "model_id": "A6_late_fusion",
+    "true_label": "Hemangioma",
+    "pred_label": "Hemangioma",
+    "prob_vector": {
+      "Hemangioma": 0.859413,
+      "HCC": 0.140588
+    },
+    "margin": 0.718825,
+    "is_calibrated": true,
+    "is_low_margin": false,
+    "is_error": false,
+    "modality_mask": [
+      1,
+      0,
+      1
+    ]
+  },
+  {
+    "patient_id": "Hem_221",
+    "track": "A",
+    "fold": 0,
+    "seed": 42,
+    "model_id": "A6_late_fusion",
+    "true_label": "Hemangioma",
+    "pred_label": "Hemangioma",
+    "prob_vector": {
+      "Hemangioma": 0.736003,
+      "HCC": 0.263997
+    },
+    "margin": 0.472005,
+    "is_calibrated": true,
+    "is_low_margin": false,
+    "is_error": false,
+    "modality_mask": [
+      1,
+      0,
+      1
+    ]
+  },
+  {
+    "patient_id": "Hem_223",
+    "track": "A",
+    "fold": 0,
+    "seed": 42,
+    "model_id": "A6_late_fusion",
+    "true_label": "Hemangioma",
+    "pred_label": "Hemangioma",
+    "prob_vector": {
+      "Hemangioma": 0.818639,
+      "HCC": 0.181361
+    },
+    "margin": 0.637278,
+    "is_calibrated": true,
+    "is_low_margin": false,
+    "is_error": false,
+    "modality_mask": [
+      1,
+      0,
+      1
+    ]
+  },
+  {
+    "patient_id": "Hem_225",
+    "track": "A",
+    "fold": 0,
+    "seed": 42,
+    "model_id": "A6_late_fusion",
+    "true_label": "Hemangioma",
+    "pred_label": "Hemangioma",
+    "prob_vector": {
+      "Hemangioma": 0.821957,
+      "HCC": 0.178043
+    },
+    "margin": 0.643914,
+    "is_calibrated": true,
+    "is_low_margin": false,
+    "is_error": false,
+    "modality_mask": [
+      1,
+      0,
+      1
+    ]
+  },
+  {
+    "patient_id": "Hem_228",
+    "track": "A",
+    "fold": 0,
+    "seed": 42,
+    "model_id": "A6_late_fusion",
+    "true_label": "Hemangioma",
+    "pred_label": "Hemangioma",
+    "prob_vector": {
+      "Hemangioma": 0.7379,
+      "HCC": 0.262099
+    },
+    "margin": 0.475801,
+    "is_calibrated": true,
+    "is_low_margin": false,
+    "is_error": false,
+    "modality_mask": [
+      1,
+      0,
+      1
+    ]
+  },
+  {
+    "patient_id": "Hem_23",
+    "track": "A",
+    "fold": 0,
+    "seed": 42,
+    "model_id": "A6_late_fusion",
+    "true_label": "Hemangioma",
+    "pred_label": "Hemangioma",
+    "prob_vector": {
+      "Hemangioma": 0.679245,
+      "HCC": 0.320755
+    },
+    "margin": 0.35849,
+    "is_calibrated": true,
+    "is_low_margin": false,
+    "is_error": false,
+    "modality_mask": [
+      1,
+      0,
+      1
+    ]
+  },
+  {
+    "patient_id": "Hem_24",
+    "track": "A",
+    "fold": 0,
+    "seed": 42,
+    "model_id": "A6_late_fusion",
+    "true_label": "Hemangioma",
+    "pred_label": "Hemangioma",
+    "prob_vector": {
+      "Hemangioma": 0.859645,
+      "HCC": 0.140356
+    },
+    "margin": 0.719289,
+    "is_calibrated": true,
+    "is_low_margin": false,
+    "is_error": false,
+    "modality_mask": [
+      1,
+      0,
+      1
+    ]
+  },
+  {
+    "patient_id": "Hem_255",
+    "track": "A",
+    "fold": 0,
+    "seed": 42,
+    "model_id": "A6_late_fusion",
+    "true_label": "Hemangioma",
+    "pred_label": "Hemangioma",
+    "prob_vector": {
+      "Hemangioma": 0.751362,
+      "HCC": 0.248637
+    },
+    "margin": 0.502725,
+    "is_calibrated": true,
+    "is_low_margin": false,
+    "is_error": false,
+    "modality_mask": [
+      1,
+      0,
+      1
+    ]
+  },
+  {
+    "patient_id": "Hem_256",
+    "track": "A",
+    "fold": 0,
+    "seed": 42,
+    "model_id": "A6_late_fusion",
+    "true_label": "Hemangioma",
+    "pred_label": "Hemangioma",
+    "prob_vector": {
+      "Hemangioma": 0.805635,
+      "HCC": 0.194364
+    },
+    "margin": 0.611271,
+    "is_calibrated": true,
+    "is_low_margin": false,
+    "is_error": false,
+    "modality_mask": [
+      1,
+      0,
+      1
+    ]
+  },
+  {
+    "patient_id": "Hem_259",
+    "track": "A",
+    "fold": 0,
+    "seed": 42,
+    "model_id": "A6_late_fusion",
+    "true_label": "Hemangioma",
+    "pred_label": "Hemangioma",
+    "prob_vector": {
+      "Hemangioma": 0.805907,
+      "HCC": 0.194093
+    },
+    "margin": 0.611815,
+    "is_calibrated": true,
+    "is_low_margin": false,
+    "is_error": false,
+    "modality_mask": [
+      1,
+      0,
+      1
+    ]
+  },
+  {
+    "patient_id": "Hem_262",
+    "track": "A",
+    "fold": 0,
+    "seed": 42,
+    "model_id": "A6_late_fusion",
+    "true_label": "Hemangioma",
+    "pred_label": "Hemangioma",
+    "prob_vector": {
+      "Hemangioma": 0.736893,
+      "HCC": 0.263107
+    },
+    "margin": 0.473787,
+    "is_calibrated": true,
+    "is_low_margin": false,
+    "is_error": false,
+    "modality_mask": [
+      1,
+      0,
+      1
+    ]
+  },
+  {
+    "patient_id": "Hem_267",
+    "track": "A",
+    "fold": 0,
+    "seed": 42,
+    "model_id": "A6_late_fusion",
+    "true_label": "Hemangioma",
+    "pred_label": "Hemangioma",
+    "prob_vector": {
+      "Hemangioma": 0.86427,
+      "HCC": 0.13573
+    },
+    "margin": 0.728541,
+    "is_calibrated": true,
+    "is_low_margin": false,
+    "is_error": false,
+    "modality_mask": [
+      1,
+      0,
+      1
+    ]
+  },
+  {
+    "patient_id": "Hem_268",
+    "track": "A",
+    "fold": 0,
+    "seed": 42,
+    "model_id": "A6_late_fusion",
+    "true_label": "Hemangioma",
+    "pred_label": "Hemangioma",
+    "prob_vector": {
+      "Hemangioma": 0.864944,
+      "HCC": 0.135056
+    },
+    "margin": 0.729888,
+    "is_calibrated": true,
+    "is_low_margin": false,
+    "is_error": false,
+    "modality_mask": [
+      1,
+      0,
+      1
+    ]
+  },
+  {
+    "patient_id": "Hem_277",
+    "track": "A",
+    "fold": 0,
+    "seed": 42,
+    "model_id": "A6_late_fusion",
+    "true_label": "Hemangioma",
+    "pred_label": "Hemangioma",
+    "prob_vector": {
+      "Hemangioma": 0.823073,
+      "HCC": 0.176927
+    },
+    "margin": 0.646146,
+    "is_calibrated": true,
+    "is_low_margin": false,
+    "is_error": false,
+    "modality_mask": [
+      1,
+      0,
+      1
+    ]
+  },
+  {
+    "patient_id": "Hem_28",
+    "track": "A",
+    "fold": 0,
+    "seed": 42,
+    "model_id": "A6_late_fusion",
+    "true_label": "Hemangioma",
+    "pred_label": "Hemangioma",
+    "prob_vector": {
+      "Hemangioma": 0.799024,
+      "HCC": 0.200976
+    },
+    "margin": 0.598048,
+    "is_calibrated": true,
+    "is_low_margin": false,
+    "is_error": false,
+    "modality_mask": [
+      1,
+      0,
+      1
+    ]
+  },
+  {
+    "patient_id": "Hem_296",
+    "track": "A",
+    "fold": 0,
+    "seed": 42,
+    "model_id": "A6_late_fusion",
+    "true_label": "Hemangioma",
+    "pred_label": "Hemangioma",
+    "prob_vector": {
+      "Hemangioma": 0.785617,
+      "HCC": 0.214383
+    },
+    "margin": 0.571234,
+    "is_calibrated": true,
+    "is_low_margin": false,
+    "is_error": false,
+    "modality_mask": [
+      1,
+      0,
+      1
+    ]
+  },
+  {
+    "patient_id": "Hem_302",
+    "track": "A",
+    "fold": 0,
+    "seed": 42,
+    "model_id": "A6_late_fusion",
+    "true_label": "Hemangioma",
+    "pred_label": "Hemangioma",
+    "prob_vector": {
+      "Hemangioma": 0.821723,
+      "HCC": 0.178277
+    },
+    "margin": 0.643446,
+    "is_calibrated": true,
+    "is_low_margin": false,
+    "is_error": false,
+    "modality_mask": [
+      1,
+      0,
+      1
+    ]
+  },
+  {
+    "patient_id": "Hem_306",
+    "track": "A",
+    "fold": 0,
+    "seed": 42,
+    "model_id": "A6_late_fusion",
+    "true_label": "Hemangioma",
+    "pred_label": "Hemangioma",
+    "prob_vector": {
+      "Hemangioma": 0.83328,
+      "HCC": 0.16672
+    },
+    "margin": 0.66656,
+    "is_calibrated": true,
+    "is_low_margin": false,
+    "is_error": false,
+    "modality_mask": [
+      1,
+      0,
+      1
+    ]
+  },
+  {
+    "patient_id": "Hem_310",
+    "track": "A",
+    "fold": 0,
+    "seed": 42,
+    "model_id": "A6_late_fusion",
+    "true_label": "Hemangioma",
+    "pred_label": "Hemangioma",
+    "prob_vector": {
+      "Hemangioma": 0.863717,
+      "HCC": 0.136283
+    },
+    "margin": 0.727434,
+    "is_calibrated": true,
+    "is_low_margin": false,
+    "is_error": false,
+    "modality_mask": [
+      1,
+      0,
+      1
+    ]
+  },
+  {
+    "patient_id": "Hem_328",
+    "track": "A",
+    "fold": 0,
+    "seed": 42,
+    "model_id": "A6_late_fusion",
+    "true_label": "Hemangioma",
+    "pred_label": "Hemangioma",
+    "prob_vector": {
+      "Hemangioma": 0.781588,
+      "HCC": 0.218413
+    },
+    "margin": 0.563175,
+    "is_calibrated": true,
+    "is_low_margin": false,
+    "is_error": false,
+    "modality_mask": [
+      1,
+      0,
+      1
+    ]
+  },
+  {
+    "patient_id": "Hem_349",
+    "track": "A",
+    "fold": 0,
+    "seed": 42,
+    "model_id": "A6_late_fusion",
+    "true_label": "Hemangioma",
+    "pred_label": "Hemangioma",
+    "prob_vector": {
+      "Hemangioma": 0.73307,
+      "HCC": 0.26693
+    },
+    "margin": 0.466139,
+    "is_calibrated": true,
+    "is_low_margin": false,
+    "is_error": false,
+    "modality_mask": [
+      1,
+      0,
+      1
+    ]
+  },
+  {
+    "patient_id": "Hem_358",
+    "track": "A",
+    "fold": 0,
+    "seed": 42,
+    "model_id": "A6_late_fusion",
+    "true_label": "Hemangioma",
+    "pred_label": "Hemangioma",
+    "prob_vector": {
+      "Hemangioma": 0.862232,
+      "HCC": 0.137769
+    },
+    "margin": 0.724463,
+    "is_calibrated": true,
+    "is_low_margin": false,
+    "is_error": false,
+    "modality_mask": [
+      1,
+      0,
+      1
+    ]
+  },
+  {
+    "patient_id": "Hem_359",
+    "track": "A",
+    "fold": 0,
+    "seed": 42,
+    "model_id": "A6_late_fusion",
+    "true_label": "Hemangioma",
+    "pred_label": "Hemangioma",
+    "prob_vector": {
+      "Hemangioma": 0.781119,
+      "HCC": 0.218881
+    },
+    "margin": 0.562237,
+    "is_calibrated": true,
+    "is_low_margin": false,
+    "is_error": false,
+    "modality_mask": [
+      1,
+      0,
+      1
+    ]
+  },
+  {
+    "patient_id": "Hem_361",
+    "track": "A",
+    "fold": 0,
+    "seed": 42,
+    "model_id": "A6_late_fusion",
+    "true_label": "Hemangioma",
+    "pred_label": "Hemangioma",
+    "prob_vector": {
+      "Hemangioma": 0.739645,
+      "HCC": 0.260355
+    },
+    "margin": 0.479289,
+    "is_calibrated": true,
+    "is_low_margin": false,
+    "is_error": false,
+    "modality_mask": [
+      1,
+      0,
+      1
+    ]
+  },
+  {
+    "patient_id": "Hem_366",
+    "track": "A",
+    "fold": 0,
+    "seed": 42,
+    "model_id": "A6_late_fusion",
+    "true_label": "Hemangioma",
+    "pred_label": "Hemangioma",
+    "prob_vector": {
+      "Hemangioma": 0.773075,
+      "HCC": 0.226925
+    },
+    "margin": 0.54615,
+    "is_calibrated": true,
+    "is_low_margin": false,
+    "is_error": false,
+    "modality_mask": [
+      1,
+      0,
+      1
+    ]
+  },
+  {
+    "patient_id": "Hem_386",
+    "track": "A",
+    "fold": 0,
+    "seed": 42,
+    "model_id": "A6_late_fusion",
+    "true_label": "Hemangioma",
+    "pred_label": "Hemangioma",
+    "prob_vector": {
+      "Hemangioma": 0.814943,
+      "HCC": 0.185057
+    },
+    "margin": 0.629886,
+    "is_calibrated": true,
+    "is_low_margin": false,
+    "is_error": false,
+    "modality_mask": [
+      1,
+      0,
+      1
+    ]
+  },
+  {
+    "patient_id": "Hem_389",
+    "track": "A",
+    "fold": 0,
+    "seed": 42,
+    "model_id": "A6_late_fusion",
+    "true_label": "Hemangioma",
+    "pred_label": "Hemangioma",
+    "prob_vector": {
+      "Hemangioma": 0.859808,
+      "HCC": 0.140192
+    },
+    "margin": 0.719615,
+    "is_calibrated": true,
+    "is_low_margin": false,
+    "is_error": false,
+    "modality_mask": [
+      1,
+      0,
+      1
+    ]
+  },
+  {
+    "patient_id": "Hem_391",
+    "track": "A",
+    "fold": 0,
+    "seed": 42,
+    "model_id": "A6_late_fusion",
+    "true_label": "Hemangioma",
+    "pred_label": "Hemangioma",
+    "prob_vector": {
+      "Hemangioma": 0.83499,
+      "HCC": 0.16501
+    },
+    "margin": 0.66998,
+    "is_calibrated": true,
+    "is_low_margin": false,
+    "is_error": false,
+    "modality_mask": [
+      1,
+      0,
+      1
+    ]
+  },
+  {
+    "patient_id": "Hem_397",
+    "track": "A",
+    "fold": 0,
+    "seed": 42,
+    "model_id": "A6_late_fusion",
+    "true_label": "Hemangioma",
+    "pred_label": "Hemangioma",
+    "prob_vector": {
+      "Hemangioma": 0.789394,
+      "HCC": 0.210606
+    },
+    "margin": 0.578789,
+    "is_calibrated": true,
+    "is_low_margin": true,
+    "is_error": false,
+    "modality_mask": [
+      1,
+      0,
+      1
+    ]
+  },
+  {
+    "patient_id": "Hem_406",
+    "track": "A",
+    "fold": 0,
+    "seed": 42,
+    "model_id": "A6_late_fusion",
+    "true_label": "Hemangioma",
+    "pred_label": "Hemangioma",
+    "prob_vector": {
+      "Hemangioma": 0.736737,
+      "HCC": 0.263263
+    },
+    "margin": 0.473474,
+    "is_calibrated": true,
+    "is_low_margin": false,
+    "is_error": false,
+    "modality_mask": [
+      1,
+      0,
+      1
+    ]
+  },
+  {
+    "patient_id": "Hem_409",
+    "track": "A",
+    "fold": 0,
+    "seed": 42,
+    "model_id": "A6_late_fusion",
+    "true_label": "Hemangioma",
+    "pred_label": "Hemangioma",
+    "prob_vector": {
+      "Hemangioma": 0.762614,
+      "HCC": 0.237387
+    },
+    "margin": 0.525227,
+    "is_calibrated": true,
+    "is_low_margin": true,
+    "is_error": false,
+    "modality_mask": [
+      1,
+      0,
+      1
+    ]
+  },
+  {
+    "patient_id": "Hem_41",
+    "track": "A",
+    "fold": 0,
+    "seed": 42,
+    "model_id": "A6_late_fusion",
+    "true_label": "Hemangioma",
+    "pred_label": "Hemangioma",
+    "prob_vector": {
+      "Hemangioma": 0.86349,
+      "HCC": 0.136511
+    },
+    "margin": 0.726979,
+    "is_calibrated": true,
+    "is_low_margin": false,
+    "is_error": false,
+    "modality_mask": [
+      1,
+      0,
+      1
+    ]
+  },
+  {
+    "patient_id": "Hem_418",
+    "track": "A",
+    "fold": 0,
+    "seed": 42,
+    "model_id": "A6_late_fusion",
+    "true_label": "Hemangioma",
+    "pred_label": "Hemangioma",
+    "prob_vector": {
+      "Hemangioma": 0.850111,
+      "HCC": 0.149889
+    },
+    "margin": 0.700222,
+    "is_calibrated": true,
+    "is_low_margin": false,
+    "is_error": false,
+    "modality_mask": [
+      1,
+      0,
+      1
+    ]
+  },
+  {
+    "patient_id": "Hem_427",
+    "track": "A",
+    "fold": 0,
+    "seed": 42,
+    "model_id": "A6_late_fusion",
+    "true_label": "Hemangioma",
+    "pred_label": "Hemangioma",
+    "prob_vector": {
+      "Hemangioma": 0.750071,
+      "HCC": 0.249929
+    },
+    "margin": 0.500141,
+    "is_calibrated": true,
+    "is_low_margin": true,
+    "is_error": false,
+    "modality_mask": [
+      1,
+      0,
+      1
+    ]
+  },
+  {
+    "patient_id": "Hem_429",
+    "track": "A",
+    "fold": 0,
+    "seed": 42,
+    "model_id": "A6_late_fusion",
+    "true_label": "Hemangioma",
+    "pred_label": "Hemangioma",
+    "prob_vector": {
+      "Hemangioma": 0.737112,
+      "HCC": 0.262888
+    },
+    "margin": 0.474224,
+    "is_calibrated": true,
+    "is_low_margin": false,
+    "is_error": false,
+    "modality_mask": [
+      1,
+      0,
+      1
+    ]
+  },
+  {
+    "patient_id": "Hem_432",
+    "track": "A",
+    "fold": 0,
+    "seed": 42,
+    "model_id": "A6_late_fusion",
+    "true_label": "Hemangioma",
+    "pred_label": "Hemangioma",
+    "prob_vector": {
+      "Hemangioma": 0.708433,
+      "HCC": 0.291567
+    },
+    "margin": 0.416867,
+    "is_calibrated": true,
+    "is_low_margin": true,
+    "is_error": false,
+    "modality_mask": [
+      1,
+      0,
+      1
+    ]
+  },
+  {
+    "patient_id": "Hem_436",
+    "track": "A",
+    "fold": 0,
+    "seed": 42,
+    "model_id": "A6_late_fusion",
+    "true_label": "Hemangioma",
+    "pred_label": "Hemangioma",
+    "prob_vector": {
+      "Hemangioma": 0.861894,
+      "HCC": 0.138106
+    },
+    "margin": 0.723788,
+    "is_calibrated": true,
+    "is_low_margin": false,
+    "is_error": false,
+    "modality_mask": [
+      1,
+      0,
+      1
+    ]
+  },
+  {
+    "patient_id": "Hem_44",
+    "track": "A",
+    "fold": 0,
+    "seed": 42,
+    "model_id": "A6_late_fusion",
+    "true_label": "Hemangioma",
+    "pred_label": "Hemangioma",
+    "prob_vector": {
+      "Hemangioma": 0.721084,
+      "HCC": 0.278915
+    },
+    "margin": 0.442169,
+    "is_calibrated": true,
+    "is_low_margin": true,
+    "is_error": false,
+    "modality_mask": [
+      1,
+      0,
+      1
+    ]
+  },
+  {
+    "patient_id": "Hem_448",
+    "track": "A",
+    "fold": 0,
+    "seed": 42,
+    "model_id": "A6_late_fusion",
+    "true_label": "Hemangioma",
+    "pred_label": "Hemangioma",
+    "prob_vector": {
+      "Hemangioma": 0.859234,
+      "HCC": 0.140766
+    },
+    "margin": 0.718468,
+    "is_calibrated": true,
+    "is_low_margin": false,
+    "is_error": false,
+    "modality_mask": [
+      1,
+      0,
+      1
+    ]
+  },
+  {
+    "patient_id": "Hem_46",
+    "track": "A",
+    "fold": 0,
+    "seed": 42,
+    "model_id": "A6_late_fusion",
+    "true_label": "Hemangioma",
+    "pred_label": "Hemangioma",
+    "prob_vector": {
+      "Hemangioma": 0.753933,
+      "HCC": 0.246067
+    },
+    "margin": 0.507865,
+    "is_calibrated": true,
+    "is_low_margin": false,
+    "is_error": false,
+    "modality_mask": [
+      1,
+      0,
+      1
+    ]
+  },
+  {
+    "patient_id": "Hem_489",
+    "track": "A",
+    "fold": 0,
+    "seed": 42,
+    "model_id": "A6_late_fusion",
+    "true_label": "Hemangioma",
+    "pred_label": "Hemangioma",
+    "prob_vector": {
+      "Hemangioma": 0.738301,
+      "HCC": 0.261699
+    },
+    "margin": 0.476602,
+    "is_calibrated": true,
+    "is_low_margin": false,
+    "is_error": false,
+    "modality_mask": [
+      1,
+      0,
+      1
+    ]
+  },
+  {
+    "patient_id": "Hem_495",
+    "track": "A",
+    "fold": 0,
+    "seed": 42,
+    "model_id": "A6_late_fusion",
+    "true_label": "Hemangioma",
+    "pred_label": "Hemangioma",
+    "prob_vector": {
+      "Hemangioma": 0.802843,
+      "HCC": 0.197157
+    },
+    "margin": 0.605685,
+    "is_calibrated": true,
+    "is_low_margin": false,
+    "is_error": false,
+    "modality_mask": [
+      1,
+      0,
+      1
+    ]
+  },
+  {
+    "patient_id": "Hem_499",
+    "track": "A",
+    "fold": 0,
+    "seed": 42,
+    "model_id": "A6_late_fusion",
+    "true_label": "Hemangioma",
+    "pred_label": "Hemangioma",
+    "prob_vector": {
+      "Hemangioma": 0.864067,
+      "HCC": 0.135933
+    },
+    "margin": 0.728135,
+    "is_calibrated": true,
+    "is_low_margin": false,
+    "is_error": false,
+    "modality_mask": [
+      1,
+      0,
+      1
+    ]
+  },
+  {
+    "patient_id": "Hem_5",
+    "track": "A",
+    "fold": 0,
+    "seed": 42,
+    "model_id": "A6_late_fusion",
+    "true_label": "Hemangioma",
+    "pred_label": "HCC",
+    "prob_vector": {
+      "Hemangioma": 0.472411,
+      "HCC": 0.527589
+    },
+    "margin": 0.055177,
+    "is_calibrated": true,
+    "is_low_margin": true,
+    "is_error": true,
+    "modality_mask": [
+      1,
+      0,
+      1
+    ]
+  },
+  {
+    "patient_id": "Hem_50",
+    "track": "A",
+    "fold": 0,
+    "seed": 42,
+    "model_id": "A6_late_fusion",
+    "true_label": "Hemangioma",
+    "pred_label": "Hemangioma",
+    "prob_vector": {
+      "Hemangioma": 0.794237,
+      "HCC": 0.205762
+    },
+    "margin": 0.588475,
+    "is_calibrated": true,
+    "is_low_margin": false,
+    "is_error": false,
+    "modality_mask": [
+      1,
+      0,
+      1
+    ]
+  },
+  {
+    "patient_id": "Hem_507",
+    "track": "A",
+    "fold": 0,
+    "seed": 42,
+    "model_id": "A6_late_fusion",
+    "true_label": "Hemangioma",
+    "pred_label": "Hemangioma",
+    "prob_vector": {
+      "Hemangioma": 0.858903,
+      "HCC": 0.141098
+    },
+    "margin": 0.717805,
+    "is_calibrated": true,
+    "is_low_margin": false,
+    "is_error": false,
+    "modality_mask": [
+      1,
+      0,
+      1
+    ]
+  },
+  {
+    "patient_id": "Hem_52",
+    "track": "A",
+    "fold": 0,
+    "seed": 42,
+    "model_id": "A6_late_fusion",
+    "true_label": "Hemangioma",
+    "pred_label": "Hemangioma",
+    "prob_vector": {
+      "Hemangioma": 0.72412,
+      "HCC": 0.27588
+    },
+    "margin": 0.44824,
+    "is_calibrated": true,
+    "is_low_margin": false,
+    "is_error": false,
+    "modality_mask": [
+      1,
+      0,
+      1
+    ]
+  },
+  {
+    "patient_id": "Hem_520",
+    "track": "A",
+    "fold": 0,
+    "seed": 42,
+    "model_id": "A6_late_fusion",
+    "true_label": "Hemangioma",
+    "pred_label": "Hemangioma",
+    "prob_vector": {
+      "Hemangioma": 0.739668,
+      "HCC": 0.260332
+    },
+    "margin": 0.479335,
+    "is_calibrated": true,
+    "is_low_margin": false,
+    "is_error": false,
+    "modality_mask": [
+      1,
+      0,
+      1
+    ]
+  },
+  {
+    "patient_id": "Hem_538",
+    "track": "A",
+    "fold": 0,
+    "seed": 42,
+    "model_id": "A6_late_fusion",
+    "true_label": "Hemangioma",
+    "pred_label": "Hemangioma",
+    "prob_vector": {
+      "Hemangioma": 0.700302,
+      "HCC": 0.299698
+    },
+    "margin": 0.400603,
+    "is_calibrated": true,
+    "is_low_margin": false,
+    "is_error": false,
+    "modality_mask": [
+      1,
+      0,
+      1
+    ]
+  },
+  {
+    "patient_id": "Hem_540",
+    "track": "A",
+    "fold": 0,
+    "seed": 42,
+    "model_id": "A6_late_fusion",
+    "true_label": "Hemangioma",
+    "pred_label": "Hemangioma",
+    "prob_vector": {
+      "Hemangioma": 0.797403,
+      "HCC": 0.202596
+    },
+    "margin": 0.594807,
+    "is_calibrated": true,
+    "is_low_margin": false,
+    "is_error": false,
+    "modality_mask": [
+      1,
+      0,
+      1
+    ]
+  },
+  {
+    "patient_id": "Hem_546",
+    "track": "A",
+    "fold": 0,
+    "seed": 42,
+    "model_id": "A6_late_fusion",
+    "true_label": "Hemangioma",
+    "pred_label": "Hemangioma",
+    "prob_vector": {
+      "Hemangioma": 0.830954,
+      "HCC": 0.169046
+    },
+    "margin": 0.661908,
+    "is_calibrated": true,
+    "is_low_margin": false,
+    "is_error": false,
+    "modality_mask": [
+      1,
+      0,
+      1
+    ]
+  },
+  {
+    "patient_id": "Hem_558",
+    "track": "A",
+    "fold": 0,
+    "seed": 42,
+    "model_id": "A6_late_fusion",
+    "true_label": "Hemangioma",
+    "pred_label": "Hemangioma",
+    "prob_vector": {
+      "Hemangioma": 0.805273,
+      "HCC": 0.194726
+    },
+    "margin": 0.610547,
+    "is_calibrated": true,
+    "is_low_margin": false,
+    "is_error": false,
+    "modality_mask": [
+      1,
+      0,
+      1
+    ]
+  },
+  {
+    "patient_id": "Hem_72",
+    "track": "A",
+    "fold": 0,
+    "seed": 42,
+    "model_id": "A6_late_fusion",
+    "true_label": "Hemangioma",
+    "pred_label": "Hemangioma",
+    "prob_vector": {
+      "Hemangioma": 0.78474,
+      "HCC": 0.21526
+    },
+    "margin": 0.569479,
+    "is_calibrated": true,
+    "is_low_margin": false,
+    "is_error": false,
+    "modality_mask": [
+      1,
+      0,
+      1
+    ]
+  },
+  {
+    "patient_id": "Hem_90",
+    "track": "A",
+    "fold": 0,
+    "seed": 42,
+    "model_id": "A6_late_fusion",
+    "true_label": "Hemangioma",
+    "pred_label": "Hemangioma",
+    "prob_vector": {
+      "Hemangioma": 0.743818,
+      "HCC": 0.256182
+    },
+    "margin": 0.487636,
+    "is_calibrated": true,
+    "is_low_margin": false,
+    "is_error": false,
+    "modality_mask": [
+      1,
+      0,
+      1
+    ]
+  },
+  {
+    "patient_id": "Hem_97",
+    "track": "A",
+    "fold": 0,
+    "seed": 42,
+    "model_id": "A6_late_fusion",
+    "true_label": "Hemangioma",
+    "pred_label": "Hemangioma",
+    "prob_vector": {
+      "Hemangioma": 0.74575,
+      "HCC": 0.25425
+    },
+    "margin": 0.491501,
+    "is_calibrated": true,
+    "is_low_margin": false,
+    "is_error": false,
+    "modality_mask": [
+      1,
+      0,
+      1
+    ]
+  }
+]

@@ -98,19 +98,42 @@ def compute_bootstrap_ci(
     Computes patient-level percentile bootstrap confidence intervals.
     Returns (ci_lower, ci_upper).
     """
+    if len(predictions) == 0:
+        return 0.0, 0.0
+
+    y_true = np.array([1 if p.true_label == "HCC" else 0 for p in predictions])
+    y_pred = np.array([1 if p.pred_label == "HCC" else 0 for p in predictions])
+    y_prob = np.array([p.prob_vector["HCC"] for p in predictions])
+
     rng = np.random.RandomState(seed)
     n = len(predictions)
     boot_stats = []
 
     for _ in range(n_bootstraps):
-        sample_indices = rng.choice(n, size=n, replace=True)
-        sampled_preds = [predictions[i] for i in sample_indices]
-        # Skip resamples that lack one of the classes
-        y_sampled = [p.true_label for p in sampled_preds]
-        if len(set(y_sampled)) < 2:
+        idx = rng.choice(n, size=n, replace=True)
+        yt, yp, ypr = y_true[idx], y_pred[idx], y_prob[idx]
+
+        if len(np.unique(yt)) < 2:
             continue
-        m = compute_patient_metrics(sampled_preds)
-        boot_stats.append(m[metric_key])
+
+        if metric_key == "accuracy":
+            val = float(np.mean(yt == yp))
+        elif metric_key == "balanced_accuracy":
+            sens = np.sum((yt == 1) & (yp == 1)) / max(1, np.sum(yt == 1))
+            spec = np.sum((yt == 0) & (yp == 0)) / max(1, np.sum(yt == 0))
+            val = float(0.5 * (sens + spec))
+        elif metric_key == "auc":
+            val = float(roc_auc_score(yt, ypr))
+        else:
+            # Fallback for other metrics
+            sampled_preds = [predictions[i] for i in idx]
+            m = compute_patient_metrics(sampled_preds)
+            val = m[metric_key]
+
+        boot_stats.append(val)
+
+    if len(boot_stats) == 0:
+        return 0.0, 0.0
 
     lower_p = 100 * (alpha / 2)
     upper_p = 100 * (1 - alpha / 2)
