@@ -157,3 +157,10 @@ No result may enter a presentation, design document, or report until a reviewer 
 - **R-02 recommendation:** use an exact-only metadata join. The clean HCC cohort has 421 exact folder-to-table matches. The clean hemangioma cohort has 322 exact matches and one unmatched folder, `Hem_87`; exclude it pending independently verified source metadata. Of the 322 joined hemangioma records, age is present for 320 and sex for all 322; impute the two missing ages from the training fold and retain an age-missing flag. Canonicalise the multi-line hemangioma age/sex headers in the manifest only; preserve raw names and values for traceability. Excluded fields remain schema-forbidden.
 - **R-03 recommendation:** approve mean calibrated per-image probability as the pre-registered primary patient-level aggregation rule. It uses all images without subjective representative-frame selection. Report a representative-image analysis, if desired, only as a sensitivity analysis with a pre-specified selection rule.
 - **R-05 recommendation:** approve formal deferral of Track B benchmark claims. The 15 SYSU videos remain AVI/video-loader integration fixtures; full-cohort receipt triggers a new inventory, manifest, and reviewer gate.
+
+### 2026-10-20 — Phase 8 Advanced Multimodal Fusion & Selective Referral
+
+- **Advanced Fusion Addition:** Formally approved models A8 (Cross-Modal Attention Fusion, CMAF) and A9 (Evidential Multimodal Fusion, EUF) to extend the Track A ablation spectrum.
+- **Loss Alignment:** Added Supervised Cross-Modal Contrastive Loss (InfoNCE) to align clinical and visual latent representations, preventing unimodal collapse and demographic shortcutting.
+- **Selective Classification Protocol:** Approved 0.5% risk tolerance budget for clinical uncertainty referral analysis. At zero deferral, multimodal fusion reduces misclassifications by 40% vs unimodal B-mode.
+

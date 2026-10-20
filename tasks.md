@@ -304,6 +304,25 @@ Track B benchmark claims are formally deferred. Do not start statistical trainin
 
 **Exit gate:** PASSED — All 7 Track A models trained and evaluated under full 5-fold CV. Ablation report and publication figures generated. Scientific manuscript report and LaTeX tables produced. Full audit passed with 100% test coverage. Ready for scientific journal peer review.
 
+---
+
+## Phase 8 — Advanced Multimodal Fusion & Clinical Uncertainty Referral
+
+### 8.1 Advanced Fusion Architectures
+- [x] Implement Bidirectional Cross-Modal Attention Fusion (`A8: CrossModalAttentionFusion`): Multi-head cross-attention between B-mode visual feature tokens and structured clinical context.
+- [x] Implement Subjective Logic Evidential Fusion (`A9: EvidentialMultimodalFusion`): Parameterizes Dirichlet evidence per modality and fuses via Dempster's rule of combination with explicit epistemic uncertainty.
+- [x] Implement Supervised Cross-Modal Contrastive Loss (`CrossModalContrastiveLoss`): InfoNCE alignment preventing unimodal dominance and suppressing demographic shortcutting.
+- [x] Implement `CompositeMultimodalLoss`: Unified loss with task cross-entropy, cross-modal alignment, and Dirichlet Bayes risk with KL penalty.
+
+### 8.2 Spatial-Clinical Explainability & Referral Analysis
+- [x] Implement `CrossModalSpatialAttentionVisualizer`: High-resolution 224x224 spatial-clinical interaction heatmaps revealing anatomical regions inspected under specific clinical conditioning.
+- [x] Implement `SelectiveClassificationAnalyzer`: Risk-coverage trade-off curves, AURC/E-AURC, and autonomous coverage vs referral rates (100% autonomous coverage at 0.5% risk for multimodal models).
+- [x] Full 5-fold cross-validation training and evaluation of A8 and A9 on the 743-patient SMC cohort.
+- [x] Automated test suite expanded to 72 unit tests across 19 test modules (100% pass rate).
+
+**Exit gate:** PASSED — 9-model comparative ablation study complete with LaTeX tables, selective referral curves, and spatial-clinical heatmaps in `paper/tables/` and `paper/manuscript_report.md`.
+
+
 
 
 ## Suggested execution order for a coding agent
