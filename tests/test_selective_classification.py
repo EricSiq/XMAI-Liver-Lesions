@@ -1,0 +1,82 @@
+"""
+Unit tests for Selective Classification and Clinical Uncertainty Referral.
+"""
+
+import pytest
+from xmai.data.schemas import PredictionRow
+from xmai.evaluation.selective_classification import (
+    compute_risk_coverage_curve,
+    compute_clinical_referral_rate,
+    compare_multimodal_referral_efficiency,
+)
+
+
+@pytest.fixture
+def mock_predictions():
+    # 10 mock patients: 8 high confidence correct, 2 low confidence with errors
+    rows = []
+    for i in range(8):
+        rows.append(PredictionRow(
+            patient_id=f"PAT_{i}",
+            track="A",
+            fold=0,
+            seed=42,
+            model_id="M1",
+            true_label="HCC",
+            pred_label="HCC",
+            prob_vector={"Hemangioma": 0.05, "HCC": 0.95},
+            margin=0.90,
+            is_calibrated=True,
+            is_error=False,
+            is_low_margin=False,
+            modality_mask=[1, 0, 1],
+        ))
+    for i in range(8, 10):
+        rows.append(PredictionRow(
+            patient_id=f"PAT_{i}",
+            track="A",
+            fold=0,
+            seed=42,
+            model_id="M1",
+            true_label="Hemangioma",
+            pred_label="HCC",
+            prob_vector={"Hemangioma": 0.48, "HCC": 0.52},
+            margin=0.04,
+            is_calibrated=True,
+            is_error=True,
+            is_low_margin=True,
+            modality_mask=[1, 0, 1],
+        ))
+    return rows
+
+
+def test_compute_risk_coverage_curve(mock_predictions):
+    rc = compute_risk_coverage_curve(mock_predictions, n_thresholds=20)
+    assert "coverages" in rc
+    assert "risks" in rc
+    assert "aurc" in rc
+    assert "e_aurc" in rc
+
+    assert len(rc["coverages"]) > 0
+    assert 0.0 <= rc["aurc"] <= 1.0
+    assert rc["e_aurc"] >= 0.0
+    assert rc["full_coverage_error"] == 0.20  # 2 errors out of 10
+
+
+def test_compute_clinical_referral_rate(mock_predictions):
+    # At target_risk=0.0 (zero errors tolerated), the 2 errors with margin=0.04 should be referred
+    ref = compute_clinical_referral_rate(mock_predictions, target_risk=0.0)
+    assert ref["max_autonomous_coverage"] == pytest.approx(0.80)  # 80% autonomous coverage
+    assert ref["required_referral_rate"] == pytest.approx(0.20)   # 20% referral required
+
+
+def test_compare_multimodal_referral_efficiency(mock_predictions):
+    preds_dict = {
+        "A1": mock_predictions,
+        "A4": mock_predictions,
+    }
+    df = compare_multimodal_referral_efficiency(preds_dict, target_risk=0.01)
+    assert len(df) == 2
+    assert "Autonomous Coverage (%)" in df.columns
+    assert "Referral Rate (%)" in df.columns
+    assert "AURC (x10^-3)" in df.columns
