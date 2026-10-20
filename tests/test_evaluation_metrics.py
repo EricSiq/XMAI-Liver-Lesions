@@ -145,10 +145,13 @@ def test_scientific_manuscript_generation(mock_predictions, tmp_path):
         "A5": mock_predictions,
         "A6": mock_predictions,
         "A7": mock_predictions,
+        "A8": mock_predictions,
+        "A9": mock_predictions,
     }
 
     md_tab, tex_tab = generate_ablation_tables(preds_dict, tmp_path, n_bootstraps=20)
     assert "A1: B-mode Only" in md_tab
+    assert "A8: Cross-Modal Attention" in md_tab
     assert "\\begin{table*}" in tex_tab
     assert (tmp_path / "ablation_table.md").exists()
     assert (tmp_path / "ablation_table.tex").exists()
@@ -160,5 +163,10 @@ def test_scientific_manuscript_generation(mock_predictions, tmp_path):
     pair_tab = generate_pairwise_statistical_comparison(preds_dict, tmp_path, n_bootstraps=20)
     assert "Pairwise Statistical Significance" in pair_tab
     assert (tmp_path / "pairwise_statistical_comparison.md").exists()
+
+    from scripts.generate_scientific_manuscript_artifacts import generate_selective_classification_table
+    sel_md, sel_tex = generate_selective_classification_table(preds_dict, tmp_path, target_risk=0.01)
+    assert "Autonomous Coverage (%)" in sel_md
+    assert (tmp_path / "selective_classification.md").exists()
 
 

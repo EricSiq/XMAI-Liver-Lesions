@@ -34,7 +34,7 @@ from xmai.evaluation.track_a_analysis import (
 
 
 def load_all_predictions(results_dir: Path) -> Dict[str, List[PredictionRow]]:
-    models = ["A1", "A2", "A3", "A4", "A5", "A6_late_fusion", "A7"]
+    models = ["A1", "A2", "A3", "A4", "A5", "A6_late_fusion", "A7", "A8", "A9"]
     preds_dict = {}
     for m in models:
         json_file = results_dir / f"oof_predictions_{m}.json"
@@ -52,7 +52,7 @@ def generate_ablation_tables(
     out_dir: Path,
     n_bootstraps: int = 1000,
 ) -> Tuple[str, str]:
-    """Generates 7-model comparative ablation table in Markdown and LaTeX."""
+    """Generates comparative ablation table in Markdown and LaTeX."""
     model_meta = {
         "A1": ("A1: B-mode Only", "Unimodal (CNN)"),
         "A2": ("A2: Clinical Only", "Unimodal (MLP)"),
@@ -61,12 +61,14 @@ def generate_ablation_tables(
         "A5": ("A5: FiLM Fusion", "Multimodal (FiLM Conditioning)"),
         "A6": ("A6: Late Decision Fusion", "Multimodal (Ensemble Average)"),
         "A7": ("A7: Context-Shuffle Control", "Diagnostic Control"),
+        "A8": ("A8: Cross-Modal Attention", "Multimodal (Bidirectional CMAF)"),
+        "A9": ("A9: Evidential Uncertainty", "Multimodal (Dirichlet EUF)"),
     }
 
     rows = []
     latex_rows = []
 
-    for m_id in ["A1", "A2", "A3", "A4", "A5", "A6", "A7"]:
+    for m_id in ["A1", "A2", "A3", "A4", "A5", "A6", "A7", "A8", "A9"]:
         if m_id not in preds_dict:
             continue
         preds = preds_dict[m_id]
@@ -343,6 +345,8 @@ def generate_calibration_ablation_table(
         "A5": "A5: FiLM Fusion",
         "A6": "A6: Late Decision Fusion",
         "A7": "A7: Context-Shuffle Control",
+        "A8": "A8: Cross-Modal Attention",
+        "A9": "A9: Evidential Uncertainty",
     }
 
     for m_id, label in names.items():
@@ -397,6 +401,21 @@ def generate_calibration_ablation_table(
     return md
 
 
+def generate_selective_classification_table(
+    preds_dict: Dict[str, List[PredictionRow]],
+    out_dir: Path,
+    target_risk: float = 0.005,
+) -> Tuple[str, str]:
+    """Generates selective classification and referral rate table."""
+    from xmai.evaluation.selective_classification import compare_multimodal_referral_efficiency
+    df = compare_multimodal_referral_efficiency(preds_dict, target_risk=target_risk)
+    md_table = df.to_markdown(index=False)
+    latex_table = df.to_latex(index=False)
+    (out_dir / "selective_classification.md").write_text(md_table, encoding="utf-8")
+    (out_dir / "selective_classification.tex").write_text(latex_table, encoding="utf-8")
+    return md_table, latex_table
+
+
 def main() -> None:
     workspace_root = Path(__file__).resolve().parent.parent
     results_dir = workspace_root / "results" / "track_a"
@@ -426,7 +445,11 @@ def main() -> None:
     demographics_md = generate_cohort_demographics(manifest_path, tables_dir)
     print(f"[OK] Cohort demographics saved to {tables_dir / 'cohort_demographics.md'} and .tex")
 
-    # 5. Full Manuscript Report
+    # 5. Selective Classification & Clinical Referral Table
+    sel_md, _ = generate_selective_classification_table(preds_dict, tables_dir, target_risk=0.005)
+    print(f"[OK] Selective classification table saved to {tables_dir / 'selective_classification.md'} and .tex")
+
+    # 6. Full Manuscript Report
     report_file = paper_dir / "manuscript_report.md"
     generate_manuscript_report(ablation_md, pairwise_md, demographics_md, report_file)
 

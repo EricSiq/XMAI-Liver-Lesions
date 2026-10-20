@@ -26,7 +26,7 @@ RESULTS_DIR = WORKSPACE_ROOT / "results" / "track_a"
 def main():
     parser = argparse.ArgumentParser(description="Track A Multimodal Baseline & Fusion Runner")
     parser.add_argument("--manifest", type=str, default="data/manifests/smc_manifest_v1.csv")
-    parser.add_argument("--models", nargs="+", default=["A1", "A2", "A3", "A4", "A5", "A6", "A7"], help="Models to evaluate: A1, A2, A3, A4, A5, A6, A7")
+    parser.add_argument("--models", nargs="+", default=["A1", "A2", "A3", "A4", "A5", "A6", "A7", "A8", "A9"], help="Models to evaluate: A1..A9")
     parser.add_argument("--folds", nargs="+", type=int, default=[0, 1, 2, 3, 4], help="Folds to run (default: 0 1 2 3 4)")
     parser.add_argument("--epochs", type=int, default=5, help="Number of training epochs per fold")
     parser.add_argument("--batch_size", type=int, default=16, help="Batch size")
