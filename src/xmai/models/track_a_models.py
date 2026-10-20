@@ -16,7 +16,13 @@ import torch.nn as nn
 import torch.nn.functional as F
 
 from xmai.models.encoders import BModeEncoder, ClinicalEncoder
-from xmai.models.fusion import ConcatenationFusion, FiLMFusion, MaskAwareGatedFusion
+from xmai.models.fusion import (
+    ConcatenationFusion,
+    CrossModalAttentionFusion,
+    EvidentialMultimodalFusion,
+    FiLMFusion,
+    MaskAwareGatedFusion,
+)
 from xmai.models.xmai_model import XMAIModel
 
 
@@ -206,6 +212,127 @@ class A5FiLMFusion(nn.Module):
         self.temperature.data.fill_(temp_val)
 
 
+class A8CrossModalAttention(nn.Module):
+    """
+    A8: Cross-Modal Attention Fusion (CMAF).
+    Bidirectional multi-head cross-attention between B-mode visual embeddings
+    and structured clinical context.
+    """
+
+    def __init__(
+        self,
+        num_classes: int = 2,
+        pretrained: bool = True,
+        dim_b: int = 256,
+        dim_t: int = 64,
+        embed_dim: int = 256,
+        num_heads: int = 4,
+    ):
+        super().__init__()
+        self.encoder_b = BModeEncoder(pretrained=pretrained, embed_dim=dim_b)
+        self.encoder_t = ClinicalEncoder(in_features=2, hidden_dim=64, out_dim=dim_t)
+        self.cmaf = CrossModalAttentionFusion(
+            dim_b=dim_b, dim_t=dim_t, embed_dim=embed_dim, num_heads=num_heads
+        )
+        self.head = nn.Sequential(
+            nn.Dropout(0.2),
+            nn.Linear(embed_dim, num_classes),
+        )
+        self.temperature = nn.Parameter(torch.ones(1), requires_grad=False)
+
+    def forward(
+        self,
+        img: torch.Tensor,
+        clin: torch.Tensor,
+        mod_mask: Optional[torch.Tensor] = None,
+    ) -> Dict[str, Any]:
+        z_b = self.encoder_b(img)
+        z_t = self.encoder_t(clin)
+        z_f, attn_dict = self.cmaf(z_b, z_t, mod_mask=mod_mask)
+        logits = self.head(z_f)
+        calibrated_logits = logits / self.temperature
+        probs = F.softmax(calibrated_logits, dim=-1)
+
+        return {
+            "logits": logits,
+            "calibrated_logits": calibrated_logits,
+            "probs": probs,
+            "embeddings": {
+                "z_b": z_b,
+                "z_t": z_t,
+                "z_f": z_f,
+                "attn_dict": attn_dict,
+            },
+        }
+
+    def set_temperature(self, temp_val: float) -> None:
+        if temp_val <= 0:
+            raise ValueError(f"Temperature must be strictly positive, got {temp_val}")
+        self.temperature.data.fill_(temp_val)
+
+
+class A9EvidentialUncertainty(nn.Module):
+    """
+    A9: Evidential Uncertainty Fusion (EUF).
+    Subjective Logic formulation with Dempster-Shafer combination.
+    Produces explicit epistemic uncertainty mass alongside class beliefs.
+    """
+
+    def __init__(
+        self,
+        num_classes: int = 2,
+        pretrained: bool = True,
+        dim_b: int = 256,
+        dim_t: int = 64,
+    ):
+        super().__init__()
+        self.encoder_b = BModeEncoder(pretrained=pretrained, embed_dim=dim_b)
+        self.encoder_t = ClinicalEncoder(in_features=2, hidden_dim=64, out_dim=dim_t)
+        self.evidential_fusion = EvidentialMultimodalFusion(
+            dim_b=dim_b, dim_t=dim_t, num_classes=num_classes
+        )
+        self.temperature = nn.Parameter(torch.ones(1), requires_grad=False)
+
+    def forward(
+        self,
+        img: torch.Tensor,
+        clin: torch.Tensor,
+        mod_mask: Optional[torch.Tensor] = None,
+    ) -> Dict[str, Any]:
+        z_b = self.encoder_b(img)
+        z_t = self.encoder_t(clin)
+        ev_out = self.evidential_fusion(z_b=z_b, z_t=z_t, mod_mask=mod_mask)
+        probs = ev_out["probs"]
+
+        # Surrogate logits for unified temperature scaling: log(probs + 1e-7)
+        logits = torch.log(torch.clamp(probs, min=1e-7))
+        calibrated_logits = logits / self.temperature
+        calibrated_probs = F.softmax(calibrated_logits, dim=-1)
+
+        return {
+            "logits": logits,
+            "calibrated_logits": calibrated_logits,
+            "probs": calibrated_probs,
+            "alpha_fused": ev_out["alpha_fused"],
+            "b_fused": ev_out["b_fused"],
+            "u_fused": ev_out["u_fused"],
+            "b_b": ev_out["b_b"],
+            "u_b": ev_out["u_b"],
+            "b_t": ev_out["b_t"],
+            "u_t": ev_out["u_t"],
+            "embeddings": {
+                "z_b": z_b,
+                "z_t": z_t,
+                "z_f": z_b,
+            },
+        }
+
+    def set_temperature(self, temp_val: float) -> None:
+        if temp_val <= 0:
+            raise ValueError(f"Temperature must be strictly positive, got {temp_val}")
+        self.temperature.data.fill_(temp_val)
+
+
 def create_track_a_model(
     model_id: str,
     pretrained: bool = True,
@@ -225,5 +352,9 @@ def create_track_a_model(
     elif model_id in {"A7", "A7_context_shuffle"}:
         # A7 uses identical A4 architecture, clinical shuffling applied during training
         return A4GatedFusion(pretrained=pretrained, dropout_p=dropout_p)
+    elif model_id in {"A8", "A8_cmaf", "A8_cross_attention"}:
+        return A8CrossModalAttention(pretrained=pretrained)
+    elif model_id in {"A9", "A9_evidential", "A9_uncertainty"}:
+        return A9EvidentialUncertainty(pretrained=pretrained)
     else:
         raise ValueError(f"Unknown Track A model_id: {model_id}")

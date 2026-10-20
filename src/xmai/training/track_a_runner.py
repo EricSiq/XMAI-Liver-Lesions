@@ -230,6 +230,8 @@ def run_track_a_fold(
         "A4": [1, 0, 1],
         "A5": [1, 0, 1],
         "A7": [1, 0, 1],
+        "A8": [1, 0, 1],
+        "A9": [1, 0, 1],
     }
     cur_mask = mod_mask_map.get(model_id[:2], [1, 0, 1])
 

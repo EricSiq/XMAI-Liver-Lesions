@@ -68,9 +68,25 @@ def test_track_a_model_forward():
     out5 = m5(img=img, clin=clin)
     assert out5["logits"].shape == (B, 2)
 
+    # A8 CMAF
+    m8 = create_track_a_model("A8", pretrained=False)
+    m8.set_temperature(1.1)
+    out8 = m8(img=img, clin=clin, mod_mask=mod_mask)
+    assert out8["logits"].shape == (B, 2)
+    assert out8["probs"].shape == (B, 2)
+    assert "attn_dict" in out8["embeddings"]
+
+    # A9 Evidential
+    m9 = create_track_a_model("A9", pretrained=False)
+    m9.set_temperature(1.0)
+    out9 = m9(img=img, clin=clin, mod_mask=mod_mask)
+    assert out9["probs"].shape == (B, 2)
+    assert "u_fused" in out9
+    assert "b_fused" in out9
+
 
 def test_factory_function():
-    for mid in ["A1", "A2", "A3", "A4", "A5", "A7"]:
+    for mid in ["A1", "A2", "A3", "A4", "A5", "A7", "A8", "A9"]:
         model = create_track_a_model(mid, pretrained=False)
         assert isinstance(model, torch.nn.Module)
 
