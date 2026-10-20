@@ -40,7 +40,10 @@ def train_one_epoch(
 
         optimizer.zero_grad()
         out = model(img=img, clin=clin, mod_mask=mod_mask)
-        loss = criterion(out["logits"], targets)
+        try:
+            loss = criterion(out, targets)
+        except TypeError:
+            loss = criterion(out["logits"], targets)
         loss.backward()
         optimizer.step()
 

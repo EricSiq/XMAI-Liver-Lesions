@@ -26,6 +26,7 @@ from xmai.data.schemas import PredictionRow
 from xmai.evaluation.patient_aggregation import aggregate_patient_predictions
 from xmai.models.track_a_models import create_track_a_model
 from xmai.training.calibration import TemperatureScaler
+from xmai.training.losses import CompositeMultimodalLoss
 
 
 def get_inner_split(
@@ -80,7 +81,10 @@ def train_track_a_epoch(
         else:
             out = model(img=img, clin=clin, mod_mask=mod_mask)
 
-        loss = criterion(out["logits"], targets)
+        try:
+            loss = criterion(out, targets)
+        except TypeError:
+            loss = criterion(out["logits"], targets)
         loss.backward()
         optimizer.step()
 
@@ -195,7 +199,13 @@ def run_track_a_fold(
     w_hem = len(labels) / (2.0 * max(1, n_hem))
     w_hcc = len(labels) / (2.0 * max(1, n_hcc))
     class_weights = torch.tensor([w_hem, w_hcc], dtype=torch.float32, device=device)
-    criterion = nn.CrossEntropyLoss(weight=class_weights, label_smoothing=0.05)
+    align_weight = 0.05 if model_id in {"A3", "A4", "A5", "A8"} else 0.0
+    criterion = CompositeMultimodalLoss(
+        weight=class_weights,
+        label_smoothing=0.05,
+        align_weight=align_weight,
+        evid_weight=1.0,
+    )
 
     optimizer = optim.AdamW(model.parameters(), lr=lr, weight_decay=1e-4)
 
