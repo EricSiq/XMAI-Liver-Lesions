@@ -337,7 +337,7 @@ def run_track_a_late_fusion_cv(
         late_preds.append(row)
 
     if results_dir:
-        out_json = results_dir / "oof_predictions_A6_late_fusion.json"
+        out_json = results_dir / "oof_predictions_A6.json"
         with open(out_json, "w", encoding="utf-8") as f:
             json.dump([r.model_dump() for r in late_preds], f, indent=2)
 

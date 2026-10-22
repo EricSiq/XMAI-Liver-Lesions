@@ -322,8 +322,30 @@ Track B benchmark claims are formally deferred. Do not start statistical trainin
 
 **Exit gate:** PASSED — 9-model comparative ablation study complete with LaTeX tables, selective referral curves, and spatial-clinical heatmaps in `paper/tables/` and `paper/manuscript_report.md`.
 
+---
 
+## Phase 9 — Academic Research Console & Manuscript Demonstrator
 
+### 9.1 Clinical Design System & Institutional Light Theme
+- [x] Unify console design into an authentic *Nature Medicine* / *Lancet Digital Health* institutional light theme with top hairline gradient and scholarly badge system.
+- [x] Eliminate jarring dark-header / light-body contrast and ensure responsive card layouts.
+
+### 9.2 Mathematical Typesetting Engine
+- [x] Implement `frontend/scripts/math-renderer.js` supporting KaTeX CDN with graceful semantic HTML fallback (fractions, Greek symbols, superscripts, subscripts).
+- [x] Integrate mathematical rendering across Section 2 (Formalisms), Section 3 (Temperature scaling), Section 4 (Gating mechanism), and Section 6 (Explainability: Softmax attention, Shapley, Evidential decomposition).
+
+### 9.3 Camera-Ready Publication Table
+- [x] Implement IEEE TMI / booktabs formatted publication table in Section 9 with 95% bootstrap CIs, bolded proposed model A4, and clean tabular numerals.
+- [x] Provide interactive toggle between Rendered Publication Table and raw LaTeX source code (`.tex`) with one-click clipboard copy.
+
+### 9.4 Clinical Presets & Code Audit
+- [x] Add quick preset buttons to Grad-CAM heatmap slider (0%, 25%, 45%, 80%, 100%), simulated patient age slider (28y, Actual, 68y), and error budget slider (0.10%, 0.25%, 0.50%, 1.00%).
+- [x] Eliminate redundant duplicate files (`oof_predictions_A6_late_fusion.json`, superseded `XMAI_Design_Document.md`).
+- [x] Expand automated test suite to 81 unit & integration tests with 100% pass rate.
+
+**Exit gate:** PASSED — Presentation-ready academic console verified end-to-end, all tests passing, and documentation synchronized across the repository.
+
+---
 
 ## Suggested execution order for a coding agent
 

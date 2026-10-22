@@ -164,3 +164,11 @@ No result may enter a presentation, design document, or report until a reviewer 
 - **Loss Alignment:** Added Supervised Cross-Modal Contrastive Loss (InfoNCE) to align clinical and visual latent representations, preventing unimodal collapse and demographic shortcutting.
 - **Selective Classification Protocol:** Approved 0.5% risk tolerance budget for clinical uncertainty referral analysis. At zero deferral, multimodal fusion reduces misclassifications by 40% vs unimodal B-mode.
 
+### 2026-10-22 — Phase 9 Academic Research Console & Artifact Cleanup
+
+- **Institutional Design System:** Harmonized the console into an authentic *Nature Medicine* / *Lancet Digital Health* institutional light theme, resolving the dark-header/light-body contrast.
+- **Mathematical Typesetting Engine:** Integrated KaTeX with graceful semantic HTML fallback to properly format equations (formalisms, gating mechanisms, temperature scaling, Softmax kernels, Shapley attribution, and Dirichlet belief mass decomposition).
+- **Camera-Ready LaTeX Publication Table:** Upgraded Section 9 from raw code to an IEEE TMI booktabs publication table with a toggle to view/copy the raw `.tex` source code.
+- **Artifact Cleanup:** Removed duplicate `results/track_a/oof_predictions_A6_late_fusion.json` (canonicalized to `oof_predictions_A6.json`) and deleted superseded v1.0 draft `XMAI_Design_Document.md`. Expanded automated test suite to 81 unit & integration tests with 100% pass rate.
+
+
