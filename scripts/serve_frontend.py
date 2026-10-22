@@ -154,11 +154,24 @@ class XMAIHTTPHandler(http.server.SimpleHTTPRequestHandler):
         self.send_header("Cache-Control", "no-cache, no-store, must-revalidate")
         super().end_headers()
 
+    def copyfile(self, source, outputfile):
+        """Handle client disconnects on Windows without raising socket errors."""
+        try:
+            super().copyfile(source, outputfile)
+        except (ConnectionResetError, ConnectionAbortedError, BrokenPipeError):
+            pass
+
     def do_OPTIONS(self):
         self.send_response(200, "OK")
         self.end_headers()
 
     def do_GET(self):
+        try:
+            self._handle_get()
+        except (ConnectionResetError, ConnectionAbortedError, BrokenPipeError):
+            pass
+
+    def _handle_get(self):
         # API endpoints routing
         if self.path == "/api/status":
             self.send_response(200)
@@ -222,6 +235,12 @@ class XMAIHTTPHandler(http.server.SimpleHTTPRequestHandler):
         return super().do_GET()
 
     def do_POST(self):
+        try:
+            self._handle_post()
+        except (ConnectionResetError, ConnectionAbortedError, BrokenPipeError):
+            pass
+
+    def _handle_post(self):
         if self.path == "/api/predict":
             content_length = int(self.headers.get("Content-Length", 0))
             post_data = self.rfile.read(content_length)
