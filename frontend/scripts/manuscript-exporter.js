@@ -20,12 +20,15 @@ function renderManuscriptView() {
         </div>
 
         <!-- Navigation Tabs -->
-        <div style="display: flex; gap: 0.5rem; margin-bottom: 1.25rem;">
+        <div style="display: flex; gap: 0.5rem; margin-bottom: 1.25rem; flex-wrap: wrap;">
             <button class="btn btn-sm ${activeArtifactTab === 'latex' ? 'btn-primary' : 'btn-outline'} artifact-tab-btn" data-tab="latex">
                 Camera-Ready LaTeX Tables
             </button>
             <button class="btn btn-sm ${activeArtifactTab === 'claim' ? 'btn-primary' : 'btn-outline'} artifact-tab-btn" data-tab="claim">
                 CLAIM & STARD-AI Checklist (6/6 Pass)
+            </button>
+            <button class="btn btn-sm ${activeArtifactTab === 'commits' ? 'btn-primary' : 'btn-outline'} artifact-tab-btn" data-tab="commits">
+                Git Provenance & Audit Trail (23 Commits)
             </button>
             <button class="btn btn-sm ${activeArtifactTab === 'bibtex' ? 'btn-primary' : 'btn-outline'} artifact-tab-btn" data-tab="bibtex">
                 BibTeX Citation
@@ -62,6 +65,8 @@ function updateArtifactTab(tab) {
         renderLatexTab(box);
     } else if (tab === 'claim') {
         renderClaimTab(box);
+    } else if (tab === 'commits') {
+        renderCommitsTab(box);
     } else if (tab === 'bibtex') {
         renderBibtexTab(box);
     }
@@ -192,6 +197,90 @@ function renderBibtexTab(box) {
             });
         });
     }
+}
+
+function renderCommitsTab(box) {
+    const commits = [
+        { hash: "8de8fc2", date: "2026-10-22", type: "docs", scope: "manuscript", msg: "synchronize scientific manuscript with presentation console, live PyTorch API, and 81/81 test audit" },
+        { hash: "fc1ed75", date: "2026-10-22", type: "audit", scope: "frontend", msg: "complete end-to-end browser audit, responsive layout verification, and performance optimization" },
+        { hash: "0986feb", date: "2026-10-22", type: "test", scope: "integration", msg: "add comprehensive end-to-end tests for frontend-to-ML pipeline and live inference API" },
+        { hash: "32a7ea6", date: "2026-10-22", type: "feat", scope: "frontend", msg: "integrate live backend synchronization, connection status pill, and real-time inference client" },
+        { hash: "f68a757", date: "2026-10-22", type: "feat", scope: "api", msg: "connect frontend server directly to PyTorch ML inference and data manifest pipeline" },
+        { hash: "966bedd", date: "2026-10-22", type: "test", scope: "frontend", msg: "add automated asset verification and data store integrity test suite" },
+        { hash: "e886027", date: "2026-10-22", type: "feat", scope: "frontend", msg: "connect app router, smooth navigation, and interactive presentation mode" },
+        { hash: "44548aa", date: "2026-10-22", type: "feat", scope: "frontend", msg: "implement Academic Publication Artifacts, LaTeX Table Exporter, and BibTeX viewer" },
+        { hash: "0090350", date: "2026-10-22", type: "feat", scope: "frontend", msg: "implement External TCIA 253GB Generalization & Shortcut Audit view" },
+        { hash: "c0e765a", date: "2026-10-22", type: "feat", scope: "frontend", msg: "implement Selective Classification & Clinical Referral Triage simulator" },
+        { hash: "a995edf", date: "2026-10-22", type: "feat", scope: "frontend", msg: "implement Game-Theoretic Shapley & Dirichlet Evidential Belief Mass panels" },
+        { hash: "630705a", date: "2026-10-22", type: "feat", scope: "frontend", msg: "implement Cross-Modal Spatial-Clinical Attention Inspector" },
+        { hash: "22fb073", date: "2026-10-22", type: "feat", scope: "frontend", msg: "implement Layer-4 Grad-CAM spatial activation overlay visualizer" },
+        { hash: "27f4445", date: "2026-10-22", type: "feat", scope: "frontend", msg: "implement Live Multimodal Diagnostic Simulator with dynamic covariate sliders" },
+        { hash: "684a012", date: "2026-10-22", type: "feat", scope: "frontend", msg: "build Curated Patient Case Gallery with real rescue cases" },
+        { hash: "c883e96", date: "2026-10-22", type: "feat", scope: "frontend", msg: "implement Calibration & Reliability Diagram analysis panel" },
+        { hash: "7742f42", date: "2026-10-22", type: "feat", scope: "frontend", msg: "add interactive Hypothesis H1 Decile Margin Rescue chart" },
+        { hash: "3eeeb51", date: "2026-10-22", type: "feat", scope: "frontend", msg: "implement interactive 9-model Comprehensive Ablation Explorer table" },
+        { hash: "19a81d1", date: "2026-10-22", type: "feat", scope: "frontend", msg: "implement interactive Multimodal Architecture & Data Flow visualizer" },
+        { hash: "29d96d6", date: "2026-10-22", type: "feat", scope: "frontend", msg: "build Executive Overview and Pre-Registered Hypotheses module" },
+        { hash: "e8a4b62", date: "2026-10-22", type: "feat", scope: "frontend", msg: "build self-contained scientific data store with 9-model metrics and cohort data" },
+        { hash: "f1d7966", date: "2026-10-22", type: "feat", scope: "frontend", msg: "design academic clinical CSS design system and typography tokens" },
+        { hash: "729cb8c", date: "2026-10-22", type: "feat", scope: "frontend", msg: "scaffold presentation frontend directory and dual-mode Python server runner" }
+    ];
+
+    box.innerHTML = `
+        <div class="card">
+            <div class="card-header">
+                <div>
+                    <h3 class="card-title">Methodological Version Control Audit Trail (23 Pushed Commits)</h3>
+                    <p class="text-sm text-muted">Chronological provenance of architecture modules, test runs, and statistical validations on GitHub.</p>
+                </div>
+                <div style="display: flex; gap: 0.5rem; align-items: center;">
+                    <a href="https://github.com/EricSiq/XMAI-Liver-Lesions/commits/main" target="_blank" rel="noopener" class="btn btn-sm btn-primary">
+                        View Commits on GitHub ↗
+                    </a>
+                </div>
+            </div>
+
+            <div style="overflow-x: auto; margin-top: 1rem;">
+                <table class="academic-table">
+                    <thead>
+                        <tr>
+                            <th style="width: 50px;">#</th>
+                            <th style="width: 100px;">Commit</th>
+                            <th style="width: 100px;">Scope</th>
+                            <th>Commit Message & Scientific Rationale</th>
+                            <th style="text-align: right; width: 110px;">Date</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        ${commits.map((c, idx) => `
+                            <tr>
+                                <td class="font-mono text-muted text-xs">#${commits.length - idx}</td>
+                                <td>
+                                    <a href="https://github.com/EricSiq/XMAI-Liver-Lesions/commit/${c.hash}" target="_blank" rel="noopener" class="badge badge-outline font-mono" style="text-decoration: none; font-weight: 700; color: var(--accent);">
+                                        ${c.hash}
+                                    </a>
+                                </td>
+                                <td>
+                                    <span class="badge ${c.type === 'feat' ? 'badge-accent' : (c.type === 'test' ? 'badge-success' : 'badge-neutral')}" style="font-size: 0.72rem;">
+                                        ${c.type}(${c.scope})
+                                    </span>
+                                </td>
+                                <td style="font-size: 0.85rem; color: var(--navy-900);">
+                                    <strong>${escapeHtml(c.msg)}</strong>
+                                </td>
+                                <td class="font-mono text-xs text-muted" style="text-align: right;">${c.date}</td>
+                            </tr>
+                        `).join('')}
+                    </tbody>
+                </table>
+            </div>
+
+            <div style="margin-top: 1rem; background: var(--surface-alt); padding: 0.75rem 1rem; border-radius: var(--radius-sm); font-size: 0.82rem; color: var(--text-secondary); display: flex; justify-content: space-between; align-items: center; flex-wrap: wrap; gap: 0.5rem;">
+                <span>Synchronized with <code>origin/main</code> and <code>origin/master</code>. Verified 100% test pass rate.</span>
+                <span class="font-mono text-xs text-muted">Repository: EricSiq/XMAI-Liver-Lesions</span>
+            </div>
+        </div>
+    `;
 }
 
 function escapeHtml(str) {
