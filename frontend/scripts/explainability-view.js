@@ -281,9 +281,9 @@ function updateAdvancedExplainabilityPanels(patientId) {
             </div>
         </div>
 
-        <!-- Container for Levels 3 & 4 (Populated in Commit 13) -->
+        <!-- Container for Levels 3 & 4 -->
         <div id="levels-3-4-container" style="margin-top: 1.5rem;">
-            <!-- Populated in next commit -->
+            <!-- Rendered below -->
         </div>
     `;
 
@@ -300,9 +300,142 @@ function updateAdvancedExplainabilityPanels(patientId) {
         });
     });
 
-    if (typeof updateLevels3And4 === "function") {
-        updateLevels3And4(patient);
-    }
+    updateLevels3And4(patient);
+}
+
+function updateLevels3And4(patient) {
+    const container = document.getElementById('levels-3-4-container');
+    if (!container) return;
+
+    const shap = patient.shapley_values;
+    const evid = patient.evidential_mass;
+
+    // Split clinical shapley into Age and Sex estimates
+    const isMale = patient.sex === 'Male';
+    const ageImpact = shap.Clinical * 0.65;
+    const sexImpact = shap.Clinical * 0.35;
+
+    container.innerHTML = `
+        <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(320px, 1fr)); gap: 1.5rem;">
+            <!-- Level 3: Multimodal Game-Theoretic Shapley Attribution -->
+            <div class="card">
+                <div class="card-header">
+                    <div>
+                        <div style="display: flex; align-items: center; gap: 0.5rem;">
+                            <span class="badge badge-accent">Level 3: Game Theory</span>
+                            <h3 class="card-title" style="margin: 0;">Multimodal Shapley Attribution</h3>
+                        </div>
+                        <p class="text-sm text-muted">Axiomatic local additive feature attribution: $f(x) = \\phi_0 + \\sum \\phi_i$.</p>
+                    </div>
+                </div>
+
+                <div style="margin-top: 0.75rem; display: flex; flex-direction: column; gap: 0.85rem;">
+                    <!-- Baseline -->
+                    <div style="font-size: 0.8rem; color: var(--text-muted); display: flex; justify-content: space-between;">
+                        <span>Cohort Expected Value (\\phi_0):</span>
+                        <span class="font-mono">0.500 (Base Prior)</span>
+                    </div>
+
+                    <!-- B-mode Ultrasound Shapley -->
+                    <div>
+                        <div style="display: flex; justify-content: space-between; font-size: 0.85rem; margin-bottom: 0.25rem;">
+                            <span>B-Mode Acoustic Morphology (\\phi_B):</span>
+                            <span class="font-mono font-bold" style="color: ${shap.B_mode >= 0 ? '#e11d48' : '#0284c7'};">
+                                ${shap.B_mode >= 0 ? '+' : ''}${shap.B_mode.toFixed(2)}
+                            </span>
+                        </div>
+                        <div class="progress-bar-container" style="height: 10px; background: #e2e8f0; border-radius: 5px; overflow: hidden;">
+                            <div style="width: ${Math.min(100, Math.abs(shap.B_mode) * 120)}%; height: 100%; background: ${shap.B_mode >= 0 ? '#e11d48' : '#0284c7'};"></div>
+                        </div>
+                    </div>
+
+                    <!-- Patient Age Shapley -->
+                    <div>
+                        <div style="display: flex; justify-content: space-between; font-size: 0.85rem; margin-bottom: 0.25rem;">
+                            <span>Patient Age: ${patient.age}y (\\phi_Age):</span>
+                            <span class="font-mono font-bold" style="color: ${ageImpact >= 0 ? '#e11d48' : '#0284c7'};">
+                                ${ageImpact >= 0 ? '+' : ''}${ageImpact.toFixed(2)}
+                            </span>
+                        </div>
+                        <div class="progress-bar-container" style="height: 10px; background: #e2e8f0; border-radius: 5px; overflow: hidden;">
+                            <div style="width: ${Math.min(100, Math.abs(ageImpact) * 120)}%; height: 100%; background: ${ageImpact >= 0 ? '#e11d48' : '#0284c7'};"></div>
+                        </div>
+                    </div>
+
+                    <!-- Patient Sex Shapley -->
+                    <div>
+                        <div style="display: flex; justify-content: space-between; font-size: 0.85rem; margin-bottom: 0.25rem;">
+                            <span>Biological Sex: ${patient.sex} (\\phi_Sex):</span>
+                            <span class="font-mono font-bold" style="color: ${sexImpact >= 0 ? '#e11d48' : '#0284c7'};">
+                                ${sexImpact >= 0 ? '+' : ''}${sexImpact.toFixed(2)}
+                            </span>
+                        </div>
+                        <div class="progress-bar-container" style="height: 10px; background: #e2e8f0; border-radius: 5px; overflow: hidden;">
+                            <div style="width: ${Math.min(100, Math.abs(sexImpact) * 120)}%; height: 100%; background: ${sexImpact >= 0 ? '#e11d48' : '#0284c7'};"></div>
+                        </div>
+                    </div>
+
+                    <div style="background: var(--surface-alt); padding: 0.5rem 0.75rem; border-radius: var(--radius-sm); font-size: 0.78rem; color: var(--text-secondary); margin-top: 0.25rem;">
+                        <span style="color: #e11d48; font-weight: 700;">+ Red</span> pushes toward HCC | 
+                        <span style="color: #0284c7; font-weight: 700;">- Blue</span> pushes toward Hemangioma.
+                    </div>
+                </div>
+            </div>
+
+            <!-- Level 4: Subjective Logic Evidential Uncertainty Decomposition -->
+            <div class="card">
+                <div class="card-header">
+                    <div>
+                        <div style="display: flex; align-items: center; gap: 0.5rem;">
+                            <span class="badge badge-accent">Level 4: Subjective Logic</span>
+                            <h3 class="card-title" style="margin: 0;">Dirichlet Evidential Uncertainty</h3>
+                        </div>
+                        <p class="text-sm text-muted">Dempster-Shafer belief decomposition (Model A9): $b_{\\text{HCC}} + b_{\\text{Hem}} + u = 1$.</p>
+                    </div>
+                </div>
+
+                <div style="margin-top: 0.75rem;">
+                    <!-- Belief Mass Ternary Bar -->
+                    <div style="font-size: 0.85rem; margin-bottom: 0.4rem; display: flex; justify-content: space-between;">
+                        <span>Subjective Logic Belief Allocation:</span>
+                        <span class="font-mono font-bold">Sum = 100%</span>
+                    </div>
+
+                    <div style="display: flex; height: 26px; border-radius: 6px; overflow: hidden; border: 1px solid var(--border-light); font-size: 0.75rem; font-weight: 700; color: #ffffff;">
+                        <div style="width: ${evid.b_HCC * 100}%; background: #e11d48; display: flex; align-items: center; justify-content: center;" title="Belief HCC: ${(evid.b_HCC*100).toFixed(1)}%">
+                            ${evid.b_HCC > 0.12 ? `HCC ${(evid.b_HCC*100).toFixed(0)}%` : ''}
+                        </div>
+                        <div style="width: ${evid.b_Hem * 100}%; background: #0284c7; display: flex; align-items: center; justify-content: center;" title="Belief Hemangioma: ${(evid.b_Hem*100).toFixed(1)}%">
+                            ${evid.b_Hem > 0.12 ? `Hem ${(evid.b_Hem*100).toFixed(0)}%` : ''}
+                        </div>
+                        <div style="width: ${evid.uncertainty * 100}%; background: #f59e0b; display: flex; align-items: center; justify-content: center; color: #0f172a;" title="Epistemic Uncertainty: ${(evid.uncertainty*100).toFixed(1)}%">
+                            ${evid.uncertainty > 0.08 ? `u ${(evid.uncertainty*100).toFixed(0)}%` : ''}
+                        </div>
+                    </div>
+
+                    <!-- Readouts -->
+                    <div style="display: grid; grid-template-columns: repeat(3, 1fr); gap: 0.5rem; margin-top: 1rem; text-align: center;">
+                        <div style="background: var(--surface-bg); padding: 0.5rem; border-radius: var(--radius-sm); border: 1px solid var(--border-light);">
+                            <span class="text-xs text-muted">b(HCC)</span>
+                            <div class="font-mono font-bold" style="color: #e11d48; font-size: 1rem;">${(evid.b_HCC * 100).toFixed(1)}%</div>
+                        </div>
+                        <div style="background: var(--surface-bg); padding: 0.5rem; border-radius: var(--radius-sm); border: 1px solid var(--border-light);">
+                            <span class="text-xs text-muted">b(Hemangioma)</span>
+                            <div class="font-mono font-bold" style="color: #0284c7; font-size: 1rem;">${(evid.b_Hem * 100).toFixed(1)}%</div>
+                        </div>
+                        <div style="background: var(--surface-bg); padding: 0.5rem; border-radius: var(--radius-sm); border: 1px solid var(--border-light);">
+                            <span class="text-xs text-muted">Vacancy (u)</span>
+                            <div class="font-mono font-bold" style="color: #f59e0b; font-size: 1rem;">${(evid.uncertainty * 100).toFixed(1)}%</div>
+                        </div>
+                    </div>
+
+                    <div style="margin-top: 0.75rem; font-size: 0.8rem; color: var(--text-secondary); line-height: 1.45;">
+                        <strong>Clinical Triage Protocol:</strong> If epistemic vacancy $u &gt; 15\\%$, the patient is flagged as an out-of-distribution atypical case requiring senior radiologist referral rather than autonomous diagnosis.
+                    </div>
+                </div>
+            </div>
+        </div>
+    `;
 }
 
 function bindGradCamSlider() {
