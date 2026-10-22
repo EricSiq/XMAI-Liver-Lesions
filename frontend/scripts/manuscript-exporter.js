@@ -28,7 +28,7 @@ function renderManuscriptView() {
                 CLAIM & STARD-AI Checklist (6/6 Pass)
             </button>
             <button class="btn btn-sm ${activeArtifactTab === 'commits' ? 'btn-primary' : 'btn-outline'} artifact-tab-btn" data-tab="commits">
-                Git Provenance & Audit Trail (25 Commits)
+                Git Provenance & Audit Trail (27 Commits)
             </button>
             <button class="btn btn-sm ${activeArtifactTab === 'bibtex' ? 'btn-primary' : 'btn-outline'} artifact-tab-btn" data-tab="bibtex">
                 BibTeX Citation
@@ -369,6 +369,8 @@ function renderBibtexTab(box) {
 
 function renderCommitsTab(box) {
     const commits = [
+        { hash: "c506ae8", date: "2026-10-22", type: "docs", scope: "audit", msg: "clean up redundant files, standardize A6 exports, and enrich documentation with console instructions and test verification" },
+        { hash: "a59bbff", date: "2026-10-22", type: "feat", scope: "frontend", msg: "implement KaTeX math typesetting engine, camera-ready LaTeX publication table, and quick preset controls" },
         { hash: "18dfad3", date: "2026-10-22", type: "refactor", scope: "theme", msg: "overhaul clinical design system to clean institutional light theme and typography tokens" },
         { hash: "fd1e989", date: "2026-10-22", type: "feat", scope: "frontend", msg: "display interactive Git provenance audit trail and synchronize dual-branch push" },
         { hash: "8de8fc2", date: "2026-10-22", type: "docs", scope: "manuscript", msg: "synchronize scientific manuscript with presentation console, live PyTorch API, and 81/81 test audit" },
