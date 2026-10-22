@@ -1,53 +1,53 @@
 /* ==========================================================================
-   XMAI Academic Clinical Theme & Design System
+   XMAI Academic Clinical Theme & Design System (Revamped)
    Targeted for Academic Mentors, Research Committees, and Journal Reviewers.
-   Strictly avoids "vibecoded" / toy AI styling in favor of scholarly authority.
+   Cohesive, unified institutional light theme (Nature Medicine / Lancet aesthetic).
+   Strictly avoids harsh dark/light contrast mismatches.
    ========================================================================== */
 
 :root {
-    /* Color Palette - Clinical Academic Slate */
-    --bg-page: #f8fafc;
-    --bg-surface: #ffffff;
-    --bg-subtle: #f1f5f9;
-    --bg-elevated: #ffffff;
-    --bg-header: #0f172a;
-    --bg-header-alt: #1e293b;
+    /* Color Palette - Cohesive Institutional Palette */
+    --bg-page: #f8fafc;              /* Soft clinical slate-50 background */
+    --bg-surface: #ffffff;           /* Clean white card surface */
+    --bg-subtle: #f1f5f9;            /* Subtle slate-100 highlight */
+    --bg-elevated: #ffffff;          /* Elevated surface */
+    --bg-header: #ffffff;            /* Unified white header */
 
-    --text-primary: #0f172a;
-    --text-secondary: #334155;
-    --text-muted: #64748b;
-    --text-light: #f8fafc;
-    --text-header-muted: #94a3b8;
+    --text-primary: #0f172a;         /* Deep slate-900 primary text */
+    --text-secondary: #334155;       /* Slate-700 secondary text */
+    --text-muted: #64748b;           /* Slate-500 helper text */
+    --text-accent: #0284c7;          /* Clinical tech blue */
 
-    --border-subtle: #e2e8f0;
-    --border-medium: #cbd5e1;
-    --border-strong: #94a3b8;
+    --border-subtle: #e2e8f0;        /* Crisp slate-200 border */
+    --border-medium: #cbd5e1;        /* Slate-300 border */
+    --border-strong: #94a3b8;        /* Slate-400 border */
 
-    /* Clinical Diagnostic Accents */
+    /* Diagnostic Status Colors */
     --color-primary: #0284c7;        /* Medical Cyan / Tech Blue */
     --color-primary-dark: #0369a1;
     --color-primary-light: #e0f2fe;
-    
-    --color-hcc: #dc2626;            /* Malignant HCC Crimson */
-    --color-hcc-light: #fee2e2;
-    --color-hem: #059669;            /* Benign Hemangioma Emerald */
-    --color-hem-light: #d1fae5;
-    
-    --color-warning: #d97706;        /* Borderline / Indeterminate Amber */
+
+    --color-success: #059669;        /* Benign / Correct Emerald */
+    --color-success-light: #d1fae5;
+
+    --color-danger: #dc2626;         /* Malignant HCC Crimson */
+    --color-danger-light: #fee2e2;
+
+    --color-warning: #d97706;        /* Ambiguous / Borderline Amber */
     --color-warning-light: #fef3c7;
-    --color-info: #4f46e5;           /* Multimodal Context Indigo */
-    --color-info-light: #e0e7ff;
 
     /* Typography */
     --font-sans: 'Inter', -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
     --font-mono: 'JetBrains Mono', SFMono-Regular, Menlo, Monaco, Consolas, monospace;
+    --font-serif: "KaTeX_Main", "Times New Roman", Times, serif;
 
     /* Spacing & Radii */
     --radius-sm: 4px;
     --radius-md: 6px;
     --radius-lg: 8px;
-    --shadow-subtle: 0 1px 3px rgba(15, 23, 42, 0.06), 0 1px 2px rgba(15, 23, 42, 0.04);
-    --shadow-card: 0 4px 6px -1px rgba(15, 23, 42, 0.07), 0 2px 4px -1px rgba(15, 23, 42, 0.04);
+    --shadow-subtle: 0 1px 3px rgba(15, 23, 42, 0.05), 0 1px 2px rgba(15, 23, 42, 0.03);
+    --shadow-card: 0 4px 6px -1px rgba(15, 23, 42, 0.06), 0 2px 4px -1px rgba(15, 23, 42, 0.03);
+    --shadow-elevated: 0 10px 15px -3px rgba(15, 23, 42, 0.08), 0 4px 6px -2px rgba(15, 23, 42, 0.04);
 }
 
 * {
@@ -66,92 +66,134 @@ body {
 }
 
 /* --------------------------------------------------------------------------
-   Header & Navigation
+   Top Institutional Header Banner & Navigation
    -------------------------------------------------------------------------- */
 .site-header {
     background: var(--bg-header);
-    color: var(--text-light);
-    border-bottom: 2px solid #334155;
+    border-bottom: 1px solid var(--border-subtle);
     position: sticky;
     top: 0;
     z-index: 100;
-    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
+    box-shadow: var(--shadow-subtle);
+}
+
+/* Institutional Top Accent Hairline */
+.site-header::before {
+    content: "";
+    display: block;
+    height: 3px;
+    background: linear-gradient(90deg, #1e3a8a, #0284c7, #059669);
+    width: 100%;
 }
 
 .header-inner {
     max-width: 1400px;
     margin: 0 auto;
-    padding: 16px 24px 0 24px;
+    padding: 14px 24px 0 24px;
 }
 
 .journal-badge-row {
     display: flex;
     flex-wrap: wrap;
     gap: 8px;
-    margin-bottom: 12px;
+    margin-bottom: 10px;
+    align-items: center;
 }
 
+/* Scholarly Badges - Subtle, clean, refined */
 .badge {
     display: inline-flex;
     align-items: center;
+    gap: 4px;
     font-size: 11px;
     font-weight: 600;
-    text-transform: uppercase;
-    letter-spacing: 0.04em;
+    letter-spacing: 0.03em;
     padding: 3px 8px;
     border-radius: var(--radius-sm);
+    white-space: nowrap;
 }
 
 .badge-journal {
-    background: #1e3a8a;
-    color: #bfdbfe;
-    border: 1px solid #3b82f6;
+    background: #eff6ff;
+    color: #1d4ed8;
+    border: 1px solid #bfdbfe;
 }
 
 .badge-standard {
-    background: #064e3b;
-    color: #a7f3d0;
-    border: 1px solid #10b981;
+    background: #f0fdf4;
+    color: #15803d;
+    border: 1px solid #bbf7d0;
 }
 
 .badge-security {
-    background: #701a75;
-    color: #f5d0fe;
-    border: 1px solid #c026d3;
+    background: #faf5ff;
+    color: #7e22ce;
+    border: 1px solid #e9d5ff;
 }
 
 .badge-cohort {
-    background: #334155;
-    color: #cbd5e1;
-    border: 1px solid #475569;
+    background: #f8fafc;
+    color: #334155;
+    border: 1px solid #cbd5e1;
 }
 
 .badge-external {
-    background: #1e293b;
-    color: #38bdf8;
-    border: 1px solid #0284c7;
+    background: #fffbeb;
+    color: #b45309;
+    border: 1px solid #fde68a;
 }
 
+.badge-accent {
+    background: #eff6ff;
+    color: #0284c7;
+    border: 1px solid #bae6fd;
+}
+
+.badge-success {
+    background: #f0fdf4;
+    color: #15803d;
+    border: 1px solid #bbf7d0;
+}
+
+.badge-danger {
+    background: #fef2f2;
+    color: #b91c1c;
+    border: 1px solid #fecaca;
+}
+
+.badge-neutral {
+    background: #f1f5f9;
+    color: #475569;
+    border: 1px solid #e2e8f0;
+}
+
+.badge-outline {
+    background: #ffffff;
+    color: #475569;
+    border: 1px solid #cbd5e1;
+}
+
+/* Header Title Group */
 .title-row {
     display: flex;
     justify-content: space-between;
     align-items: flex-start;
     gap: 20px;
-    margin-bottom: 16px;
+    margin-bottom: 14px;
 }
 
 .paper-title {
-    font-size: 22px;
+    font-size: 21px;
     font-weight: 700;
-    color: #ffffff;
-    letter-spacing: -0.01em;
+    color: var(--text-primary);
+    letter-spacing: -0.015em;
     line-height: 1.25;
 }
 
 .paper-subtitle {
     font-size: 13px;
-    color: var(--text-header-muted);
-    margin-top: 4px;
+    color: var(--text-muted);
+    margin-top: 3px;
 }
 
 .header-controls {
@@ -160,10 +202,15 @@ body {
     flex-shrink: 0;
 }
 
-/* Nav Bar */
+/* Navigation Tabs */
 .nav-bar {
-    border-top: 1px solid #334155;
+    border-top: 1px solid var(--border-subtle);
     overflow-x: auto;
+    scrollbar-width: none;
+}
+
+.nav-bar::-webkit-scrollbar {
+    display: none;
 }
 
 .nav-list {
@@ -175,23 +222,24 @@ body {
 .nav-link {
     display: block;
     padding: 10px 14px;
-    color: var(--text-header-muted);
+    color: var(--text-muted);
     text-decoration: none;
     font-size: 12px;
     font-weight: 500;
     white-space: nowrap;
     border-bottom: 2px solid transparent;
-    transition: all 0.15s ease-in-out;
+    transition: all 0.12s ease-in-out;
 }
 
 .nav-link:hover {
-    color: #ffffff;
-    background: rgba(255, 255, 255, 0.04);
+    color: var(--text-primary);
+    background: var(--bg-subtle);
+    border-radius: var(--radius-sm) var(--radius-sm) 0 0;
 }
 
 .nav-link.active {
-    color: #38bdf8;
-    border-bottom-color: #38bdf8;
+    color: var(--color-primary);
+    border-bottom-color: var(--color-primary);
     font-weight: 600;
 }
 
@@ -210,31 +258,112 @@ body {
     border-radius: var(--radius-lg);
     box-shadow: var(--shadow-subtle);
     padding: 24px 28px;
-    margin-bottom: 24px;
+    margin-bottom: 28px;
+    scroll-margin-top: 130px;
 }
 
 .section-header {
     border-bottom: 1px solid var(--border-subtle);
     padding-bottom: 14px;
     margin-bottom: 20px;
-    display: flex;
-    justify-content: space-between;
-    align-items: flex-end;
 }
 
-.section-header h2 {
+.section-tag {
+    font-size: 11px;
+    font-weight: 700;
+    text-transform: uppercase;
+    letter-spacing: 0.06em;
+    color: var(--color-primary);
+    display: block;
+    margin-bottom: 4px;
+}
+
+.section-title {
     font-size: 18px;
     font-weight: 700;
     color: var(--text-primary);
-    display: flex;
-    align-items: center;
-    gap: 8px;
 }
 
 .section-desc {
     font-size: 13px;
-    color: var(--text-muted);
+    color: var(--text-secondary);
     margin-top: 4px;
+    line-height: 1.5;
+}
+
+/* Cards & Surfaces */
+.card {
+    background: var(--bg-surface);
+    border: 1px solid var(--border-subtle);
+    border-radius: var(--radius-md);
+    padding: 18px;
+    box-shadow: var(--shadow-subtle);
+}
+
+.card-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: baseline;
+    margin-bottom: 12px;
+    flex-wrap: wrap;
+    gap: 8px;
+}
+
+.card-title {
+    font-size: 15px;
+    font-weight: 600;
+    color: var(--text-primary);
+}
+
+/* Stats Metric Grid */
+.stats-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+    gap: 14px;
+}
+
+.stat-card {
+    background: #ffffff;
+    border: 1px solid var(--border-subtle);
+    border-radius: var(--radius-md);
+    padding: 16px;
+    border-left: 3px solid var(--color-primary);
+    box-shadow: var(--shadow-subtle);
+    transition: transform 0.15s ease, box-shadow 0.15s ease;
+}
+
+.stat-card:hover {
+    transform: translateY(-2px);
+    box-shadow: var(--shadow-card);
+}
+
+.stat-label {
+    font-size: 11px;
+    font-weight: 600;
+    text-transform: uppercase;
+    letter-spacing: 0.05em;
+    color: var(--text-muted);
+}
+
+.stat-value {
+    font-size: 26px;
+    font-weight: 700;
+    color: var(--text-primary);
+    font-family: var(--font-mono);
+    margin: 4px 0 2px 0;
+}
+
+.stat-ci {
+    font-size: 11px;
+    color: var(--text-muted);
+    font-family: var(--font-mono);
+}
+
+.stat-desc {
+    font-size: 12px;
+    color: var(--text-secondary);
+    margin-top: 6px;
+    line-height: 1.4;
 }
 
 /* Buttons */
@@ -245,11 +374,11 @@ body {
     font-family: var(--font-sans);
     font-size: 12px;
     font-weight: 600;
-    padding: 7px 12px;
+    padding: 6px 12px;
     border-radius: var(--radius-sm);
     cursor: pointer;
     text-decoration: none;
-    transition: background-color 0.15s, border-color 0.15s;
+    transition: all 0.12s ease;
     border: 1px solid transparent;
 }
 
@@ -263,122 +392,138 @@ body {
 }
 
 .btn-secondary {
-    background: #334155;
-    color: #e2e8f0;
-    border-color: #475569;
+    background: var(--bg-subtle);
+    color: var(--text-primary);
+    border-color: var(--border-subtle);
 }
 
 .btn-secondary:hover {
-    background: #475569;
+    background: #e2e8f0;
 }
 
 .btn-outline {
-    background: #ffffff;
-    border-color: var(--border-medium);
+    background: transparent;
     color: var(--text-secondary);
+    border-color: var(--border-medium);
 }
 
 .btn-outline:hover {
     background: var(--bg-subtle);
-    border-color: var(--border-strong);
-}
-
-.btn-sm {
-    padding: 5px 10px;
-    font-size: 11px;
-}
-
-/* --------------------------------------------------------------------------
-   Data Tables & Typography
-   -------------------------------------------------------------------------- */
-.table-responsive {
-    width: 100%;
-    overflow-x: auto;
-}
-
-.academic-table {
-    width: 100%;
-    border-collapse: collapse;
-    font-size: 12.5px;
-    text-align: left;
-}
-
-.academic-table th {
-    background: var(--bg-subtle);
-    color: var(--text-secondary);
-    font-weight: 600;
-    padding: 9px 12px;
-    border-bottom: 2px solid var(--border-medium);
-    white-space: nowrap;
-}
-
-.academic-table td {
-    padding: 9px 12px;
-    border-bottom: 1px solid var(--border-subtle);
     color: var(--text-primary);
 }
 
-.academic-table tr:hover {
-    background-color: #f8fafc;
+.btn-outline.active {
+    background: var(--color-primary-light);
+    color: var(--color-primary);
+    border-color: var(--color-primary);
 }
 
-.academic-table .text-right {
-    text-align: right;
+.btn-sm {
+    padding: 4px 10px;
+    font-size: 11px;
 }
 
-.academic-table .text-center {
-    text-align: center;
+/* Academic Tables */
+.academic-table {
+    width: 100%;
+    border-collapse: collapse;
+    font-size: 12px;
+    line-height: 1.5;
 }
 
-.metric-ci {
-    font-family: var(--font-mono);
-    font-size: 11.5px;
+.academic-table th {
+    background: #f8fafc;
+    color: var(--text-secondary);
+    font-weight: 600;
+    text-align: left;
+    padding: 10px 12px;
+    border-bottom: 2px solid var(--border-medium);
+    border-top: 1px solid var(--border-subtle);
+}
+
+.academic-table td {
+    padding: 10px 12px;
+    border-bottom: 1px solid var(--border-subtle);
     color: var(--text-secondary);
 }
 
-.highlight-row {
-    background-color: #f0fdf4 !important;
-    font-weight: 600;
+.academic-table tr:hover td {
+    background: #f8fafc;
 }
 
-.highlight-row td:first-child {
+/* Math & Equation Containers */
+.math-block {
+    background: #f8fafc;
+    border: 1px solid var(--border-subtle);
     border-left: 3px solid var(--color-primary);
+    border-radius: var(--radius-sm);
+    padding: 10px 14px;
+    font-family: var(--font-mono);
+    font-size: 13px;
+    color: var(--text-primary);
+    overflow-x: auto;
+}
+
+.math-inline {
+    font-family: var(--font-mono);
+    background: #f1f5f9;
+    padding: 1px 4px;
+    border-radius: 3px;
+    font-size: 12px;
 }
 
 /* Footer */
 .site-footer {
-    background: #0f172a;
-    color: #94a3b8;
-    border-top: 1px solid #1e293b;
-    padding: 32px 24px;
+    background: #ffffff;
+    border-top: 1px solid var(--border-subtle);
+    padding: 32px 0 24px 0;
     font-size: 12px;
+    color: var(--text-muted);
 }
 
 .footer-inner {
     max-width: 1400px;
     margin: 0 auto;
+    padding: 0 24px;
     display: grid;
-    grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
-    gap: 32px;
+    grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
+    gap: 24px;
 }
 
 .footer-col h4 {
-    color: #e2e8f0;
+    color: var(--text-primary);
     font-size: 13px;
     font-weight: 600;
-    margin-bottom: 10px;
+    margin-bottom: 8px;
+}
+
+.footer-col p {
+    line-height: 1.5;
+    margin-bottom: 6px;
 }
 
 .footer-list {
     list-style: none;
-    line-height: 1.8;
+    line-height: 1.6;
 }
 
-.footer-inner a {
-    color: #38bdf8;
-    text-decoration: none;
+.footer-list li::before {
+    content: "•";
+    color: var(--color-primary);
+    font-weight: bold;
+    display: inline-block;
+    width: 12px;
 }
 
-.footer-inner a:hover {
-    text-decoration: underline;
+/* Responsive adjustments */
+@media (max-width: 768px) {
+    .title-row {
+        flex-direction: column;
+    }
+    .research-section {
+        padding: 16px;
+    }
+    .stats-grid {
+        grid-template-columns: 1fr;
+    }
 }
