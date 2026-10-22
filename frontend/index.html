@@ -22,6 +22,7 @@
                 <span class="badge badge-security">100% Patient Isolated (Zero-Leakage)</span>
                 <span class="badge badge-cohort">Primary Cohort: SMC-LUD (n=743)</span>
                 <span class="badge badge-external">External Validation: TCIA (n=120)</span>
+                <span id="ml-backend-status-pill" class="badge badge-outline" style="font-weight: 600;">Checking ML Pipeline...</span>
             </div>
             <div class="title-row">
                 <div class="title-group">
@@ -29,6 +30,7 @@
                     <p class="paper-subtitle">A Patient-Isolated Dynamic Gating & Evidential Framework for Borderline Ultrasound Differentiation</p>
                 </div>
                 <div class="header-controls">
+                    <button id="btn-run-live-audit" class="btn btn-outline btn-sm" title="Run Automated CLAIM Verification Audit">▶ Live ML Audit</button>
                     <button id="btn-export-bibtex" class="btn btn-secondary btn-sm" title="View BibTeX Citation">Cite Manuscript</button>
                     <a href="#section-paper-artifacts" class="btn btn-primary btn-sm">LaTeX Tables</a>
                 </div>
@@ -125,6 +127,7 @@
     </footer>
 
     <!-- Application Scripts -->
+    <script src="scripts/ml-client.js"></script>
     <script src="scripts/data-store.js"></script>
     <script src="scripts/overview-view.js"></script>
     <script src="scripts/architecture-diagram.js"></script>

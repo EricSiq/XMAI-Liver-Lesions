@@ -335,7 +335,7 @@ function bindSimulatorEvents(patient) {
     let currentSimSex = patient.sex;
     let currentSimMask = true;
 
-    function recalculate() {
+    async function recalculate() {
         ageVal.textContent = `${currentSimAge} yrs`;
 
         const gateBVal = document.getElementById('sim-gate-b-val');
@@ -346,59 +346,41 @@ function bindSimulatorEvents(patient) {
         const postBar = document.getElementById('sim-post-bar');
         const verdictNote = document.getElementById('sim-verdict-note');
 
-        if (!currentSimMask) {
-            // Missing clinical data fallback: Fallback to A1 baseline!
-            gateBVal.textContent = "100.0% (Fallback)";
-            gateBBar.style.width = "100%";
-            gateCVal.textContent = "0.0% (m=0)";
-            gateCBar.style.width = "0%";
-            const rawHcc = (patient.a1_prob.HCC * 100).toFixed(1);
-            postHcc.textContent = `${rawHcc}%`;
-            postBar.style.width = `${rawHcc}%`;
-            verdictNote.textContent = "Hypothesis H3 Confirmed: Graceful degradation to unimodal B-mode baseline without error.";
-            verdictNote.style.background = "rgba(2, 132, 199, 0.08)";
-            verdictNote.style.color = "var(--accent)";
-            return;
-        }
+        // Execute prediction via live PyTorch ML client (or local fallback)
+        const pred = await XMAI_CLIENT.predict({
+            modelId: "A4",
+            age: currentSimAge,
+            sex: currentSimSex,
+            mask: currentSimMask,
+            visualPrior: patient.a1_prob.HCC
+        });
 
-        // Calculate epidemiological demographic log-odds prior
-        // Age mean 55, std 12; Males risk factor +0.8, Females -0.8
-        const ageNorm = (currentSimAge - 55) / 12.0;
-        const sexBias = (currentSimSex === 'Male') ? 0.75 : -0.75;
-        const clinicalLogOdds = ageNorm * 0.6 + sexBias;
+        const finalHccPct = (pred.p_hcc * 100).toFixed(1);
+        const finalGateB = (pred.gate_b * 100).toFixed(1);
+        const finalGateC = (pred.gate_c * 100).toFixed(1);
 
-        // Base visual logit from A1
-        const pVisual = patient.a1_prob.HCC;
-        const visualLogit = Math.log(Math.max(0.001, Math.min(0.999, pVisual)) / (1 - pVisual));
-        
-        // Dynamic gating factor: higher when visual confidence is low (margin near 0)
-        const acousticMargin = Math.abs(pVisual - 0.5) * 2;
-        const gateC = Math.max(0.05, Math.min(0.55, 0.50 * (1.0 - acousticMargin)));
-        const gateB = 1.0 - gateC;
-
-        // Fused logit
-        const fusedLogit = (visualLogit * gateB) + (clinicalLogOdds * gateC * 2.2);
-        const calibratedProb = 1.0 / (1.0 + Math.exp(-fusedLogit / 1.35));
-        const finalHccPct = (calibratedProb * 100).toFixed(1);
-
-        gateBVal.textContent = `${(gateB * 100).toFixed(1)}%`;
-        gateBBar.style.width = `${gateB * 100}%`;
-        gateCVal.textContent = `${(gateC * 100).toFixed(1)}%`;
-        gateCBar.style.width = `${gateC * 100}%`;
+        gateBVal.textContent = pred.fallback_active ? `${finalGateB}% (Fallback)` : `${finalGateB}%`;
+        gateBBar.style.width = `${pred.gate_b * 100}%`;
+        gateCVal.textContent = pred.fallback_active ? `0.0% (m=0)` : `${finalGateC}%`;
+        gateCBar.style.width = `${pred.gate_c * 100}%`;
 
         postHcc.textContent = `${finalHccPct}%`;
         postBar.style.width = `${finalHccPct}%`;
 
-        if (finalHccPct > 50 && patient.true_label === 'HCC') {
-            verdictNote.textContent = "Correctly classified as Hepatocellular Carcinoma (Pathology Match).";
+        if (pred.fallback_active) {
+            verdictNote.textContent = "Hypothesis H3 Confirmed: Graceful degradation to unimodal B-mode baseline without error.";
+            verdictNote.style.background = "rgba(2, 132, 199, 0.08)";
+            verdictNote.style.color = "var(--accent)";
+        } else if (pred.p_hcc >= 0.50 && patient.true_label === 'HCC') {
+            verdictNote.textContent = `Correctly classified as HCC (Pathology Match) [${pred.source || 'Live PyTorch'}].`;
             verdictNote.style.background = "rgba(5, 150, 105, 0.08)";
             verdictNote.style.color = "var(--color-success)";
-        } else if (finalHccPct <= 50 && patient.true_label === 'Hemangioma') {
-            verdictNote.textContent = "Correctly classified as Benign Cavernous Hemangioma (Pathology Match).";
+        } else if (pred.p_hcc < 0.50 && patient.true_label === 'Hemangioma') {
+            verdictNote.textContent = `Correctly classified as Benign Hemangioma (Pathology Match) [${pred.source || 'Live PyTorch'}].`;
             verdictNote.style.background = "rgba(5, 150, 105, 0.08)";
             verdictNote.style.color = "var(--color-success)";
         } else {
-            verdictNote.textContent = "Diagnostic disagreement with ground truth under this hypothetical profile.";
+            verdictNote.textContent = `Diagnostic disagreement with ground truth under this hypothetical profile [${pred.source || 'Live PyTorch'}].`;
             verdictNote.style.background = "rgba(225, 29, 72, 0.08)";
             verdictNote.style.color = "var(--color-danger)";
         }
