@@ -42,6 +42,7 @@ def test_frontend_scripts_exist_and_linked():
     html_content = (FRONTEND_DIR / "index.html").read_text(encoding="utf-8")
 
     expected_scripts = [
+        "scripts/math-renderer.js",
         "scripts/ml-client.js",
         "scripts/data-store.js",
         "scripts/overview-view.js",

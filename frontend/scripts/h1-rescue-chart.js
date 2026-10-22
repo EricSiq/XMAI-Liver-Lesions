@@ -234,7 +234,7 @@ function updateDecileDetail(index) {
                 </div>
                 <p style="margin: 0.5rem 0 0 0; font-size: 0.88rem; color: var(--text-secondary); line-height: 1.6;">
                     In this margin regime, B-mode visual features provide clear and decisive diagnostic evidence. 
-                    The dynamic gating mechanism $g = \\sigma(W_g [z_B; z_C; m])$ assigns near-zero reliance to clinical priors, 
+                    The dynamic gating mechanism <span class="math-inline">${window.MathRenderer ? window.MathRenderer.render('g = \\sigma(W_g [z_B; z_C; m])') : '<i>g</i> = σ(<i>W<sub>g</sub></i> [<i>z<sub>B</sub></i>; <i>z<sub>C</sub></i>; <i>m</i>])'}</span> assigns near-zero reliance to clinical priors, 
                     ensuring that strong acoustic visual indicators are never overridden or perturbed.
                 </p>
             </div>

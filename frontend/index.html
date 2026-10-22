@@ -9,6 +9,9 @@
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=JetBrains+Mono:wght@400;500;600&display=swap" rel="stylesheet">
+    <!-- KaTeX for pristine academic math typesetting -->
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.16.9/dist/katex.min.css" crossorigin="anonymous">
+    <script defer src="https://cdn.jsdelivr.net/npm/katex@0.16.9/dist/katex.min.js" crossorigin="anonymous"></script>
     <link rel="stylesheet" href="styles/academic-theme.css">
     <link rel="stylesheet" href="styles/components.css">
 </head>
@@ -106,7 +109,7 @@
             <div class="footer-col">
                 <h4>XMAI Research Consortium</h4>
                 <p>Reproducible Multimodal AI for Hepatocellular Carcinoma & Benign Hemangioma Differentiation.</p>
-                <p class="text-muted">Repository: <a href="https://github.com/EricSiq/XMAI-Liver-Lesions" target="_blank" rel="noopener">EricSiq/XMAI-Liver-Lesions</a> &bull; <a href="https://github.com/EricSiq/XMAI-Liver-Lesions/commits/main" target="_blank" rel="noopener" style="font-weight: 700; color: var(--accent);">23 Pushed Commits (main & master) ↗</a></p>
+                <p class="text-muted">Repository: <a href="https://github.com/EricSiq/XMAI-Liver-Lesions" target="_blank" rel="noopener">EricSiq/XMAI-Liver-Lesions</a> &bull; <a href="https://github.com/EricSiq/XMAI-Liver-Lesions/commits/main" target="_blank" rel="noopener" style="font-weight: 700; color: var(--accent);">25 Pushed Commits (main & master) ↗</a></p>
             </div>
             <div class="footer-col">
                 <h4>Methodological Standards</h4>
@@ -127,6 +130,7 @@
     </footer>
 
     <!-- Application Scripts -->
+    <script src="scripts/math-renderer.js"></script>
     <script src="scripts/ml-client.js"></script>
     <script src="scripts/data-store.js"></script>
     <script src="scripts/overview-view.js"></script>

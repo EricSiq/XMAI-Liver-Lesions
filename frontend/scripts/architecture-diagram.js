@@ -327,8 +327,8 @@ function updateArchitectureDiagram(modelId) {
                 <div style="font-size: 0.78rem; text-transform: uppercase; font-weight: 700; color: var(--text-secondary); letter-spacing: 0.05em; margin-bottom: 0.35rem;">
                     Mathematical Formalism
                 </div>
-                <div style="font-family: 'JetBrains Mono', monospace; font-size: 0.85rem; color: var(--navy-900); line-height: 1.6; word-break: break-all;">
-                    ${spec.math}
+                <div class="math-block" style="margin: 0.25rem 0 0 0; background: transparent; border: none; padding: 0;">
+                    ${window.MathRenderer ? window.MathRenderer.render(spec.math, true) : spec.math}
                 </div>
             </div>
         </div>

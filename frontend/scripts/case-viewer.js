@@ -245,13 +245,20 @@ function renderCovariateSimulator(patient) {
                     <div style="margin-bottom: 1.25rem;">
                         <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 0.4rem;">
                             <label for="sim-age-slider" style="font-size: 0.88rem; font-weight: 600; color: var(--navy-900);">Simulated Patient Age:</label>
-                            <span id="sim-age-val" class="badge badge-neutral font-mono font-bold" style="font-size: 0.9rem;">${patient.age} yrs</span>
+                            <span id="sim-age-val" class="badge badge-neutral font-mono font-bold" style="font-size: 0.9rem; color: var(--color-primary);">${patient.age} yrs</span>
                         </div>
                         <input type="range" id="sim-age-slider" min="20" max="85" step="1" value="${patient.age}" style="width: 100%; cursor: pointer;" />
                         <div style="display: flex; justify-content: space-between; font-size: 0.72rem; color: var(--text-muted); margin-top: 0.2rem;">
                             <span>20 yrs (Young)</span>
                             <span>50 yrs (Cohort Median)</span>
                             <span>85 yrs (Elderly)</span>
+                        </div>
+                        
+                        <!-- Quick Age Presets -->
+                        <div style="display: flex; gap: 0.35rem; margin-top: 0.5rem; justify-content: space-between;">
+                            <button type="button" class="btn btn-xs btn-outline sim-age-preset" data-age="28" title="Young adult profile">28 yrs (Young)</button>
+                            <button type="button" class="btn btn-xs btn-outline sim-age-preset active" data-age="${patient.age}" title="Patient actual age">${patient.age} yrs (Actual)</button>
+                            <button type="button" class="btn btn-xs btn-outline sim-age-preset" data-age="68" title="High-risk elderly profile">68 yrs (Senior)</button>
                         </div>
                     </div>
 
@@ -268,10 +275,10 @@ function renderCovariateSimulator(patient) {
                     <div style="background: var(--surface-alt); padding: 0.75rem; border-radius: var(--radius-sm); border: 1px solid var(--border-light);">
                         <label style="display: flex; align-items: center; gap: 0.5rem; cursor: pointer; font-size: 0.85rem; font-weight: 600; color: var(--navy-900); margin: 0;">
                             <input type="checkbox" id="sim-mask-toggle" checked style="cursor: pointer; width: 16px; height: 16px;" />
-                            <span>Clinical Prior Available (Mask m = 1)</span>
+                            <span>Clinical Prior Available (Mask <i>m</i> = 1)</span>
                         </label>
                         <p class="text-xs text-muted" style="margin: 0.35rem 0 0 1.5rem; line-height: 1.4;">
-                            Uncheck to simulate clinical missingness. Verifies Hypothesis H3: graceful fallback to B-mode.
+                            Uncheck to simulate clinical missingness. Verifies Hypothesis H3: graceful fallback to B-mode visual representation.
                         </p>
                     </div>
                 </div>
@@ -386,9 +393,32 @@ function bindSimulatorEvents(patient) {
         }
     }
 
+    const syncAgePresets = (age) => {
+        document.querySelectorAll('.sim-age-preset').forEach(btn => {
+            const btnAge = parseInt(btn.getAttribute('data-age'), 10);
+            if (btnAge === age) {
+                btn.classList.add('active');
+            } else {
+                btn.classList.remove('active');
+            }
+        });
+    };
+
     ageSlider.addEventListener('input', (e) => {
         currentSimAge = parseInt(e.target.value, 10);
+        syncAgePresets(currentSimAge);
         recalculate();
+    });
+
+    document.querySelectorAll('.sim-age-preset').forEach(btn => {
+        btn.addEventListener('click', () => {
+            const age = parseInt(btn.getAttribute('data-age'), 10);
+            ageSlider.value = age;
+            currentSimAge = age;
+            document.querySelectorAll('.sim-age-preset').forEach(b => b.classList.remove('active'));
+            btn.classList.add('active');
+            recalculate();
+        });
     });
 
     maleBtn.addEventListener('click', () => {

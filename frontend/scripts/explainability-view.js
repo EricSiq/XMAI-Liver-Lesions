@@ -165,16 +165,25 @@ function updateGradCamPanel(patientId) {
                     ${patient.bmode_findings}
                 </p>
 
-                <!-- Heatmap Opacity Threshold Slider -->
+                <!-- Heatmap Opacity Controls & Presets -->
                 <div style="background: var(--surface-alt); padding: 0.85rem 1rem; border-radius: var(--radius-sm); border: 1px solid var(--border-light); margin-bottom: 1rem;">
                     <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 0.35rem;">
                         <label for="gradcam-slider" style="font-size: 0.85rem; font-weight: 600; color: var(--navy-900);">Grad-CAM Activation Blend:</label>
-                        <span id="gradcam-val-display" class="font-mono badge badge-neutral">${Math.round(gradCamThreshold * 100)}%</span>
+                        <span id="gradcam-val-display" class="font-mono badge badge-neutral" style="font-weight: 700; color: var(--color-primary);">${Math.round(gradCamThreshold * 100)}%</span>
                     </div>
                     <input type="range" id="gradcam-slider" min="0.0" max="1.0" step="0.05" value="${gradCamThreshold}" style="width: 100%; cursor: pointer;" />
+                    
+                    <!-- Quick Preset Buttons -->
+                    <div style="display: flex; gap: 0.35rem; margin-top: 0.6rem; justify-content: space-between;">
+                        <button type="button" class="btn btn-xs btn-outline gradcam-preset-btn" data-val="0.0" title="Ultrasound only without heatmap">0% (B-Mode)</button>
+                        <button type="button" class="btn btn-xs btn-outline gradcam-preset-btn" data-val="0.25" title="Subtle guidance">25% (Subtle)</button>
+                        <button type="button" class="btn btn-xs btn-outline gradcam-preset-btn active" data-val="0.45" title="Standard clinical diagnostic view">45% (Standard)</button>
+                        <button type="button" class="btn btn-xs btn-outline gradcam-preset-btn" data-val="0.80" title="High contrast salient regions">80% (Salient)</button>
+                        <button type="button" class="btn btn-xs btn-outline gradcam-preset-btn" data-val="1.0" title="Full activation map">100% (Full)</button>
+                    </div>
                 </div>
 
-                <div style="background: var(--surface-bg); border-left: 3px solid var(--accent); padding: 0.75rem 1rem; border-radius: var(--radius-sm); font-size: 0.82rem; line-height: 1.5;">
+                <div style="background: var(--surface-bg); border-left: 3px solid var(--accent); padding: 0.75rem 1rem; border-radius: var(--radius-sm); font-size: 0.82rem; line-height: 1.5; border: 1px solid var(--border-light); border-left-width: 3px;">
                     <strong style="color: var(--navy-900);">Anatomical Feature Targeting:</strong>
                     <div style="margin-top: 0.25rem; color: var(--text-secondary);">
                         ${isHcc ? 
@@ -258,13 +267,13 @@ function updateAdvancedExplainabilityPanels(patientId) {
                 <!-- Mathematical Mechanism & Attention Stats -->
                 <div>
                     <h4 style="margin: 0 0 0.5rem 0; font-size: 0.95rem; color: var(--navy-900);">Cross-Modal Guidance Mechanism</h4>
-                    <p style="font-size: 0.85rem; color: var(--text-secondary); line-height: 1.5; margin: 0 0 1rem 0;">
+                    <p style="font-size: 0.85rem; color: var(--text-secondary); line-height: 1.5; margin: 0 0 0.75rem 0;">
                         In standard unimodal CNNs, features in acoustic shadows receive arbitrary attention. 
                         Under Cross-Modal Attention (Model A8), demographic priors modulate the Softmax kernel:
                     </p>
 
-                    <div style="background: var(--surface-alt); padding: 0.75rem 1rem; border-radius: var(--radius-sm); font-family: 'JetBrains Mono', monospace; font-size: 0.82rem; color: var(--navy-900); margin-bottom: 1rem; border-left: 3px solid var(--accent);">
-                        \\alpha_{u, v} = \\frac{\\exp\\left( \\frac{Q_{u,v} K_C^T}{\\sqrt{d}} \\right)}{\\sum_{u', v'} \\exp\\left( \\frac{Q_{u',v'} K_C^T}{\\sqrt{d}} \\right)}
+                    <div class="math-block" style="margin-bottom: 1rem;">
+                        ${window.MathRenderer ? window.MathRenderer.render('\\alpha_{u, v} = \\frac{\\exp\\left( \\frac{Q_{u,v} K_C^T}{\\sqrt{d}} \\right)}{\\sum_{u\', v\'} \\exp\\left( \\frac{Q_{u\',v\'} K_C^T}{\\sqrt{d}} \\right)}', true) : 'α_{u, v} = Softmax(Q K^T / √d)'}
                     </div>
 
                     <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 0.75rem;">
@@ -325,21 +334,21 @@ function updateLevels3And4(patient) {
                             <span class="badge badge-accent">Level 3: Game Theory</span>
                             <h3 class="card-title" style="margin: 0;">Multimodal Shapley Attribution</h3>
                         </div>
-                        <p class="text-sm text-muted">Axiomatic local additive feature attribution: $f(x) = \\phi_0 + \\sum \\phi_i$.</p>
+                        <p class="text-sm text-muted">Axiomatic local additive feature attribution: <span class="math-inline">${window.MathRenderer ? window.MathRenderer.render('f(x) = \\phi_0 + \\sum \\phi_i') : 'f(x) = ϕ₀ + ∑ ϕᵢ'}</span></p>
                     </div>
                 </div>
 
                 <div style="margin-top: 0.75rem; display: flex; flex-direction: column; gap: 0.85rem;">
                     <!-- Baseline -->
                     <div style="font-size: 0.8rem; color: var(--text-muted); display: flex; justify-content: space-between;">
-                        <span>Cohort Expected Value (\\phi_0):</span>
+                        <span>Cohort Expected Value (<i>ϕ</i><sub>0</sub>):</span>
                         <span class="font-mono">0.500 (Base Prior)</span>
                     </div>
 
                     <!-- B-mode Ultrasound Shapley -->
                     <div>
                         <div style="display: flex; justify-content: space-between; font-size: 0.85rem; margin-bottom: 0.25rem;">
-                            <span>B-Mode Acoustic Morphology (\\phi_B):</span>
+                            <span>B-Mode Acoustic Morphology (<i>ϕ</i><sub>B</sub>):</span>
                             <span class="font-mono font-bold" style="color: ${shap.B_mode >= 0 ? '#e11d48' : '#0284c7'};">
                                 ${shap.B_mode >= 0 ? '+' : ''}${shap.B_mode.toFixed(2)}
                             </span>
@@ -352,7 +361,7 @@ function updateLevels3And4(patient) {
                     <!-- Patient Age Shapley -->
                     <div>
                         <div style="display: flex; justify-content: space-between; font-size: 0.85rem; margin-bottom: 0.25rem;">
-                            <span>Patient Age: ${patient.age}y (\\phi_Age):</span>
+                            <span>Patient Age: ${patient.age}y (<i>ϕ</i><sub>Age</sub>):</span>
                             <span class="font-mono font-bold" style="color: ${ageImpact >= 0 ? '#e11d48' : '#0284c7'};">
                                 ${ageImpact >= 0 ? '+' : ''}${ageImpact.toFixed(2)}
                             </span>
@@ -365,7 +374,7 @@ function updateLevels3And4(patient) {
                     <!-- Patient Sex Shapley -->
                     <div>
                         <div style="display: flex; justify-content: space-between; font-size: 0.85rem; margin-bottom: 0.25rem;">
-                            <span>Biological Sex: ${patient.sex} (\\phi_Sex):</span>
+                            <span>Biological Sex: ${patient.sex} (<i>ϕ</i><sub>Sex</sub>):</span>
                             <span class="font-mono font-bold" style="color: ${sexImpact >= 0 ? '#e11d48' : '#0284c7'};">
                                 ${sexImpact >= 0 ? '+' : ''}${sexImpact.toFixed(2)}
                             </span>
@@ -390,7 +399,7 @@ function updateLevels3And4(patient) {
                             <span class="badge badge-accent">Level 4: Subjective Logic</span>
                             <h3 class="card-title" style="margin: 0;">Dirichlet Evidential Uncertainty</h3>
                         </div>
-                        <p class="text-sm text-muted">Dempster-Shafer belief decomposition (Model A9): $b_{\\text{HCC}} + b_{\\text{Hem}} + u = 1$.</p>
+                        <p class="text-sm text-muted">Dempster-Shafer belief decomposition (Model A9): <span class="math-inline">${window.MathRenderer ? window.MathRenderer.render('b_{\\text{HCC}} + b_{\\text{Hem}} + u = 1') : 'b(HCC) + b(Hem) + u = 1'}</span></p>
                     </div>
                 </div>
 
@@ -430,7 +439,7 @@ function updateLevels3And4(patient) {
                     </div>
 
                     <div style="margin-top: 0.75rem; font-size: 0.8rem; color: var(--text-secondary); line-height: 1.45;">
-                        <strong>Clinical Triage Protocol:</strong> If epistemic vacancy $u &gt; 15\\%$, the patient is flagged as an out-of-distribution atypical case requiring senior radiologist referral rather than autonomous diagnosis.
+                        <strong>Clinical Triage Protocol:</strong> If epistemic vacancy <span class="math-inline">${window.MathRenderer ? window.MathRenderer.render('u > 15\\%') : 'u > 15%'}</span>, the patient is flagged as an out-of-distribution atypical case requiring senior radiologist referral rather than autonomous diagnosis.
                     </div>
                 </div>
             </div>
@@ -448,6 +457,28 @@ function bindGradCamSlider() {
         gradCamThreshold = parseFloat(e.target.value);
         valDisplay.textContent = `${Math.round(gradCamThreshold * 100)}%`;
         overlay.setAttribute('opacity', gradCamThreshold);
+        // Sync preset buttons active state
+        document.querySelectorAll('.gradcam-preset-btn').forEach(btn => {
+            const btnVal = parseFloat(btn.getAttribute('data-val'));
+            if (Math.abs(btnVal - gradCamThreshold) < 0.05) {
+                btn.classList.add('active');
+            } else {
+                btn.classList.remove('active');
+            }
+        });
+    });
+
+    // Preset buttons click handler
+    document.querySelectorAll('.gradcam-preset-btn').forEach(btn => {
+        btn.addEventListener('click', () => {
+            const val = parseFloat(btn.getAttribute('data-val'));
+            slider.value = val;
+            gradCamThreshold = val;
+            valDisplay.textContent = `${Math.round(gradCamThreshold * 100)}%`;
+            overlay.setAttribute('opacity', gradCamThreshold);
+            document.querySelectorAll('.gradcam-preset-btn').forEach(b => b.classList.remove('active'));
+            btn.classList.add('active');
+        });
     });
 }
 

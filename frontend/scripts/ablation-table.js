@@ -131,11 +131,11 @@ function renderAblationView() {
 
                 <!-- Interactive Temperature Scaler & Explanation -->
                 <div>
-                    <h4 style="margin: 0 0 0.5rem 0; font-size: 0.95rem; color: var(--navy-900);">Interactive Temperature Scaling ($T$) Simulator</h4>
+                    <h4 style="margin: 0 0 0.5rem 0; font-size: 0.95rem; color: var(--navy-900);">Interactive Temperature Scaling (<i>T</i>) Simulator</h4>
                     <p style="font-size: 0.85rem; color: var(--text-secondary); line-height: 1.5; margin: 0 0 1rem 0;">
                         In deep neural networks trained with Cross-Entropy, overconfidence is widespread. 
-                        Post-hoc temperature scaling maps raw validation logits $z$ to calibrated probabilities via 
-                        $\\hat{p} = \\sigma(z / T)$ without modifying classification accuracy or AUROC ranking.
+                        Post-hoc temperature scaling maps raw validation logits <i>z</i> to calibrated probabilities via 
+                        <span class="math-inline">${window.MathRenderer ? window.MathRenderer.render('\\hat{p} = \\sigma(z / T)') : '<i>p̂</i> = σ(<i>z</i> / <i>T</i>)'}</span> without modifying classification accuracy or AUROC ranking.
                     </p>
 
                     <div style="background: var(--surface-alt); padding: 1rem; border-radius: var(--radius-sm); border: 1px solid var(--border-light);">

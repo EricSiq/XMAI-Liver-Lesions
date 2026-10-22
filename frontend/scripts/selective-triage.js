@@ -68,13 +68,21 @@ function renderSelectiveView() {
                     <div style="background: var(--surface-alt); padding: 1rem 1.25rem; border-radius: var(--radius-sm); border: 1px solid var(--border-light);">
                         <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 0.4rem;">
                             <label for="risk-budget-slider" style="font-size: 0.88rem; font-weight: 600; color: var(--navy-900);">Permitted Clinical Error Budget:</label>
-                            <span id="risk-budget-val" class="font-mono badge badge-neutral font-bold" style="font-size: 0.95rem;">0.50% Error</span>
+                            <span id="risk-budget-val" class="font-mono badge badge-neutral font-bold" style="font-size: 0.95rem; color: var(--color-primary);">0.50% Error</span>
                         </div>
                         <input type="range" id="risk-budget-slider" min="0.10" max="2.00" step="0.05" value="0.50" style="width: 100%; cursor: pointer;" />
                         <div style="display: flex; justify-content: space-between; font-size: 0.72rem; color: var(--text-muted); margin-top: 0.2rem;">
                             <span>0.10% (Ultra-Safe)</span>
                             <span>0.50% (Standard)</span>
                             <span>2.00% (High Tolerance)</span>
+                        </div>
+                        
+                        <!-- Quick Budget Presets -->
+                        <div style="display: flex; gap: 0.35rem; margin-top: 0.65rem; justify-content: space-between;">
+                            <button type="button" class="btn btn-xs btn-outline triage-preset-btn" data-budget="0.10" title="Ultra-Safe oncology referral">0.10% (Ultra-Safe)</button>
+                            <button type="button" class="btn btn-xs btn-outline triage-preset-btn" data-budget="0.25" title="Strict referral">0.25% (Strict)</button>
+                            <button type="button" class="btn btn-xs btn-outline triage-preset-btn active" data-budget="0.50" title="Standard clinical deployment">0.50% (Standard)</button>
+                            <button type="button" class="btn btn-xs btn-outline triage-preset-btn" data-budget="1.00" title="High volume screening">1.00% (Screening)</button>
                         </div>
                     </div>
 
@@ -189,10 +197,34 @@ function bindSelectiveEvents(container) {
     const valDisplay = container.querySelector('#risk-budget-val');
     if (!slider || !valDisplay) return;
 
+    const syncPresetButtons = (val) => {
+        container.querySelectorAll('.triage-preset-btn').forEach(btn => {
+            const btnVal = parseFloat(btn.getAttribute('data-budget'));
+            if (Math.abs(btnVal - val) < 0.04) {
+                btn.classList.add('active');
+            } else {
+                btn.classList.remove('active');
+            }
+        });
+    };
+
     slider.addEventListener('input', (e) => {
         targetRiskBudget = parseFloat(e.target.value);
         valDisplay.textContent = `${targetRiskBudget.toFixed(2)}% Error`;
         updateLiveTriage(targetRiskBudget);
+        syncPresetButtons(targetRiskBudget);
+    });
+
+    container.querySelectorAll('.triage-preset-btn').forEach(btn => {
+        btn.addEventListener('click', () => {
+            const budget = parseFloat(btn.getAttribute('data-budget'));
+            slider.value = budget;
+            targetRiskBudget = budget;
+            valDisplay.textContent = `${targetRiskBudget.toFixed(2)}% Error`;
+            updateLiveTriage(targetRiskBudget);
+            container.querySelectorAll('.triage-preset-btn').forEach(b => b.classList.remove('active'));
+            btn.classList.add('active');
+        });
     });
 }
 
