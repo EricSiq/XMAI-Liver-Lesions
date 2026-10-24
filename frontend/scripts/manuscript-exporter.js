@@ -369,6 +369,17 @@ function renderBibtexTab(box) {
 
 function renderCommitsTab(box) {
     const commits = [
+        { hash: "HEAD", date: "2026-10-24", type: "docs", scope: "frontend", msg: "synchronize audit trail, update test suite, and finalize presentation console for multimodal AI mentors" },
+        { hash: "521fd59", date: "2026-10-24", type: "feat", scope: "frontend", msg: "add visual External TCIA Multi-Scanner Transfer benchmark comparison" },
+        { hash: "3b6690e", date: "2026-10-24", type: "feat", scope: "frontend", msg: "upgrade Selective Triage Simulator with visual clinical risk vs throughput curve" },
+        { hash: "d469846", date: "2026-10-24", type: "feat", scope: "frontend", msg: "upgrade Multi-Level Explainability dashboard with visual layer attribution breakdown" },
+        { hash: "66d98ff", date: "2026-10-24", type: "feat", scope: "frontend", msg: "revamp Hypothesis H1 Decile Rescue with visual before-and-after lesion cards" },
+        { hash: "d8aa7b4", date: "2026-10-24", type: "feat", scope: "frontend", msg: "enhance Ablation Explorer with visual Pareto frontier and trade-off scatter plots" },
+        { hash: "6d32af1", date: "2026-10-24", type: "feat", scope: "frontend", msg: "create visual Pipeline Dataflow diagram in Section 1 showing end-to-end tensor lifecycle" },
+        { hash: "4128f09", date: "2026-10-24", type: "feat", scope: "frontend", msg: "design visual-heavy Real-World Clinical Impact Dashboard with comparative metric gauges" },
+        { hash: "542643c", date: "2026-10-24", type: "feat", scope: "frontend", msg: "implement visual Clinical-to-AI Rosetta Stone concept dictionary" },
+        { hash: "6e1f35d", date: "2026-10-24", type: "feat", scope: "frontend", msg: "add Interactive Multimodal AI Architecture Explorer with dynamic layer-by-layer tensor inspection" },
+        { hash: "06c186a", date: "2026-10-24", type: "docs", scope: "manuscript", msg: "finalize top-tier publication readiness audit, synchronization, and next steps guide" },
         { hash: "ec4c14b", date: "2026-10-24", type: "audit", scope: "frontend", msg: "complete full interactive UI audit, layer-by-layer breakdown, and CLAIM verification" },
         { hash: "9101804", date: "2026-10-24", type: "test", scope: "frontend", msg: "stress test math-renderer engine with edge cases and malformed LaTeX handling" },
         { hash: "ff7d744", date: "2026-10-24", type: "test", scope: "server", msg: "stress test live HTTP inference API and socket disconnect resilience" },
