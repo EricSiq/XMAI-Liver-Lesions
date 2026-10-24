@@ -70,3 +70,63 @@ def test_manifest_determinism(workspace_root, tmp_path):
     df2, _ = generate_smc_manifest(workspace_root, out2, seed=42)
 
     pd.testing.assert_frame_equal(df1, df2)
+
+
+def test_pairwise_fold_patient_disjointness(workspace_root, tmp_path):
+    """Stress test that every pair of folds has strictly zero shared patients (pairwise disjointness)."""
+    out_csv = tmp_path / "disjoint_test.csv"
+    manifest_df, _ = generate_smc_manifest(workspace_root, out_csv, seed=42)
+
+    folds = sorted(manifest_df["fold"].unique())
+    assert len(folds) == 5
+
+    patient_sets = {f: set(manifest_df[manifest_df["fold"] == f]["patient_id"]) for f in folds}
+
+    for i in range(len(folds)):
+        for j in range(i + 1, len(folds)):
+            intersection = patient_sets[folds[i]].intersection(patient_sets[folds[j]])
+            assert len(intersection) == 0, (
+                f"LEAKAGE VIOLATION: Folds {folds[i]} and {folds[j]} share patients: {intersection}"
+            )
+
+
+def test_sha256_hash_digest_integrity(workspace_root, tmp_path):
+    """Verify all image SHA-256 digests in manifest are valid 64-char hexadecimal hashes."""
+    import re
+    out_csv = tmp_path / "sha_test.csv"
+    manifest_df, _ = generate_smc_manifest(workspace_root, out_csv, seed=42)
+
+    hex_pattern = re.compile(r"^[a-f0-9]{64}$")
+    for sha in manifest_df["image_sha256"]:
+        assert hex_pattern.match(sha), f"Malformed SHA-256 digest found: {sha}"
+
+
+def test_stratified_fold_homogeneity(workspace_root, tmp_path):
+    """Verify each fold contains approximately 20% of cohort and maintains class ratio."""
+    out_csv = tmp_path / "strata_test.csv"
+    manifest_df, _ = generate_smc_manifest(workspace_root, out_csv, seed=42)
+
+    unique_patients = manifest_df.drop_duplicates(subset=["patient_id"])
+    total_patients = len(unique_patients)
+    cohort_hcc_ratio = (unique_patients["label"] == "HCC").mean()
+
+    for fold_idx in range(5):
+        fold_patients = unique_patients[unique_patients["fold"] == fold_idx]
+        fold_size = len(fold_patients)
+        # Each fold should be ~20% +/- 4%
+        assert 0.16 * total_patients <= fold_size <= 0.24 * total_patients
+
+        fold_hcc_ratio = (fold_patients["label"] == "HCC").mean()
+        # HCC ratio should match cohort within 5%
+        assert abs(fold_hcc_ratio - cohort_hcc_ratio) < 0.06
+
+
+def test_zero_caliper_leakage_barrier(workspace_root, tmp_path):
+    """Verify strictly 0% caliper (annotated) images leak into the modeling manifest."""
+    out_csv = tmp_path / "caliper_test.csv"
+    manifest_df, _ = generate_smc_manifest(workspace_root, out_csv, seed=42)
+
+    for path in manifest_df["relative_path"]:
+        assert "with caliper" not in path.lower(), f"Forbidden caliper image found in manifest: {path}"
+        assert "wo caliper" in path.lower() or "clean" in path.lower()
+
