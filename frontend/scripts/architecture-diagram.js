@@ -232,6 +232,115 @@ function renderArchitectureView() {
                 <!-- Populated dynamically via JavaScript -->
             </div>
         </div>
+
+        <!-- Clinical-to-AI Rosetta Stone: Multimodal Representation Learning Translation -->
+        <div class="card" style="margin-top: 1.5rem;">
+            <div class="card-header">
+                <div>
+                    <h3 class="card-title">Clinical-to-AI Rosetta Stone</h3>
+                    <p class="text-sm text-muted">A dedicated dictionary translating medical ultrasound oncology concepts into concrete Multimodal AI representation principles.</p>
+                </div>
+                <span class="badge badge-neutral">For Multimodal AI Researchers</span>
+            </div>
+
+            <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(310px, 1fr)); gap: 1rem; margin-top: 1rem;">
+                <!-- Concept 1: Acoustic Shadows -->
+                <div style="background: var(--surface-bg); border: 1px solid var(--border-light); border-radius: var(--radius-md); padding: 1rem 1.15rem; border-top: 3px solid #0284c7;">
+                    <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 0.4rem;">
+                        <span class="badge badge-neutral text-xs">Imaging Physics</span>
+                        <span class="font-mono text-xs" style="color: #0284c7; font-weight: 700;">Spatial Dropout</span>
+                    </div>
+                    <div style="display: flex; align-items: center; gap: 0.5rem; margin-bottom: 0.4rem;">
+                        <strong style="color: #0f172a; font-size: 0.92rem;">Acoustic Shadowing</strong>
+                        <span style="color: var(--accent); font-weight: 800;">⇄</span>
+                        <strong style="color: #0284c7; font-size: 0.92rem;">Spatial SNR Dropout</strong>
+                    </div>
+                    <p style="font-size: 0.82rem; color: var(--text-secondary); line-height: 1.5; margin: 0;">
+                        When dense tissue reflects sound beams, pixels beneath receive zero echo. In unimodal CNNs, this manifests as zero-gradient spatial dropouts where features collapse to uninformative noise.
+                    </p>
+                </div>
+
+                <!-- Concept 2: Speckle Patterns -->
+                <div style="background: var(--surface-bg); border: 1px solid var(--border-light); border-radius: var(--radius-md); padding: 1rem 1.15rem; border-top: 3px solid #059669;">
+                    <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 0.4rem;">
+                        <span class="badge badge-neutral text-xs">Imaging Physics</span>
+                        <span class="font-mono text-xs" style="color: #059669; font-weight: 700;">Rayleigh Noise</span>
+                    </div>
+                    <div style="display: flex; align-items: center; gap: 0.5rem; margin-bottom: 0.4rem;">
+                        <strong style="color: #0f172a; font-size: 0.92rem;">Ultrasound Speckle</strong>
+                        <span style="color: var(--accent); font-weight: 800;">⇄</span>
+                        <strong style="color: #059669; font-size: 0.92rem;">High-Freq Interference</strong>
+                    </div>
+                    <p style="font-size: 0.82rem; color: var(--text-secondary); line-height: 1.5; margin: 0;">
+                        Granular textures are phase interference artifacts rather than real anatomy. Standard vision models suffer from overfitting high-frequency speckle unless regularized via multi-scale residual pooling.
+                    </p>
+                </div>
+
+                <!-- Concept 3: Cavernous Hemangioma -->
+                <div style="background: var(--surface-bg); border: 1px solid var(--border-light); border-radius: var(--radius-md); padding: 1rem 1.15rem; border-top: 3px solid #10b981;">
+                    <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 0.4rem;">
+                        <span class="badge badge-neutral text-xs">Pathology Class</span>
+                        <span class="font-mono text-xs" style="color: #10b981; font-weight: 700;">Benign Manifold</span>
+                    </div>
+                    <div style="display: flex; align-items: center; gap: 0.5rem; margin-bottom: 0.4rem;">
+                        <strong style="color: #0f172a; font-size: 0.92rem;">Cavernous Hemangioma</strong>
+                        <span style="color: var(--accent); font-weight: 800;">⇄</span>
+                        <strong style="color: #10b981; font-size: 0.92rem;">Smooth Latent Cluster</strong>
+                    </div>
+                    <p style="font-size: 0.82rem; color: var(--text-secondary); line-height: 1.5; margin: 0;">
+                        Non-cancerous vascular tangle showing uniform high-intensity echogenicity. Represents the benign class manifold ($y=0$), characterized by low spatial gradient variance and crisp margins.
+                    </p>
+                </div>
+
+                <!-- Concept 4: Hepatocellular Carcinoma -->
+                <div style="background: var(--surface-bg); border: 1px solid var(--border-light); border-radius: var(--radius-md); padding: 1rem 1.15rem; border-top: 3px solid #e11d48;">
+                    <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 0.4rem;">
+                        <span class="badge badge-neutral text-xs">Pathology Class</span>
+                        <span class="font-mono text-xs" style="color: #e11d48; font-weight: 700;">Malignant Manifold</span>
+                    </div>
+                    <div style="display: flex; align-items: center; gap: 0.5rem; margin-bottom: 0.4rem;">
+                        <strong style="color: #0f172a; font-size: 0.92rem;">HCC (Liver Cancer)</strong>
+                        <span style="color: var(--accent); font-weight: 800;">⇄</span>
+                        <strong style="color: #e11d48; font-size: 0.92rem;">Heterogeneous Manifold</strong>
+                    </div>
+                    <p style="font-size: 0.82rem; color: var(--text-secondary); line-height: 1.5; margin: 0;">
+                        Primary malignant liver carcinoma ($y=1$). Exhibits chaotic internal vascularization, necrotic dark cores, and irregular boundary morphology requiring high-capacity spatial feature aggregation.
+                    </p>
+                </div>
+
+                <!-- Concept 5: Clinical Demographics -->
+                <div style="background: var(--surface-bg); border: 1px solid var(--border-light); border-radius: var(--radius-md); padding: 1rem 1.15rem; border-top: 3px solid #d97706;">
+                    <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 0.4rem;">
+                        <span class="badge badge-neutral text-xs">Modality Prior</span>
+                        <span class="font-mono text-xs" style="color: #d97706; font-weight: 700;">Empirical Prior Vector</span>
+                    </div>
+                    <div style="display: flex; align-items: center; gap: 0.5rem; margin-bottom: 0.4rem;">
+                        <strong style="color: #0f172a; font-size: 0.92rem;">Patient Age & Sex</strong>
+                        <span style="color: var(--accent); font-weight: 800;">⇄</span>
+                        <strong style="color: #d97706; font-size: 0.92rem;">Non-Spatial Bayesian Prior</strong>
+                    </div>
+                    <p style="font-size: 0.82rem; color: var(--text-secondary); line-height: 1.5; margin: 0;">
+                        Epidemiological baseline: older males exhibit dramatically higher carcinoma incidence ($P(HCC) \sim 0.72$). Acts as a prior distribution vector that dynamically regularizes ambiguous vision.
+                    </p>
+                </div>
+
+                <!-- Concept 6: Sonographer Calipers -->
+                <div style="background: var(--surface-bg); border: 1px solid var(--border-light); border-radius: var(--radius-md); padding: 1rem 1.15rem; border-top: 3px solid #8b5cf6;">
+                    <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 0.4rem;">
+                        <span class="badge badge-neutral text-xs">Confounder Control</span>
+                        <span class="font-mono text-xs" style="color: #8b5cf6; font-weight: 700;">Spurious Shortcut</span>
+                    </div>
+                    <div style="display: flex; align-items: center; gap: 0.5rem; margin-bottom: 0.4rem;">
+                        <strong style="color: #0f172a; font-size: 0.92rem;">Measurement Calipers</strong>
+                        <span style="color: var(--accent); font-weight: 800;">⇄</span>
+                        <strong style="color: #8b5cf6; font-size: 0.92rem;">High-Contrast Watermark</strong>
+                    </div>
+                    <p style="font-size: 0.82rem; color: var(--text-secondary); line-height: 1.5; margin: 0;">
+                        Radiologist crosshairs and text annotations produce synthetic high-contrast edges. If not strictly filtered, models learn to detect calipers rather than lesions; XMAI enforces clean-only input.
+                    </p>
+                </div>
+            </div>
+        </div>
     `;
 
     // Bind event listeners to model pills
