@@ -34,6 +34,140 @@ function renderAblationView() {
             </div>
         </div>
 
+        <!-- Visual Pareto Frontier & Representation Learning Trade-Off Card -->
+        <div class="card" style="margin-bottom: 1.5rem;">
+            <div class="card-header">
+                <div>
+                    <h3 class="card-title">Multimodal Objective Space: Accuracy vs. Predictive Calibration (Pareto Frontier)</h3>
+                    <p class="text-sm text-muted">For Multimodal AI Specialists: Evaluating the representation trade-off between discrimination capacity and calibrated uncertainty across all 9 paradigms.</p>
+                </div>
+                <span class="badge badge-accent">Pareto Optimal: Model A4</span>
+            </div>
+
+            <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(360px, 1fr)); gap: 1.5rem; align-items: center; padding: 0.5rem 0;">
+                <!-- SVG Scatter Plot -->
+                <div style="background: var(--surface-bg); border: 1px solid var(--border-light); border-radius: var(--radius-md); padding: 1rem;">
+                    <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 0.5rem;">
+                        <span style="font-size: 0.85rem; font-weight: 700; color: var(--navy-900);">Pareto Frontier (Target: Top-Left Quadrant)</span>
+                        <span class="badge badge-success text-xs">A4 Dominates A1, A3</span>
+                    </div>
+
+                    <svg viewBox="0 0 420 280" style="width: 100%; height: auto; font-family: 'Inter', -apple-system, sans-serif;">
+                        <defs>
+                            <linearGradient id="pareto-zone" x1="0" y1="0" x2="1" y2="1">
+                                <stop offset="0%" stop-color="#059669" stop-opacity="0.15" />
+                                <stop offset="100%" stop-color="#059669" stop-opacity="0.0" />
+                            </linearGradient>
+                        </defs>
+
+                        <!-- Pareto Ideal Zone (Top-Left) -->
+                        <rect x="50" y="30" width="160" height="90" fill="url(#pareto-zone)" rx="6" />
+                        <text x="130" y="50" text-anchor="middle" font-size="8.5" font-weight="700" fill="#059669">PARETO OPTIMAL REGION</text>
+                        <text x="130" y="64" text-anchor="middle" font-size="7.5" fill="#047857">High Accuracy + Low ECE</text>
+
+                        <!-- Axes -->
+                        <line x1="50" y1="240" x2="390" y2="240" stroke="#cbd5e1" stroke-width="1.5" />
+                        <line x1="50" y1="30" x2="50" y2="240" stroke="#cbd5e1" stroke-width="1.5" />
+
+                        <!-- Grid lines -->
+                        <line x1="50" y1="135" x2="390" y2="135" stroke="#f1f5f9" stroke-width="1" stroke-dasharray="3,3" />
+                        <line x1="50" y1="75" x2="390" y2="75" stroke="#f1f5f9" stroke-width="1" stroke-dasharray="3,3" />
+                        <line x1="220" y1="30" x2="220" y2="240" stroke="#f1f5f9" stroke-width="1" stroke-dasharray="3,3" />
+
+                        <!-- Pareto Frontier Curve (dashed green) -->
+                        <path d="M 90 38 Q 120 45 220 52" fill="none" stroke="#059669" stroke-width="2" stroke-dasharray="4,3" />
+
+                        <!-- Points -->
+                        <!-- A4 (Champion): ECE 0.023 -> x ≈ 90, Acc 99.5% -> y ≈ 38 -->
+                        <circle cx="90" cy="38" r="8" fill="#d97706" stroke="#ffffff" stroke-width="2" />
+                        <text x="90" y="24" text-anchor="middle" font-size="10" font-weight="800" fill="#b45309">★ A4 Gated (99.5%, 0.023)</text>
+
+                        <!-- A9: ECE 0.026 -> x ≈ 96, Acc 99.4% -> y ≈ 42 -->
+                        <circle cx="96" cy="42" r="5" fill="#0284c7" />
+                        <text x="110" y="44" font-size="8" font-weight="600" fill="#0f172a">A9 (99.4%)</text>
+
+                        <!-- A7: ECE 0.029 -> x ≈ 102, Acc 99.3% -> y ≈ 45 -->
+                        <circle cx="104" cy="45" r="5" fill="#0284c7" />
+                        <text x="116" y="55" font-size="8" font-weight="600" fill="#475569">A7 Contrastive</text>
+
+                        <!-- A8: ECE 0.031 -> x ≈ 108, Acc 99.1% -> y ≈ 50 -->
+                        <circle cx="108" cy="50" r="5" fill="#0284c7" />
+
+                        <!-- A5: ECE 0.035 -> x ≈ 118, Acc 99.2% -> y ≈ 47 -->
+                        <circle cx="118" cy="47" r="5" fill="#0284c7" />
+                        <text x="128" y="48" font-size="8" font-weight="600" fill="#475569">A5 FiLM</text>
+
+                        <!-- A3: ECE 0.038 -> x ≈ 126, Acc 99.0% -> y ≈ 54 -->
+                        <circle cx="126" cy="54" r="5.5" fill="#64748b" />
+                        <text x="140" y="66" font-size="8" font-weight="600" fill="#64748b">A3 Naive Concat</text>
+
+                        <!-- A1: ECE 0.048 -> x ≈ 148, Acc 98.8% -> y ≈ 60 -->
+                        <circle cx="148" cy="60" r="6" fill="#94a3b8" />
+                        <text x="156" y="78" font-size="8" font-weight="600" fill="#64748b">A1 ResNet-18 (Unimodal)</text>
+
+                        <!-- A2: ECE 0.142 -> x ≈ 275, Acc 61.2% -> y ≈ 220 -->
+                        <circle cx="275" cy="220" r="5.5" fill="#94a3b8" />
+                        <text x="275" y="210" text-anchor="middle" font-size="8" font-weight="600" fill="#94a3b8">A2 Demographics (61.2%)</text>
+
+                        <!-- A6 (Late Fusion Trap): ECE 0.191 -> x ≈ 360, Acc 99.6% -> y ≈ 35 -->
+                        <circle cx="360" cy="35" r="7" fill="#e11d48" stroke="#ffffff" stroke-width="1.5" />
+                        <text x="360" y="22" text-anchor="middle" font-size="8.5" font-weight="800" fill="#e11d48">⚠️ A6 Late Avg (ECE: 0.191!)</text>
+
+                        <!-- Axis Labels -->
+                        <text x="220" y="260" font-size="9.5" text-anchor="middle" font-weight="600" fill="#0f172a">Expected Calibration Error (ECE) &rarr; (Lower is Better)</text>
+                        <text x="50" y="252" font-size="8" text-anchor="middle" fill="#64748b">0.00</text>
+                        <text x="140" y="252" font-size="8" text-anchor="middle" fill="#64748b">0.05</text>
+                        <text x="230" y="252" font-size="8" text-anchor="middle" fill="#64748b">0.10</text>
+                        <text x="320" y="252" font-size="8" text-anchor="middle" fill="#64748b">0.15</text>
+                        <text x="390" y="252" font-size="8" text-anchor="middle" fill="#64748b">0.20</text>
+
+                        <text x="18" y="135" font-size="9.5" text-anchor="middle" font-weight="600" fill="#0f172a" transform="rotate(-90 18 135)">Balanced Accuracy (%)</text>
+                        <text x="44" y="38" font-size="8" text-anchor="end" fill="#64748b">100%</text>
+                        <text x="44" y="75" font-size="8" text-anchor="end" fill="#64748b">95%</text>
+                        <text x="44" y="135" font-size="8" text-anchor="end" fill="#64748b">80%</text>
+                        <text x="44" y="240" font-size="8" text-anchor="end" fill="#64748b">60%</text>
+                    </svg>
+                </div>
+
+                <!-- Deep Dive for Multimodal AI Specialists -->
+                <div style="display: flex; flex-direction: column; gap: 0.75rem;">
+                    <!-- Card 1: Modality Competition -->
+                    <div style="background: #f8fafc; border: 1px solid #e2e8f0; border-radius: var(--radius-sm); padding: 0.85rem;">
+                        <div style="display: flex; align-items: center; justify-content: space-between;">
+                            <span style="font-weight: 700; font-size: 0.88rem; color: #0f172a;">1. Overcoming Modality Domination (A4 vs. A3)</span>
+                            <span class="badge badge-accent text-xs">Gradient Competition</span>
+                        </div>
+                        <p style="font-size: 0.8rem; color: #475569; margin: 0.35rem 0 0 0; line-height: 1.45;">
+                            In naive concatenation (Model A3), high-capacity visual gradients from <i>z<sub>B</sub></i> &isin; &reals;<sup>512</sup> overwhelm tabular representations from <i>z<sub>C</sub></i> &isin; &reals;<sup>64</sup>.
+                            Model A4’s context gate <i>g</i> enforces dynamic sub-network routing, preventing gradient collapse and improving sensitivity from 98.2% to <strong>100.0%</strong>.
+                        </p>
+                    </div>
+
+                    <!-- Card 2: Late Fusion Distortion -->
+                    <div style="background: #fff1f2; border: 1px solid #fecdd3; border-radius: var(--radius-sm); padding: 0.85rem;">
+                        <div style="display: flex; align-items: center; justify-content: space-between;">
+                            <span style="font-weight: 700; font-size: 0.88rem; color: #be123c;">2. The Late Fusion Overconfidence Trap (A6)</span>
+                            <span class="badge badge-danger text-xs">ECE = 0.191</span>
+                        </div>
+                        <p style="font-size: 0.8rem; color: #881337; margin: 0.35rem 0 0 0; line-height: 1.45;">
+                            Unweighted probability averaging (Model A6) achieves high nominal accuracy (99.6%) by blending confident unimodal predictions, but distorts calibration by +730%. Such models output 99% confidence on misdiagnosed acoustic artifacts.
+                        </p>
+                    </div>
+
+                    <!-- Card 3: Evidential Safety -->
+                    <div style="background: #f0fdf4; border: 1px solid #bbf7d0; border-radius: var(--radius-sm); padding: 0.85rem;">
+                        <div style="display: flex; align-items: center; justify-content: space-between;">
+                            <span style="font-weight: 700; font-size: 0.88rem; color: #166534;">3. Evidential Dempster-Shafer Bounds (A9)</span>
+                            <span class="badge badge-success text-xs">Uncertainty Bounds</span>
+                        </div>
+                        <p style="font-size: 0.8rem; color: #14532d; margin: 0.35rem 0 0 0; line-height: 1.45;">
+                            Model A9 maps visual and clinical features into Dirichlet evidence distributions, fusing them via Dempster’s rule with explicit vacuous belief quantification when input modalities conflict.
+                        </p>
+                    </div>
+                </div>
+            </div>
+        </div>
+
         <!-- Interactive Table Container -->
         <div class="card" style="padding: 0; overflow: hidden;">
             <div style="overflow-x: auto;">
