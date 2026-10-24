@@ -47,12 +47,12 @@ XMAI-Liver-Lesions/
 │   ├── manuscript_report.md  # Comprehensive journal manuscript draft
 │   └── tables/               # Formatted LaTeX (.tex) and Markdown publication tables
 ├── scripts/                  # CLI scripts and dual-mode Python web server
-├── tests/                    # 81 automated unit, integration, and leakage tests
+├── tests/                    # 173 automated unit, integration, stress, and leakage tests (100% pass rate)
 ├── artifacts/                # Run logs, model checkpoints, explanation cards (git-ignored)
 ├── XMAI_Design_Document_v2.md# Complete scientific specification & audit
 ├── decisions.md              # Project decision log & governance record
 ├── requirements.md           # Environment prerequisites & hardware guidelines
-└── tasks.md                  # Executable step-by-step implementation plan
+└── tasks.md                  # Executable step-by-step implementation plan (Phases 0-10 complete)
 ```
 
 ---

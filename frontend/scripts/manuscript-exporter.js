@@ -28,7 +28,7 @@ function renderManuscriptView() {
                 CLAIM & STARD-AI Checklist (6/6 Pass)
             </button>
             <button class="btn btn-sm ${activeArtifactTab === 'commits' ? 'btn-primary' : 'btn-outline'} artifact-tab-btn" data-tab="commits">
-                Git Provenance & Audit Trail (27 Commits)
+                Git Provenance & Audit Trail (42 Commits)
             </button>
             <button class="btn btn-sm ${activeArtifactTab === 'bibtex' ? 'btn-primary' : 'btn-outline'} artifact-tab-btn" data-tab="bibtex">
                 BibTeX Citation
@@ -369,6 +369,21 @@ function renderBibtexTab(box) {
 
 function renderCommitsTab(box) {
     const commits = [
+        { hash: "ec4c14b", date: "2026-10-24", type: "audit", scope: "frontend", msg: "complete full interactive UI audit, layer-by-layer breakdown, and CLAIM verification" },
+        { hash: "9101804", date: "2026-10-24", type: "test", scope: "frontend", msg: "stress test math-renderer engine with edge cases and malformed LaTeX handling" },
+        { hash: "ff7d744", date: "2026-10-24", type: "test", scope: "server", msg: "stress test live HTTP inference API and socket disconnect resilience" },
+        { hash: "8456f09", date: "2026-10-24", type: "test", scope: "generalization", msg: "audit TCIA external generalization runner and missing covariate fallback" },
+        { hash: "999ca88", date: "2026-10-24", type: "test", scope: "data", msg: "stress test 5-fold patient exclusivity and deterministic split assignment" },
+        { hash: "9cf2554", date: "2026-10-24", type: "test", scope: "xai", msg: "stress test spatial-clinical cross-modal attention maps and entropy metrics" },
+        { hash: "08b9513", date: "2026-10-24", type: "test", scope: "xai", msg: "verify Modality Shapley efficiency and null-player axiomatic invariants" },
+        { hash: "57616a8", date: "2026-10-24", type: "test", scope: "xai", msg: "verify Grad-CAM faithfulness under cascading layer randomization tests" },
+        { hash: "2b8ff3d", date: "2026-10-24", type: "test", scope: "evaluation", msg: "stress test selective classification risk-coverage curves and E-AURC bounds" },
+        { hash: "54b0e5f", date: "2026-10-24", type: "test", scope: "fusion", msg: "stress test Dempster-Shafer belief combination under high conflict and vacuous belief bounds" },
+        { hash: "c69a916", date: "2026-10-24", type: "test", scope: "calibration", msg: "stress test temperature scaling optimization and ECE binning invariants" },
+        { hash: "a835f34", date: "2026-10-24", type: "test", scope: "schemas", msg: "stress test zero-leakage assertions and clinical imputation constraints" },
+        { hash: "bbd0d32", date: "2026-10-24", type: "test", scope: "losses", msg: "stress test multimodal contrastive InfoNCE and evidential Bayes risk bounds" },
+        { hash: "013f268", date: "2026-10-24", type: "test", scope: "models", msg: "stress test encoder input validation, gradient flow, and parameter invariants across all 9 paradigms" },
+        { hash: "255a61f", date: "2026-10-22", type: "docs", scope: "audit", msg: "finalize audit, clean up obsolete artifacts, and document 27 pushed commits" },
         { hash: "c506ae8", date: "2026-10-22", type: "docs", scope: "audit", msg: "clean up redundant files, standardize A6 exports, and enrich documentation with console instructions and test verification" },
         { hash: "a59bbff", date: "2026-10-22", type: "feat", scope: "frontend", msg: "implement KaTeX math typesetting engine, camera-ready LaTeX publication table, and quick preset controls" },
         { hash: "18dfad3", date: "2026-10-22", type: "refactor", scope: "theme", msg: "overhaul clinical design system to clean institutional light theme and typography tokens" },
