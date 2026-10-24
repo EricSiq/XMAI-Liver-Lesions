@@ -86,3 +86,71 @@ def test_serve_frontend_handler():
     sys.path.insert(0, str(WORKSPACE_ROOT))
     from scripts.serve_frontend import XMAIHTTPHandler, FRONTEND_DIR as S_FRONTEND_DIR
     assert S_FRONTEND_DIR.exists()
+
+
+def test_latex_equations_balanced_braces_in_frontend():
+    """Stress test that all LaTeX formulas in architecture-diagram.js and explainability-view.js have strictly balanced braces."""
+    arch_content = (FRONTEND_DIR / "scripts" / "architecture-diagram.js").read_text(encoding="utf-8")
+    xai_content = (FRONTEND_DIR / "scripts" / "explainability-view.js").read_text(encoding="utf-8")
+
+    # Extract all math: `...` formulas from architecture diagram models A1-A9
+    arch_matches = re.findall(r"math:\s*`([^`]+)`", arch_content)
+    # Extract MathRenderer.render('...') formulas, properly handling escaped quotes like \'
+    xai_matches = re.findall(r"MathRenderer\.render\('((?:[^'\\]|\\.)*)'", xai_content)
+
+    all_formulas = arch_matches + xai_matches
+    assert len(all_formulas) >= 9, f"Expected at least 9 mathematical model formulas, got {len(all_formulas)}"
+
+    for formula in all_formulas:
+        # Check balanced curly braces
+        open_braces = formula.count("{")
+        close_braces = formula.count("}")
+        assert open_braces == close_braces, f"Unbalanced braces in LaTeX formula: {formula}"
+
+        # Check balanced parentheses (excluding escaped \left( / \right))
+        # Strip escaped \left( and \right) before checking raw paren counts
+        clean_parens = formula.replace(r"\left(", "").replace(r"\right)", "")
+        open_parens = clean_parens.count("(")
+        close_parens = clean_parens.count(")")
+        assert open_parens == close_parens, f"Unbalanced parentheses in LaTeX formula: {formula}"
+
+
+
+def test_math_renderer_script_structure():
+    """Stress test math-renderer.js for expected parsing tokens and fallbacks."""
+    renderer_content = (FRONTEND_DIR / "scripts" / "math-renderer.js").read_text(encoding="utf-8")
+
+    # Core required conversion tokens
+    required_tokens = [
+        "\\frac",
+        "\\alpha",
+        "\\beta",
+        "\\sigma",
+        "\\phi",
+        "math-frac",
+        "math-num",
+        "math-denom",
+        "renderFallback",
+        "typeset",
+        "window.katex",
+    ]
+
+    for tok in required_tokens:
+        assert tok in renderer_content, f"Missing token {tok} in math-renderer.js"
+
+
+def test_academic_theme_math_css_classes():
+    """Verify that styles/academic-theme.css contains all styling classes required by math-renderer."""
+    css_content = (FRONTEND_DIR / "styles" / "academic-theme.css").read_text(encoding="utf-8")
+
+    required_classes = [
+        ".math-frac",
+        ".math-num",
+        ".math-denom",
+        ".math-inline",
+        ".math-block-display",
+    ]
+
+    for cls in required_classes:
+        assert cls in css_content, f"Missing CSS class {cls} in styles/academic-theme.css"
+
