@@ -43,7 +43,17 @@ def compute_exact_modality_shapley(
                     mask[idx] = 1.0
 
                 mask_tensor = torch.tensor([mask], dtype=torch.float32)
-                device = next(model.parameters()).device
+                try:
+                    device = next(model.parameters()).device
+                except StopIteration:
+                    if img is not None:
+                        device = img.device
+                    elif clin is not None:
+                        device = clin.device
+                    elif ceus is not None:
+                        device = ceus.device
+                    else:
+                        device = torch.device("cpu")
                 mask_tensor = mask_tensor.to(device)
 
                 img_in = img.to(device) if (0 in subset and img is not None) else None
