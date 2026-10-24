@@ -131,3 +131,77 @@ def test_leakage_assertion():
 
     with pytest.raises(ValueError, match="LEAKAGE ASSERTION FAILED"):
         assert_no_leakage_fields({"age": 65, "tace_response": "Complete"})
+
+
+@pytest.mark.parametrize("prohibited_key", [
+    "t_stage", "T_STAGE", "t-stage", "  t_stage  ",
+    "tumor_size", "tumor_size_cm", "max_diameter",
+    "pathologic_t_stage", "tace_response", "complete_response_to_tace",
+    "year", "acquisition_format", "file_size", "frame_count",
+])
+def test_all_prohibited_leakage_fields_blocked(prohibited_key):
+    """Stress test that EVERY forbidden field name in any case or formatting is blocked."""
+    with pytest.raises(ValueError, match="LEAKAGE ASSERTION FAILED"):
+        assert_no_leakage_fields({prohibited_key: "leaked_value"})
+
+
+def test_smc_manifest_age_and_fold_boundaries():
+    """Verify age boundaries (0-120) and fold boundaries (0-4) are strictly enforced."""
+    # Negative age must fail
+    with pytest.raises(Exception):
+        SMCManifestRow(
+            patient_id="P1", subject_id=1, relative_path="p/1.png", label="HCC",
+            is_clean=True, age=-5.0, fold=0, image_sha256="abc"
+        )
+    # Age > 120 must fail
+    with pytest.raises(Exception):
+        SMCManifestRow(
+            patient_id="P2", subject_id=2, relative_path="p/2.png", label="HCC",
+            is_clean=True, age=125.0, fold=0, image_sha256="abc"
+        )
+    # Fold < 0 or > 4 must fail
+    with pytest.raises(Exception):
+        SMCManifestRow(
+            patient_id="P3", subject_id=3, relative_path="p/3.png", label="HCC",
+            is_clean=True, age=50.0, fold=5, image_sha256="abc"
+        )
+
+
+def test_clinical_feature_processor_invariants():
+    """Verify fold isolation, pre-fit assertion, and imputation behavior."""
+    import pandas as pd
+    from xmai.data.clinical import ClinicalFeatureProcessor
+
+    proc = ClinicalFeatureProcessor()
+    # Calling transform before fit must raise RuntimeError
+    with pytest.raises(RuntimeError, match="must be fitted on training fold"):
+        proc.transform_row({"age": 55.0, "sex": "M"})
+
+    # Fitting on dataframe containing prohibited columns must raise
+    df_leaked = pd.DataFrame({
+        "age": [50.0, 60.0],
+        "age_missing": [False, False],
+        "t_stage": ["T1", "T2"]
+    })
+    with pytest.raises(ValueError, match="LEAKAGE ASSERTION FAILED"):
+        proc.fit(df_leaked)
+
+    # Valid fit on training fold
+    df_train = pd.DataFrame({
+        "age": [50.0, 60.0, None],
+        "age_missing": [False, False, True],
+        "sex": ["M", "F", None],
+        "sex_missing": [False, False, True]
+    })
+    proc.fit(df_train)
+    assert proc.is_fitted
+    assert proc.age_mean == 55.0
+    assert proc.age_median == 55.0
+
+    # Transforming missing age and sex must impute training median and 0.5 binary sex
+    feat, mask = proc.transform_row({"age": None, "age_missing": True, "sex": None, "sex_missing": True})
+    assert feat[0].item() == pytest.approx(0.0)  # (55 - 55) / std == 0
+    assert feat[1].item() == 0.5
+    assert mask[0].item() == 1.0
+    assert mask[1].item() == 1.0
+
