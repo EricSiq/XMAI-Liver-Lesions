@@ -94,8 +94,21 @@ function renderSelectiveView() {
 
                 <!-- SVG Risk-Coverage Curve -->
                 <div style="background: var(--surface-bg); border: 1px solid var(--border-light); border-radius: var(--radius-md); padding: 1rem;">
-                    <h4 style="margin: 0 0 0.5rem 0; font-size: 0.95rem; color: var(--navy-900);">Risk-Coverage Characteristic (RC Curve)</h4>
+                    <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 0.5rem;">
+                        <h4 style="margin: 0; font-size: 0.95rem; color: var(--navy-900);">Risk-Coverage Characteristic (RC Curve)</h4>
+                        <span class="badge badge-accent text-xs">E-AURC: 0.053</span>
+                    </div>
                     <svg viewBox="0 0 340 240" style="width: 100%; height: auto; display: block; font-family: 'Inter', sans-serif;">
+                        <defs>
+                            <linearGradient id="safe-envelope" x1="0" y1="0" x2="0" y2="1">
+                                <stop offset="0%" stop-color="#0284c7" stop-opacity="0.20" />
+                                <stop offset="100%" stop-color="#0284c7" stop-opacity="0.02" />
+                            </linearGradient>
+                        </defs>
+
+                        <!-- Safe Operating Envelope under Model A4 Curve -->
+                        <polygon points="45,195 100,195 180,195 250,195 295,194 315,188 315,195" fill="url(#safe-envelope)" />
+
                         <!-- Axes -->
                         <line x1="45" y1="195" x2="315" y2="195" stroke="#cbd5e1" stroke-width="1.5" />
                         <line x1="45" y1="25" x2="45" y2="195" stroke="#cbd5e1" stroke-width="1.5" />
@@ -115,6 +128,11 @@ function renderSelectiveView() {
                         <!-- A4 Gated Fusion Curve (Royal Blue Solid, optimal flat) -->
                         <polyline points="45,195 100,195 180,195 250,195 295,194 315,188" 
                                   fill="none" stroke="#1d4ed8" stroke-width="2.5" />
+
+                        <!-- E-AURC Annotation -->
+                        <rect x="195" y="145" width="110" height="28" rx="4" fill="#ffffff" stroke="#0284c7" stroke-width="1" />
+                        <text x="250" y="157" font-size="8" text-anchor="middle" font-weight="700" fill="#0284c7">Excess AURC = 0.053</text>
+                        <text x="250" y="167" font-size="7.5" text-anchor="middle" fill="#64748b">Near-Optimal Ranking</text>
 
                         <!-- Axis labels -->
                         <text x="45" y="212" font-size="9" text-anchor="middle" fill="#64748b">0%</text>
@@ -252,31 +270,70 @@ function updateLiveTriage(budget) {
         }
     }
 
+    const totalCohort = 743;
+    const a4AutoCount = Math.round((parseFloat(a4Coverage) / 100) * totalCohort);
+    const a4ReferralCount = totalCohort - a4AutoCount;
+    const a1AutoCount = Math.round((parseFloat(a1Coverage) / 100) * totalCohort);
+    const a1ReferralCount = totalCohort - a1AutoCount;
+
     card.innerHTML = `
-        <div style="font-size: 0.88rem; font-weight: 700; color: var(--navy-900); margin-bottom: 0.5rem;">
-            Triage Capacity at ${budget.toFixed(2)}% Safety Budget
+        <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 0.6rem;">
+            <div style="font-size: 0.88rem; font-weight: 700; color: var(--navy-900);">
+                Clinical Triage Allocation (${budget.toFixed(2)}% Safety Budget)
+            </div>
+            <span class="badge badge-neutral text-xs">Cohort: 743 Patients</span>
         </div>
+
         <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 0.75rem; font-size: 0.85rem;">
-            <div style="background: var(--surface-alt); padding: 0.75rem; border-radius: var(--radius-sm); border-left: 3px solid var(--accent);">
-                <span class="text-xs text-muted font-bold">MODEL A4 (PROPOSED)</span>
-                <div style="font-size: 1.1rem; font-weight: 700; color: var(--color-success); font-family: 'JetBrains Mono', monospace; margin: 0.2rem 0;">
-                    ${a4Coverage}% Coverage
+            <!-- Model A4 Card -->
+            <div style="background: var(--surface-alt); padding: 0.85rem; border-radius: var(--radius-sm); border-left: 3px solid var(--accent);">
+                <div style="display: flex; justify-content: space-between; align-items: center;">
+                    <span class="text-xs text-muted font-bold">MODEL A4 (GATED)</span>
+                    <span class="badge badge-success text-xs">${a4Coverage}% Auto</span>
                 </div>
-                <div class="text-xs text-muted">Human Referrals: <strong>${a4Referral}%</strong> (0 pts)</div>
+                <div style="font-size: 1.15rem; font-weight: 800; color: var(--color-success); font-family: 'JetBrains Mono', monospace; margin: 0.35rem 0;">
+                    ${a4AutoCount} / ${totalCohort} Pts
+                </div>
+
+                <!-- Visual Stacked Bar -->
+                <div style="display: flex; height: 10px; border-radius: 5px; overflow: hidden; background: #e2e8f0; margin-bottom: 0.4rem;">
+                    <div style="width: ${a4Coverage}%; background: #059669;" title="Autonomous: ${a4Coverage}%"></div>
+                    <div style="width: ${a4Referral}%; background: #f59e0b;" title="Human Referral: ${a4Referral}%"></div>
+                </div>
+
+                <div style="display: flex; justify-content: space-between; font-size: 0.72rem; color: #64748b;">
+                    <span>Autonomous: <strong>${a4AutoCount}</strong></span>
+                    <span>Referrals: <strong style="color: ${a4ReferralCount > 0 ? '#d97706' : '#64748b'};">${a4ReferralCount}</strong></span>
+                </div>
             </div>
 
-            <div style="background: var(--surface-alt); padding: 0.75rem; border-radius: var(--radius-sm); border-left: 3px solid #64748b;">
-                <span class="text-xs text-muted font-bold">MODEL A1 (B-MODE)</span>
-                <div style="font-size: 1.1rem; font-weight: 700; color: var(--navy-900); font-family: 'JetBrains Mono', monospace; margin: 0.2rem 0;">
-                    ${a1Coverage}% Coverage
+            <!-- Model A1 Card -->
+            <div style="background: var(--surface-alt); padding: 0.85rem; border-radius: var(--radius-sm); border-left: 3px solid #64748b;">
+                <div style="display: flex; justify-content: space-between; align-items: center;">
+                    <span class="text-xs text-muted font-bold">MODEL A1 (B-MODE)</span>
+                    <span class="badge badge-neutral text-xs">${a1Coverage}% Auto</span>
                 </div>
-                <div class="text-xs text-muted">Human Referrals: <strong>${a1Referral}%</strong> (2 pts)</div>
+                <div style="font-size: 1.15rem; font-weight: 800; color: var(--navy-900); font-family: 'JetBrains Mono', monospace; margin: 0.35rem 0;">
+                    ${a1AutoCount} / ${totalCohort} Pts
+                </div>
+
+                <!-- Visual Stacked Bar -->
+                <div style="display: flex; height: 10px; border-radius: 5px; overflow: hidden; background: #e2e8f0; margin-bottom: 0.4rem;">
+                    <div style="width: ${a1Coverage}%; background: #64748b;" title="Autonomous: ${a1Coverage}%"></div>
+                    <div style="width: ${a1Referral}%; background: #e11d48;" title="Human Referral: ${a1Referral}%"></div>
+                </div>
+
+                <div style="display: flex; justify-content: space-between; font-size: 0.72rem; color: #64748b;">
+                    <span>Autonomous: <strong>${a1AutoCount}</strong></span>
+                    <span>Referrals: <strong style="color: #e11d48;">${a1ReferralCount}</strong></span>
+                </div>
             </div>
         </div>
-        <div style="margin-top: 0.75rem; font-size: 0.8rem; color: var(--text-secondary); line-height: 1.45;">
-            ${budget >= 0.40 ? 
-                'At this clinical risk budget, Model A4 provides 100% autonomous throughput while maintaining zero diagnostic breaches on the 743-patient cohort.' : 
-                'Under stringent risk requirements (<0.4%), Model A4 gracefully refers borderline patients to human experts without failing.'}
+
+        <div style="margin-top: 0.75rem; font-size: 0.8rem; color: var(--text-secondary); line-height: 1.45; background: #f8fafc; padding: 0.5rem 0.75rem; border-radius: 4px; border: 1px solid #e2e8f0;">
+            <strong>Multimodal AI Safety Invariant:</strong> ${budget >= 0.40 ? 
+                'Model A4 safely achieves 100% autonomous deployment while maintaining zero risk violations across the entire 743-patient cross-validation cohort.' : 
+                'Under strict risk budgets (<0.40%), Model A4 routes ambiguous cases to senior specialists without suffering catastrophic false negative classification.'}
         </div>
     `;
 }
