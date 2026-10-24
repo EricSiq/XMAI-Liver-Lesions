@@ -45,6 +45,13 @@ class BModeEncoder(nn.Module):
         Input: [B, 3, 224, 224]
         Output: z_B in [B, embed_dim]
         """
+        if x.ndim != 4:
+            raise ValueError(f"Expected 4D image tensor [B, C, H, W], got shape {tuple(x.shape)}")
+        if x.shape[1] != 3:
+            raise ValueError(f"Expected 3 channels (RGB B-mode), got {x.shape[1]} channels in shape {tuple(x.shape)}")
+        if torch.isnan(x).any() or torch.isinf(x).any():
+            raise ValueError("BModeEncoder received tensor containing NaN or Inf values.")
+
         x = self.conv1(x)
         x = self.bn1(x)
         x = self.relu(x)
@@ -86,6 +93,10 @@ class ClinicalEncoder(nn.Module):
         Input: [B, in_features]
         Output: z_T in [B, out_dim]
         """
+        if clin.ndim != 2:
+            raise ValueError(f"Expected 2D clinical tensor [B, in_features], got shape {tuple(clin.shape)}")
+        if torch.isnan(clin).any() or torch.isinf(clin).any():
+            raise ValueError("ClinicalEncoder received tensor containing NaN or Inf values.")
         return self.net(clin)
 
 
@@ -148,6 +159,13 @@ class CEUSEncoder(nn.Module):
         Input: [B, T, 3, 224, 224]
         Output: z_C in [B, embed_dim]
         """
+        if ceus_frames.ndim != 5:
+            raise ValueError(f"Expected 5D tensor [B, T, C, H, W], got shape {tuple(ceus_frames.shape)}")
+        if ceus_frames.shape[2] != 3:
+            raise ValueError(f"Expected 3 channels (RGB frames), got {ceus_frames.shape[2]} channels in shape {tuple(ceus_frames.shape)}")
+        if torch.isnan(ceus_frames).any() or torch.isinf(ceus_frames).any():
+            raise ValueError("CEUSEncoder received tensor containing NaN or Inf values.")
+
         B, T, C, H, W = ceus_frames.shape
         flat_frames = ceus_frames.reshape(B * T, C, H, W)
         frame_feats = self.frame_encoder(flat_frames)  # [B*T, embed_dim]
