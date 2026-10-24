@@ -138,6 +138,95 @@ function renderArchitectureView() {
                 <!-- Spec details dynamically rendered -->
             </div>
         </div>
+
+        <!-- Layer-by-Layer Architectural Breakdown (Multimodal AI & Medical Translation) -->
+        <div class="card" style="margin-top: 1.5rem;">
+            <div class="card-header">
+                <div>
+                    <h3 class="card-title">Layer-by-Layer Computational Breakdown</h3>
+                    <p class="text-sm text-muted">A step-by-step engineering walkthrough bridging medical ultrasound phenomenology and multimodal AI representation learning.</p>
+                </div>
+                <span class="badge badge-accent">Formal Pipeline Specification</span>
+            </div>
+
+            <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(240px, 1fr)); gap: 1rem; margin-top: 1rem;">
+                <!-- Layer 1: Visual Feature Extraction -->
+                <div style="background: var(--surface-bg); border: 1px solid var(--border-light); border-top: 4px solid #0284c7; border-radius: var(--radius-md); padding: 1.1rem;">
+                    <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 0.5rem;">
+                        <span class="badge badge-neutral" style="font-size: 0.75rem;">Layer 1 &bull; Visual</span>
+                        <span class="font-mono text-xs" style="color: #0284c7; font-weight: 700;">ℝ³ˣ²²⁴ˣ²²⁴ → ℝ⁵¹²</span>
+                    </div>
+                    <h4 style="margin: 0 0 0.5rem 0; font-size: 0.95rem; color: var(--navy-900);">Visual Spatial Encoder</h4>
+                    <div style="font-size: 0.82rem; line-height: 1.5; color: var(--text-secondary);">
+                        <div style="margin-bottom: 0.5rem;">
+                            <strong style="color: var(--text-primary); display: block; font-size: 0.75rem; text-transform: uppercase; letter-spacing: 0.05em;">AI Architecture:</strong>
+                            ResNet-18 backbone with conv1-layer4 residual hierarchy followed by AdaptiveAvgPool2d. Extracts dense spatial morphology $z_B$.
+                        </div>
+                        <div style="background: var(--surface-alt); padding: 0.5rem 0.65rem; border-radius: var(--radius-sm); border-left: 2px solid #0284c7;">
+                            <strong style="color: var(--text-primary); font-size: 0.74rem;">Medical Translation:</strong>
+                            <span style="color: var(--navy-900);">Speckle noise, hypoechoic cores, and acoustic shadow artifacts are modeled as low-SNR spatial textures and gradient dropouts.</span>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Layer 2: Contextual Representation -->
+                <div style="background: var(--surface-bg); border: 1px solid var(--border-light); border-top: 4px solid #059669; border-radius: var(--radius-md); padding: 1.1rem;">
+                    <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 0.5rem;">
+                        <span class="badge badge-neutral" style="font-size: 0.75rem;">Layer 2 &bull; Tabular</span>
+                        <span class="font-mono text-xs" style="color: #059669; font-weight: 700;">ℝ² → ℝ⁶⁴</span>
+                    </div>
+                    <h4 style="margin: 0 0 0.5rem 0; font-size: 0.95rem; color: var(--navy-900);">Epidemiological Prior MLP</h4>
+                    <div style="font-size: 0.82rem; line-height: 1.5; color: var(--text-secondary);">
+                        <div style="margin-bottom: 0.5rem;">
+                            <strong style="color: var(--text-primary); display: block; font-size: 0.75rem; text-transform: uppercase; letter-spacing: 0.05em;">AI Architecture:</strong>
+                            2-layer MLP (dim: $2 \to 64 \to 64$) with LayerNorm + ReLU. Zero-leakage fold-isolated standardizer maps age/sex to latent context $z_C$.
+                        </div>
+                        <div style="background: var(--surface-alt); padding: 0.5rem 0.65rem; border-radius: var(--radius-sm); border-left: 2px solid #059669;">
+                            <strong style="color: var(--text-primary); font-size: 0.74rem;">Medical Translation:</strong>
+                            <span style="color: var(--navy-900);">Patient age & biological sex encode population-level tumor incidence priors (e.g. elderly males face 4.2x higher HCC risk).</span>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Layer 3: Multimodal Fusion Core -->
+                <div style="background: var(--surface-bg); border: 1px solid var(--border-light); border-top: 4px solid #d97706; border-radius: var(--radius-md); padding: 1.1rem;">
+                    <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 0.5rem;">
+                        <span class="badge badge-neutral" style="font-size: 0.75rem;">Layer 3 &bull; Fusion</span>
+                        <span class="font-mono text-xs" style="color: #d97706; font-weight: 700;">[z_B; z_C; m] → ℝ⁵⁷⁶</span>
+                    </div>
+                    <h4 style="margin: 0 0 0.5rem 0; font-size: 0.95rem; color: var(--navy-900);">Dynamic Gating & Modulation</h4>
+                    <div style="font-size: 0.82rem; line-height: 1.5; color: var(--text-secondary);">
+                        <div style="margin-bottom: 0.5rem;">
+                            <strong style="color: var(--text-primary); display: block; font-size: 0.75rem; text-transform: uppercase; letter-spacing: 0.05em;">AI Architecture:</strong>
+                            Context-aware gating unit $g = \sigma(W_g [z_B; z_C; m])$ applies feature-wise modulation $z_F = [z_B; g \odot z_C]$, with automatic null-bypass if $m=0$.
+                        </div>
+                        <div style="background: var(--surface-alt); padding: 0.5rem 0.65rem; border-radius: var(--radius-sm); border-left: 2px solid #d97706;">
+                            <strong style="color: var(--text-primary); font-size: 0.74rem;">Medical Translation:</strong>
+                            <span style="color: var(--navy-900);">When an ultrasound view is ambiguous or shadowed, the network elevates clinical weighting to disambiguate the diagnosis.</span>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Layer 4: Decision & Calibration -->
+                <div style="background: var(--surface-bg); border: 1px solid var(--border-light); border-top: 4px solid #7c3aed; border-radius: var(--radius-md); padding: 1.1rem;">
+                    <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 0.5rem;">
+                        <span class="badge badge-neutral" style="font-size: 0.75rem;">Layer 4 &bull; Decision</span>
+                        <span class="font-mono text-xs" style="color: #7c3aed; font-weight: 700;">Logits / T → P(y | x)</span>
+                    </div>
+                    <h4 style="margin: 0 0 0.5rem 0; font-size: 0.95rem; color: var(--navy-900);">Calibrated Decision Head</h4>
+                    <div style="font-size: 0.82rem; line-height: 1.5; color: var(--text-secondary);">
+                        <div style="margin-bottom: 0.5rem;">
+                            <strong style="color: var(--text-primary); display: block; font-size: 0.75rem; text-transform: uppercase; letter-spacing: 0.05em;">AI Architecture:</strong>
+                            Linear projection followed by post-hoc temperature scaling ($T=1.35$), optimizing NLL on validation logits to guarantee reliable probabilities.
+                        </div>
+                        <div style="background: var(--surface-alt); padding: 0.5rem 0.65rem; border-radius: var(--radius-sm); border-left: 2px solid #7c3aed;">
+                            <strong style="color: var(--text-primary); font-size: 0.74rem;">Medical Translation:</strong>
+                            <span style="color: var(--navy-900);">Prevents overconfident false reassurances in borderline patients, enabling certified referral triage when confidence margin is low.</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
     `;
 
     // Bind event listeners to model pills
