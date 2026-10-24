@@ -52,8 +52,9 @@ class CrossModalContrastiveLoss(nn.Module):
             z_t_proj = z_t
         norm_t = F.normalize(z_t_proj, p=2, dim=1)
 
+        temp = max(self.temperature, 1e-4)
         # Cross-modal cosine similarity matrix: [B, B]
-        sim_bt = torch.matmul(norm_b, norm_t.T) / self.temperature
+        sim_bt = torch.matmul(norm_b, norm_t.T) / temp
 
         # Positive pair mask where diagnosis agrees: [B, B]
         target_col = labels.view(-1, 1)
@@ -94,6 +95,9 @@ class EvidentialBayesLoss(nn.Module):
         """
         B, K = alpha.shape
         device = alpha.device
+
+        # Numerical safety guard: alpha must be >= 1.0
+        alpha = torch.clamp(alpha, min=1.0)
 
         # One-hot target vector: [B, K]
         y = F.one_hot(targets, num_classes=K).float().to(device)
