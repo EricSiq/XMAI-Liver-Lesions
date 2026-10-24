@@ -138,6 +138,68 @@ def test_live_server_endpoints_http():
             assert data["p_hcc"] > 0.50
             assert "evidential" in data
 
+        # 5. Audit malformed JSON error handling (HTTP 400)
+        req_bad = urllib.request.Request(
+            f"{base_url}/api/predict",
+            data=b"INVALID_MALFORMED_JSON{{{",
+            headers={"Content-Type": "application/json"},
+            method="POST",
+        )
+        try:
+            with urllib.request.urlopen(req_bad) as resp_bad:
+                pass
+        except urllib.error.HTTPError as e:
+            assert e.code == 400
+            err_body = json.loads(e.read().decode("utf-8"))
+            assert "error" in err_body
+
+        # 6. Audit 404 for unknown POST endpoints
+        req_404 = urllib.request.Request(
+            f"{base_url}/api/non_existent_endpoint",
+            data=b"{}",
+            headers={"Content-Type": "application/json"},
+            method="POST",
+        )
+        try:
+            with urllib.request.urlopen(req_404) as resp_404:
+                pass
+        except urllib.error.HTTPError as e:
+            assert e.code == 404
+
+        # 7. Stress test rapid concurrent requests across threads
+        errors = []
+
+        def worker():
+            try:
+                with urllib.request.urlopen(f"{base_url}/api/status") as r:
+                    if r.status != 200:
+                        errors.append(f"Bad status: {r.status}")
+            except Exception as exc:
+                errors.append(str(exc))
+
+        threads = [threading.Thread(target=worker) for _ in range(30)]
+        for t in threads:
+            t.start()
+        for t in threads:
+            t.join()
+
+        assert len(errors) == 0, f"Concurrent requests had failures: {errors}"
+
     finally:
         server.shutdown()
         server.server_close()
+
+
+def test_extreme_input_clamping_in_live_inference():
+    """Verify live inference clamps outlier inputs (e.g., negative age, visual prior > 1.0)."""
+    # Negative age & excessive visual prior
+    res = compute_live_prediction(model_id="A4", age=-20, sex="Male", mask=1, visual_prior=5.0)
+    assert res["status"] == "success"
+    assert 0.0 <= res["p_hcc"] <= 1.0
+    assert 0.0 <= res["p_hem"] <= 1.0
+
+    # Age 200 & negative visual prior
+    res2 = compute_live_prediction(model_id="A4", age=200, sex="Female", mask=1, visual_prior=-0.5)
+    assert res2["status"] == "success"
+    assert 0.0 <= res2["p_hcc"] <= 1.0
+
