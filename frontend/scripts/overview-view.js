@@ -99,6 +99,92 @@ function renderOverviewView() {
             </div>
         </div>
 
+        <!-- End-to-End Multimodal Tensor Dataflow Schematic (Visual First) -->
+        <div class="card" style="margin-top: 1.5rem;">
+            <div class="card-header">
+                <div>
+                    <h3 class="card-title">End-to-End Multimodal Representation Dataflow</h3>
+                    <p class="text-sm text-muted">Complete lifecycle from raw patient ultrasound tensors to calibrated malignancy risk and certified referral triage.</p>
+                </div>
+                <span class="badge badge-accent">Tensor Lifecycle</span>
+            </div>
+
+            <div style="overflow-x: auto; padding: 0.75rem 0;">
+                <svg viewBox="0 0 960 210" style="width: 100%; min-width: 820px; font-family: 'Inter', -apple-system, sans-serif;">
+                    <defs>
+                        <marker id="flow-arrow" viewBox="0 0 10 10" refX="6" refY="5" markerWidth="6" markerHeight="6" orient="auto-start-reverse">
+                            <path d="M 0 1 L 10 5 L 0 9 z" fill="#0284c7" />
+                        </marker>
+                    </defs>
+
+                    <!-- Step 1: Patient Multi-Source Inputs -->
+                    <rect x="15" y="25" width="160" height="155" rx="8" fill="#f8fafc" stroke="#cbd5e1" stroke-width="1.5" />
+                    <text x="95" y="48" text-anchor="middle" font-size="11" font-weight="800" fill="#0f172a">PATIENT INPUTS</text>
+                    <rect x="25" y="60" width="140" height="48" rx="6" fill="#ffffff" stroke="#94a3b8" />
+                    <text x="95" y="80" text-anchor="middle" font-size="10" font-weight="700" fill="#0284c7">Ultrasound x_B</text>
+                    <text x="95" y="98" text-anchor="middle" font-size="9" font-family="'JetBrains Mono', monospace" fill="#64748b">[B, 3, 224, 224]</text>
+                    <rect x="25" y="118" width="140" height="48" rx="6" fill="#ffffff" stroke="#94a3b8" />
+                    <text x="95" y="138" text-anchor="middle" font-size="10" font-weight="700" fill="#059669">Demographics x_C</text>
+                    <text x="95" y="156" text-anchor="middle" font-size="9" font-family="'JetBrains Mono', monospace" fill="#64748b">[B, 2] Age & Sex</text>
+
+                    <!-- Arrow 1 -> 2 -->
+                    <line x1="175" y1="84" x2="225" y2="84" stroke="#0284c7" stroke-width="2" marker-end="url(#flow-arrow)" />
+                    <line x1="175" y1="142" x2="225" y2="142" stroke="#0284c7" stroke-width="2" marker-end="url(#flow-arrow)" />
+
+                    <!-- Step 2: Encoders -->
+                    <rect x="230" y="25" width="165" height="155" rx="8" fill="#f8fafc" stroke="#cbd5e1" stroke-width="1.5" />
+                    <text x="312" y="48" text-anchor="middle" font-size="11" font-weight="800" fill="#0f172a">DUAL ENCODERS</text>
+                    <rect x="240" y="60" width="145" height="48" rx="6" fill="#eff6ff" stroke="#0284c7" />
+                    <text x="312" y="80" text-anchor="middle" font-size="10" font-weight="700" fill="#0f172a">ResNet-18 Backbone</text>
+                    <text x="312" y="98" text-anchor="middle" font-size="9" font-family="'JetBrains Mono', monospace" fill="#0284c7">z_B ∈ ℝ⁵¹²</text>
+                    <rect x="240" y="118" width="145" height="48" rx="6" fill="#f0fdf4" stroke="#059669" />
+                    <text x="312" y="138" text-anchor="middle" font-size="10" font-weight="700" fill="#0f172a">Context MLP + LN</text>
+                    <text x="312" y="156" text-anchor="middle" font-size="9" font-family="'JetBrains Mono', monospace" fill="#059669">z_C ∈ ℝ⁶⁴</text>
+
+                    <!-- Arrow 2 -> 3 -->
+                    <path d="M 385 84 L 415 84 L 415 105 L 440 105" fill="none" stroke="#0284c7" stroke-width="2" marker-end="url(#flow-arrow)" />
+                    <path d="M 385 142 L 415 142 L 415 105 L 440 105" fill="none" stroke="#0284c7" stroke-width="2" marker-end="url(#flow-arrow)" />
+
+                    <!-- Step 3: Mask-Aware Gated Fusion -->
+                    <rect x="445" y="25" width="190" height="155" rx="8" fill="#ffffff" stroke="#d97706" stroke-width="2" />
+                    <rect x="445" y="25" width="190" height="28" rx="6" fill="#fef3c7" />
+                    <text x="540" y="44" text-anchor="middle" font-size="11" font-weight="800" fill="#92400e">MASK-AWARE GATING</text>
+                    <text x="540" y="75" text-anchor="middle" font-size="10" font-weight="700" fill="#0f172a">Contextual Gating Unit</text>
+                    <text x="540" y="94" text-anchor="middle" font-size="9" font-family="'JetBrains Mono', monospace" fill="#b45309">g = σ(W_g [z_B; z_C; m])</text>
+                    <line x1="460" y1="108" x2="620" y2="108" stroke="#f1f5f9" stroke-width="1.5" />
+                    <text x="540" y="128" text-anchor="middle" font-size="10" font-weight="700" fill="#0f172a">Hadamard Modulation</text>
+                    <text x="540" y="146" text-anchor="middle" font-size="9" font-family="'JetBrains Mono', monospace" fill="#0284c7">z_F = [z_B; g ⊙ z_C] ∈ ℝ⁵⁷⁶</text>
+                    <text x="540" y="166" text-anchor="middle" font-size="8.5" font-weight="700" fill="#059669">Fallback Path Active when m=0</text>
+
+                    <!-- Arrow 3 -> 4 -->
+                    <line x1="635" y1="105" x2="680" y2="105" stroke="#0284c7" stroke-width="2" marker-end="url(#flow-arrow)" />
+
+                    <!-- Step 4: Calibrated Decision Head -->
+                    <rect x="685" y="25" width="125" height="155" rx="8" fill="#f8fafc" stroke="#cbd5e1" stroke-width="1.5" />
+                    <text x="747" y="48" text-anchor="middle" font-size="11" font-weight="800" fill="#0f172a">CALIBRATION</text>
+                    <rect x="695" y="65" width="105" height="42" rx="6" fill="#f5f3ff" stroke="#7c3aed" />
+                    <text x="747" y="83" text-anchor="middle" font-size="9.5" font-weight="700" fill="#7c3aed">Temp Scaler</text>
+                    <text x="747" y="98" text-anchor="middle" font-size="8.5" font-family="'JetBrains Mono', monospace" fill="#5b21b6">T = 1.35</text>
+                    <rect x="695" y="120" width="105" height="45" rx="6" fill="#f8fafc" stroke="#64748b" />
+                    <text x="747" y="138" text-anchor="middle" font-size="9.5" font-weight="700" fill="#0f172a">Dirichlet Head</text>
+                    <text x="747" y="154" text-anchor="middle" font-size="8.5" font-family="'JetBrains Mono', monospace" fill="#475569">b_1 + b_2 + u = 1</text>
+
+                    <!-- Arrow 4 -> 5 -->
+                    <line x1="810" y1="105" x2="845" y2="105" stroke="#0284c7" stroke-width="2" marker-end="url(#flow-arrow)" />
+
+                    <!-- Step 5: Clinical Action Output -->
+                    <rect x="850" y="25" width="95" height="155" rx="8" fill="#ffffff" stroke="#059669" stroke-width="2" />
+                    <text x="897" y="48" text-anchor="middle" font-size="11" font-weight="800" fill="#059669">OUTPUT</text>
+                    <rect x="856" y="65" width="83" height="45" rx="4" fill="#ecfdf5" />
+                    <text x="897" y="83" text-anchor="middle" font-size="9" font-weight="800" fill="#065f46">P(HCC | x)</text>
+                    <text x="897" y="98" text-anchor="middle" font-size="8" fill="#047857">99.5% Acc</text>
+                    <rect x="856" y="120" width="83" height="45" rx="4" fill="#eff6ff" />
+                    <text x="897" y="138" text-anchor="middle" font-size="9" font-weight="800" fill="#1e3a8a">Selective</text>
+                    <text x="897" y="153" text-anchor="middle" font-size="8" fill="#0284c7">91.2% Auto</text>
+                </svg>
+            </div>
+        </div>
+
         <!-- Pre-Registered Hypotheses Review -->
         <div class="card" style="margin-top: 1.5rem;">
             <div class="card-header">
