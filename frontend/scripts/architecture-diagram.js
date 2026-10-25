@@ -114,8 +114,50 @@ function renderArchitectureView() {
             </p>
         </div>
 
+        <!-- Student Speaker Script & Judge Panel Takeaway -->
+        <div class="student-cue">
+            <div class="student-cue-header">
+                <span>🗣️ Student Speaker Script (Architecture Intuition)</span>
+                <span class="badge badge-accent" style="font-size: 10px;">Say this to panel</span>
+            </div>
+            <div class="student-cue-body">
+                "Judges frequently ask: <em>'Why not just concatenate features or average predictions?'</em> In late ensembling (A6), prediction confidence drops sharply because miscalibrated models corrupt each other (ECE rises from 0.024 to 0.191). In contrast, our <strong>Contextual Gating Unit</strong> acts as an adaptive throttle: when the ultrasound scan is crisp, clinical gating is suppressed ($\mathbf{g}_c \approx 0.05$); only when acoustic margins blur does the gate open to $\mathbf{g}_c \approx 0.52$ to rescue borderline decisions."
+            </div>
+        </div>
+
+        <div class="judge-callout">
+            <div class="judge-callout-header">
+                <span>🎯 Judge Panel Key Takeaway (Inductive Bias)</span>
+                <span class="badge badge-warning" style="font-size: 10px;">Architectural Distinction</span>
+            </div>
+            <div class="judge-callout-body">
+                Unlike naive late fusion or global concatenation, Model A4 preserves unimodal gradient flow while strictly confining multimodal interaction to a learned scalar gate. If clinical records are missing ($m=0$), the gate collapses cleanly to unimodal vision with zero performance penalty (Hypothesis H3).
+            </div>
+        </div>
+
+        <!-- Interactive Signal Routing Flow Simulator -->
+        <div class="card" style="margin-top: 1.25rem; background: #f8fafc; border: 1px solid var(--border-medium); padding: 1rem 1.25rem;">
+            <div style="display: flex; justify-content: space-between; align-items: center; flex-wrap: wrap; gap: 0.75rem; margin-bottom: 0.75rem;">
+                <div>
+                    <h4 style="margin: 0; font-size: 0.95rem; font-weight: 700; color: var(--navy-900);">⚡ Dynamic Gating Signal Routing Flow Simulator</h4>
+                    <p style="margin: 0.2rem 0 0 0; font-size: 0.8rem; color: var(--text-muted);">Simulate how the neural gate re-allocates modality weights between clear scans and ambiguous borderline lesions.</p>
+                </div>
+                <div style="display: flex; gap: 0.5rem;" id="routing-mode-selector">
+                    <button class="btn btn-outline btn-sm active" id="btn-route-clear" style="font-size: 0.78rem;">🟢 Case A: Clear Ultrasound</button>
+                    <button class="btn btn-outline btn-sm" id="btn-route-borderline" style="font-size: 0.78rem;">🟡 Case B: Borderline Shadowed Scan</button>
+                </div>
+            </div>
+            <div id="routing-flow-status" style="display: grid; grid-template-columns: repeat(auto-fit, minmax(200px, 1fr)); gap: 0.75rem; font-size: 0.82rem;">
+                <!-- Populated dynamically -->
+            </div>
+            <div class="visual-caption" style="margin-top: 0.75rem;">
+                <span class="visual-caption-badge">Signal Routing Insight</span>
+                <span id="routing-caption-text"><strong>Clean Scan Mode:</strong> ResNet-18 acoustic margin is decisive ($|\\Delta|=0.82$). Clinical prior gate is suppressed to $\\mathbf{g}_c = 0.05$ to prevent false demographic bias.</span>
+            </div>
+        </div>
+
         <!-- Model Switcher Selector Pills -->
-        <div class="model-selector-bar" role="tablist" aria-label="Select Architecture Model">
+        <div class="model-selector-bar" role="tablist" aria-label="Select Architecture Model" style="margin-top: 1.25rem;">
             ${models.map(m => `
                 <button class="model-pill ${m.id === currentSelectedModel ? 'active' : ''}" 
                         id="pill-${m.id}"
@@ -131,6 +173,12 @@ function renderArchitectureView() {
         <div class="card" style="margin-top: 1.25rem;">
             <div id="arch-schematic-box" style="padding: 1rem 0;">
                 <!-- SVG Diagram dynamically rendered -->
+            </div>
+
+            <!-- Visual Caption for Figure 2.1 -->
+            <div class="visual-caption" style="margin-top: 0.5rem;">
+                <span class="visual-caption-badge">Figure 2.1 / Architecture Flow</span>
+                <div><strong>Dual-Stream Modality Routing:</strong> B-mode ultrasound ($224 \\times 224$) and clinical vectors are embedded via independent encoders before contextual gating $\\mathbf{g}_c$ modulates tabular influence, feeding into temperature-scaled softmax ($T=1.35$).</div>
             </div>
 
             <!-- Mathematical Formalism Card -->
@@ -366,6 +414,73 @@ function renderArchitectureView() {
             updateLayerInspector(layerIdx);
         });
     });
+
+    // Dynamic Signal Routing Simulator Handlers
+    const btnRouteClear = container.querySelector('#btn-route-clear');
+    const btnRouteBorderline = container.querySelector('#btn-route-borderline');
+    function setRoutingMode(isBorderline) {
+        if (btnRouteClear && btnRouteBorderline) {
+            btnRouteClear.classList.toggle('active', !isBorderline);
+            btnRouteBorderline.classList.toggle('active', isBorderline);
+            btnRouteClear.style.background = !isBorderline ? '#0284c7' : 'transparent';
+            btnRouteClear.style.color = !isBorderline ? '#ffffff' : 'inherit';
+            btnRouteBorderline.style.background = isBorderline ? '#d97706' : 'transparent';
+            btnRouteBorderline.style.color = isBorderline ? '#ffffff' : 'inherit';
+        }
+        const statusBox = container.querySelector('#routing-flow-status');
+        const captionText = container.querySelector('#routing-caption-text');
+        if (statusBox) {
+            if (!isBorderline) {
+                statusBox.innerHTML = `
+                    <div style="background: #ffffff; padding: 0.6rem 0.8rem; border-radius: var(--radius-sm); border-left: 3px solid #0284c7; box-shadow: var(--shadow-subtle);">
+                        <span class="text-muted" style="font-size: 0.72rem; display: block; text-transform: uppercase;">Acoustic Margin</span>
+                        <strong style="color: #0284c7; font-size: 0.95rem;">High (0.82) • Unambiguous</strong>
+                    </div>
+                    <div style="background: #ffffff; padding: 0.6rem 0.8rem; border-radius: var(--radius-sm); border-left: 3px solid #0284c7; box-shadow: var(--shadow-subtle);">
+                        <span class="text-muted" style="font-size: 0.72rem; display: block; text-transform: uppercase;">Visual Gate Weight (g_b)</span>
+                        <strong style="color: #0284c7; font-size: 0.95rem;">0.95 (95% Dominant)</strong>
+                    </div>
+                    <div style="background: #ffffff; padding: 0.6rem 0.8rem; border-radius: var(--radius-sm); border-left: 3px solid #64748b; box-shadow: var(--shadow-subtle);">
+                        <span class="text-muted" style="font-size: 0.72rem; display: block; text-transform: uppercase;">Clinical Gate Weight (g_c)</span>
+                        <strong style="color: #64748b; font-size: 0.95rem;">0.05 (Suppressed Prior)</strong>
+                    </div>
+                    <div style="background: #ffffff; padding: 0.6rem 0.8rem; border-radius: var(--radius-sm); border-left: 3px solid #059669; box-shadow: var(--shadow-subtle);">
+                        <span class="text-muted" style="font-size: 0.72rem; display: block; text-transform: uppercase;">Diagnostic Route</span>
+                        <strong style="color: #059669; font-size: 0.95rem;">Autonomous (99.8% Conf)</strong>
+                    </div>
+                `;
+                if (captionText) {
+                    captionText.innerHTML = `<strong>Clean Scan Mode:</strong> ResNet-18 acoustic margin is decisive ($|\\Delta|=0.82$). Clinical prior gate is suppressed to $\\mathbf{g}_c = 0.05$ to prevent false demographic bias.`;
+                }
+            } else {
+                statusBox.innerHTML = `
+                    <div style="background: #ffffff; padding: 0.6rem 0.8rem; border-radius: var(--radius-sm); border-left: 3px solid #d97706; box-shadow: var(--shadow-subtle);">
+                        <span class="text-muted" style="font-size: 0.72rem; display: block; text-transform: uppercase;">Acoustic Margin</span>
+                        <strong style="color: #d97706; font-size: 0.95rem;">Low (0.08) • Borderline</strong>
+                    </div>
+                    <div style="background: #ffffff; padding: 0.6rem 0.8rem; border-radius: var(--radius-sm); border-left: 3px solid #d97706; box-shadow: var(--shadow-subtle);">
+                        <span class="text-muted" style="font-size: 0.72rem; display: block; text-transform: uppercase;">Visual Gate Weight (g_b)</span>
+                        <strong style="color: #d97706; font-size: 0.95rem;">0.48 (Attenuated)</strong>
+                    </div>
+                    <div style="background: #ffffff; padding: 0.6rem 0.8rem; border-radius: var(--radius-sm); border-left: 3px solid #0284c7; box-shadow: var(--shadow-subtle);">
+                        <span class="text-muted" style="font-size: 0.72rem; display: block; text-transform: uppercase;">Clinical Gate Weight (g_c)</span>
+                        <strong style="color: #0284c7; font-size: 0.95rem;">0.52 (Elevated Tie-Breaker)</strong>
+                    </div>
+                    <div style="background: #ffffff; padding: 0.6rem 0.8rem; border-radius: var(--radius-sm); border-left: 3px solid #059669; box-shadow: var(--shadow-subtle);">
+                        <span class="text-muted" style="font-size: 0.72rem; display: block; text-transform: uppercase;">Rescued Decision</span>
+                        <strong style="color: #059669; font-size: 0.95rem;">HCC Identified (0 Misses)</strong>
+                    </div>
+                `;
+                if (captionText) {
+                    captionText.innerHTML = `<strong>Borderline Mode:</strong> Low visual margin triggers gate $\\mathbf{g}_c = 0.52$. Patient demographic prior safely resolves the diagnosis without corrupting visual representations.`;
+                }
+            }
+        }
+    }
+
+    if (btnRouteClear) btnRouteClear.addEventListener('click', () => setRoutingMode(false));
+    if (btnRouteBorderline) btnRouteBorderline.addEventListener('click', () => setRoutingMode(true));
+    setRoutingMode(false);
 
     // Initial renders
     updateArchitectureDiagram(currentSelectedModel);
