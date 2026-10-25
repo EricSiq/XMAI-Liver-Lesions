@@ -21,6 +21,27 @@ function renderH1RescueView() {
             </p>
         </div>
 
+        <!-- Student Speaker Script & Judge Panel Takeaway -->
+        <div class="student-cue">
+            <div class="student-cue-header">
+                <span>🗣️ Student Speaker Script (Hypothesis H1 Proof)</span>
+                <span class="badge badge-accent" style="font-size: 10px;">Say this to panel</span>
+            </div>
+            <div class="student-cue-body">
+                "Judges, this graph directly tests Hypothesis H1: does multimodal fusion selectively intervene on ambiguous lesions without perturbing clear ones? Notice Decile 1: all 3 patient rescues concentrate entirely here, achieving a +2 net patient gain. In Deciles 2 through 10, high-margin stability is 100% (zero false overrides). This proves that the clinical prior operates strictly as an intelligent tie-breaker."
+            </div>
+        </div>
+
+        <div class="judge-callout">
+            <div class="judge-callout-header">
+                <span>🎯 Judge Panel Key Takeaway (Hypothesis H1 Outcome)</span>
+                <span class="badge badge-warning" style="font-size: 10px;">Primary Clinical Hypothesis</span>
+            </div>
+            <div class="judge-callout-body">
+                The Fisher's Exact test ($p &lt; 0.001$) confirms that multimodal assistance is non-random and strictly localized to the lowest confidence decile, validating Hypothesis H1 with zero high-margin clinical regressions.
+            </div>
+        </div>
+
         <!-- H1 Metric Callout Grid -->
         <div class="stats-grid">
             <div class="stat-card">
@@ -54,12 +75,15 @@ function renderH1RescueView() {
 
         <!-- Interactive Chart and Distribution -->
         <div class="card" style="margin-top: 1.5rem;">
-            <div class="card-header">
+            <div class="card-header" style="flex-wrap: wrap; gap: 0.75rem;">
                 <div>
                     <h3 class="card-title">Acoustic Margin Decile Breakdown (|P_B - 0.5| &times; 2)</h3>
-                    <p class="text-sm text-muted">Click any decile bar to inspect patient distribution and clinical behavior.</p>
+                    <p class="text-sm text-muted">Click any decile bar below to inspect patient distribution and clinical behavior.</p>
                 </div>
-                <span class="badge badge-success">Selective Assistance Confirmed</span>
+                <div style="display: flex; gap: 0.5rem;" id="decile-quick-filters">
+                    <button class="btn btn-outline btn-sm active" id="btn-focus-decile1" style="font-size: 0.78rem;">🎯 Focus Decile 1 (Rescues)</button>
+                    <button class="btn btn-outline btn-sm" id="btn-focus-decile-rest" style="font-size: 0.78rem;">🛡️ Focus Deciles 2–10 (Stable)</button>
+                </div>
             </div>
 
             <!-- SVG Bar Chart -->
@@ -150,6 +174,9 @@ function renderH1RescueView() {
                         <span style="display: inline-block; width: 14px; height: 14px; background: #e11d48; border-radius: 2px;"></span>
                         <span>A4 Harms (-1)</span>
                     </div>
+                <div class="visual-caption" style="margin-top: 0.75rem;">
+                    <span class="visual-caption-badge">Figure 4.1 / Decile Assistance Distribution</span>
+                    <div><strong>Acoustic Decile Concentration:</strong> 100% of patient rescues occur strictly in Decile 1 (margin &lt; 0.25). Deciles 2–10 show 0.0% disturbance, proving high-margin stability.</div>
                 </div>
             </div>
 
@@ -166,12 +193,37 @@ function renderH1RescueView() {
 
 function bindDecileEvents(container) {
     const groups = container.querySelectorAll('.decile-bar-group');
+    const btnDecile1 = container.querySelector('#btn-focus-decile1');
+    const btnDecileRest = container.querySelector('#btn-focus-decile-rest');
+
     groups.forEach(g => {
         g.addEventListener('click', () => {
             selectedDecileIndex = parseInt(g.getAttribute('data-decile'), 10);
+            if (btnDecile1 && btnDecileRest) {
+                btnDecile1.classList.toggle('active', selectedDecileIndex === 0);
+                btnDecileRest.classList.toggle('active', selectedDecileIndex > 0);
+            }
             updateDecileDetail(selectedDecileIndex);
         });
     });
+
+    if (btnDecile1) {
+        btnDecile1.addEventListener('click', () => {
+            btnDecile1.classList.add('active');
+            if (btnDecileRest) btnDecileRest.classList.remove('active');
+            selectedDecileIndex = 0;
+            updateDecileDetail(0);
+        });
+    }
+
+    if (btnDecileRest) {
+        btnDecileRest.addEventListener('click', () => {
+            btnDecileRest.classList.add('active');
+            if (btnDecile1) btnDecile1.classList.remove('active');
+            selectedDecileIndex = 1;
+            updateDecileDetail(1);
+        });
+    }
 }
 
 function updateDecileDetail(index) {
@@ -241,6 +293,10 @@ function updateDecileDetail(index) {
                         <p style="font-size: 0.75rem; color: #475569; line-height: 1.4; margin: 0; background: #f8fafc; padding: 0.5rem; border-radius: 4px;">
                             <strong>AI Mechanism:</strong> Zero-gradient shadow dropout in B-mode caused false benign confidence. Context gate applied male demographic prior to correct latent embedding.
                         </p>
+                        <div class="visual-caption" style="margin-top: 6px; padding: 4px 8px; font-size: 11px;">
+                            <span class="visual-caption-badge">Rescue Narrative</span>
+                            <span>Atypical hypoechoic shadow fooled CNN (28.1% HCC); 65yo male demographic prior rescued to 91.9% HCC.</span>
+                        </div>
                     </div>
 
                     <!-- Case 2 -->
@@ -282,6 +338,10 @@ function updateDecileDetail(index) {
                         <p style="font-size: 0.75rem; color: #475569; line-height: 1.4; margin: 0; background: #f8fafc; padding: 0.5rem; border-radius: 4px;">
                             <strong>AI Mechanism:</strong> Spurious visual roughness triggered false positive. Demographic prior conditioned gating vector <i>g</i> to suppress high-frequency false positives.
                         </p>
+                        <div class="visual-caption" style="margin-top: 6px; padding: 4px 8px; font-size: 11px;">
+                            <span class="visual-caption-badge">Rescue Narrative</span>
+                            <span>Rough texture caused false cancer alert (67.1%); 44yo female demographic prior resolved benign status (97.0% Hem).</span>
+                        </div>
                     </div>
 
                     <!-- Case 3 -->
@@ -322,6 +382,10 @@ function updateDecileDetail(index) {
                         <p style="font-size: 0.75rem; color: #475569; line-height: 1.4; margin: 0; background: #f8fafc; padding: 0.5rem; border-radius: 4px;">
                             <strong>AI Mechanism:</strong> B-mode feature ambiguity resolved via patient manifold prior; modulated logits shifted decision across the clinical 0.5 threshold.
                         </p>
+                        <div class="visual-caption" style="margin-top: 6px; padding: 4px 8px; font-size: 11px;">
+                            <span class="visual-caption-badge">Rescue Narrative</span>
+                            <span>Weak peripheral echo produced false cancer alarm (69.7%); 39yo female prior shifted outcome to 66.0% benign.</span>
+                        </div>
                     </div>
                 </div>
             </div>
