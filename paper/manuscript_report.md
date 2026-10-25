@@ -161,5 +161,5 @@ To facilitate rigorous peer review and translation for academic mentors and jour
    - **Manuscript Artifacts & Exporters:** Camera-ready `booktabs` LaTeX table generation, CLAIM 7-point audit report, and BibTeX citations.
 
 3. **Automated Verification:**
-   - Automated test suite (`tests/test_frontend_assets.py` and `tests/test_frontend_ml_integration.py`) validates asset integrity, schema compliance, and live prediction parity across 81 project unit tests with 100% pass rate.
+   - Automated test suite (`tests/test_frontend_assets.py` and `tests/test_frontend_ml_integration.py`) validates asset integrity, schema compliance, and live prediction parity across **173 project unit and integration tests** with 100% pass rate.
 

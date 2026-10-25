@@ -171,4 +171,19 @@ No result may enter a presentation, design document, or report until a reviewer 
 - **Camera-Ready LaTeX Publication Table:** Upgraded Section 9 from raw code to an IEEE TMI booktabs publication table with a toggle to view/copy the raw `.tex` source code.
 - **Artifact Cleanup:** Removed duplicate `results/track_a/oof_predictions_A6_late_fusion.json` (canonicalized to `oof_predictions_A6.json`) and deleted superseded v1.0 draft `XMAI_Design_Document.md`. Expanded automated test suite to 81 unit & integration tests with 100% pass rate.
 
+### 2026-10-24 — Phase 10 Methodological Audit & Stress-Testing Suite (Publication Qualification)
+
+- **Comprehensive 15-Commit Rigorous Audit:** Executed Commits 28 through 42 systematically stress-testing encoder input bounds, loss functions, zero-leakage assertions, temperature calibration, Dempster-Shafer combinations, selective classification risk bounds, Grad-CAM Adebayo cascading randomization sanity checks, Modality Shapley axioms, 5-fold patient exclusivity, TCIA multi-scanner generalization, and socket resilience.
+- **Test Suite Expansion:** Expanded automated test suite from 81 tests to **173 tests** across 24 test modules, executing with 100% pass rate in under 28 seconds.
+- **Dual-Branch Synchronization:** Established non-negotiable protocol enforcing synchronous dual-branch push (`origin/main` and `origin/master`) on every single commit.
+
+### 2026-10-25 — Phase 11 Visual-Heavy Presentation Overhaul & Master Briefing Dossier
+
+- **Visual-Heavy Research Dashboards:** Redesigned console dashboards across 10 methodical commits (43–52) to emphasize visual representations over dense text, tailoring explanations for Multimodal AI specialists without medical backgrounds.
+- **Clinical-to-AI "Rosetta Stone":** Formalized direct mapping between clinical ultrasound phenomena (acoustic shadowing, speckle noise, heterogeneous rims) and representation learning concepts (zero-gradient spatial dropout, high-frequency multiplicative noise, heterogeneous manifold clusters).
+- **Visual Pareto Frontier:** Implemented interactive scatter plot (Accuracy vs. ECE) proving Model A4's Pareto optimality and highlighting the dangerous overconfidence distortion of naive late averaging (Model A6).
+- **Visual Decile Rescue & Multi-Scanner Generalization:** Enhanced Hypothesis H1 with before/after probability shift bars and lesion morphology thumbnails for all 3 rescued patients. Added multi-scanner hardware transfer cards (GE, Philips, Siemens) and shortcut null-band chart ($r \in [-0.1, +0.1]$).
+- **Comprehensive Briefing Dossier:** Authorized generation of `XMAI_Comprehensive_Briefing_Document.docx` as the definitive master technical briefing and mentorship defense guide (first principles, glossary, clinical impact, 15 fundamental mentor Q&As, and 5 advanced multimodal AI Q&As).
+
+
 
