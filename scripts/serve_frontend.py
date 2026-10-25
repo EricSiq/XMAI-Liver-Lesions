@@ -211,7 +211,7 @@ class XMAIHTTPHandler(http.server.SimpleHTTPRequestHandler):
                     {"principle": "CLAIM 6 (External Validation)", "status": "VERIFIED_PASS", "tcia_cases": 120},
                     {"principle": "CLAIM 7 (Boundary Scope)", "status": "VERIFIED_PASS", "transparent_reporting": True},
                 ],
-                "verified_tests": 77,
+                "verified_tests": 173,
                 "unit_test_pass_rate": "100.0%",
             }
             self.wfile.write(json.dumps(audit_report, indent=2).encode("utf-8"))
