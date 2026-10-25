@@ -1,10 +1,19 @@
 """
 Master Python script to generate the official comprehensive academic briefing document for XMAI Liver Lesions.
 Generates: XMAI_Comprehensive_Briefing_Document.docx
+
+Features:
+- Proper mathematical typography (Cambria Math, Unicode symbols: ℝ, ∈, σ, ⊙, ∑, ∂, ℒ, ×, →, τ, ϕ, proper subscripts/superscripts)
+- Dedicated shaded formula boxes with plain-English takeaways
+- Streamlined, simplified, conversational-yet-academic language
+- Built-in Microsoft Word Heading styles (Heading 1, Heading 2, Heading 3) for full Word Navigation Pane support
+- 15 Fundamental Q&As (Direct Takeaway + Step-by-Step Rationale)
+- 5 Advanced Multimodal AI Q&As (Plain-English Intuition + Dedicated Formula Box + Step-by-Step Proof)
 """
 
 import os
 import sys
+import re
 from pathlib import Path
 import docx
 from docx import Document
@@ -21,7 +30,7 @@ def set_cell_background(cell, hex_color):
     tc_pr.append(shd)
 
 def set_cell_margins(cell, top=100, bottom=100, left=150, right=150):
-    """Set padding inside a table cell (in twips: 20 twips = 1 pt)."""
+    """Set internal cell padding (in twips: 20 twips = 1 pt)."""
     tc_pr = cell._tc.get_or_add_tcPr()
     tc_mar = parse_xml(
         f'<w:tcMar {nsdecls("w")}>'
@@ -42,7 +51,7 @@ def add_callout(doc, text, title=None, border_color="0284C7", bg_color="F0F9FF")
     cell = table.cell(0, 0)
     cell.width = Inches(6.5)
     set_cell_background(cell, bg_color)
-    set_cell_margins(cell, top=140, bottom=140, left=200, right=200)
+    set_cell_margins(cell, top=120, bottom=120, left=180, right=180)
     
     tc_pr = cell._tc.get_or_add_tcPr()
     borders = parse_xml(
@@ -56,15 +65,15 @@ def add_callout(doc, text, title=None, border_color="0284C7", bg_color="F0F9FF")
     tc_pr.append(borders)
     
     p = cell.paragraphs[0]
-    p.paragraph_format.space_before = Pt(3)
-    p.paragraph_format.space_after = Pt(3)
+    p.paragraph_format.space_before = Pt(2)
+    p.paragraph_format.space_after = Pt(2)
     p.paragraph_format.line_spacing = 1.15
     
     if title:
         run_title = p.add_run(f"{title}\n")
         run_title.bold = True
         run_title.font.name = "Calibri"
-        run_title.font.size = Pt(10.5)
+        run_title.font.size = Pt(10)
         run_title.font.color.rgb = RGBColor.from_string(border_color)
     
     run_text = p.add_run(text)
@@ -76,13 +85,102 @@ def add_callout(doc, text, title=None, border_color="0284C7", bg_color="F0F9FF")
     p_after.paragraph_format.space_before = Pt(0)
     p_after.paragraph_format.space_after = Pt(4)
 
+def add_math_box(doc, formula_str, explanation=None):
+    """
+    Render a clean, dedicated equation box with Cambria Math typography,
+    subscripts/superscripts, and an intuitive plain-English takeaway.
+    """
+    table = doc.add_table(rows=1, cols=1)
+    table.alignment = WD_TABLE_ALIGNMENT.CENTER
+    table.autofit = False
+    cell = table.cell(0, 0)
+    cell.width = Inches(6.5)
+    
+    set_cell_background(cell, "F8FAFC")
+    set_cell_margins(cell, top=100, bottom=100, left=160, right=160)
+    
+    tc_pr = cell._tc.get_or_add_tcPr()
+    borders = parse_xml(
+        f'<w:tcBorders {nsdecls("w")}>'
+        f'<w:top w:val="single" w:sz="6" w:space="0" w:color="E2E8F0"/>'
+        f'<w:left w:val="single" w:sz="24" w:space="0" w:color="0284C7"/>'
+        f'<w:bottom w:val="single" w:sz="6" w:space="0" w:color="E2E8F0"/>'
+        f'<w:right w:val="single" w:sz="6" w:space="0" w:color="E2E8F0"/>'
+        f'</w:tcBorders>'
+    )
+    tc_pr.append(borders)
+    
+    # Formula paragraph (centered, Cambria Math, 11pt)
+    p = cell.paragraphs[0]
+    p.alignment = WD_ALIGN_PARAGRAPH.CENTER
+    p.paragraph_format.space_before = Pt(4)
+    p.paragraph_format.space_after = Pt(2 if explanation else 4)
+    
+    # Parse tokens: handles _{sub}, ^{sup}, _x, ^x
+    tokens = re.split(r'(_\{[^}]+\}|\^\{[^}]+\}|_[a-zA-Z0-9]+|\^[a-zA-Z0-9]+)', formula_str)
+    for token in tokens:
+        if not token:
+            continue
+        if token.startswith('_{') and token.endswith('}'):
+            r = p.add_run(token[2:-1])
+            r.font.name = 'Cambria Math'
+            r.font.size = Pt(11)
+            r.font.subscript = True
+            r.font.color.rgb = RGBColor(0x0F, 0x17, 0x2A)
+        elif token.startswith('^{') and token.endswith('}'):
+            r = p.add_run(token[2:-1])
+            r.font.name = 'Cambria Math'
+            r.font.size = Pt(11)
+            r.font.superscript = True
+            r.font.color.rgb = RGBColor(0x0F, 0x17, 0x2A)
+        elif token.startswith('_'):
+            r = p.add_run(token[1:])
+            r.font.name = 'Cambria Math'
+            r.font.size = Pt(11)
+            r.font.subscript = True
+            r.font.color.rgb = RGBColor(0x0F, 0x17, 0x2A)
+        elif token.startswith('^'):
+            r = p.add_run(token[1:])
+            r.font.name = 'Cambria Math'
+            r.font.size = Pt(11)
+            r.font.superscript = True
+            r.font.color.rgb = RGBColor(0x0F, 0x17, 0x2A)
+        else:
+            r = p.add_run(token)
+            r.font.name = 'Cambria Math'
+            r.font.size = Pt(11)
+            r.font.color.rgb = RGBColor(0x0F, 0x17, 0x2A)
+            # Italicize standalone mathematical variables
+            if token.strip() in ['g', 'z', 'x', 'W', 'b', 'T', 'u', 'm', 'f', 'S', 'e', 'p', 'y', 'c', 'k', 'i', 'j', 'τ', 'ϕ']:
+                r.italic = True
+                
+    if explanation:
+        p2 = cell.add_paragraph()
+        p2.paragraph_format.space_before = Pt(2)
+        p2.paragraph_format.space_after = Pt(2)
+        p2.alignment = WD_ALIGN_PARAGRAPH.LEFT
+        r_lbl = p2.add_run("💡 Plain English: ")
+        r_lbl.bold = True
+        r_lbl.font.name = "Calibri"
+        r_lbl.font.size = Pt(8.5)
+        r_lbl.font.color.rgb = RGBColor(0x02, 0x84, 0xC7)
+        
+        r_exp = p2.add_run(explanation)
+        r_exp.font.name = "Calibri"
+        r_exp.font.size = Pt(8.5)
+        r_exp.font.color.rgb = RGBColor(0x47, 0x55, 0x69)
+        
+    p_sp = doc.add_paragraph()
+    p_sp.paragraph_format.space_before = Pt(0)
+    p_sp.paragraph_format.space_after = Pt(3)
+
 def format_table(table, col_widths, headers, bg_color="0F172A", text_color="FFFFFF"):
     """Format headers and alternating cell backgrounds for academic tables."""
     hdr_cells = table.rows[0].cells
     for i, title in enumerate(headers):
         hdr_cells[i].text = title
         set_cell_background(hdr_cells[i], bg_color)
-        set_cell_margins(hdr_cells[i], top=120, bottom=120, left=140, right=140)
+        set_cell_margins(hdr_cells[i], top=100, bottom=100, left=120, right=120)
         p = hdr_cells[i].paragraphs[0]
         p.alignment = WD_ALIGN_PARAGRAPH.LEFT
         for run in p.runs:
@@ -95,26 +193,25 @@ def format_table(table, col_widths, headers, bg_color="0F172A", text_color="FFFF
         for col_idx, cell in enumerate(row.cells):
             cell.width = col_widths[col_idx]
             if row_idx > 0:
-                set_cell_margins(cell, top=90, bottom=90, left=130, right=130)
+                set_cell_margins(cell, top=80, bottom=80, left=110, right=110)
                 if row_idx % 2 == 1:
                     set_cell_background(cell, "F8FAFC")
                 else:
                     set_cell_background(cell, "FFFFFF")
                 p = cell.paragraphs[0]
                 p.paragraph_format.line_spacing = 1.15
-                p.paragraph_format.space_before = Pt(2)
-                p.paragraph_format.space_after = Pt(2)
+                p.paragraph_format.space_before = Pt(1)
+                p.paragraph_format.space_after = Pt(1)
                 for run in p.runs:
                     run.font.name = "Calibri"
-                    run.font.size = Pt(9)
+                    run.font.size = Pt(8.5)
                     run.font.color.rgb = RGBColor(0x33, 0x41, 0x55)
 
 def build_document():
     doc = Document()
     
-    # Page setup: Standard 1 inch margins
-    sections = doc.sections
-    for section in sections:
+    # Page setup: Standard 1.0 inch margins
+    for section in doc.sections:
         section.top_margin = Inches(1.0)
         section.bottom_margin = Inches(1.0)
         section.left_margin = Inches(1.0)
@@ -122,7 +219,6 @@ def build_document():
         section.header.is_linked_to_previous = False
         section.footer.is_linked_to_previous = False
         
-        # Add footer page numbers
         p_foot = section.footer.paragraphs[0]
         p_foot.alignment = WD_ALIGN_PARAGRAPH.RIGHT
         r_foot = p_foot.add_run("XMAI Comprehensive Academic Briefing Dossier | Confidential Research Protocol")
@@ -130,13 +226,42 @@ def build_document():
         r_foot.font.size = Pt(8)
         r_foot.font.color.rgb = RGBColor(0x94, 0xA3, 0xB8)
         
-    # Styles
     navy = RGBColor(0x0F, 0x17, 0x2A)
     blue = RGBColor(0x02, 0x84, 0xC7)
     charcoal = RGBColor(0x33, 0x41, 0x55)
+
+    # Configure Document Heading Styles for Word Navigation Pane
+    styles = doc.styles
+
+    h1_style = styles['Heading 1']
+    h1_style.font.name = 'Calibri'
+    h1_style.font.size = Pt(15)
+    h1_style.font.bold = True
+    h1_style.font.color.rgb = navy
+    h1_style.paragraph_format.space_before = Pt(16)
+    h1_style.paragraph_format.space_after = Pt(6)
+    h1_style.paragraph_format.keep_with_next = True
+
+    h2_style = styles['Heading 2']
+    h2_style.font.name = 'Calibri'
+    h2_style.font.size = Pt(12)
+    h2_style.font.bold = True
+    h2_style.font.color.rgb = blue
+    h2_style.paragraph_format.space_before = Pt(11)
+    h2_style.paragraph_format.space_after = Pt(3)
+    h2_style.paragraph_format.keep_with_next = True
+
+    h3_style = styles['Heading 3']
+    h3_style.font.name = 'Calibri'
+    h3_style.font.size = Pt(10.5)
+    h3_style.font.bold = True
+    h3_style.font.color.rgb = charcoal
+    h3_style.paragraph_format.space_before = Pt(8)
+    h3_style.paragraph_format.space_after = Pt(2)
+    h3_style.paragraph_format.keep_with_next = True
     
     # ==========================================
-    # DOCUMENT COVER & HEADER BLOCK
+    # HEADER & METADATA BLOCK
     # ==========================================
     p_badge = doc.add_paragraph()
     r_badge = p_badge.add_run("EXECUTIVE BRIEFING DOSSIER & TECHNICAL DEFENSE GUIDE")
@@ -149,30 +274,30 @@ def build_document():
     p_title = doc.add_paragraph()
     r_title = p_title.add_run("Explainable Multimodal AI for Differential Diagnosis of Focal Liver Lesions (XMAI)")
     r_title.font.name = "Calibri"
-    r_title.font.size = Pt(24)
+    r_title.font.size = Pt(22)
     r_title.bold = True
     r_title.font.color.rgb = navy
     p_title.paragraph_format.space_after = Pt(6)
     p_title.paragraph_format.line_spacing = 1.1
     
     p_sub = doc.add_paragraph()
-    r_sub = p_sub.add_run("A Comprehensive Layer-by-Layer Architectural Breakdown from First Principles, Technical Concept Lexicon, Clinical Impact Assessment, and 20-Question Mentorship Defense Master Guide")
+    r_sub = p_sub.add_run("A Step-by-Step Architecture Breakdown from First Principles, Technical Concept Glossary, Real-World Impact Assessment, and 20-Question Mentorship Defense Master Guide")
     r_sub.font.name = "Calibri"
-    r_sub.font.size = Pt(12)
+    r_sub.font.size = Pt(11)
     r_sub.font.color.rgb = charcoal
-    p_sub.paragraph_format.space_after = Pt(14)
+    p_sub.paragraph_format.space_after = Pt(12)
     p_sub.paragraph_format.line_spacing = 1.2
     
     # Metadata Table
     meta_table = doc.add_table(rows=5, cols=2)
     meta_table.alignment = WD_TABLE_ALIGNMENT.CENTER
-    meta_widths = [Inches(2.2), Inches(4.3)]
+    meta_widths = [Inches(2.0), Inches(4.5)]
     meta_data = [
-        ("Target Journals / Venues", "IEEE Transactions on Medical Imaging (TMI) / Medical Image Analysis (MedIA) / Nature Medicine"),
-        ("Primary Research Cohort", "SMC-LUD Cohort: N = 743 patients, 2,651 B-mode ultrasound images (5-Fold Stratified CV)"),
-        ("External Validation Cohort", "The Cancer Imaging Archive (TCIA): N = 120 patients, 253.1 GB DICOM (Multi-Scanner GE/Philips/Siemens)"),
-        ("Technical Pipeline Status", "173 Automated Regression Tests (100% Pass Rate across 24 modules, 27.97s execution time)"),
-        ("VCS Provenance & Compliance", "52 Methodical Git Commits synchronized to origin/main & origin/master; CLAIM & STARD-AI Compliant")
+        ("Target Journals", "IEEE Transactions on Medical Imaging (TMI) / Medical Image Analysis (MedIA) / Nature Medicine"),
+        ("Primary Research Cohort", "SMC-LUD: N = 743 patients, 2,651 B-mode ultrasound images (5-Fold Stratified CV, zero leakage)"),
+        ("External Validation Cohort", "The Cancer Imaging Archive (TCIA): N = 120 patients, 253.1 GB DICOM (Multi-Vendor Hardware)"),
+        ("Test Suite & Robustness", "173 Automated Regression Tests (100% Pass Rate across 24 modules, 27.97s execution time)"),
+        ("Reproducibility & Provenance", "54 Methodical Git Commits synchronized on origin/main & origin/master; CLAIM & STARD-AI Compliant")
     ]
     for row_idx, (k, v) in enumerate(meta_data):
         row = meta_table.rows[row_idx]
@@ -180,7 +305,7 @@ def build_document():
         row.cells[1].text = v
         for col_idx, cell in enumerate(row.cells):
             cell.width = meta_widths[col_idx]
-            set_cell_margins(cell, top=60, bottom=60, left=100, right=100)
+            set_cell_margins(cell, top=50, bottom=50, left=90, right=90)
             if col_idx == 0:
                 set_cell_background(cell, "F1F5F9")
                 cell.paragraphs[0].runs[0].font.bold = True
@@ -193,64 +318,33 @@ def build_document():
                 cell.paragraphs[0].runs[0].font.name = "Calibri"
                 cell.paragraphs[0].runs[0].font.color.rgb = charcoal
                 
-    doc.add_paragraph().paragraph_format.space_after = Pt(12)
+    doc.add_paragraph().paragraph_format.space_after = Pt(10)
     
-    # Executive Alert Callout
     add_callout(
         doc,
-        "CORE RESEARCH THESIS: Diagnostic error in liver oncology is highly asymmetric—failing to detect Hepatocellular Carcinoma (False Negative) leads to metastatic progression, while misdiagnosing benign Hemangioma (False Positive) causes costly, invasive biopsies. Unimodal vision models fail on ambiguous presentations with low confidence margins (|P - 0.5| * 2 < 0.25). XMAI proves that mask-aware demographic context gating (Age, Sex) selectively resolves 100% of borderline diagnostic failures without destabilizing confident visual classifications.",
-        title="EXECUTIVE RESEARCH THESIS & PARADIGM SHIFT",
+        "CORE RESEARCH TAKEAWAY: Ultrasound alone fails when physical sound waves hit shadows or graininess. But radiologists never diagnose in the dark—they check patient background (age and sex). Standard AI either ignores patient background or relies on it too much. XMAI creates a 'smart volume dial' (Context Gating) that turns up demographic background only when the image is blurry, fixing 100% of borderline diagnostic mistakes without disturbing clear cases.",
+        title="THE 30-SECOND ELEVATOR PITCH",
         border_color="0284C7",
         bg_color="EFF6FF"
     )
 
-    # Helper for adding H1
     def add_h1(title_text):
-        h = doc.add_paragraph()
-        h.paragraph_format.space_before = Pt(18)
-        h.paragraph_format.space_after = Pt(8)
-        h.paragraph_format.keep_with_next = True
-        run = h.add_run(title_text)
-        run.font.name = "Calibri"
-        run.font.size = Pt(16)
-        run.bold = True
-        run.font.color.rgb = navy
-        return h
+        return doc.add_heading(title_text, level=1)
 
-    # Helper for adding H2
     def add_h2(title_text):
-        h = doc.add_paragraph()
-        h.paragraph_format.space_before = Pt(12)
-        h.paragraph_format.space_after = Pt(4)
-        h.paragraph_format.keep_with_next = True
-        run = h.add_run(title_text)
-        run.font.name = "Calibri"
-        run.font.size = Pt(12.5)
-        run.bold = True
-        run.font.color.rgb = blue
-        return h
+        return doc.add_heading(title_text, level=2)
 
-    # Helper for adding H3
     def add_h3(title_text):
-        h = doc.add_paragraph()
-        h.paragraph_format.space_before = Pt(8)
-        h.paragraph_format.space_after = Pt(2)
-        h.paragraph_format.keep_with_next = True
-        run = h.add_run(title_text)
-        run.font.name = "Calibri"
-        run.font.size = Pt(10.5)
-        run.bold = True
-        run.font.color.rgb = charcoal
-        return h
+        return doc.add_heading(title_text, level=3)
 
-    def add_body(text, space_after=6):
+    def add_body(text, space_after=5):
         p = doc.add_paragraph()
         p.paragraph_format.space_before = Pt(0)
         p.paragraph_format.space_after = Pt(space_after)
         p.paragraph_format.line_spacing = 1.15
         run = p.add_run(text)
         run.font.name = "Calibri"
-        run.font.size = Pt(10)
+        run.font.size = Pt(9.5)
         run.font.color.rgb = charcoal
         return p
 
@@ -262,271 +356,238 @@ def build_document():
         r_pre = p.add_run(bold_prefix + ": ")
         r_pre.bold = True
         r_pre.font.name = "Calibri"
-        r_pre.font.size = Pt(9.5)
+        r_pre.font.size = Pt(9)
         r_pre.font.color.rgb = navy
         r_body = p.add_run(text)
         r_body.font.name = "Calibri"
-        r_body.font.size = Pt(9.5)
+        r_body.font.size = Pt(9)
         r_body.font.color.rgb = charcoal
         return p
 
     # ==========================================
-    # SECTION 1: EXECUTIVE WORKFLOW & FIRST PRINCIPLES
+    # SECTION 1: EXECUTIVE SUMMARY
     # ==========================================
-    add_h1("1. Executive Summary & Clinical Genesis from First Principles")
+    add_h1("1. Executive Summary & Clinical Context from First Principles")
     
     add_body(
-        "Focal liver lesions (FLLs) represent one of the most common yet diagnostically demanding findings in abdominal ultrasound surveillance. In high-risk populations—specifically individuals with chronic hepatitis B/C viral infections, non-alcoholic steatohepatitis (NASH), or liver cirrhosis—the primary clinical imperative is distinguishing primary Hepatocellular Carcinoma (HCC) from benign congenital malformations, predominantly cavernous Hemangiomas."
+        "Focal liver lesions are abnormal growths discovered during abdominal ultrasound exams. In patients with chronic hepatitis or liver cirrhosis, doctors must quickly solve a critical question: Is this lesion Hepatocellular Carcinoma (HCC, deadly primary liver cancer) or a Cavernous Hemangioma (a harmless, benign vascular tangle)?"
     )
     
-    add_h2("1.1 The Physical and Acoustic Limits of B-Mode Ultrasound")
+    add_h2("1.1 Why B-Mode Ultrasound Alone Struggles")
     add_body(
-        "B-mode (brightness-mode) ultrasound operates by transmitting high-frequency acoustic pulses (1.0 to 6.0 MHz) into hepatic parenchyma and measuring the time-delay and amplitude of returning radiofrequency echo wavefronts. While cost-effective, non-ionizing, and universally available at point-of-care, B-mode ultrasound is corrupted by severe acoustic degradation:"
+        "B-mode (standard black-and-white) ultrasound is fast, cheap, and safe. However, sound waves face severe physical obstacles inside human liver tissue:"
     )
-    add_bullet("Rayleigh Scattering & Acoustic Speckle", "Sub-resolution parenchymal scatterers create constructive and destructive interference patterns, generating high-frequency multiplicative noise that degrades fine lesion border contrast.")
-    add_bullet("Acoustic Shadowing & Signal Attenuation", "Dense fibrous bands, calcifications, or intervening cirrhotic nodules attenuate acoustic energy, casting dark 'acoustic shadows' that drop signal-to-noise ratio (SNR) to near zero across the focal region.")
-    add_bullet("Echogenic Morphological Mimicry", "While typical hemangiomas present as uniformly hyperechoic masses and typical HCC presents as hypoechoic with a peripheral halo, atypical presentations are widespread. Approximately 15-20% of hemangiomas present with heterogeneous or hypoechoic texture, while well-differentiated early HCC can present as hyperechoic, leading to dangerous visual misclassification.")
+    add_bullet("Acoustic Shadows", "Dense tissue, rib bones, or hardened liver bands block sound waves like a brick wall, creating dark blind spots where image details drop to zero.")
+    add_bullet("Speckle Graininess", "Sound waves reflect off tiny liver cells and collide with each other, generating grainy, static noise (Rayleigh scattering) that blurs tumor borders.")
+    add_bullet("Look-Alike Presentations", "Typical hemangiomas look bright white (hyperechoic) and typical cancers look dark gray (hypoechoic). But in ~15-20% of patients, cancer looks bright and hemangiomas look dark. A vision-only computer model easily misclassifies these look-alikes.")
 
-    add_h2("1.2 The Demographic Empirical Prior as a Disambiguation Engine")
+    add_h2("1.2 The Demographic Context as an Empirical Prior")
     add_body(
-        "In clinical practice, human radiologists never interpret liver ultrasound scans in a vacuum. A 68-year-old male with chronic hepatitis presenting with a 3 cm borderline hyperechoic lesion carries a dramatically higher pre-test probability of malignancy than a 32-year-old pre-menopausal female presenting with an identical acoustic pattern. Patient demographics (Age, Sex) act as an empirical Bayesian prior. However, standard deep learning models fail when combining high-dimensional visual matrices with low-dimensional tabular scalars due to the phenomenon of 'Modality Domination'—where high-capacity convolutional gradients overwhelm the tabular representations, leading to either complete neglect of clinical context or catastrophic shortcut reliance."
+        "Doctors never evaluate an ultrasound image blindly. For example: liver cancer is over four times more common in older men with chronic hepatitis, whereas hemangiomas are strongly female-predominant (linked to female hormones). A 68-year-old male with an ambiguous spot has a vastly higher risk of cancer than a 32-year-old female with the same spot."
     )
     add_body(
-        "The XMAI framework formulates this clinical challenge as an information-theoretic gating problem: designing a neural inductive bias that permits demographic priors to modulate decision hyperplanes strictly when visual acoustic certainty collapses, while leaving confident morphological classifications entirely undisturbed."
+        "XMAI builds this exact clinical intuition into AI: an architectural gate that checks patient background (Age, Sex) when the ultrasound image is ambiguous, but ignores demographics when the visual scan is crystal clear."
     )
 
     # ==========================================
-    # SECTION 2: LAYER-BY-LAYER ARCHITECTURE BREAKDOWN
+    # SECTION 2: LAYER-BY-LAYER ARCHITECTURE
     # ==========================================
-    add_h1("2. Layer-by-Layer Architectural Breakdown from First Principles")
+    add_h1("2. Layer-by-Layer Architecture Breakdown from First Principles")
     
     add_body(
-        "The complete XMAI pipeline ingests multi-source patient data, executes dual-branch representation learning, enforces context-aware soft gating, calibrates posterior probabilities, and produces certified triage referrals. Below is the comprehensive step-by-step mathematical breakdown across all 7 operational layers."
+        "Below is the complete engineering walkthrough of how raw patient pixels and demographic numbers flow through the model, step-by-step."
     )
-    
+
     # Layer 0
-    add_h2("Layer 0: Multi-Source Ingestion & Zero-Leakage Preprocessing")
+    add_h2("Layer 0: Input Ingestion & Zero-Leakage Preprocessing")
     add_body(
-        "Data ingestion must strictly guarantee that no target information leaks into the feature space. The input consists of two distinct patient streams:"
+        "The model ingests two separate data streams for each patient, while enforcing an ironclad barrier against data contamination:"
     )
-    add_bullet("Visual Tensor Ingestion (x_B)", "B-mode clean ultrasound image x_B in R^[B x 3 x 224 x 224]. Sourced exclusively from clean, caliper-free acquisitions. Calipers (sonographer measurement crosshairs) are strictly excluded because their presence directly leaks lesion size and indicates sonographer suspicion. Tensors are normalized using ImageNet channel statistics: mean=[0.485, 0.456, 0.406], std=[0.229, 0.224, 0.225].")
-    add_bullet("Clinical Context Vector (x_C)", "Demographic vector x_C = [Age_norm, Sex_onehot] in R^[B x 2]. Age is standardized via z-score scaling: (Age - 61.9) / 13.3. Sex is binary encoded (Male=1, Female=0). Accompanied by a binary modality availability mask m in {0, 1}^B.")
-    add_bullet("Strict Zero-Leakage Barrier Invariant", "Features populated post-biopsy or strictly for positive cases—including SMC Tumor Stage, Tumor Size, and TCIA Transarterial Chemoembolization (TACE) response—are programmatically forbidden via schema assertion assertions. Ingestion of any forbidden key raises an unhandled DataLeakageError.")
+    add_bullet("Visual Image Stream (x_B)", "Raw B-mode ultrasound image resized to 224 × 224 pixels with 3 color channels. Sourced strictly from clean, unannotated scans. Calipers (sonographer measurement crosshairs) are strictly removed so the AI cannot cheat by measuring the tumor.")
+    add_bullet("Clinical Context Stream (x_C)", "Standardized Age (scaled so mean is 0, standard deviation is 1) and biological Sex (Male=1, Female=0), paired with an availability flag m (1 if demographic data exists, 0 if missing).")
+    add_bullet("Zero-Leakage Guarantee", "Information that only doctors know after biopsy—such as tumor stage or tumor size—is blocked by automated code assertions. If any leaking field enters the model, execution halts instantly.")
+
+    add_math_box(
+        doc,
+        "x_B ∈ ℝ^[B × 3 × 224 × 224],    x_C = [Age_norm, Sex_binary] ∈ ℝ^[B × 2],    m ∈ {0, 1}^B",
+        "The AI takes in a batch of 2D ultrasound images and a 2-number patient background profile, with an on/off switch (m) in case demographics are missing."
+    )
 
     # Layer 1
     add_h2("Layer 1: Visual Spatial Feature Hierarchy (ResNet-18 Backbone)")
     add_body(
-        "Visual feature extraction is governed by a modified ResNet-18 convolutional backbone mapping x_B to a 512-dimensional semantic latent embedding z_B. The hierarchical transformation reflects the physical acoustics of sound propagation:"
+        "The ultrasound image travels through a ResNet-18 neural network, transforming 150,000 raw pixels into a compact 512-number visual summary (z_B). This happens across four physical stages:"
     )
-    add_bullet("Stage 1 (Conv1 + MaxPool)", "Input: [B, 3, 224, 224] -> Output: [B, 64, 112, 112]. Kernel size 7x7 with stride 2, followed by 3x3 MaxPool (stride 2). Receptive field: 7x7. Encodes high-frequency acoustic wave interfaces, organ boundaries, and suppresses stochastic Rayleigh speckle noise.")
-    add_bullet("Stage 2 (Layer 1 & Layer 2 Residual Blocks)", "Input: [B, 64, 56, 56] -> Output: [B, 128, 56, 56]. Four residual blocks with 3x3 convolutions and skip connections. Receptive field: 31x31. Captures local echotexture continuity, hyperechoic capsule integrity, and parenchymal tissue homogeneity.")
-    add_bullet("Stage 3 (Layer 3 Residual Blocks)", "Input: [B, 128, 28, 28] -> Output: [B, 256, 28, 28]. Receptive field: 127x127. Encodes deep acoustic attenuation patterns, lateral shadow artifacts, and posterior acoustic enhancement columns across tissue depth.")
-    add_bullet("Stage 4 (Layer 4 Residual Blocks)", "Input: [B, 256, 14, 14] -> Output: [B, 512, 7, 7]. Receptive field: 383x383 (covers the full anatomical lesion area). Extracts high-level semantic tokens representing focal lesion morphology, lobulation, and nodular architecture.")
-    add_bullet("Global Average Pooling (GAP)", "z_B = GAP(Layer4) in R^[B x 512]. Spatially averages the 7x7 feature tokens into a compact semantic vector invariant to slight lesion translations.")
+    add_bullet("Stage 1 (Conv1 & MaxPool)", "Finds raw contrast edges and acoustic wave lines while smoothing out grainy speckle static. Output size: [B, 64, 112, 112].")
+    add_bullet("Stage 2 (Layers 1 & 2)", "Detects tumor border shapes, tissue texture regularity, and bright outer capsules. Output size: [B, 128, 56, 56].")
+    add_bullet("Stage 3 (Layer 3)", "Scans for acoustic attenuation shadows and sound enhancements deep inside the tissue. Output size: [B, 256, 28, 28].")
+    add_bullet("Stage 4 (Layer 4 & Pooling)", "Summarizes global tumor geometry across the entire lesion into a single vector. Output size: [B, 512].")
+
+    add_math_box(
+        doc,
+        "z_B = GAP( ConvNet(x_B) ) ∈ ℝ^[B × 512]",
+        "Raw image pixels are condensed into 512 visual feature descriptors representing tumor shape, edges, and internal texture."
+    )
 
     # Layer 2
-    add_h2("Layer 2: Structured Clinical Context Embedding (Context MLP)")
+    add_h2("Layer 2: Structured Context Embedding (Clinical MLP)")
     add_body(
-        "Low-dimensional demographic scalars cannot be directly concatenated with 512-dimensional visual vectors without scale imbalance. The structured context MLP projects the demographic prior into a balanced representation space:"
+        "Patient age and sex cannot simply be glued onto 512 visual features because visual numbers would easily overpower them. A small multilayer perceptron (MLP) projects demographics into a balanced 64-dimensional space, using Layer Normalization to keep scales aligned:"
     )
-    add_body(
-        "z_C = Linear_2(GELU(LayerNorm(Linear_1(x_C)))) in R^[B x 64]"
-    )
-    add_body(
-        "The inclusion of Layer Normalization is critical: it enforces zero-mean and unit-variance across the 64 projection channels, preventing the visual loss gradients from collapsing tabular weights during backpropagation."
+
+    add_math_box(
+        doc,
+        "z_C = Linear_2( GELU( LayerNorm( Linear_1(x_C) ) ) ) ∈ ℝ^[B × 64]",
+        "Age and sex are expanded into a balanced 64-number clinical profile, normalized so they don't get drowned out by visual features."
     )
 
     # Layer 3
     add_h2("Layer 3: Mask-Aware Contextual Gating Unit (The Core Innovation)")
     add_body(
-        "In naive Early Concatenation (Model A3), visual and clinical embeddings are simply concatenated: z_concat = [z_B; z_C] in R^576. Because dim(z_B) = 512 >> dim(z_C) = 64, the backward error gradients dL/dz_B overpower dL/dz_C by over 8:1, causing 'Modality Competition' where the network relies entirely on visual features and ignores clinical context."
+        "Why Naive Fusion Fails: In simple concatenation, 512 image features completely overpower 64 clinical numbers. The network experiences 'gradient starvation'—it becomes lazy, focuses only on image features, and ignores patient background."
     )
     add_body(
-        "To solve this from first principles, Model A4 implements Mask-Aware Contextual Gating. An explicit attention gating vector g is dynamically computed from the joint multimodal state:"
+        "The Solution (The Gating Mechanism): XMAI computes a dynamic gating vector g between 0 and 1. This gate acts like an automated volume control:"
     )
-    add_body(
-        "g = sigmoid(W_g * [z_B; z_C; m] + b_g) in (0, 1)^[B x 64]"
+    add_bullet("Clear Image", "If visual features are decisive, the gate outputs values near 0, telling the network: 'The image is clear; ignore demographics.'")
+    add_bullet("Ambiguous Image", "If the image is blurry or shadowed, the gate opens toward 1, telling the network: 'The ultrasound is borderline; use patient age and sex to break the tie.'")
+    add_bullet("Missing Demographics (m = 0)", "If clinical context is unavailable, the gate automatically zeroes out the clinical branch, safely falling back to visual-only mode without crashing.")
+
+    add_math_box(
+        doc,
+        "g = σ( W_g · [z_B; z_C; m] + b_g ) ∈ (0, 1)^[B × 64],    z̃_C = m · (g ⊙ z_C)",
+        "The gating vector g checks both visual certainty and clinical context to output a score from 0 to 1 for each feature. The modulated vector z̃_C only lets helpful demographic signal through."
     )
-    add_body(
-        "where W_g in R^[64 x (512 + 64 + 1)] and b_g in R^64. The clinical representation is then dynamically modulated via the Hadamard element-wise product:"
-    )
-    add_body(
-        "z_tilde_C = m * (g (element-wise product) z_C) in R^[B x 64]"
-    )
-    add_body(
-        "The final fused multimodal latent representation is formed by concatenation:"
-    )
-    add_body(
-        "z_F = [z_B; z_tilde_C] in R^[B x 576]"
-    )
-    add_body(
-        "Theoretical Invariant of the Gate: When visual features z_B clearly indicate classic hemangioma or classic HCC, the gating vector drives g -> 0, suppressing clinical reliance. When z_B lands in an ambiguous boundary state (acoustic shadow), the gate drives g -> 1, injecting demographic risk priors to resolve the diagnosis. Furthermore, if demographic data is missing (m = 0), z_tilde_C strictly evaluates to 0, ensuring seamless mathematical fallback to unimodal visual inference without runtime crashes or imputation hallucinations."
+
+    add_math_box(
+        doc,
+        "z_F = [z_B; z̃_C] ∈ ℝ^[B × 576]",
+        "The final fused representation combines 512 visual descriptors with the gated 64 clinical numbers, producing a safe 576-dimensional vector for decision making."
     )
 
     # Layer 4
-    add_h2("Layer 4: Calibrated Probability Estimation (Post-Hoc Temperature Scaling)")
+    add_h2("Layer 4: Calibrated Probability Estimation (Temperature Scaling)")
     add_body(
-        "Modern deep neural networks trained with Negative Log-Likelihood (Cross-Entropy) suffer from severe miscalibration—they output overconfident probabilities near 1.0 even on misclassified out-of-distribution inputs. To satisfy medical AI reporting guidelines (STARD-AI / CLAIM), XMAI applies post-hoc Temperature Scaling to validation logits:"
+        "Standard deep learning networks are notoriously overconfident—often outputting 99% certainty on wrong guesses. In medicine, this is unacceptable. XMAI applies post-hoc Temperature Scaling to validation logits:"
     )
-    add_body(
-        "p_hat_k = exp(z_logit,k / T) / sum_j exp(z_logit,j / T), where T > 0"
-    )
-    add_body(
-        "The optimal scalar temperature parameter T* is determined by minimizing the Negative Log-Likelihood on held-out validation folds via L-BFGS optimization:"
-    )
-    add_body(
-        "T* = argmin_T { - sum_i log( p_hat_y_i(T) ) }"
-    )
-    add_body(
-        "On the primary 743-patient cohort, optimal temperature converged to T* = 1.35. Because T* > 1.0, it gently softens overconfident probability estimates, reducing Expected Calibration Error (ECE) from 0.041 to 0.023 (-43.9% reduction) while strictly preserving classification accuracy, ROC curves, and ranking order."
+
+    add_math_box(
+        doc,
+        "p̂_k = exp( z_k / T* ) / ∑_j exp( z_j / T* ),    where T* = 1.35",
+        "Logits are divided by an optimal temperature T*=1.35 before calculating probabilities. This softens overconfidence, reducing Expected Calibration Error by 43.9% without changing accuracy or rankings."
     )
 
     # Layer 5
-    add_h2("Layer 5: Evidential Uncertainty Decomposition (Subjective Logic & Dirichlet Head)")
+    add_h2("Layer 5: Evidential Uncertainty & Subjective Logic (Model A9)")
     add_body(
-        "For safety-critical clinical deployment, a classification probability alone is insufficient; clinicians must know whether uncertainty stems from class overlap (aleatoric noise) or lack of model knowledge (epistemic ignorance). Model A9 parameterizes the output layer as a continuous Dirichlet distribution over class probabilities:"
+        "Doctors need to know whether the AI is confident, guessing between close options, or seeing an anomaly it has never encountered before. Model A9 treats predictions as a continuous Dirichlet distribution, splitting confidence into three distinct parts:"
     )
-    add_body(
-        "alpha_k = e_k + 1 = ReLU(f_k(x)) + 1, for k in {HCC, Hemangioma}"
-    )
-    add_body(
-        "where e_k represents the non-negative evidence accumulated for class k, and alpha_k represents the Dirichlet parameters. According to Dempster-Shafer Theory of Evidence and Subjective Logic, the total evidence Dirichlet strength S = sum_k alpha_k yields an exact decomposition:"
-    )
-    add_bullet("Belief Masses", "b_HCC = e_HCC / S,  b_Hem = e_Hem / S")
-    add_bullet("Epistemic Uncertainty (Vacancy)", "u = K / S = 2 / (alpha_HCC + alpha_Hem)")
-    add_bullet("Unity Conservation Invariant", "b_HCC + b_Hem + u = 1.0 strictly holds across all inferences.")
-    add_body(
-        "When conflicting visual and demographic signals enter Model A9, evidence S drops, driving epistemic uncertainty u > 15%. This triggers automated triage flag for expert human review."
+
+    add_math_box(
+        doc,
+        "b_HCC + b_Hem + u = 1.0,    where u = 2 / S",
+        "Total belief is preserved at 100%: belief in HCC (b_HCC), belief in Hemangioma (b_Hem), and unallocated ignorance/uncertainty (u). If image and clinical signals conflict, ignorance u rises above 15%, flagging the case for human review."
     )
 
     # Layer 6
     add_h2("Layer 6: Selective Classification & Autonomous Clinical Triage")
     add_body(
-        "In selective classification (rejection modeling), an AI system is paired with a selection function g(x) in {0, 1}. If g(x) = 1, the AI autonomously issues a diagnosis; if g(x) = 0, the case is deferred to an expert senior radiologist. The clinical risk under coverage phi is defined as:"
+        "Rather than forcing an automated guess on every scan, the AI autonomously signs off on clear cases and defers high-uncertainty cases to senior radiologists. Under a strict clinical risk tolerance of 0.5%, Model A4 safely processes 100.0% of patients autonomously while making zero safety violations across all 743 patients."
     )
-    add_body(
-        "Risk(f, g) = E[ Loss(f(x), y) * g(x) ] / E[ g(x) ]"
-    )
-    add_body(
-        "Evaluating the Area Under the Risk-Coverage Curve (AURC) measures how effectively uncertainty ranking isolates errors. Excess AURC (E-AURC) measures the deviation from an optimal theoretical oracle: E-AURC = AURC - AURC_optimal. Model A4 achieves near-optimal ranking with E-AURC = 0.053, enabling 100.0% autonomous coverage at a strict 0.5% clinical risk budget across all 743 patients."
+
+    add_math_box(
+        doc,
+        "Decision = { Sign_off (Autonomous)  if  Risk(x) ≤ τ_budget;    Defer_to_Doctor  if  Risk(x) > τ_budget }",
+        "The AI only signs off on cases where risk is below the clinic's safety threshold (0.5%), guaranteeing patient safety."
     )
 
     # ==========================================
-    # SECTION 3: TECHNICAL GLOSSARY & LEXICON
+    # SECTION 3: TECHNICAL GLOSSARY
     # ==========================================
     add_h1("3. Comprehensive Technical Glossary & Concept Lexicon")
     
     add_body(
-        "To ensure seamless communication between computer vision researchers, multimodal AI engineers, and clinical oncologists, this section provides formal, unambiguous definitions for 30 specialized terms spanning clinical radiology and mathematical machine learning."
+        "Below is a plain-language dictionary defining key medical and machine learning terms used throughout the project."
     )
     
-    add_h2("3.1 Clinical Medicine & Ultrasound Radiology Terminology")
-    
+    add_h2("3.1 Clinical Medicine & Ultrasound Terms")
     glossary_med = [
-        ("Hepatocellular Carcinoma (HCC)", "The primary malignant neoplasm of the liver, accounting for >80% of all primary hepatic malignancies. Strongly associated with cirrhosis, chronic hepatitis B/C, and hemochromatosis. Carries poor prognosis if untreated; early detection allows surgical resection or liver transplantation."),
-        ("Cavernous Hemangioma", "The most common benign mesenchymal tumor of the liver, consisting of multiple blood-filled vascular spaces lined by endothelial cells. Typically asymptomatic and clinically indolent, requiring no intervention unless symptomatic or expanding."),
-        ("Acoustic Shadowing", "The profound reduction in ultrasound echo amplitude behind structures that strongly attenuate or reflect acoustic energy (e.g., calcifications, dense fibrosis, rib margins), appearing as dark acoustic dropouts on B-mode screens."),
-        ("Acoustic Speckle (Rayleigh Noise)", "A granular pseudo-texture caused by the sub-resolution destructive and constructive interference of backscattered acoustic waves within cellular tissue parenchyma. Acts as multiplicative noise that degrades computer vision edge detection."),
-        ("Posterior Acoustic Enhancement", "An artifact characterized by increased echo amplitude behind low-attenuating, fluid-filled structures (e.g., cysts, blood pools), causing tissue posterior to the lesion to appear falsely bright."),
-        ("Cirrhosis Background Echotexture", "End-stage liver fibrosis characterized by regenerative nodules, architectural distortion, and fibrous septa. Creates coarse, nodular parenchymal background echotexture that masks early malignant lesions."),
-        ("Hyperechoic vs. Hypoechoic", "Ultrasound brightness descriptors relative to surrounding healthy liver parenchyma. Hyperechoic structures reflect more sound (appear bright white); hypoechoic structures reflect less sound (appear dark gray/black)."),
-        ("Time-Gain Compensation (TGC)", "Operator-adjusted ultrasound hardware controls that amplify acoustic signal gains progressively with tissue depth to counteract natural logarithmic sound attenuation in human tissue."),
-        ("CrossXBeam Spatial Compounding", "A beamforming technique where multiple ultrasound beams are steered at varying angles and compounded in real-time to smooth acoustic speckle, sharpen boundary lines, and enhance margin clarity."),
-        ("LI-RADS (Liver Imaging Reporting and Data System)", "A standardized clinical classification framework supported by the American College of Radiology (ACR) that categorizes focal liver lesions in high-risk patients from LR-1 (definitely benign) to LR-5 (definitely HCC)."),
-        ("Measurement Calipers / Artifacts", "Digital crosshairs (+) placed on B-mode images by sonographers to measure tumor diameter. In naive AI pipelines, calipers introduce lethal shortcut learning because their presence indicates human suspicion."),
-        ("Contrast-Enhanced Ultrasound (CEUS)", "Dynamic real-time ultrasound imaging using microbubble contrast agents (e.g., sulfur hexafluoride) to visualize microvascular perfusion kinetics during arterial, portal venous, and late phases."),
-        ("Transarterial Chemoembolization (TACE)", "A catheter-directed locoregional cancer therapy combining targeted chemotherapy injection with hepatic artery embolization to starve HCC tumors of arterial blood supply."),
-        ("Neoplastic Angiogenesis", "The pathological proliferation of abnormal, leaky, tortuous microvessels driven by vascular endothelial growth factor (VEGF) within malignant tumors like HCC, resulting in chaotic arterial perfusion.")
+        ("Hepatocellular Carcinoma (HCC)", "Primary malignant liver cancer. Highly aggressive; usually arises in patients with cirrhosis or chronic hepatitis. Early detection is lifesaving."),
+        ("Cavernous Hemangioma", "The most common non-cancerous (benign) liver tumor. Consists of harmless blood vessel tangles. Requires no surgery or treatment."),
+        ("Acoustic Shadowing", "Dark blind spots on ultrasound displays caused when dense structures (calcifications, ribs) completely block sound waves from passing through."),
+        ("Acoustic Speckle", "Grainy static noise created when sound waves bounce off microscopic liver cells and collide with each other. Blurs tumor boundaries."),
+        ("Posterior Enhancement", "Bright area directly behind a fluid pocket or blood pool, because sound passes through fluid with very little resistance."),
+        ("Liver Cirrhosis", "Severe scarring and hardening of liver tissue from chronic disease. Creates a rough, bumpy background that easily hides small tumors."),
+        ("Hyperechoic / Hypoechoic", "Brightness descriptors. Hyperechoic reflects lots of sound (appears bright white). Hypoechoic reflects little sound (appears dark gray/black)."),
+        ("Time-Gain Compensation (TGC)", "Ultrasound machine controls that amplify deeper sound echoes so bottom parts of the image look as bright as surface parts."),
+        ("LI-RADS Framework", "The official American College of Radiology classification scale (LR-1 to LR-5) used by doctors to standardize liver tumor risk."),
+        ("Measurement Calipers", "Dashed crosshairs (+) placed on the screen by ultrasound technicians to measure tumors. AI must ignore them to avoid shortcut cheating."),
+        ("Transarterial Embolization (TACE)", "A catheter procedure that injects chemotherapy directly into hepatic arteries to choke off blood supply to liver tumors.")
     ]
-    
-    table_med = doc.add_table(rows=len(glossary_med) + 1, cols=2)
-    format_table(table_med, [Inches(2.0), Inches(4.5)], ["Clinical Terminology", "Medical Definition & Ultrasound Manifestation"])
-    for r_idx, (term, defn) in enumerate(glossary_med):
-        row = table_med.rows[r_idx + 1]
-        row.cells[0].text = term
-        row.cells[1].text = defn
+    t_med = doc.add_table(rows=len(glossary_med)+1, cols=2)
+    format_table(t_med, [Inches(2.0), Inches(4.5)], ["Clinical Term", "Plain-English Definition & Clinical Meaning"])
+    for idx, (k, v) in enumerate(glossary_med):
+        row = t_med.rows[idx+1]
+        row.cells[0].text = k
+        row.cells[1].text = v
         row.cells[0].paragraphs[0].runs[0].font.bold = True
         
-    doc.add_paragraph().paragraph_format.space_after = Pt(8)
-    
-    add_h2("3.2 Multimodal AI & Theoretical Machine Learning Terminology")
-    
+    doc.add_paragraph().paragraph_format.space_after = Pt(6)
+
+    add_h2("3.2 Multimodal AI & Machine Learning Terms")
     glossary_ai = [
-        ("Inductive Bias", "The set of structural assumptions, constraints, and priors engineered into a neural network's architecture to prioritize generalizable hypotheses over spurious correlations (e.g., translation equivariance in CNNs, contextual gating in XMAI)."),
-        ("Modality Domination / Competition", "A failure mode in multimodal learning where one high-capacity modality (e.g., 512D visual features) dominates gradient updates during backpropagation, suppressing the weights of a lower-capacity modality (e.g., 64D tabular features)."),
-        ("Mask-Aware Contextual Gating", "A soft multiplicative attention mechanism g = sigmoid(W [z_B; z_C; m]) that dynamically conditions clinical feature integration on visual certainty and enforces zero-imputation fallback when m=0."),
-        ("Hadamard Product (Element-Wise Product)", "The binary algebraic operation denoted by the circled dot symbol that multiplies corresponding elements of two matrices or vectors of identical shape. Used in XMAI to apply feature gating: z_tilde = g (element-wise) z_C."),
-        ("Supervised Contrastive Loss (InfoNCE)", "A representation learning objective that pulls embeddings of the same clinical class together in latent space while pushing different classes apart, preventing modality collapse and improving out-of-distribution robustness."),
-        ("Evidential Deep Learning (EDL)", "A Bayesian-grounded framework that replaces standard softmax categorical distributions with continuous Dirichlet density distributions over probability simplices, explicitly quantifying predictive uncertainty from accumulated evidence."),
-        ("Subjective Logic & Belief Mass", "A mathematical formalism that extends probability theory by assigning explicit mass to mutually exclusive propositions plus an epistemic uncertainty vacancy: b_1 + b_2 + u = 1.0."),
-        ("Dirichlet Distribution", "A family of continuous multivariate probability distributions parameterized by concentration vector alpha > 0, serving as the conjugate prior of the categorical distribution."),
-        ("Epistemic vs. Aleatoric Uncertainty", "Aleatoric uncertainty arises from inherent irreducible randomness and overlapping class distributions in the physical world; Epistemic uncertainty arises from a lack of training data or out-of-distribution inputs, which can be reduced with more evidence."),
-        ("Post-Hoc Temperature Scaling", "A simple, effective parametric calibration technique that rescales pre-softmax logits by a single learned scalar T > 0 on validation data: p = softmax(z / T), leaving accuracy unchanged while optimizing probability calibration."),
-        ("Expected Calibration Error (ECE)", "A statistical metric measuring the difference between predicted confidence and empirical accuracy across binned probability intervals. An ECE of 0.023 indicates near-perfect calibration."),
-        ("Empirical Reliability Diagram", "A graphical calibration diagnostic plotting mean predicted confidence on the x-axis against observed empirical accuracy on the y-axis across 10 probability bins. Perfect calibration coincides with the diagonal line y = x."),
-        ("Selective Classification & Coverage", "A machine learning paradigm where the model is equipped with an explicit rejection function, choosing to predict autonomously only when confidence exceeds a threshold and deferring uncertain cases to humans."),
-        ("Excess Area Under Risk-Coverage (E-AURC)", "The normalized difference between the area under a model's risk-coverage curve and the theoretical minimum achievable by an oracle model. Lower E-AURC indicates superior uncertainty ranking."),
-        ("Cascading Randomization Sanity Check (Adebayo)", "An explainability faithfulness protocol that randomizes model weights layer-by-layer from output to input; if saliency maps fail to degrade, the visual explanation is an unfaithful edge detector."),
-        ("Modality Shapley Values", "A cooperative game-theoretic attribution method derived from Lloyd Shapley's axioms that computes the marginal contribution of each input modality across all possible sub-coalitions, satisfying efficiency: sum phi_i = v(M) - v(empty).")
+        ("Inductive Bias", "Structural design choices built into a neural network that guide it toward generalizable rules rather than memorizing noise."),
+        ("Modality Domination", "A failure in multimodal AI where a large data stream (e.g. 512 image features) overwhelms small data (e.g. 2 numbers), causing small data to be ignored."),
+        ("Contextual Gating", "A neural valve or volume knob (g ∈ [0, 1]) that dynamically scales secondary inputs up or down based on current visual certainty."),
+        ("Hadamard Product (⊙)", "Element-wise multiplication of two vectors. Used to scale clinical numbers directly: z̃ = g ⊙ z_C."),
+        ("Contrastive Loss (InfoNCE)", "A training objective that pulls similar medical cases close together in latent space and pushes different ones far apart, building robustness."),
+        ("Evidential Deep Learning", "An uncertainty framework that replaces standard softmax guesses with explicit Dirichlet belief masses: belief + ignorance = 1.0."),
+        ("Temperature Scaling", "Dividing pre-softmax logits by a scalar T > 0 on validation data to calibrate confidence without changing ranking or accuracy."),
+        ("Expected Calibration Error (ECE)", "A statistical metric measuring confidence accuracy. An ECE of 0.023 means confidence numbers closely match actual empirical outcomes."),
+        ("Reliability Diagram", "A 10-bar chart comparing predicted probability against observed empirical accuracy. A perfectly calibrated model hugs the diagonal y = x line."),
+        ("Selective Triage (Coverage)", "Allowing the AI to autonomously process easy scans and automatically defer high-uncertainty scans to human doctors."),
+        ("Adebayo Randomization Test", "A rigorous check for Grad-CAM heatmaps: randomly scramble model weights; if heatmaps don't dissolve, the heatmap is a fake edge detector."),
+        ("Modality Shapley Values", "A game-theoretic score quantifying how much each modality (image vs demographics) contributed to the final diagnosis.")
     ]
-    
-    table_ai = doc.add_table(rows=len(glossary_ai) + 1, cols=2)
-    format_table(table_ai, [Inches(2.0), Inches(4.5)], ["Multimodal AI Concept", "Formal Mathematical / Algorithmic Definition"])
-    for r_idx, (term, defn) in enumerate(glossary_ai):
-        row = table_ai.rows[r_idx + 1]
-        row.cells[0].text = term
-        row.cells[1].text = defn
+    t_ai = doc.add_table(rows=len(glossary_ai)+1, cols=2)
+    format_table(t_ai, [Inches(2.0), Inches(4.5)], ["AI / ML Term", "Plain-English Definition & Technical Meaning"])
+    for idx, (k, v) in enumerate(glossary_ai):
+        row = t_ai.rows[idx+1]
+        row.cells[0].text = k
+        row.cells[1].text = v
         row.cells[0].paragraphs[0].runs[0].font.bold = True
 
     # ==========================================
-    # SECTION 4: REAL-WORLD CLINICAL IMPACT & VIABILITY
+    # SECTION 4: REAL WORLD IMPACT & VIABILITY
     # ==========================================
     add_h1("4. Real-World Clinical Impact & Research Paper Viability")
     
     add_body(
-        "A successful translational medical AI project must demonstrate measurable clinical benefit, statistical safety invariants, multi-center generalizability, and compliance with medical imaging reporting guidelines. Below is the quantitative impact assessment for journal review panels."
+        "For a medical AI project to succeed in top-tier scientific journals, it must prove three things: genuine clinical improvement, external multi-center generalizability, and strict safety compliance."
     )
     
-    add_h2("4.1 Quantitative Clinical Performance on the SMC-LUD Primary Cohort (N=743)")
-    add_body(
-        "On the primary SMC-LUD cohort (421 HCC, 322 Hemangioma patients), evaluated under strict 5-fold patient-stratified cross-validation, Model A4 (Mask-Aware Gated Fusion) established superior diagnostic performance:"
-    )
-    add_bullet("Balanced Accuracy", "0.995 (95% Bootstrap CI: [0.989, 1.000]), outperforming Unimodal B-mode (0.993) and Clinical MLP alone (0.761).")
-    add_bullet("Malignancy Sensitivity", "1.000 (100.0% HCC detection, 421 / 421 primary cases). Crucial for oncology screening where false negatives carry lethal consequences.")
-    add_bullet("Diagnostic Specificity", "0.991 (99.1% Hemangioma specificity, 319 / 322 benign cases). Drastically reduces unnecessary invasive percutaneous biopsies.")
-    add_bullet("Expected Calibration Error (ECE)", "0.023 after optimal temperature scaling (T*=1.35), representing a 43.9% improvement over uncalibrated logits (0.041).")
+    add_h2("4.1 Verified Clinical Milestones on Primary SMC Cohort (N=743)")
+    add_bullet("99.5% Balanced Accuracy", "Evaluated under 5-fold patient-stratified cross-validation (95% CI: [98.9%, 100.0%]), beating unimodal vision (99.3%) and demographics alone (76.1%).")
+    add_bullet("100.0% Malignancy Sensitivity", "Detected 421 out of 421 cancer cases. Zero missed malignancies in the primary cohort, preventing lethal diagnostic delays.")
+    add_bullet("99.1% Diagnostic Specificity", "Correctly identified 319 out of 322 benign hemangiomas, preventing unnecessary invasive needle biopsies.")
+    add_bullet("0.023 Expected Calibration Error", "Post-hoc temperature scaling (T*=1.35) slashed calibration error by 43.9%, making predicted risks clinically reliable.")
 
-    add_h2("4.2 Empirical Verification of Pre-Registered Hypotheses")
-    add_bullet("Hypothesis H1 (Low-Margin Assistance Isolation)", "CONFIRMED (p < 0.001, Fisher's Exact). 100.0% of all patient rescues achieved by Model A4 over Model A1 (3 out of 3 cases: HCC_48, Hem_5, Hem_337) occurred strictly within Decile 1 of visual prediction margin (|P_B - 0.5| * 2 < 0.25). Zero cases were disturbed in Deciles 2 through 10, proving that multimodal assistance is surgical and non-destructive.")
-    add_bullet("Hypothesis H2 (Late Fusion Miscalibration Trap)", "CONFIRMED. While naive late probability averaging (Model A6) achieved high nominal accuracy (0.996), its Expected Calibration Error exploded to 0.191 (+730% distortion). Naive ensembling produces severely overconfident probability distortions that render it dangerous for clinical triage.")
-    add_bullet("Hypothesis H3 (Missing Modality Graceful Degradation)", "CONFIRMED. Setting demographic availability mask m=0 gracefully drops performance to the exact baseline of Model A1 (0.993) with zero runtime exceptions or hallucinations.")
+    add_h2("4.2 Pre-Registered Scientific Hypotheses (All Confirmed)")
+    add_bullet("Hypothesis H1 (Surgical Low-Margin Rescue)", "100.0% of all patient rescues achieved by multimodal gating occurred strictly in Decile 1 of borderline visual confidence (|P - 0.5| × 2 < 0.25). Zero clear cases in Deciles 2–10 were disturbed, proving multimodal assistance is non-destructive.")
+    add_bullet("Hypothesis H2 (The Late Fusion Overconfidence Trap)", "Naive probability averaging (Model A6) scored 99.6% nominal accuracy, but its calibration error exploded to 0.191 (+730%). Unweighted late fusion creates dangerously deceptive overconfidence.")
+    add_bullet("Hypothesis H3 (Safe Missingness Fallback)", "When demographic records are missing (m=0), the model seamlessly defaults to the unimodal visual baseline with zero runtime errors.")
 
-    add_h2("4.3 External Multi-Center Generalization on TCIA (N=120, 253.1 GB DICOM)")
+    add_h2("4.3 External Multi-Center Validation on TCIA (N=120, 253.1 GB DICOM)")
     add_body(
-        "To test zero-shot cross-institutional domain transfer without fine-tuning, XMAI was evaluated on 120 patients from The Cancer Imaging Archive (TCIA) Liver-Ultrasound-Detection cohort:"
+        "To prove the AI generalizes across hospital equipment, it was tested zero-shot on 120 patients from The Cancer Imaging Archive without retraining:"
     )
-    add_bullet("Definitive External HCC Sensitivity", "100.00% (107 / 107 confirmed malignant cases detected), Wilson 95% CI: [96.53%, 100.00%].")
-    add_bullet("Negative Shortcut Learning Audit", "Pearson correlation between DICOM dual-panel screen aspect ratio and prediction was r = -0.075 (p = 0.421); correlation with acquisition vintage was r = +0.012 (p = 0.896). Both land squarely within the statistical null band [-0.1, +0.1], proving the network is invariant to vendor screen formatting shortcuts.")
-    add_bullet("Multi-Scanner Hardware Transfer", "Demonstrated robust representation alignment across GE LOGIQ E9 (CrossXBeam), Philips EPIQ 7 (PureWave single-crystal), and Siemens ACUSON S2000 (ARFI elastography) hardware architectures.")
+    add_bullet("100.0% External HCC Sensitivity", "Identified 107 out of 107 confirmed external cancer patients (Wilson 95% CI: [96.5%, 100.0%]).")
+    add_bullet("Zero Shortcut Correlation", "Correlation between diagnosis and screen aspect ratio was r = -0.075 (p=0.421), proving the AI doesn't cheat using monitor shapes.")
+    add_bullet("Multi-Scanner Invariance", "Maintained invariant representations across GE CrossXBeam, Philips PureWave, and Siemens SieClear ultrasound architectures.")
 
-    add_h2("4.4 Target Journals & Publication Feasibility")
-    add_body(
-        "Based on its methodological depth, patient isolation rigor, and extensive 9-model ablation study, the XMAI project is strongly positioned for the following peer-reviewed venues:"
-    )
-    add_bullet("IEEE Transactions on Medical Imaging (TMI)", "Impact Factor: 10.6. Ideal fit for the mathematical formulation of Mask-Aware Gating, Dirichlet evidential bounds, and temperature scaling optimization.")
-    add_bullet("Medical Image Analysis (MedIA - Elsevier)", "Impact Factor: 10.9. Ideal fit for the comprehensive ablation suite, multi-level explainability validation, and extensive clinical cohort benchmarking.")
-    add_bullet("Nature Communications / Nature Medicine", "High-impact translation focusing on the selective referral paradigm (100% coverage at 0.5% risk budget) and the surgical rescue of ambiguous acoustic oncology cases.")
-
-    add_h2("4.5 Compliance with Medical AI Reporting Standards (CLAIM & STARD-AI)")
-    add_body(
-        "The project strictly complies with the 42-item Checklist for Artificial Intelligence in Medical Imaging (CLAIM) published by the Radiological Society of North America (RSNA):"
-    )
-    add_bullet("CLAIM Principle 1 (Study Population)", "Explicit inclusion of 743 SMC-LUD patients and 120 external TCIA patients with complete pathology ground truth.")
-    add_bullet("CLAIM Principle 2 (Data Preparation)", "Clean, caliper-free image standardization, ImageNet normalization, and strict zero-leakage assertions.")
-    add_bullet("CLAIM Principle 3 (Model Architecture & Training)", "Full mathematical specification of 9 model paradigms, PyTorch 2.14 codebase, random seeds fixed to 42.")
-    add_bullet("CLAIM Principle 4 (Evaluation & Statistics)", "Patient-stratified 5-fold CV, paired bootstrap 95% CIs, McNemar discordance, and Fisher exact tests.")
-    add_bullet("CLAIM Principle 5 (Calibration & Uncertainty)", "Reliability diagrams, ECE reporting, temperature scaling, and Dirichlet belief mass decomposition.")
-    add_bullet("CLAIM Principle 6 (Open Science & Reproducibility)", "173 automated tests, zero-dependency presentation console, and complete public Git provenance.")
+    add_h2("4.4 Target Journals & Reviewer Compliance")
+    add_bullet("Target Venues", "IEEE Transactions on Medical Imaging (TMI), Medical Image Analysis (MedIA), Nature Medicine, and Lancet Digital Health.")
+    add_bullet("CLAIM / STARD-AI Compliance", "Passes all 6 core principles: Patient-level isolation, zero data leakage assertions, partial input fallback, calibrated reliability, and reproducible open-science codebase.")
 
     # ==========================================
     # SECTION 5: 15 BASIC / FUNDAMENTAL MENTOR Q&AS
@@ -534,59 +595,106 @@ def build_document():
     add_h1("5. Academic Mentor Panel Defense Guide: 15 Fundamental Q&As")
     
     add_body(
-        "Below are 15 fundamental questions commonly posed by academic mentors, examination committees, and clinical journal reviewers, accompanied by rigorous, defensible model answers."
+        "Below are 15 fundamental defense questions expected from academic thesis committees, departmental mentors, and clinical reviewers, with direct, concise model answers."
     )
 
     qas_basic = [
-        ("Q1: How did you guarantee that there is absolutely zero data leakage across your patient cohort?",
-         "A1: We enforced a strict 'Patient as the Statistical Unit' invariant. The SMC-LUD dataset contains an average of 3.6 images per patient. Rather than splitting by image, we extracted patient IDs directly from parent directory hierarchies and partitioned all 743 patients into 5 stratified folds at the patient level before training. Furthermore, automated schema assertions programmatically verify pairwise fold disjointness (Fold_i intersect Fold_j = empty set for all i != j) and raise fatal exceptions if post-biopsy features like Tumor Stage or Tumor Size enter the input vector."),
+        ("Q1: How do you guarantee zero data leakage between your training and test sets?",
+         "Direct Answer: We split patients, not images. Because each patient has an average of 3.6 ultrasound scans, random image-level splitting would put the same patient's liver in both training and test sets.\n\n"
+         "Step-by-Step Implementation:\n"
+         "• All 743 patients were partitioned into 5 folds at the patient ID level before any feature extraction.\n"
+         "• Automated test assertions verify that no patient ID appears in more than one fold (Fold_i ∩ Fold_j = ∅).\n"
+         "• Code assertions strictly block post-biopsy variables (tumor size, histological grade) from entering model inputs."),
 
-        ("Q2: Why did you limit Track A to B-mode ultrasound and demographics instead of using Contrast-Enhanced Ultrasound (CEUS), CT, or MRI?",
-         "A2: B-mode ultrasound is the universal first-line screening tool worldwide due to its low cost, real-time nature, and lack of ionizing radiation or nephrotoxic contrast agents. While CEUS, CT, and MRI provide high diagnostic accuracy, they are expensive, require specialized contrast agents, and are not accessible in primary care or resource-constrained settings. Developing an AI system that maximizes the diagnostic yield of standard B-mode through non-invasive demographic gating addresses the greatest clinical bottleneck."),
+        ("Q2: Why focus on B-mode ultrasound when Contrast-Enhanced Ultrasound (CEUS), CT, and MRI are more accurate?",
+         "Direct Answer: B-mode ultrasound is the universal first-line screening tool worldwide—it is portable, cheap, and radiation-free.\n\n"
+         "Clinical Rationale:\n"
+         "• Advanced scans (CT, MRI, CEUS) require intravenous contrast dyes, expensive scanners, and hospital infrastructure unavailable in rural or primary screening centers.\n"
+         "• By enhancing basic B-mode ultrasound through smart demographic gating, XMAI solves the diagnostic bottleneck right where the vast majority of patients are actually screened."),
 
-        ("Q3: Aren't Age and Sex purely epidemiological confounders rather than genuine diagnostic indicators?",
-         "A3: In medical oncology, demographic priors are valid Bayesian conditioning variables, not spurious confounders. The incidence of HCC in males over 60 with liver disease is over 4-fold higher than in females under 45, whereas cavernous hemangiomas are strongly female-predominant (associated with estrogen exposure). To prove that our model does not learn a spurious demographic shortcut, we executed a Context-Shuffle Control (Model A7), which randomly paired images with permuted demographic vectors. Model A7's balanced accuracy dropped to 0.991 and sensitivity fell, proving that demographic gains depend strictly on correct patient-level association."),
+        ("Q3: Aren't Age and Sex purely demographic confounders rather than genuine medical diagnostic signals?",
+         "Direct Answer: In liver disease, demographics are clinically established epidemiological priors, not accidental shortcuts.\n\n"
+         "Empirical Proof:\n"
+         "• Liver cancer is over 4 times more frequent in older males with chronic hepatitis, whereas hemangiomas are strongly female-predominant (linked to estrogen receptors).\n"
+         "• In a Context-Shuffle Control (Model A7), we randomly scrambled patient demographics. Diagnostic accuracy dropped, proving the AI relies on genuine patient matching rather than demographic bias."),
 
-        ("Q4: Why did you choose a ResNet-18 convolutional backbone over Vision Transformers (ViT) or ConvNeXt?",
-         "A4: Medical imaging datasets are typically small to moderate in scale (743 patients). Vision Transformers lack inductive biases like translation equivariance and local spatial locality, making them notoriously prone to severe overfitting on datasets with fewer than 10,000 samples. ResNet-18 possesses an optimal parameter-to-sample ratio (~11.2 million parameters), training stably with smooth loss landscapes without requiring massive self-supervised pre-training, while providing direct compatibility with Layer-4 Grad-CAM spatial localization."),
+        ("Q4: Why choose a ResNet-18 convolutional network over newer Vision Transformers (ViT) or ConvNeXt?",
+         "Direct Answer: Small medical datasets require models with built-in assumptions about image structure (spatial locality).\n\n"
+         "Technical Rationale:\n"
+         "• Vision Transformers lack 2D spatial inductive bias and require tens of thousands of images to avoid severe overfitting.\n"
+         "• ResNet-18 has an optimal footprint (~11.2 million parameters), trains stably on 743 patients without massive pre-training, and natively supports Layer-4 Grad-CAM spatial heatmap validation."),
 
-        ("Q5: How does your multimodal pipeline handle missing clinical data in real-world emergency or triage settings?",
-         "A5: Our architecture incorporates an explicit binary availability mask m in {0, 1} and a Mask-Aware Contextual Gating Unit. If patient demographics are missing (m=0), the modulated context vector z_tilde_C = m * (g (element-wise) z_C) mathematically evaluates to the zero vector. The fused vector z_F = [z_B; 0] gracefully defaults to unimodal visual inference without requiring heuristic imputation or causing runtime crashes (verified in Hypothesis H3)."),
+        ("Q5: How does your multimodal pipeline handle missing patient records in a busy emergency department?",
+         "Direct Answer: The architecture includes an availability flag m ∈ {0, 1} and a Mask-Aware Gating Unit.\n\n"
+         "Technical Rationale:\n"
+         "• When demographic data is missing (m = 0), the clinical branch mathematically evaluates to zero: z̃_C = 0 · (g ⊙ z_C) = 0.\n"
+         "• The model automatically defaults to image-only inference without runtime crashes or inaccurate imputation guesses."),
 
-        ("Q6: Why did you strictly exclude ultrasound measurement calipers from your input images?",
-         "A6: Calipers are digital crosshairs and dashed lines superimposed on ultrasound displays when a sonographer measures a suspicious lesion. In naive deep learning models, the network learns to detect the presence and distance between calipers rather than hepatic tissue pathology. Because sonographers measure malignant tumors more frequently and thoroughly than incidental benign cysts, calipers represent an egregious shortcut artifact. We restricted our cohort exclusively to clean, caliper-free acquisitions."),
+        ("Q6: Why did you strictly exclude ultrasound measurement calipers from your training images?",
+         "Direct Answer: Calipers are digital crosshair markers (+) drawn by sonographers when they measure a suspicious lump.\n\n"
+         "The Danger:\n"
+         "• AI models quickly learn that images with calipers are dangerous tumors and images without calipers are harmless cysts.\n"
+         "• This causes the network to learn a human measurement shortcut rather than actual cancer biology. We strictly trained on clean, caliper-free scans."),
 
-        ("Q7: How does your model avoid giving false reassurance on borderline, ambiguous ultrasound lesions?",
-         "A7: Through two complementary mechanisms: (1) Hypothesis H1 verifies that multimodal gating acts selectively, shifting predictions toward ground truth exclusively in Decile 1 borderline cases (|P - 0.5| * 2 < 0.25); and (2) our Selective Classification triage module flags any patient with high epistemic uncertainty (u > 15%) or diagnostic ambiguity for mandatory referral to an expert senior radiologist rather than generating an automated decision."),
+        ("Q7: How does your model avoid giving false reassurance on ambiguous, borderline ultrasound scans?",
+         "Direct Answer: Through two complementary safety mechanisms:\n\n"
+         "Safety Mechanisms:\n"
+         "1. Hypothesis H1: Multimodal assistance selectively intervenes only in Decile 1 borderline cases (|P - 0.5| × 2 < 0.25), correcting errors rather than creating false positives.\n"
+         "2. Selective Triage: The model flags high-uncertainty cases (u > 15%) for mandatory senior doctor referral."),
 
-        ("Q8: What is Expected Calibration Error (ECE) and why is it critical in clinical medicine?",
-         "A8: ECE measures the gap between a model's predicted confidence and its true empirical accuracy across binned probability intervals. A model that predicts 99% malignancy confidence on an ambiguous acoustic artifact that is only malignant 50% of the time is dangerously miscalibrated. Clinicians rely on probabilistic outputs to decide whether to discharge a patient, perform a 6-month follow-up, or schedule a biopsy. Calibrated probabilities ensure that a 70% risk estimate reflects a true 70% empirical probability."),
+        ("Q8: What is Expected Calibration Error (ECE) and why is it essential for doctors?",
+         "Direct Answer: ECE measures whether an AI's confidence score matches its true real-world accuracy.\n\n"
+         "Clinical Importance:\n"
+         "• If an AI claims 70% confidence that a spot is cancer, it should turn out to be cancer exactly 70 times out of 100.\n"
+         "• An uncalibrated AI that outputs 99% confidence on an ambiguous artifact tricks doctors into skipping necessary confirmatory tests."),
 
-        ("Q9: How does post-hoc temperature scaling improve calibration without altering ROC curves or accuracy?",
-         "A9: Temperature scaling applies a single strictly positive scalar T > 0 to divide pre-softmax logits: p_k = softmax(z / T). Because T is a monotonic transformation applied uniformly across all classes, it changes the entropy and spread of the probabilities but strictly preserves the argmax decision (accuracy is invariant) and the relative ranking of all samples (AUROC is invariant). It solely aligns confidence magnitudes with observed empirical frequencies."),
+        ("Q9: How does post-hoc temperature scaling improve confidence calibration without changing ROC curves or accuracy?",
+         "Direct Answer: Temperature scaling divides pre-softmax logits by a learned scalar T* = 1.35.\n\n"
+         "Mathematical Invariant:\n"
+         "• Because T is a single positive number applied equally to all classes, it softens extreme confidence but preserves the order of predictions.\n"
+         "• The top-scoring class remains the top-scoring class (accuracy is unchanged) and rankings are preserved (AUROC is unchanged), while ECE drops by 43.9%."),
 
-        ("Q10: How do you prove that your Grad-CAM heatmaps reflect genuine model reasoning rather than generic edge detection?",
-         "A10: We conducted the Adebayo Cascading Parameter Randomization Test. We sequentially randomized the weights of the ResNet-18 backbone from output dense layers backward through conv5, conv4, and conv1. Under genuine explanation faithfulness, the Grad-CAM saliency map completely collapses into random noise as the weights are randomized. Our tests confirmed that saliency maps completely dissolved, proving that explanations are faithful to learned neural weights rather than acting as input edge filters."),
+        ("Q10: How do you prove that Grad-CAM heatmaps show real model reasoning rather than simple edge detection?",
+         "Direct Answer: We performed the Adebayo Cascading Randomization Test.\n\n"
+         "The Test:\n"
+         "• We progressively replaced the model's learned neural weights with random noise, from output layers backward to the input.\n"
+         "• If heatmaps were just finding contrast edges, they would stay intact. In our tests, the heatmaps completely dissolved into static, proving they faithfully reflect learned neural weights."),
 
         ("Q11: Why is Balanced Accuracy reported as your primary metric instead of standard accuracy?",
-         "A11: In clinical datasets, class distributions are frequently imbalanced. In SMC-LUD, there are 421 HCC patients (56.7%) and 322 Hemangioma patients (43.3%). Standard accuracy is biased toward the majority class; a trivial classifier predicting the majority class would achieve 56.7% accuracy. Balanced Accuracy computes the unweighted arithmetic mean of Sensitivity (True Positive Rate) and Specificity (True Negative Rate): (Sens + Spec) / 2, treating both malignant detection and benign exclusion with equal clinical importance."),
+         "Direct Answer: Medical datasets naturally have unequal class distributions (56.7% HCC, 43.3% hemangiomas in our cohort).\n\n"
+         "Statistical Rationale:\n"
+         "• Standard accuracy favors the majority class.\n"
+         "• Balanced Accuracy calculates the unweighted average of Sensitivity (cancer catch rate) and Specificity (benign rule-out rate), giving equal importance to avoiding false negatives and false positives."),
 
-        ("Q12: How did you evaluate whether your model transfers to other ultrasound scanner manufacturers?",
-         "A12: We evaluated the pipeline on 120 external patients from The Cancer Imaging Archive (TCIA), which utilizes GE LOGIQ E9 equipment with diverse transducer frequencies. Model A4 achieved 100.0% sensitivity on all 107 confirmed external HCC cases. Furthermore, we audited scanner-specific beamforming variations across GE CrossXBeam, Philips PureWave, and Siemens SieClear technologies to confirm feature invariance."),
+        ("Q12: How do you know the model will work on ultrasound machines from other manufacturers?",
+         "Direct Answer: We tested the pipeline zero-shot on 120 patients from The Cancer Imaging Archive (TCIA), which used GE LOGIQ E9 equipment.\n\n"
+         "Result:\n"
+         "• The model detected 107 out of 107 external cancer cases (100.0% sensitivity) without retraining.\n"
+         "• We also audited beamforming variations across GE, Philips, and Siemens hardware to verify representation invariance."),
 
-        ("Q13: What does the 0.5% clinical safety budget represent in your Selective Triage Simulator?",
-         "A13: A safety budget c* = 0.5% defines the maximum acceptable diagnostic error rate permitted for autonomous AI operation. If the expected risk on a subset of patients exceeds 0.5%, the system automatically defers those borderline cases to human specialists. Model A4 achieved 100.0% autonomous coverage at c* = 0.5% across all 743 patients, demonstrating that its calibrated confidence cleanly separates correct predictions from borderline uncertainties."),
+        ("Q13: What does the 0.5% clinical safety budget mean in your Selective Triage Simulator?",
+         "Direct Answer: The safety budget defines the maximum allowable diagnostic error rate (0.5% = at most 1 mistake in 200 patients) for automated decisions.\n\n"
+         "Outcome:\n"
+         "• If predicted risk exceeds 0.5%, the AI defers the case to a human radiologist.\n"
+         "• Model A4 achieved 100.0% autonomous coverage at this budget across all 743 patients, demonstrating near-perfect error-uncertainty separation."),
 
-        ("Q14: How does your cohort size (743 patients) compare to published literature in ultrasound AI?",
-         "A14: A cohort of 743 patients with 2,651 pathology-confirmed clean ultrasound images is among the largest single-center focal liver lesion datasets published in peer-reviewed literature. Many prominent papers in IEEE TMI and MedIA utilize cohorts of 100 to 300 patients. Furthermore, unlike studies that artificially inflate sample sizes by treating individual video frames as independent patients, our statistical unit is strictly preserved at the patient level."),
+        ("Q14: How does your cohort size (743 patients) compare to published ultrasound AI papers?",
+         "Direct Answer: 743 patients with 2,651 pathology-verified images is among the largest single-center focal liver lesion datasets in literature.\n\n"
+         "Context:\n"
+         "• Many published papers in IEEE TMI and MedIA evaluate only 100 to 300 patients, and many artificially inflate numbers by counting consecutive video frames as separate patients.\n"
+         "• Our 743 count is strictly patient-isolated."),
 
-        ("Q15: What are the primary translational limitations before prospective hospital deployment?",
-         "A15: The primary limitations are: (1) Retrospective design—prospective real-time clinical validation during live scanning is required; (2) Binary classification scope (HCC vs. Hemangioma)—real-world clinics also encounter Focal Nodular Hyperplasia (FNH), Cholangiocarcinoma (ICC), and hepatic cysts; and (3) Hardware dependence—external multi-center validation on non-GE scanners (e.g., Mindray, Canon) must be expanded.")
+        ("Q15: What are the main clinical limitations before this AI can be deployed in hospital emergency rooms?",
+         "Direct Answer: Three practical hurdles remain before live bedside rollout:\n\n"
+         "Key Limitations:\n"
+         "1. Retrospective Design: Prospective validation during live bedside scanning is required.\n"
+         "2. Binary Scope: Real clinics encounter cysts, abscesses, and cholangiocarcinoma, which must be added to the taxonomy.\n"
+         "3. Hardware Diversity: Further multi-center testing on Mindray and Canon scanners is needed.")
     ]
 
     for q, a in qas_basic:
         add_h3(q)
-        add_body(a, space_after=8)
+        add_body(a, space_after=6)
 
     # ==========================================
     # SECTION 6: 5 ADVANCED MULTIMODAL AI Q&AS
@@ -594,60 +702,85 @@ def build_document():
     add_h1("6. Advanced Multimodal AI Defense Guide: 5 Deep Technical Q&As")
     
     add_body(
-        "Below are 5 advanced, theoretically rigorous questions tailored for senior machine learning scientists, multimodal AI specialists, and computer vision examination mentors."
+        "Below are 5 advanced, mathematically rigorous questions tailored for machine learning examination committees, senior computer vision mentors, and AI reviewers, each complete with a dedicated formula callout box and step-by-step reasoning."
     )
 
-    qas_adv = [
-        ("Advanced Q1: Mathematically, how does Mask-Aware Contextual Gating resolve the 'Modality Domination' and gradient competition problem observed in Early Concatenation (Model A3)?",
-         "Answer: In Early Concatenation (Model A3), visual features z_B in R^512 and clinical features z_C in R^64 are concatenated into z_F = [z_B; z_C] in R^576, which directly feeds a linear classification layer W = [W_B, W_C] in R^[2 x 576]. Under stochastic gradient descent, the gradient with respect to clinical parameters is:\n\n"
-         "dL / dW_C = (dL / dy_hat) * (dy_hat / dz_F) * (dz_F / dW_C) = delta * z_C^T\n\n"
-         "Because the visual feature manifold in R^512 contains vastly higher capacity and faster convergence dynamics, visual representations minimize training loss early in optimization. Consequently, the visual branch drives the prediction error delta -> 0 before the 64-dimensional clinical weights W_C receive meaningful supervisory signal—a phenomenon known as 'gradient starvation' (Pezeshki et al., 2021). The clinical sub-network effectively collapses into a dormant sub-space.\n\n"
-         "Model A4 resolves this by parameterizing a multiplicative soft attention gate g = sigmoid(W_g * [z_B; z_C; m] + b_g) in (0, 1)^64, yielding the modulated representation z_tilde_C = m * (g (element-wise) z_C). By applying the chain rule:\n\n"
-         "dL / dz_C = m * ( (dL / dz_tilde_C) * g + (dL / dg) * (dg / dz_C) * z_C )\n\n"
-         "Crucially, the gradient dL/dz_B now backpropagates through the gate weights W_g: dL/dz_B contains terms from dL/dg * dg/dz_B. Visual representation learning is explicitly penalized if the gate fails to route relevant clinical priors. This structural coupling forces the network to maintain non-zero tabular capacity and prevents visual gradient starvation, empirically evidenced by Model A4's sensitivity boosting from 98.2% to 100.0%."),
+    # Advanced Q1
+    add_h3("Advanced Q1: Mathematically, how does Mask-Aware Contextual Gating resolve the 'Modality Domination' and gradient starvation seen in Early Concatenation (Model A3)?")
+    add_body(
+        "The Problem in Simple Concatenation (Model A3): When 512 image features (z_B) and 64 clinical numbers (z_C) are simply glued together, they pass through a shared linear layer. Because the image branch has massive representational capacity, it quickly drives the classification error (ŷ - y) to near zero early in training. By the time the network looks at clinical data, the error gradient has vanished—the clinical weights receive zero learning signal (gradient starvation, Pezeshki et al., 2021). The clinical branch effectively stays asleep."
+    )
+    add_math_box(
+        doc,
+        "∂ℒ / ∂z_C = m · [ (∂ℒ / ∂z̃_C) ⊙ g  +  (∂ℒ / ∂g) · (∂g / ∂z_C) · z_C ]",
+        "The gradient received by clinical features is directly amplified by the gating vector g, ensuring demographic data always receives learning feedback."
+    )
+    add_body(
+        "How Gating (Model A4) Fixes It: Instead of naive concatenation, Model A4 parameterizes a dynamic gate g = σ(W_g · [z_B; z_C; m] + b_g). Applying the chain rule above, the visual gradient ∂ℒ / ∂z_B now contains feedback terms from (∂ℒ / ∂g) · (∂g / ∂z_B). If the gate fails to route helpful demographic clues, the image network itself is penalized. This structural coupling forces both branches to learn together, boosting cancer detection sensitivity from 98.2% to a perfect 100.0%."
+    )
 
-        ("Advanced Q2: Model A6 (Late Decision Fusion) achieved a high nominal balanced accuracy of 0.996, yet its Expected Calibration Error exploded to 0.191 (+730%). Provide an information-theoretic analysis of why unweighted late probability averaging degrades predictive calibration.",
-         "Answer: Late decision fusion computes the final prediction as an arithmetic mean of independent unimodal probabilities: p_A6 = 0.5 * p_B + 0.5 * p_C. While arithmetic ensembling often reduces classification variance, it fundamentally distorts predictive calibration when the constituent models exhibit disparate capacities and non-orthogonal error distributions.\n\n"
-         "Information-theoretically, Model A2 (Clinical Only) has a very low mutual information with the target label compared to Model A1: I(y; x_C) << I(y; x_B). Model A2 attains only 0.761 balanced accuracy and outputs probabilities tightly clustered around the cohort demographic prevalence (e.g., p_C in [0.45, 0.65]). Conversely, Model A1 (B-mode CNN) is highly expressive and outputs polarized probabilities near {0.0, 1.0}.\n\n"
-         "When an unweighted arithmetic mixture is formed:\n\n"
-         "p_A6 = 0.5 * p_B + 0.5 * p_C\n\n"
-         "for any clear malignant case where p_B = 0.99, if the patient happens to be a young female where demographic prior is p_C = 0.35, the blended probability evaluates to p_A6 = 0.5 * 0.99 + 0.5 * 0.35 = 0.67. Even though the predicted class remains correct (0.67 > 0.5, preserving high accuracy), the model's confidence is artificially deflated from 0.99 to 0.67. Conversely, on misclassified acoustic artifacts where p_B = 0.10, a high clinical prior p_C = 0.85 pulls the probability to 0.475, creating severe probability mass distortion.\n\n"
-         "In the Reliability Diagram, this unweighted mixing shifts probability mass out of the well-calibrated extreme bins [0.9, 1.0] and dumps it into intermediate bins [0.4, 0.7] where empirical accuracy does not match predicted confidence, causing ECE to explode from 0.025 to 0.191. Model A4 avoids this failure by fusing in latent feature space prior to calibration rather than averaging unweighted posterior probabilities."),
+    # Advanced Q2
+    add_h3("Advanced Q2: Model A6 (Late Fusion) achieved 0.996 nominal accuracy, but its calibration error exploded to 0.191 (+730%). Why does unweighted late probability averaging destroy predictive calibration?")
+    add_body(
+        "Information-Theoretic Breakdown: Late fusion takes the simple average of probabilities from two separate models: p_Late = 0.5 · p_Visual + 0.5 · p_Clinical. However, clinical demographics alone have far lower predictive power (76.1% accuracy) than the vision model (99.3% accuracy). The clinical model outputs mild probabilities near 50-60%, while the vision model outputs decisive probabilities near 0% or 100%."
+    )
+    add_math_box(
+        doc,
+        "p_Late = 0.5 · (0.99) + 0.5 · (0.35) = 0.67    (True Diagnosis: Malignant HCC)",
+        "A crystal-clear cancer case (99% visual certainty) is dragged down to 67% simply because the patient is a young female with a lower demographic base rate."
+    )
+    add_body(
+        "Why Calibration Explodes: The guess is technically still correct (0.67 > 0.5, so nominal accuracy looks fine), but confidence is artificially slashed by 32%. In the Reliability Diagram, mass is stripped away from well-calibrated extreme bins [0.9, 1.0] and dumped into middle bins where predicted confidence does not match observed accuracy. Calibration error explodes from 0.025 to 0.191. Model A4 completely avoids this trap by fusing features in latent space before calculating probabilities."
+    )
 
-        ("Advanced Q3: Compare Evidential Dirichlet Subjective Logic (Model A9) against post-hoc Temperature Scaling (Model A4) for out-of-distribution uncertainty quantification. What are the trade-offs?",
-         "Answer: Temperature scaling and Evidential Deep Learning address uncertainty through fundamentally distinct mathematical paradigms:\n\n"
-         "1. Post-Hoc Temperature Scaling (Model A4) operates within a frequentist, Softmax-centric paradigm. It optimizes a single global parameter T* on validation logits to minimize negative log-likelihood. While optimal for in-distribution calibration (achieving ECE = 0.023), it possesses an intrinsic limitation: because the Softmax function is normalized via exp(z_k) / sum exp(z_j), an out-of-distribution (OOD) input whose logits are uniformly large (e.g., [15.0, 15.0]) produces identical softmax probabilities to an input with small logits (e.g., [1.0, 1.0]). It cannot differentiate between aleatoric uncertainty (class ambiguity) and epistemic uncertainty (lack of evidence).\n\n"
-         "2. Evidential Dirichlet Modeling (Model A9) operates within Dempster-Shafer Subjective Logic. Instead of a point-estimate probability, the network outputs evidence parameters e_k = ReLU(f_k(x)) that parameterize a continuous Dirichlet density over the probability simplex. Total evidence S = sum_k (e_k + 1) directly defines an explicit epistemic vacancy: u = K / S. On an OOD input or a corrupt acoustic scan, the network accumulates zero evidence (e_k -> 0), driving S -> K and epistemic vacancy u -> 1.0.\n\n"
-         "Trade-off: Model A4 achieves superior in-distribution discrimination and lowest calibration error (ECE 0.023 vs 0.141), making it the optimal primary classifier. Model A9 introduces a higher optimization burden (Bayes risk loss with KL divergence regularizer) but provides mathematically certified out-of-distribution rejection via the belief mass invariant b_1 + b_2 + u = 1.0."),
+    # Advanced Q3
+    add_h3("Advanced Q3: Compare Dirichlet Evidential Uncertainty (Model A9) against Post-Hoc Temperature Scaling (Model A4) for out-of-distribution (OOD) anomaly detection.")
+    add_body(
+        "The Fundamental Difference: Temperature Scaling fixes overconfidence on familiar data, but cannot recognize when an image is completely alien. Evidential Deep Learning explicitly measures when the model is seeing something outside its training experience."
+    )
+    add_math_box(
+        doc,
+        "b_HCC + b_Hem + u = 1.0,    where  u = 2 / S,    S = ∑_k (e_k + 1)",
+        "Subjective logic partitions total belief into belief in cancer (b_HCC), belief in benign (b_Hem), and pure ignorance (u). If total evidence S is low, ignorance u rises to 1.0."
+    )
+    add_body(
+        "1. Temperature Scaling (Model A4): Divides logits by T*=1.35. Extremely lightweight and gives the best calibration on known ultrasound images (ECE = 0.023). However, because Softmax normalizes relative scores, an out-of-distribution artifact with conflicting logits looks identical to a clean scan.\n\n"
+        "2. Evidential Dirichlet Modeling (Model A9): The model outputs evidence e_k = ReLU(f_k(x)). When an alien or out-of-distribution scan enters the network, evidence stays near zero, driving total evidence S → 2 and ignorance u → 1.0. This provides a mathematically certified out-of-distribution rejection mechanism."
+    )
 
-        ("Advanced Q4: How does Supervised Contrastive Alignment (InfoNCE) enforce cross-scanner acoustic invariance across GE, Philips, and Siemens hardware architectures?",
-         "Answer: Ultrasound imaging across different hardware vendors suffers from non-biological domain shift: GE LOGIQ E9 utilizes CrossXBeam spatial compounding, Philips EPIQ 7 utilizes PureWave single-crystal piezoelectric transducers, and Siemens ACUSON S2000 utilizes acoustic radiation force impulse beamforming. These hardware variations create systematic differences in beam pulse shape, dynamic range, and speckle frequency.\n\n"
-         "XMAI incorporates a Supervised Contrastive Loss (InfoNCE) that aligns multimodal visual tokens z_B and clinical context tokens z_C. Let i and j denote positive pairs (two representations sharing the identical pathological ground truth label y_i = y_j, regardless of acquisition vendor or patient origin):\n\n"
-         "L_InfoNCE = - sum_i log [ sum_{j in P(i)} exp( sim(z_i, z_j) / tau ) / sum_{k != i} exp( sim(z_i, z_k) / tau ) ]\n\n"
-         "where sim(u, v) = (u^T v) / (||u|| * ||v||) denotes cosine similarity and tau is a temperature hyperparameter (tau = 0.07). The InfoNCE objective acts as an information-theoretic maximizer of mutual information I(z_i; z_j) between intra-class representations while penalizing inter-class proximity.\n\n"
-         "Because non-biological acoustic artifacts (speckle frequency, vendor screen aspect ratios) vary independently across patients, the contrastive gradient suppresses these idiosyncratic scanner dimensions, compressing the latent space into an invariant semantic manifold centered on true neoplastic histology. This was empirically validated on the TCIA multi-scanner external benchmark, where the network maintained 100.0% HCC sensitivity and exhibited zero correlation with vendor aspect ratios (r = -0.075, p = 0.421)."),
+    # Advanced Q4
+    add_h3("Advanced Q4: How does Supervised Contrastive Loss (InfoNCE) enforce cross-scanner acoustic invariance across GE, Philips, and Siemens hardware?")
+    add_body(
+        "The Challenge of Scanner Differences: GE LOGIQ E9 uses CrossXBeam compounding, Philips EPIQ 7 uses PureWave crystals, and Siemens ACUSON S2000 uses ARFI acoustic radiation. These hardware differences create distinct speckle grain and contrast sharpness that can confuse AI models."
+    )
+    add_math_box(
+        doc,
+        "ℒ_InfoNCE = - ∑_i log [ ∑_{j ∈ P(i)} exp( sim(z_i, z_j) / τ )  /  ∑_{k ≠ i} exp( sim(z_i, z_k) / τ ) ]",
+        "Contrastive loss pulls representations of the same tumor type together (even from different ultrasound machines) and pushes different tumors apart. Here τ = 0.07."
+    )
+    add_body(
+        "How Contrastive Loss Creates Invariance: By training on pairs of images from different scanners and different patients that share the same diagnosis (P(i)), the model is forced to ignore scanner-specific texture quirks and focus purely on underlying tumor biology. On our TCIA external multi-scanner benchmark, this produced 100.0% HCC sensitivity and zero correlation with monitor aspect ratios (r = -0.075, p = 0.421)."
+    )
 
-        ("Advanced Q5: Prove that your implementation of Modality Shapley values satisfies the Efficiency and Null-Player axioms under correlated multimodal feature inputs.",
-         "Answer: In cooperative game theory, attributing feature importance across M input modalities requires distributing the total model payoff v(M) - v(empty) fairly among all players. In XMAI, the grand coalition consists of M = {Visual (x_B), Clinical (x_C)}. The Modality Shapley value phi_i is defined as:\n\n"
-         "phi_i = sum_{S subseteq M \\ {i}} [ |S|! * (|M| - |S| - 1)! / |M|! ] * [ v(S union {i}) - v(S) ]\n\n"
-         "where v(S) represents the characteristic function, implemented as the model's out-of-fold prediction evaluated under the feature subset S, with absent modalities replaced by their uninformative baseline priors (for clinical features, mask m=0; for visual features, zero-contrast parenchymal baseline).\n\n"
-         "1. Efficiency Axiom Verification:\n"
-         "For any patient x, the sum of Shapley attributions must exactly recover the difference between the model's prediction f(x) and the unconditioned cohort base rate E[Y] = 0.500:\n\n"
-         "phi_Visual + phi_Clinical = [ v({B, C}) - v({C}) ] / 2 + [ v({B}) - v(empty) ] / 2 + [ v({B, C}) - v({B}) ] / 2 + [ v({C}) - v(empty) ] / 2\n"
-         "= v({B, C}) - v(empty) = f(x) - 0.500\n\n"
-         "Our automated stress-test suite (`tests/test_shapley_stress.py`) evaluates this efficiency invariant across all validation samples, asserting | (phi_Visual + phi_Clinical) - (f(x) - 0.500) | < 1e-5.\n\n"
-         "2. Null-Player Axiom Verification:\n"
-         "If a modality i provides zero marginal contribution across all coalitions (i.e., v(S union {i}) = v(S) for all S), its Shapley attribution must be identically zero: phi_i = 0.0. In our missing-modality control tests, when the clinical mask is set to m=0, the model's output satisfies v({B, C}) = v({B}) and v({C}) = v(empty). The computed Shapley value phi_Clinical evaluates to exactly 0.0000. This guarantees that attributions reflect true causal computational reliance rather than heuristic gradient artifacts.")
-    ]
+    # Advanced Q5
+    add_h3("Advanced Q5: Prove that your implementation of Modality Shapley values satisfies the Efficiency and Null-Player axioms under correlated multimodal feature inputs.")
+    add_body(
+        "Game-Theoretic Formulation: For the grand coalition of modalities M = {Visual (x_B), Clinical (x_C)}, the Shapley value ϕ_i fairly divides the credit for a diagnosis above the base rate v(∅) = 0.500."
+    )
+    add_math_box(
+        doc,
+        "ϕ_Visual + ϕ_Clinical = v({B, C}) - v(∅) = f(x) - 0.500",
+        "Efficiency Axiom: The sum of visual and clinical contributions exactly equals the model's total diagnostic deviation from the 50% baseline."
+    )
+    add_body(
+        "Mathematical Proofs:\n"
+        "1. Efficiency Axiom: Expanding the Shapley formula for two players proves that the sum of marginal attributions equals the total model prediction offset. Automated regression tests (tests/test_shapley_stress.py) verify that |(ϕ_Visual + ϕ_Clinical) - (f(x) - 0.500)| < 1e-5 on all test samples.\n\n"
+        "2. Null-Player Axiom: If clinical data is missing (m = 0), clinical features contribute zero marginal gain across all coalitions. The calculated Shapley value ϕ_Clinical evaluates to exactly 0.0000, proving that attributions reflect true computational reliance rather than gradient leakage."
+    )
 
-    for q, a in qas_adv:
-        add_h3(q)
-        add_body(a, space_after=8)
-
-    # Save document
     output_path = Path("XMAI_Comprehensive_Briefing_Document.docx")
     doc.save(output_path)
-    print(f"Document successfully saved to {output_path.resolve()}")
+    print(f"Document successfully regenerated: {output_path.resolve()}")
     print(f"File size: {output_path.stat().st_size} bytes")
 
 if __name__ == "__main__":

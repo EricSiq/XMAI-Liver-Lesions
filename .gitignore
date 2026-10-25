@@ -55,3 +55,5 @@ configs/local.yaml
 Thumbs.db
 ehthumbs.db
 Desktop.ini
+~$*.docx
+
