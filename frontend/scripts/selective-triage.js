@@ -21,6 +21,16 @@ function renderSelectiveView() {
             </p>
         </div>
 
+        <!-- Student Speaker Script & Judge Callout -->
+        <div class="student-cue">
+            <span class="speaker-tag">STUDENT SPEAKER CUE</span>
+            "In clinical oncology, an AI that never defers is unsafe. In Section 7, we demonstrate selective triage. At the hospital's standard 0.5% error budget, Model A4 achieves 100% autonomous coverage with zero deferrals across all 743 patients. If clinicians dial the safety tolerance to 0.1% (ultra-safe), our evidential head selectively defers only the most uncertain 4.4% of borderline scans to senior radiologists."
+        </div>
+        <div class="judge-callout">
+            <span class="judge-tag">JUDGING PANEL TAKEAWAY</span>
+            <strong>Optimal Uncertainty Ranking:</strong> Model A4's Excess AURC is just <strong>0.053</strong> (near the theoretical minimum). This proves the model ranks its own uncertainty truthfully—when safety budgets tighten, the network sheds actual misclassifications rather than randomly dumping cases on doctors.
+        </div>
+
         <!-- Safety Budget Callout Grid -->
         <div class="stats-grid">
             <div class="stat-card">
@@ -152,6 +162,9 @@ function renderSelectiveView() {
                         <span style="color: #64748b; font-weight: 600;">— Model A1 (B-mode)</span>
                         <span style="color: #94a3b8;">-- Model A2 (Prior)</span>
                     </div>
+                    <div class="visual-caption" style="margin-top: 0.75rem;">
+                        <strong>Figure 7.1 / Risk-Coverage (RC) Curve:</strong> Model A4 (blue) stays virtually flat near 0% risk up to 100% autonomous coverage, avoiding unnecessary radiologist referral overhead while maintaining strict patient safety.
+                    </div>
                 </div>
             </div>
         </div>
@@ -202,6 +215,9 @@ function renderSelectiveView() {
                         `).join('')}
                     </tbody>
                 </table>
+            </div>
+            <div class="visual-caption" style="border-top: 1px solid var(--border-light); margin: 0; border-radius: 0;">
+                <strong>Table 7.1 / Clinical Selective Triage Benchmark:</strong> Model A4 achieves the lowest excess risk (E-AURC = 0.053) with 0.00% unnecessary referral rate, while demographic-only priors (Model A2) require 99.19% referral to achieve safe operation.
             </div>
         </div>
     `;

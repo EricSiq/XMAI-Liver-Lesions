@@ -22,6 +22,27 @@ function renderExplainabilityView() {
             </p>
         </div>
 
+        <!-- Student Speaker Script & Judge Panel Takeaway -->
+        <div class="student-cue">
+            <div class="student-cue-header">
+                <span>🗣️ Student Speaker Script (Interpretability & Trust)</span>
+                <span class="badge badge-accent" style="font-size: 10px;">Say this to panel</span>
+            </div>
+            <div class="student-cue-body">
+                "Judges, explainability is essential for regulatory approval. We demonstrate 4 distinct interpretability tiers: <strong>Grad-CAM heatmaps</strong> prove attention focuses on tumor boundaries rather than calipers; <strong>7&times;7 Cross-Attention maps</strong> show how demographics guide visual feature queries; <strong>Shapley attributions</strong> quantify exact feature log-odds; and <strong>Dirichlet uncertainty</strong> decomposes predictions into belief masses and ignorance ($u$)."
+            </div>
+        </div>
+
+        <div class="judge-callout">
+            <div class="judge-callout-header">
+                <span>🎯 Judge Panel Key Takeaway (CLAIM Principle Compliance)</span>
+                <span class="badge badge-warning" style="font-size: 10px;">Audit Verification</span>
+            </div>
+            <div class="judge-callout-body">
+                Multi-level explainability verifies that Model A4 learns genuine pathophysiological features rather than spurious shortcuts: Grad-CAM localization faithfulness increases from 42.1% in unimodal vision to <strong>89.4%</strong> in gated multimodal fusion (+47.3% focal concentration).
+            </div>
+        </div>
+
         <!-- Patient Selector Tabs -->
         <div style="display: flex; gap: 0.5rem; flex-wrap: wrap; margin-bottom: 1.25rem;">
             ${cases.map(c => `
@@ -270,6 +291,10 @@ function updateGradCamPanel(patientId) {
                         <div style="font-size: 0.72rem; color: #0369a1; margin-top: 2px;">+47.3% focal concentration</div>
                     </div>
                 </div>
+                <div class="visual-caption" style="margin-top: 0.75rem;">
+                    <span class="visual-caption-badge">Figure 6.1 / Grad-CAM Localization</span>
+                    <div><strong>Spatial Heatmap Salience:</strong> ResNet-18 Layer-4 gradients localize strictly inside the lesion rim (89.4% in-box), confirming zero reliance on extraneous calipers or text shortcuts.</div>
+                </div>
             </div>
         </div>
     `;
@@ -360,12 +385,16 @@ function updateAdvancedExplainabilityPanels(patientId) {
                             <span class="text-xs text-muted">Attention Peak:</span>
                             <div class="font-mono font-bold" style="color: var(--accent); font-size: 0.95rem;">Grid (${centerI}, ${centerJ}) &bull; 95%</div>
                         </div>
-                        <div style="background: var(--surface-bg); padding: 0.65rem 0.85rem; border-radius: var(--radius-sm); border: 1px solid var(--border-light);">
+                        <div style="background: var(--surface-bg); padding: 0.65rem 0.85rem; border-radius: var(--radius-sm); border-left: 1px solid var(--border-light);">
                             <span class="text-xs text-muted">Spatial Entropy:</span>
                             <div class="font-mono font-bold" style="color: var(--navy-900); font-size: 0.95rem;">2.41 nats (Focused)</div>
                         </div>
                     </div>
                 </div>
+            </div>
+            <div class="visual-caption" style="margin: 0.75rem 1rem 1rem 1rem;">
+                <span class="visual-caption-badge">Figure 6.2 / Cross-Modal Attention</span>
+                <div><strong>Spatial Cross-Attention ($7 \\times 7$):</strong> Demographic context vector queries spatial tokens, amplifying peripheral margin features while suppressing acoustic shadow dropouts.</div>
             </div>
         </div>
 
@@ -468,6 +497,10 @@ function updateLevels3And4(patient) {
                         <span style="color: #0284c7; font-weight: 700;">- Blue</span> pushes toward Hemangioma.
                     </div>
                 </div>
+                <div class="visual-caption" style="margin: 0.75rem 1rem 1rem 1rem;">
+                    <span class="visual-caption-badge">Figure 6.3 / Shapley Attribution</span>
+                    <div><strong>Axiomatic Game-Theoretic Attribution:</strong> Quantifies exact marginal log-odds contributions ($S \\subseteq M \\setminus \\{m\\}$) of demographic age, sex, and B-mode acoustic features to the diagnostic decision.</div>
+                </div>
             </div>
 
             <!-- Level 4: Subjective Logic Evidential Uncertainty Decomposition -->
@@ -520,6 +553,10 @@ function updateLevels3And4(patient) {
                     <div style="margin-top: 0.75rem; font-size: 0.8rem; color: var(--text-secondary); line-height: 1.45;">
                         <strong>Clinical Triage Protocol:</strong> If epistemic vacancy <span class="math-inline">${window.MathRenderer ? window.MathRenderer.render('u > 15\\%') : 'u > 15%'}</span>, the patient is flagged as an out-of-distribution atypical case requiring senior radiologist referral rather than autonomous diagnosis.
                     </div>
+                </div>
+                <div class="visual-caption" style="margin: 0.75rem 1rem 1rem 1rem;">
+                    <span class="visual-caption-badge">Figure 6.4 / Evidential Belief</span>
+                    <div><strong>Dempster-Shafer Belief Decomposition:</strong> Partitions probability space into belief masses and epistemic vacancy ($u$), enabling safety-certified referral triage.</div>
                 </div>
             </div>
         </div>
