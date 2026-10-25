@@ -369,6 +369,8 @@ function renderBibtexTab(box) {
 
 function renderCommitsTab(box) {
     const commits = [
+        { hash: "e6884ff", date: "2026-10-25", type: "docs", scope: "dossier", msg: "generate comprehensive academic briefing document (.docx) with first principles, glossary, and 20 defense Q&As" },
+        { hash: "199cfa2", date: "2026-10-25", type: "docs", scope: "sync", msg: "synchronize documentation with 173 tests, 52 commits, and Phase 11 visual overhaul" },
         { hash: "fb86cee", date: "2026-10-24", type: "docs", scope: "frontend", msg: "synchronize audit trail, update test suite, and finalize presentation console for multimodal AI mentors" },
         { hash: "521fd59", date: "2026-10-24", type: "feat", scope: "frontend", msg: "add visual External TCIA Multi-Scanner Transfer benchmark comparison" },
         { hash: "3b6690e", date: "2026-10-24", type: "feat", scope: "frontend", msg: "upgrade Selective Triage Simulator with visual clinical risk vs throughput curve" },
