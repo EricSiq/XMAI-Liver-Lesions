@@ -21,8 +21,66 @@ function renderCaseView() {
             </p>
         </div>
 
+        <!-- Student Speaker Script & Judge Panel Takeaway -->
+        <div class="student-cue">
+            <div class="student-cue-header">
+                <span>🗣️ Student Speaker Script (Case Simulation Demo)</span>
+                <span class="badge badge-accent" style="font-size: 10px;">Say this to panel</span>
+            </div>
+            <div class="student-cue-body">
+                "Judges, this simulator allows you to interact directly with the trained PyTorch model. Notice Patient HCC_48: on ultrasound, acoustic shadowing tricked the vision model into a 28.1% benign score. But because this patient is a 65-year-old male, our dynamic gate allocates a 34% clinical weight, boosting malignancy probability to 91.9% and catching the cancer. Uncheck the mask ($m=0$) to demonstrate Hypothesis H3: the system immediately falls back to pure ultrasound without failing."
+            </div>
+        </div>
+
+        <div class="judge-callout">
+            <div class="judge-callout-header">
+                <span>🎯 Judge Panel Key Takeaway (Clinical Robustness)</span>
+                <span class="badge badge-warning" style="font-size: 10px;">Clinical Safety Validation</span>
+            </div>
+            <div class="judge-callout-body">
+                The counterfactual simulator verifies that clinical assistance is continuous and smooth. It avoids catastrophic threshold cliffs while proving safe single-modality fallback under missing data ($m=0$).
+            </div>
+        </div>
+
+        <!-- Visual Tumor Echotexture Schema Cards -->
+        <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(280px, 1fr)); gap: 1rem; margin-bottom: 1.25rem;">
+            <!-- HCC Schema -->
+            <div class="card" style="padding: 1rem; border-left: 4px solid var(--color-danger); background: #ffffff;">
+                <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 0.5rem;">
+                    <strong style="color: var(--color-danger); font-size: 0.92rem;">Malignant HCC Morphology</strong>
+                    <span class="badge badge-danger text-xs">High-Risk Lesion</span>
+                </div>
+                <div style="font-size: 0.82rem; color: var(--text-secondary); line-height: 1.45;">
+                    <div>• <strong>Acoustic Shadowing:</strong> Low-SNR signal dropouts obscure margins.</div>
+                    <div>• <strong>Irregular Margins:</strong> Infiltrative border with necrotic core.</div>
+                    <div>• <strong>Epidemiological Bias:</strong> Strongly correlated with male sex and older age (>55y).</div>
+                </div>
+                <div class="visual-caption" style="margin-top: 6px; padding: 4px 8px; font-size: 11px;">
+                    <span class="visual-caption-badge">Ultrasound Sign</span>
+                    <span>Hypoechoic halo and chaotic internal vascularity requiring high-capacity feature extraction.</span>
+                </div>
+            </div>
+
+            <!-- Hemangioma Schema -->
+            <div class="card" style="padding: 1rem; border-left: 4px solid var(--color-success); background: #ffffff;">
+                <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 0.5rem;">
+                    <strong style="color: var(--color-success); font-size: 0.92rem;">Benign Hemangioma Morphology</strong>
+                    <span class="badge badge-success text-xs">Benign Lesion</span>
+                </div>
+                <div style="font-size: 0.82rem; color: var(--text-secondary); line-height: 1.45;">
+                    <div>• <strong>Hyperechoic Reflection:</strong> Uniform vascular tangle with high echo return.</div>
+                    <div>• <strong>Posterior Enhancement:</strong> Clean sound transmission with well-defined margins.</div>
+                    <div>• <strong>Epidemiological Bias:</strong> Prevalent in young-to-middle aged females.</div>
+                </div>
+                <div class="visual-caption" style="margin-top: 6px; padding: 4px 8px; font-size: 11px;">
+                    <span class="visual-caption-badge">Ultrasound Sign</span>
+                    <span>Uniform bright echogenicity; easily misdiagnosed if speckle noise creates artificial heterogeneity.</span>
+                </div>
+            </div>
+        </div>
+
         <!-- Case Selector Gallery Cards -->
-        <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(180px, 1fr)); gap: 0.75rem; margin-bottom: 1.25rem;">
+        <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(180px, 1fr)); gap: 0.75rem; margin-bottom: 0.5rem;">
             ${cases.map(c => `
                 <div class="case-card ${c.patient_id === currentPatientId ? 'active' : ''}" 
                      data-patient="${c.patient_id}"
@@ -41,6 +99,10 @@ function renderCaseView() {
                     </div>
                 </div>
             `).join('')}
+        </div>
+        <div class="visual-caption" style="margin-bottom: 1.25rem;">
+            <span class="visual-caption-badge">Figure 5.1 / Patient Dossiers</span>
+            <div><strong>Clinical Cohort Verification:</strong> 5 curated patient dossiers representative of ambiguous acoustic rescues (Decile 1) and definitive morphology controls.</div>
         </div>
 
         <!-- Main Patient Inspector Box -->
@@ -324,6 +386,10 @@ function renderCovariateSimulator(patient) {
                         </div>
                     </div>
                 </div>
+            </div>
+            <div class="visual-caption" style="margin: 0.75rem 1rem 1rem 1rem;">
+                <span class="visual-caption-badge">Figure 5.2 / Counterfactual Inference</span>
+                <div><strong>Live Counterfactual Perturbation:</strong> Real-time inference dynamically recalculates gating weights $\\mathbf{g}_b, \\mathbf{g}_c$ and calibrated posterior probabilities as demographic sliders and missingness masks are altered.</div>
             </div>
         </div>
     `;
