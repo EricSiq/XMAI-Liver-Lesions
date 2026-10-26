@@ -291,9 +291,9 @@ def main():
     # Handle port in use gracefully
     while port < args.port + 10:
         try:
-            with socketserver.TCPServer(("", port), XMAIHTTPHandler) as httpd:
+            with http.server.ThreadingHTTPServer(("", port), XMAIHTTPHandler) as httpd:
                 print(f"============================================================")
-                print(f"  XMAI Academic Presentation Console Server")
+                print(f"  XMAI Academic Presentation Console Server (Multi-Threaded)")
                 print(f"  Live at: http://localhost:{port}")
                 print(f"  PyTorch: {TORCH_VERSION} (CUDA: {CUDA_AVAILABLE}, {DEVICE_NAME})")
                 print(f"  API:     http://localhost:{port}/api/status")
