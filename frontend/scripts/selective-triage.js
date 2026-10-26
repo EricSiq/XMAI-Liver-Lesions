@@ -21,14 +21,25 @@ function renderSelectiveView() {
             </p>
         </div>
 
-        <!-- Student Speaker Script & Judge Callout -->
-        <div class="student-cue">
-            <span class="speaker-tag">STUDENT SPEAKER CUE</span>
-            "In clinical oncology, an AI that never defers is unsafe. In Section 7, we demonstrate selective triage. At the hospital's standard 0.5% error budget, Model A4 achieves 100% autonomous coverage with zero deferrals across all 743 patients. If clinicians dial the safety tolerance to 0.1% (ultra-safe), our evidential head selectively defers only the most uncertain 4.4% of borderline scans to senior radiologists."
+        <!-- First-Principles Explanation & Key Takeaway -->
+        <div class="first-principles-box">
+            <div class="first-principles-header">
+                <span>💡 Selective Triage from First Principles: Knowing When to Ask a Human Doctor</span>
+                <span class="badge badge-accent" style="font-size: 10px;">First Principles</span>
+            </div>
+            <div class="first-principles-body">
+                In hospital oncology, an AI that claims it is always 100% certain is dangerous. <strong>Selective triage</strong> means the AI handles clear cases automatically, but safely raises a flag to defer ambiguous or contradictory scans to a human specialist. Under any error budget, a trustworthy AI must truthfully rank its own confidence so that it only passes truly difficult cases to doctors.
+            </div>
         </div>
-        <div class="judge-callout">
-            <span class="judge-tag">JUDGING PANEL TAKEAWAY</span>
-            <strong>Optimal Uncertainty Ranking:</strong> Model A4's Excess AURC is just <strong>0.053</strong> (near the theoretical minimum). This proves the model ranks its own uncertainty truthfully—when safety budgets tighten, the network sheds actual misclassifications rather than randomly dumping cases on doctors.
+
+        <div class="key-takeaway-box">
+            <div class="key-takeaway-header">
+                <span>🎯 Clinical Safety & Triage Benchmark</span>
+                <span class="badge badge-success" style="font-size: 10px;">Safety Audited</span>
+            </div>
+            <div class="key-takeaway-body">
+                At the standard hospital error tolerance of 0.5%, Model A4 safely achieves <strong>100% autonomous coverage</strong> across all 743 patients with zero deferrals. If doctors tighten the error tolerance to 0.1% (ultra-safe), the model defers only the most uncertain 4.4% of borderline scans, maintaining a near-optimal uncertainty ranking (Excess AURC = 0.053).
+            </div>
         </div>
 
         <!-- Safety Budget Callout Grid -->

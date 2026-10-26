@@ -17,14 +17,13 @@
     ];
 
     let currentSectionIdx = 0;
-    let isPresentationMode = false;
 
     function initApp() {
-        console.log("XMAI Academic Presentation Frontend Initializing...");
+        console.log("XMAI Academic Research Console Initializing...");
 
         setupNavigationScrollSpy();
         setupKeyboardShortcuts();
-        setupPresentationModeToggle();
+        setupNavigationControlBar();
         setupSmoothScroll();
     }
 
@@ -100,8 +99,6 @@
             } else if (e.key === 'ArrowLeft' || e.key === 'PageUp' || e.key === 'k') {
                 e.preventDefault();
                 navigateSection(currentSectionIdx - 1);
-            } else if (e.key === 'p' || e.key === 'P') {
-                togglePresentationMode();
             } else if (e.key === 'Home') {
                 e.preventDefault();
                 navigateSection(0);
@@ -118,28 +115,14 @@
         const targetId = SECTIONS[currentSectionIdx];
         const el = document.getElementById(targetId);
         if (el) {
-            const headerHeight = document.getElementById('site-header')?.offsetHeight || 100;
+            const headerHeight = document.getElementById('academic-header')?.offsetHeight || 80;
             const topPos = el.getBoundingClientRect().top + window.pageYOffset - headerHeight - 16;
             window.scrollTo({ top: topPos, behavior: 'smooth' });
         }
     }
 
-    // Floating presentation pill at the bottom & Header Toggle Sync
-    function setupPresentationModeToggle() {
-        const toggleCheckbox = document.getElementById('toggle-presenter-mode');
-        // Default to presenter mode active so judges immediately see speaking cues & takeaways
-        const savedMode = localStorage.getItem('xmai_presenter_mode');
-        isPresentationMode = savedMode !== null ? savedMode === 'true' : true;
-
-        if (toggleCheckbox) {
-            toggleCheckbox.checked = isPresentationMode;
-            toggleCheckbox.addEventListener('change', (e) => {
-                isPresentationMode = e.target.checked;
-                applyPresentationMode(isPresentationMode);
-            });
-        }
-        applyPresentationMode(isPresentationMode);
-
+    // Floating section navigation pill at the bottom
+    function setupNavigationControlBar() {
         const pill = document.createElement('div');
         pill.id = 'presentation-control-bar';
         pill.style.cssText = `
@@ -168,7 +151,7 @@
             <button id="pres-prev-btn" style="background: none; border: none; color: #ffffff; cursor: pointer; padding: 2px 6px; border-radius: 4px;" title="Previous Section (Left Arrow)">◀</button>
             <button id="pres-next-btn" style="background: none; border: none; color: #ffffff; cursor: pointer; padding: 2px 6px; border-radius: 4px;" title="Next Section (Right Arrow)">▶</button>
             <span style="opacity: 0.3;">|</span>
-            <span class="text-xs text-muted" style="color: #94a3b8;">Key: ◀ / ▶ | [P] Mode</span>
+            <span class="text-xs text-muted" style="color: #94a3b8;">Shortcuts: ◀ / ▶</span>
         `;
 
         document.body.appendChild(pill);
@@ -182,23 +165,6 @@
         if (indicator) {
             indicator.textContent = `Section ${idx + 1} of ${SECTIONS.length}`;
         }
-    }
-
-    function applyPresentationMode(active) {
-        document.body.classList.toggle('presenter-mode-active', active);
-        const toggleCheckbox = document.getElementById('toggle-presenter-mode');
-        if (toggleCheckbox && toggleCheckbox.checked !== active) {
-            toggleCheckbox.checked = active;
-        }
-        try {
-            localStorage.setItem('xmai_presenter_mode', active ? 'true' : 'false');
-        } catch (e) {}
-        console.log(`Presenter mode set to: ${active ? 'ACTIVE' : 'INACTIVE'}`);
-    }
-
-    function togglePresentationMode() {
-        isPresentationMode = !isPresentationMode;
-        applyPresentationMode(isPresentationMode);
     }
 
     if (document.readyState === 'loading') {

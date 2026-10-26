@@ -19,14 +19,25 @@ function renderTciaView() {
             </p>
         </div>
 
-        <!-- Student Speaker Script & Judge Callout -->
-        <div class="student-cue">
-            <span class="speaker-tag">STUDENT SPEAKER CUE</span>
-            "Section 8 addresses external validation on the multi-center TCIA cohort (120 clinical scans across GE, Philips, and Siemens hardware). Notice our negative shortcut audit: the correlation between image aspect ratio and predicted risk is r = -0.075 (p = 0.421), proving the AI is reading tumor biology rather than overfitting to vendor screen borders or scanner presets."
+        <!-- First-Principles Explanation & Key Takeaway -->
+        <div class="first-principles-box">
+            <div class="first-principles-header">
+                <span>💡 Multi-Hospital Testing from First Principles: The Sound Variance Problem</span>
+                <span class="badge badge-accent" style="font-size: 10px;">First Principles</span>
+            </div>
+            <div class="first-principles-body">
+                An AI trained at Hospital A often fails at Hospital B because different ultrasound machines (GE, Philips, Siemens) produce slightly different sound frequencies, contrast levels, and image proportions. Worse, computer vision models often take "shortcuts"—learning to recognize the scanner's screen borders rather than the actual tumor. We rigorously tested Model A4 on 120 external patients from The Cancer Imaging Archive (TCIA) to prove true clinical generalization.
+            </div>
         </div>
-        <div class="judge-callout">
-            <span class="judge-tag">JUDGING PANEL TAKEAWAY</span>
-            <strong>Zero-Retraining Cross-Hospital Generalization:</strong> Model A4 achieves <strong>100.0% HCC sensitivity</strong> [96.5%, 100.0%] across 120 external DICOM cases without local hospital fine-tuning. Multimodal cross-attention acts as an acoustic regularizer, preventing scanner distribution collapse.
+
+        <div class="key-takeaway-box">
+            <div class="key-takeaway-header">
+                <span>🎯 100% External Cancer Detection with Zero Shortcuts</span>
+                <span class="badge badge-success" style="font-size: 10px;">Cross-Center Validated</span>
+            </div>
+            <div class="key-takeaway-body">
+                Model A4 achieves <strong>100.0% HCC sensitivity</strong> [96.5%, 100.0%] across 120 external patients without requiring any hospital-specific fine-tuning. Our shortcut audit proves correlation between screen shape and risk is statistically null (r = -0.075, p = 0.421), confirming the AI reads true biological anatomy.
+            </div>
         </div>
 
         <!-- TCIA Metric Cards -->

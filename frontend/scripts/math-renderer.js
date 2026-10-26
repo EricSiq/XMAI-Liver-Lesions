@@ -75,15 +75,30 @@
             out = out.replace(/\\right\)/g, '<span class="math-paren">)</span>');
 
             // Greek symbols
+            out = out.replace(/\\lambda/g, 'λ');
+            out = out.replace(/\\mu/g, 'μ');
             out = out.replace(/\\sigma/g, 'σ');
             out = out.replace(/\\alpha/g, 'α');
             out = out.replace(/\\beta/g, 'β');
             out = out.replace(/\\gamma/g, 'γ');
+            out = out.replace(/\\theta/g, 'θ');
+            out = out.replace(/\\epsilon/g, 'ε');
             out = out.replace(/\\phi/g, 'ϕ');
             out = out.replace(/\\pi/g, 'π');
             out = out.replace(/\\tau/g, 'τ');
+            out = out.replace(/\\Delta/g, 'Δ');
+            out = out.replace(/\\delta/g, 'δ');
 
-            // Math operators & symbols
+            // Math operators & relational symbols
+            out = out.replace(/\\geq?/g, ' ≥ ');
+            out = out.replace(/\\leq?/g, ' ≤ ');
+            out = out.replace(/\\approx/g, ' ≈ ');
+            out = out.replace(/\\pm/g, ' ± ');
+            out = out.replace(/\\neq/g, ' ≠ ');
+            out = out.replace(/\\leftrightarrow/g, ' ⟷ ');
+            out = out.replace(/\\rightarrow/g, ' → ');
+            out = out.replace(/\\leftarrow/g, ' ← ');
+            out = out.replace(/\\infty/g, '∞');
             out = out.replace(/\\in/g, ' ∈ ');
             out = out.replace(/\\odot/g, ' ⊙ ');
             out = out.replace(/\\oplus/g, ' ⊕ ');
@@ -112,10 +127,11 @@
         },
 
         /**
-         * Scans an element (or document body) and renders any text nodes containing $...$ or $$...$$
-         * or elements with class 'render-math'.
+         * Scans an element (or document body) and renders any math expressions.
          */
         typeset(root = document) {
+            if (!root) return;
+
             // First render elements with explicit data-math attribute
             const mathElements = root.querySelectorAll('[data-math]');
             mathElements.forEach(el => {
@@ -134,9 +150,53 @@
                         ],
                         throwOnError: false
                     });
+                    return;
                 } catch (e) {
-                    console.warn('[MathRenderer] auto-render error:', e);
+                    console.warn('[MathRenderer] auto-render error, falling back:', e);
                 }
+            }
+
+            // High-fidelity offline fallback text replacement for $...$ and $$...$$
+            this.replaceMathTextNodes(root);
+        },
+
+        /**
+         * Safe DOM tree walker that parses and formats inline $...$ and block $$...$$ math in text nodes.
+         */
+        replaceMathTextNodes(node) {
+            if (!node) return;
+
+            const ignoredTags = ['SCRIPT', 'STYLE', 'TEXTAREA', 'PRE', 'CODE', 'INPUT', 'SELECT'];
+            if (ignoredTags.includes(node.nodeName)) return;
+
+            if (node.nodeType === 3) { // Text node
+                const text = node.nodeValue;
+                if (!text || (!text.includes('$') && !text.includes('\\'))) return;
+
+                // Match $$...$$ or $...$
+                const mathRegex = /(\$\$[\s\S]+?\$\$|\$[^\$\n]+?\$)/g;
+                if (!mathRegex.test(text)) return;
+
+                const parent = node.parentNode;
+                if (!parent) return;
+
+                const span = document.createElement('span');
+                span.innerHTML = text.replace(mathRegex, (match) => {
+                    const isDisplay = match.startsWith('$$');
+                    const rawLatex = isDisplay 
+                        ? match.substring(2, match.length - 2) 
+                        : match.substring(1, match.length - 1);
+                    return this.render(rawLatex, isDisplay);
+                });
+
+                parent.replaceChild(span, node);
+                return;
+            }
+
+            // Recursively walk child nodes
+            const children = Array.from(node.childNodes);
+            for (let i = 0; i < children.length; i++) {
+                this.replaceMathTextNodes(children[i]);
             }
         }
     };

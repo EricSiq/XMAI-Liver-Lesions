@@ -22,24 +22,28 @@ function renderExplainabilityView() {
             </p>
         </div>
 
-        <!-- Student Speaker Script & Judge Panel Takeaway -->
-        <div class="student-cue">
-            <div class="student-cue-header">
-                <span>🗣️ Student Speaker Script (Interpretability & Trust)</span>
-                <span class="badge badge-accent" style="font-size: 10px;">Say this to panel</span>
+        <!-- First-Principles Explanation & Key Takeaway -->
+        <div class="first-principles-box">
+            <div class="first-principles-header">
+                <span>💡 Explainability from First Principles: Opening the Black Box</span>
+                <span class="badge badge-accent" style="font-size: 10px;">First Principles</span>
             </div>
-            <div class="student-cue-body">
-                "Judges, explainability is essential for regulatory approval. We demonstrate 4 distinct interpretability tiers: <strong>Grad-CAM heatmaps</strong> prove attention focuses on tumor boundaries rather than calipers; <strong>7&times;7 Cross-Attention maps</strong> show how demographics guide visual feature queries; <strong>Shapley attributions</strong> quantify exact feature log-odds; and <strong>Dirichlet uncertainty</strong> decomposes predictions into belief masses and ignorance ($u$)."
+            <div class="first-principles-body">
+                Doctors cannot trust a black-box AI that gives a diagnosis without reasons. We break down the model's inner reasoning into 4 clear levels:
+                <strong>(1) Visual Heatmap:</strong> Shows where the AI looks, proving it inspects the tumor rather than background hospital marks.
+                <strong>(2) Cross-Modal Attention:</strong> Shows how patient age and sex guide the AI to inspect specific tumor borders.
+                <strong>(3) Tug-of-War Score (Shapley):</strong> Measures how much each piece of data (scan, age, sex) pulled toward cancer vs. benign.
+                <strong>(4) Honest Uncertainty (Dirichlet):</strong> Lets the model declare "I am uncertain" when evidence is lacking.
             </div>
         </div>
 
-        <div class="judge-callout">
-            <div class="judge-callout-header">
-                <span>🎯 Judge Panel Key Takeaway (CLAIM Principle Compliance)</span>
-                <span class="badge badge-warning" style="font-size: 10px;">Audit Verification</span>
+        <div class="key-takeaway-box">
+            <div class="key-takeaway-header">
+                <span>🎯 Safety & Clinical Trust Audit</span>
+                <span class="badge badge-success" style="font-size: 10px;">Verified Accountability</span>
             </div>
-            <div class="judge-callout-body">
-                Multi-level explainability verifies that Model A4 learns genuine pathophysiological features rather than spurious shortcuts: Grad-CAM localization faithfulness increases from 42.1% in unimodal vision to <strong>89.4%</strong> in gated multimodal fusion (+47.3% focal concentration).
+            <div class="key-takeaway-body">
+                Visual focus inside the actual tumor increases from 42.1% in unimodal vision models to <strong>89.4%</strong> in our gated multimodal model (+47.3% focal concentration), confirming the AI learns genuine biological anatomy rather than superficial shortcuts.
             </div>
         </div>
 
@@ -394,7 +398,7 @@ function updateAdvancedExplainabilityPanels(patientId) {
             </div>
             <div class="visual-caption" style="margin: 0.75rem 1rem 1rem 1rem;">
                 <span class="visual-caption-badge">Figure 6.2 / Cross-Modal Attention</span>
-                <div><strong>Spatial Cross-Attention ($7 \\times 7$):</strong> Demographic context vector queries spatial tokens, amplifying peripheral margin features while suppressing acoustic shadow dropouts.</div>
+                <div><strong>Spatial Cross-Attention (7 &times; 7 Grid):</strong> Demographic context vectors query spatial features, sharpening focus on the tumor border while ignoring sound shadow dropouts.</div>
             </div>
         </div>
 
@@ -499,7 +503,7 @@ function updateLevels3And4(patient) {
                 </div>
                 <div class="visual-caption" style="margin: 0.75rem 1rem 1rem 1rem;">
                     <span class="visual-caption-badge">Figure 6.3 / Shapley Attribution</span>
-                    <div><strong>Axiomatic Game-Theoretic Attribution:</strong> Quantifies exact marginal log-odds contributions ($S \\subseteq M \\setminus \\{m\\}$) of demographic age, sex, and B-mode acoustic features to the diagnostic decision.</div>
+                    <div><strong>Game-Theoretic Feature Attribution:</strong> Quantifies the exact contribution of patient age, sex, and ultrasound acoustic features to the diagnostic decision.</div>
                 </div>
             </div>
 
@@ -551,12 +555,12 @@ function updateLevels3And4(patient) {
                     </div>
 
                     <div style="margin-top: 0.75rem; font-size: 0.8rem; color: var(--text-secondary); line-height: 1.45;">
-                        <strong>Clinical Triage Protocol:</strong> If epistemic vacancy <span class="math-inline">${window.MathRenderer ? window.MathRenderer.render('u > 15\\%') : 'u > 15%'}</span>, the patient is flagged as an out-of-distribution atypical case requiring senior radiologist referral rather than autonomous diagnosis.
+                        <strong>Clinical Triage Protocol:</strong> If uncertainty <span class="math-inline">${window.MathRenderer ? window.MathRenderer.render('u > 15\\%') : 'u > 15%'}</span>, the case is flagged for human specialist referral rather than automatic decision-making.
                     </div>
                 </div>
                 <div class="visual-caption" style="margin: 0.75rem 1rem 1rem 1rem;">
                     <span class="visual-caption-badge">Figure 6.4 / Evidential Belief</span>
-                    <div><strong>Dempster-Shafer Belief Decomposition:</strong> Partitions probability space into belief masses and epistemic vacancy ($u$), enabling safety-certified referral triage.</div>
+                    <div><strong>Belief &amp; Uncertainty Decomposition:</strong> Decomposes predictions into belief in cancer, belief in benign, and honest uncertainty (u), enabling safety-certified referral triage.</div>
                 </div>
             </div>
         </div>

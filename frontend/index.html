@@ -12,6 +12,7 @@
     <!-- KaTeX for pristine academic math typesetting -->
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.16.9/dist/katex.min.css" crossorigin="anonymous">
     <script defer src="https://cdn.jsdelivr.net/npm/katex@0.16.9/dist/katex.min.js" crossorigin="anonymous"></script>
+    <script defer src="https://cdn.jsdelivr.net/npm/katex@0.16.9/dist/contrib/auto-render.min.js" crossorigin="anonymous"></script>
     <link rel="stylesheet" href="styles/academic-theme.css">
     <link rel="stylesheet" href="styles/components.css">
 </head>
@@ -33,13 +34,6 @@
                     <p class="paper-subtitle">A Patient-Isolated Dynamic Gating & Evidential Framework for Borderline Ultrasound Differentiation</p>
                 </div>
                 <div class="header-controls">
-                    <label class="presenter-toggle-container" title="Toggle AI Student Presenter Mode (Speaking cues & judge takeaways)">
-                        <input type="checkbox" id="toggle-presenter-mode" checked>
-                        <span class="presenter-toggle-track">
-                            <span class="presenter-toggle-thumb"></span>
-                        </span>
-                        <span class="presenter-toggle-label">🎓 Presenter Mode</span>
-                    </label>
                     <button id="btn-run-live-audit" class="btn btn-outline btn-sm" title="Run Automated CLAIM Verification Audit">▶ Live ML Audit</button>
                     <button id="btn-export-bibtex" class="btn btn-secondary btn-sm" title="View BibTeX Citation">Cite Manuscript</button>
                     <a href="#section-paper-artifacts" class="btn btn-primary btn-sm">LaTeX Tables</a>

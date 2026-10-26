@@ -21,24 +21,24 @@ function renderH1RescueView() {
             </p>
         </div>
 
-        <!-- Student Speaker Script & Judge Panel Takeaway -->
-        <div class="student-cue">
-            <div class="student-cue-header">
-                <span>🗣️ Student Speaker Script (Hypothesis H1 Proof)</span>
-                <span class="badge badge-accent" style="font-size: 10px;">Say this to panel</span>
+        <!-- First-Principles Explanation & Key Takeaway -->
+        <div class="first-principles-box">
+            <div class="first-principles-header">
+                <span>💡 Hypothesis H1 from First Principles: What is "Decile 1"?</span>
+                <span class="badge badge-accent" style="font-size: 10px;">First Principles</span>
             </div>
-            <div class="student-cue-body">
-                "Judges, this graph directly tests Hypothesis H1: does multimodal fusion selectively intervene on ambiguous lesions without perturbing clear ones? Notice Decile 1: all 3 patient rescues concentrate entirely here, achieving a +2 net patient gain. In Deciles 2 through 10, high-margin stability is 100% (zero false overrides). This proves that the clinical prior operates strictly as an intelligent tie-breaker."
+            <div class="first-principles-body">
+                When an AI inspects an ultrasound image, it gives a confidence score. When the score is close to 50%, the image is blurry, dark, or distorted by sound shadows—the AI is essentially guessing. We sorted all cases into 10 buckets (deciles) by image clarity. <strong>Decile 1</strong> contains the hardest, most ambiguous 10% of scans. Hypothesis H1 tests: <em>Does the AI intelligently use patient history only when the scan is ambiguous (Decile 1), while leaving clear scans completely untouched?</em>
             </div>
         </div>
 
-        <div class="judge-callout">
-            <div class="judge-callout-header">
-                <span>🎯 Judge Panel Key Takeaway (Hypothesis H1 Outcome)</span>
-                <span class="badge badge-warning" style="font-size: 10px;">Primary Clinical Hypothesis</span>
+        <div class="key-takeaway-box">
+            <div class="key-takeaway-header">
+                <span>🎯 The Proof: Selective Tie-Breaker Validation</span>
+                <span class="badge badge-success" style="font-size: 10px;">Hypothesis H1 Passed</span>
             </div>
-            <div class="judge-callout-body">
-                The Fisher's Exact test ($p &lt; 0.001$) confirms that multimodal assistance is non-random and strictly localized to the lowest confidence decile, validating Hypothesis H1 with zero high-margin clinical regressions.
+            <div class="key-takeaway-body">
+                All 3 patient rescues occurred strictly in Decile 1 (p &lt; 0.001, Fisher's Exact Test). In Deciles 2 through 10 (where ultrasound is clear), stability was <strong>100%</strong> with zero false overrides. This proves the system acts as a safe, targeted tie-breaker rather than blindly meddling with clear diagnoses.
             </div>
         </div>
 
@@ -291,7 +291,7 @@ function updateDecileDetail(index) {
                         </div>
 
                         <p style="font-size: 0.75rem; color: #475569; line-height: 1.4; margin: 0; background: #f8fafc; padding: 0.5rem; border-radius: 4px;">
-                            <strong>AI Mechanism:</strong> Zero-gradient shadow dropout in B-mode caused false benign confidence. Context gate applied male demographic prior to correct latent embedding.
+                            <strong>AI Mechanism:</strong> An acoustic sound shadow made the tumor look falsely clear and benign to the camera. The gating valve used the patient's demographics (65yo male) to reorient the model and catch the cancer (91.9% HCC).
                         </p>
                         <div class="visual-caption" style="margin-top: 6px; padding: 4px 8px; font-size: 11px;">
                             <span class="visual-caption-badge">Rescue Narrative</span>
@@ -336,7 +336,7 @@ function updateDecileDetail(index) {
                         </div>
 
                         <p style="font-size: 0.75rem; color: #475569; line-height: 1.4; margin: 0; background: #f8fafc; padding: 0.5rem; border-radius: 4px;">
-                            <strong>AI Mechanism:</strong> Spurious visual roughness triggered false positive. Demographic prior conditioned gating vector <i>g</i> to suppress high-frequency false positives.
+                            <strong>AI Mechanism:</strong> Harmless surface roughness on this benign blood vessel tumor caused the vision model to raise a false alarm (67.1% cancer). The gating valve used patient demographics (44yo female) to correctly identify the benign lump (97.0% benign).
                         </p>
                         <div class="visual-caption" style="margin-top: 6px; padding: 4px 8px; font-size: 11px;">
                             <span class="visual-caption-badge">Rescue Narrative</span>
@@ -380,7 +380,7 @@ function updateDecileDetail(index) {
                         </div>
 
                         <p style="font-size: 0.75rem; color: #475569; line-height: 1.4; margin: 0; background: #f8fafc; padding: 0.5rem; border-radius: 4px;">
-                            <strong>AI Mechanism:</strong> B-mode feature ambiguity resolved via patient manifold prior; modulated logits shifted decision across the clinical 0.5 threshold.
+                            <strong>AI Mechanism:</strong> Weak sound reflection around the border of the tumor confused the vision model. Gated fusion brought in the patient's baseline information, correctly guiding the prediction to benign hemangioma (66.0%).
                         </p>
                         <div class="visual-caption" style="margin-top: 6px; padding: 4px 8px; font-size: 11px;">
                             <span class="visual-caption-badge">Rescue Narrative</span>

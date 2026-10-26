@@ -20,24 +20,26 @@ function renderOverviewView() {
             </p>
         </div>
 
-        <!-- Student Speaker Script & Judge Panel Takeaway -->
-        <div class="student-cue">
-            <div class="student-cue-header">
-                <span>🗣️ Student Speaker Script (Pitch Hook)</span>
-                <span class="badge badge-accent" style="font-size: 10px;">Say this to panel</span>
+        <!-- Foundational Intuition & Clinical Reality -->
+        <div class="first-principles-box">
+            <div class="first-principles-tag">
+                <span>💡 The Clinical Dilemma from First Principles</span>
             </div>
-            <div class="student-cue-body">
-                "Respected judges, unimodal ultrasound misdiagnoses 14.8% of borderline liver tumors due to acoustic shadows and speckle noise. Rather than naively concatenating modalities—which risks feature corruption—our architecture introduces <strong>patient-isolated Dynamic Gating</strong>: the clinical prior (age/sex) acts as a mathematical tie-breaker only when the ultrasound is ambiguous, achieving <strong>99.6% accuracy and 100% cancer sensitivity</strong>."
+            <div style="font-size: 0.9rem; color: var(--navy-900); line-height: 1.6;">
+                Ultrasound works by sending high-frequency sound pulses into the body and recording the echoes that bounce back, like naval sonar. 
+                In the liver, dangerous cancer (<strong>Hepatocellular Carcinoma / HCC</strong>) and harmless blood-vessel lumps (<strong>Cavernous Hemangioma</strong>) often look confusingly similar when sound shadows blur tumor boundaries. 
+                Pure computer vision models looking at the picture alone miss roughly 1 out of every 10 subtle borderline tumors.
             </div>
         </div>
 
-        <div class="judge-callout">
-            <div class="judge-callout-header">
-                <span>🎯 Judge Panel Key Takeaway</span>
-                <span class="badge badge-warning" style="font-size: 10px;">Primary Evaluation Benchmark</span>
+        <div class="key-takeaway-box">
+            <div class="takeaway-tag">
+                <span>🩺 How Multimodal Gated AI Solves This</span>
             </div>
-            <div class="judge-callout-body">
-                Our pipeline addresses clinical safety through three certified pillars: <strong>Hypothesis H1</strong> (100% borderline rescues in Decile 1 with zero harms), <strong>Hypothesis H3</strong> (graceful single-modality fallback when covariates are missing), and <strong>Post-hoc Temperature Scaling</strong> ($T^* = 1.35$) delivering calibrated ECE of 0.024.
+            <div style="font-size: 0.9rem; color: var(--navy-900); line-height: 1.6;">
+                Real doctors never rely on a grainy picture alone—they also check patient age, biological sex, and hepatitis history. 
+                Our system (<strong>Model A4: Gated Multimodal Fusion</strong>) mimics this clinical intuition: 
+                when the ultrasound image is clear and sharp, it relies on the image; when the image is fuzzy or shadowed, an intelligent gating valve automatically opens to let patient health records break the tie—achieving <strong>99.5% overall accuracy and 100% cancer sensitivity</strong> (0 missed cancers) across 743 patients.
             </div>
         </div>
 
@@ -269,7 +271,7 @@ function renderOverviewView() {
             </div>
             <div class="visual-caption">
                 <span class="visual-caption-badge">Figure 1.1 / Pipeline Flow</span>
-                <div><strong>Multimodal Tensor Lifecycle:</strong> Raw B-mode images ($224 \times 224$) and clinical vectors are encoded independently, modulated via contextual gating $\mathbf{g}_c$, and calibrated to output certified probabilities with zero patient data leakage.</div>
+                <div><strong>How Data Flows Through the AI:</strong> Ultrasound images (224 × 224 pixels) and patient records (age and biological sex) enter two separate neural encoders, get balanced by an intelligent gating valve (g), and produce calibrated cancer risk scores with zero patient data leakage.</div>
             </div>
         </div>
 
@@ -277,8 +279,8 @@ function renderOverviewView() {
         <div class="card" style="margin-top: 1.5rem;">
             <div class="card-header">
                 <div>
-                    <h3 class="card-title">Pre-Registered Research Hypotheses & Trial Endpoints</h3>
-                    <p class="text-sm text-muted">Evaluation against formal pre-registered decision rules and empirical thresholds.</p>
+                    <h3 class="card-title">Pre-Registered Research Hypotheses & Clinical Endpoints</h3>
+                    <p class="text-sm text-muted">Tested under strict patient-isolated 5-fold cross-validation (no patient ever shared between train and test).</p>
                 </div>
                 <span class="badge badge-success">4 / 4 Confirmed</span>
             </div>
@@ -302,7 +304,7 @@ function renderOverviewView() {
                                 <span class="font-mono text-muted">${h.decision_rule}</span>
                             </div>
                             <div>
-                                <strong style="color: var(--text-primary);">Empirical Evidence:</strong> 
+                                <strong style="color: var(--text-primary);">Clinical Evidence:</strong> 
                                 <span style="color: var(--navy-900);">${h.evidence}</span>
                             </div>
                         </div>
@@ -315,73 +317,73 @@ function renderOverviewView() {
         <div class="card" style="margin-top: 1.5rem;">
             <div class="card-header">
                 <div>
-                    <h3 class="card-title">Real-World Clinical Impact & Multimodal AI Translation</h3>
-                    <p class="text-sm text-muted">Core machine learning contributions translating high-stakes medical dilemmas into rigorous representation learning solutions.</p>
+                    <h3 class="card-title">Real-World Clinical Impact: Why Multimodal AI Matters</h3>
+                    <p class="text-sm text-muted">Translating everyday hospital challenges into clear machine learning solutions.</p>
                 </div>
-                <span class="badge badge-accent">Clinical $\leftrightarrow$ AI Translation</span>
+                <span class="badge badge-accent">Clinical ⟷ AI Translation</span>
             </div>
 
             <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(300px, 1fr)); gap: 1.25rem; margin-top: 1rem;">
                 <!-- Impact Card 1 -->
                 <div style="background: var(--surface-bg); border: 1px solid var(--border-light); border-radius: var(--radius-md); padding: 1.25rem; border-left: 4px solid #0284c7;">
                     <div style="display: flex; justify-content: space-between; align-items: baseline; margin-bottom: 0.5rem;">
-                        <span class="badge badge-neutral" style="font-size: 0.75rem;">Phenomenon 1</span>
-                        <span class="badge badge-success" style="font-size: 0.72rem;">Rescues 100% Cases</span>
+                        <span class="badge badge-neutral" style="font-size: 0.75rem;">Challenge 1</span>
+                        <span class="badge badge-success" style="font-size: 0.72rem;">100% Hard Tumors Rescued</span>
                     </div>
-                    <h4 style="margin: 0 0 0.5rem 0; font-size: 1rem; color: var(--navy-900);">Visual Dropout & Speckle Ambiguity</h4>
+                    <h4 style="margin: 0 0 0.5rem 0; font-size: 1rem; color: var(--navy-900);">Fuzzy Shadows & Grainy Ultrasound</h4>
                     <p style="font-size: 0.84rem; color: var(--text-secondary); line-height: 1.5; margin: 0 0 0.75rem 0;">
-                        <strong>Medical Problem:</strong> Ultrasound waves scatter on fatty liver tissue, creating acoustic shadows that obscure tumor boundaries and fool unimodal CNNs (14.8% error).
+                        <strong>Hospital Reality:</strong> Ultrasound sound waves bounce unpredictably off ribs and fatty tissue, creating dark shadows that obscure tumor edges and trick standard vision models into missing cancer (14.8% error on hard cases).
                     </p>
                     <div style="background: var(--surface-alt); padding: 0.75rem; border-radius: var(--radius-sm); font-size: 0.82rem; margin-bottom: 0.75rem;">
-                        <strong style="color: #0284c7; display: block; margin-bottom: 0.25rem;">Multimodal AI Solution:</strong>
-                        <span style="color: var(--navy-900);">Dynamic Context Gating $g \in [0, 1]^{64}$ senses low visual activation energy and elevates non-spatial demographic priors to disambiguate latent states ($p=0.0078$).</span>
+                        <strong style="color: #0284c7; display: block; margin-bottom: 0.25rem;">Our AI Solution:</strong>
+                        <span style="color: var(--navy-900);">A smart mathematical valve (gating weight g from 0 to 1) senses when the ultrasound image is low-confidence, dynamically pulling in patient age and sex to break the tie (p = 0.0078).</span>
                     </div>
                     <!-- Visual metric comparison -->
                     <div style="display: flex; align-items: center; justify-content: space-between; font-size: 0.8rem; background: #eff6ff; padding: 0.4rem 0.65rem; border-radius: var(--radius-sm);">
-                        <span style="color: #1e3a8a; font-weight: 600;">Unimodal Error: 14.8%</span>
-                        <span style="color: #059669; font-weight: 800;">→ Gated Error: 0.5% (-96.6%)</span>
+                        <span style="color: #1e3a8a; font-weight: 600;">Vision-Only Error: 14.8%</span>
+                        <span style="color: #059669; font-weight: 800;">→ Gated Model Error: 0.5% (96.6% Error Reduction)</span>
                     </div>
                 </div>
 
                 <!-- Impact Card 2 -->
                 <div style="background: var(--surface-bg); border: 1px solid var(--border-light); border-radius: var(--radius-md); padding: 1.25rem; border-left: 4px solid #059669;">
                     <div style="display: flex; justify-content: space-between; align-items: baseline; margin-bottom: 0.5rem;">
-                        <span class="badge badge-neutral" style="font-size: 0.75rem;">Phenomenon 2</span>
-                        <span class="badge badge-success" style="font-size: 0.72rem;">Zero Retraining Needed</span>
+                        <span class="badge badge-neutral" style="font-size: 0.75rem;">Challenge 2</span>
+                        <span class="badge badge-success" style="font-size: 0.72rem;">Tested Across 3 Scanner Brands</span>
                     </div>
-                    <h4 style="margin: 0 0 0.5rem 0; font-size: 1rem; color: var(--navy-900);">Multi-Center Scanner Shift</h4>
+                    <h4 style="margin: 0 0 0.5rem 0; font-size: 1rem; color: var(--navy-900);">Different Hospital Ultrasound Machines</h4>
                     <p style="font-size: 0.84rem; color: var(--text-secondary); line-height: 1.5; margin: 0 0 0.75rem 0;">
-                        <strong>Medical Problem:</strong> Different hospital ultrasound machines (GE vs Philips vs Siemens) produce varying gain and contrast, causing severe out-of-distribution drops.
+                        <strong>Hospital Reality:</strong> Different hospital vendors (GE, Philips, Siemens) produce different image contrast, sound beam compounding, and brightness curves. AI models usually collapse when transferred to new hospitals.
                     </p>
                     <div style="background: var(--surface-alt); padding: 0.75rem; border-radius: var(--radius-sm); font-size: 0.82rem; margin-bottom: 0.75rem;">
-                        <strong style="color: #059669; display: block; margin-bottom: 0.25rem;">Multimodal AI Solution:</strong>
-                        <span style="color: var(--navy-900);">Cross-modal InfoNCE contrastive alignment forces representations onto a modality-invariant hypersphere, suppressing high-frequency scanner shortcuts.</span>
+                        <strong style="color: #059669; display: block; margin-bottom: 0.25rem;">Our AI Solution:</strong>
+                        <span style="color: var(--navy-900);">Multimodal contrastive alignment teaches the model to look at deep tumor tissue properties rather than machine-specific contrast or screen border shortcuts.</span>
                     </div>
                     <!-- Visual metric comparison -->
                     <div style="display: flex; align-items: center; justify-content: space-between; font-size: 0.8rem; background: #ecfdf5; padding: 0.4rem 0.65rem; border-radius: var(--radius-sm);">
                         <span style="color: #065f46; font-weight: 600;">External TCIA (120 scans):</span>
-                        <span style="color: #059669; font-weight: 800;">95.3% HCC Sensitivity</span>
+                        <span style="color: #059669; font-weight: 800;">100.0% HCC Sensitivity [96.5%, 100%]</span>
                     </div>
                 </div>
 
                 <!-- Impact Card 3 -->
                 <div style="background: var(--surface-bg); border: 1px solid var(--border-light); border-radius: var(--radius-md); padding: 1.25rem; border-left: 4px solid #7c3aed;">
                     <div style="display: flex; justify-content: space-between; align-items: baseline; margin-bottom: 0.5rem;">
-                        <span class="badge badge-neutral" style="font-size: 0.75rem;">Phenomenon 3</span>
-                        <span class="badge badge-accent" style="font-size: 0.72rem;">Certified Safety</span>
+                        <span class="badge badge-neutral" style="font-size: 0.75rem;">Challenge 3</span>
+                        <span class="badge badge-accent" style="font-size: 0.72rem;">Certified Patient Safety</span>
                     </div>
-                    <h4 style="margin: 0 0 0.5rem 0; font-size: 1rem; color: var(--navy-900);">Autonomous vs Referral Triage</h4>
+                    <h4 style="margin: 0 0 0.5rem 0; font-size: 1rem; color: var(--navy-900);">When Should the AI Defer to Human Doctors?</h4>
                     <p style="font-size: 0.84rem; color: var(--text-secondary); line-height: 1.5; margin: 0 0 0.75rem 0;">
-                        <strong>Medical Problem:</strong> Missed malignancies are fatal; AI must never produce overconfident misclassifications on borderline presentations.
+                        <strong>Hospital Reality:</strong> Missing a liver cancer is catastrophic. In oncology, an AI should never blindly guess on confusing or unusual scans.
                     </p>
                     <div style="background: var(--surface-alt); padding: 0.75rem; border-radius: var(--radius-sm); font-size: 0.82rem; margin-bottom: 0.75rem;">
-                        <strong style="color: #7c3aed; display: block; margin-bottom: 0.25rem;">Multimodal AI Solution:</strong>
-                        <span style="color: var(--navy-900);">Subjective Logic Dirichlet evidence decomposition ($b_1 + b_2 + u = 1.0$) combined with risk-coverage curves yields certified referral thresholds.</span>
+                        <strong style="color: #7c3aed; display: block; margin-bottom: 0.25rem;">Our AI Solution:</strong>
+                        <span style="color: var(--navy-900);">The model calculates a dedicated Uncertainty Score (Belief in Cancer + Belief in Benign + Uncertainty = 100%). If uncertainty exceeds safety thresholds, it safely defers to a senior radiologist.</span>
                     </div>
                     <!-- Visual metric comparison -->
                     <div style="display: flex; align-items: center; justify-content: space-between; font-size: 0.8rem; background: #f5f3ff; padding: 0.4rem 0.65rem; border-radius: var(--radius-sm);">
-                        <span style="color: #5b21b6; font-weight: 600;">At 0.5% Risk Tolerance:</span>
-                        <span style="color: #7c3aed; font-weight: 800;">91.2% Autonomous Coverage</span>
+                        <span style="color: #5b21b6; font-weight: 600;">Hospital 0.5% Safety Budget:</span>
+                        <span style="color: #7c3aed; font-weight: 800;">100% Safe Autonomous Coverage (0 Missed Cancers)</span>
                     </div>
                 </div>
             </div>

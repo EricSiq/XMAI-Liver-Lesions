@@ -21,24 +21,27 @@ function renderCaseView() {
             </p>
         </div>
 
-        <!-- Student Speaker Script & Judge Panel Takeaway -->
-        <div class="student-cue">
-            <div class="student-cue-header">
-                <span>🗣️ Student Speaker Script (Case Simulation Demo)</span>
-                <span class="badge badge-accent" style="font-size: 10px;">Say this to panel</span>
+        <!-- First-Principles Explanation & Key Takeaway -->
+        <div class="first-principles-box">
+            <div class="first-principles-header">
+                <span>💡 Ultrasound Tumors from First Principles: Dark vs. Bright Echoes</span>
+                <span class="badge badge-accent" style="font-size: 10px;">First Principles</span>
             </div>
-            <div class="student-cue-body">
-                "Judges, this simulator allows you to interact directly with the trained PyTorch model. Notice Patient HCC_48: on ultrasound, acoustic shadowing tricked the vision model into a 28.1% benign score. But because this patient is a 65-year-old male, our dynamic gate allocates a 34% clinical weight, boosting malignancy probability to 91.9% and catching the cancer. Uncheck the mask ($m=0$) to demonstrate Hypothesis H3: the system immediately falls back to pure ultrasound without failing."
+            <div class="first-principles-body">
+                Ultrasound works by sending high-frequency sound waves into the body and timing the echoes.
+                Malignant liver cancers (<strong>HCC</strong>) typically appear dark (hypoechoic) with irregular boundaries and acoustic sound shadows; they are most prevalent in older males with chronic hepatitis.
+                Benign blood vessel tangles (<strong>hemangiomas</strong>) typically reflect strong, bright echoes (hyperechoic); they are common in younger-to-middle-aged females.
+                When acoustic shadows or blurry edges make a cancer mimic a benign lump, our gating valve cross-references the patient's age and history to prevent misdiagnosis.
             </div>
         </div>
 
-        <div class="judge-callout">
-            <div class="judge-callout-header">
-                <span>🎯 Judge Panel Key Takeaway (Clinical Robustness)</span>
-                <span class="badge badge-warning" style="font-size: 10px;">Clinical Safety Validation</span>
+        <div class="key-takeaway-box">
+            <div class="key-takeaway-header">
+                <span>🎯 Clinical Case Verification & Fail-Safe Mode</span>
+                <span class="badge badge-success" style="font-size: 10px;">Verified Safety</span>
             </div>
-            <div class="judge-callout-body">
-                The counterfactual simulator verifies that clinical assistance is continuous and smooth. It avoids catastrophic threshold cliffs while proving safe single-modality fallback under missing data ($m=0$).
+            <div class="key-takeaway-body">
+                The interactive simulator below confirms that multimodal assistance changes smoothly with age and gender. If clinical data is completely missing (uncheck the mask switch), the model gracefully falls back to image-only diagnosis with zero errors or crashes.
             </div>
         </div>
 
