@@ -24,6 +24,7 @@ When an AI coding agent makes a local implementation choice, it must add an entr
 | R-07 | Confirm AUL scope | Localisation/pretraining deliverable vs deferred after Track A | Project lead | Proposed |
 | R-08 | Approve data/artefact policy | Who can access raw images, decoded frames, patient predictions, checkpoints, and explanation cards? | Project lead | Proposed |
 | R-09 | Approve reporting language | Confirm the prototype/research-only wording and no clinical-deployment claim | Project lead | Proposed |
+| R-10 | Approve 5-class differential expansion | Approve architectural roadmap expanding from binary (HCC vs. Hem) to 5-class (HCC, Hem, FNH, Hepatic Adenoma, Cholangiocarcinoma / Cyst) via hierarchical gating and dynamic CEUS | Clinical/modelling lead | Approved by design (Roadmap) |
 
 ### Reviewer resolution template
 
@@ -184,6 +185,13 @@ No result may enter a presentation, design document, or report until a reviewer 
 - **Visual Pareto Frontier:** Implemented interactive scatter plot (Accuracy vs. ECE) proving Model A4's Pareto optimality and highlighting the dangerous overconfidence distortion of naive late averaging (Model A6).
 - **Visual Decile Rescue & Multi-Scanner Generalization:** Enhanced Hypothesis H1 with before/after probability shift bars and lesion morphology thumbnails for all 3 rescued patients. Added multi-scanner hardware transfer cards (GE, Philips, Siemens) and shortcut null-band chart ($r \in [-0.1, +0.1]$).
 - **Comprehensive Briefing Dossier:** Authorized generation of `XMAI_Comprehensive_Briefing_Document.docx` as the definitive master technical briefing and mentorship defense guide (first principles, glossary, clinical impact, 15 fundamental mentor Q&As, and 5 advanced multimodal AI Q&As).
+- 
+-### 2026-10-26 — Phase 12 5-Class Multiclass Differential Diagnosis Roadmap
+-
+-- **Clinical Taxonomy Expansion:** Formally adopted the strategic specification (`docs/FIVE_CLASS_DIFFERENTIAL_DIAGNOSIS_PLAN.md`) expanding diagnostic scope from binary triage (HCC vs. Hemangioma) to the 5 canonical focal liver lesion categories: (1) Hepatocellular Carcinoma (HCC), (2) Cavernous Hemangioma (Hem), (3) Focal Nodular Hyperplasia (FNH), (4) Hepatic Adenoma (HCA), and (5) Intrahepatic Cholangiocarcinoma (ICC) [with Simple Hepatic Cysts as benign non-neoplastic reference benchmark].
+-- **Hierarchical Decision Tree:** Approved coarse-to-fine decision architecture: Stage 1 oncologic safety gate (Malignant vs. Benign, sensitivity target $\ge 99\%$) followed by Stage 2A (Benign: Hem vs. FNH vs. HCA vs. Cyst) and Stage 2B (Malignant: HCC vs. ICC).
+-- **Multimodal Synergy Requirements:** Mandated dynamic CEUS microbubble kinetics (Arterial, Portal, Late) and expanded 8-variable clinical oncology vector (Cirrhosis, HBV/HCV, Oral Contraceptive duration, AFP, CA 19-9) to resolve arterial hypervascular overlaps between FNH, Adenoma, and early HCC.
+-- **5-Class Evidential Uncertainty:** Generalized Dempster-Shafer Subjective Logic to 5-dimensional Dirichlet distributions ($b_1..b_5, u$), ensuring equivocal arterial lesions (e.g. young female with oral contraceptive history) trigger certified referral triage ($u > 0.30$) to liver-specific contrast MRI.
 
 
 

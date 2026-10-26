@@ -396,6 +396,18 @@ Track B benchmark claims are formally deferred. Do not start statistical trainin
 
 **Exit gate:** PASSED — Full 52-commit audit trail synchronized, presentation console fully visual-heavy, and comprehensive academic briefing dossier generated for mentorship defense.
 
+## Phase 12: 5-Class Multiclass Differential Diagnosis Specification (Roadmap)
+
+### 12.1 Strategic Documentation & Clinical Architecture
+- [x] Author comprehensive 5-class strategic architecture specification in `docs/FIVE_CLASS_DIFFERENTIAL_DIAGNOSIS_PLAN.md` covering pathophysiological, ultrasound, and clinical phenotype matrices for HCC, Hemangioma, FNH, Hepatic Adenoma, and Intrahepatic Cholangiocarcinoma (plus Simple Cysts).
+- [x] Register Reviewer Decision `R-10` and formalize Phase 12 in `decisions.md`.
+- [x] Detail multi-source dataset harmonization protocol linking SMC-LUD (B-mode/demographics), SYSU-CEUS (multiclass CEUS cineloops), and TCIA (external multi-scanner with confirmed ICC cases).
+- [x] Specify Hierarchical Coarse-to-Fine decision tree architecture with Stage 1 Oncologic Safety Gate ($\text{Sensitivity} \ge 99\%$) and Stage 2 subtyping heads to eliminate dangerous cross-tier confusions.
+- [x] Extend Dempster-Shafer Subjective Logic evidential uncertainty formulation to 5-class Dirichlet concentration vectors ($\boldsymbol{\alpha} = \boldsymbol{e} + 1$, $u = 5 / S$), defining conflict-driven certified referral triggers ($u > 0.30$) for equivocal arterial-phase lesions.
+- [x] Formulate Class-Balanced Focal Loss ($\gamma = 2.0$, $\beta = 0.999$) and 5-class multi-temperature scaling calibration protocol.
+
+**Exit gate:** PASSED — Complete 5-class multiclass architectural roadmap fully documented and referenced across project records without code modifications.
+
 ---
 
 ## Suggested execution order for a coding agent
@@ -410,6 +422,7 @@ Track B benchmark claims are formally deferred. Do not start statistical trainin
 8. Execute Phase 8 & 9 Academic Presentation Console & CLAIM verification.
 9. Execute Phase 10 Methodological Audit & Stress-Testing Suite (173/173 tests passing).
 10. Execute Phase 11 Visual-Heavy Presentation Overhaul & Master Briefing Dossier.
+11. Consult Phase 12 5-Class Multiclass Roadmap (`docs/FIVE_CLASS_DIFFERENTIAL_DIAGNOSIS_PLAN.md`) before expanding model output dimension $K$.
 
 At every stop, report: files changed, command run, tests passed/failed, manifest version, assumptions, and decisions needing human review. Do not silently broaden the scope.
 

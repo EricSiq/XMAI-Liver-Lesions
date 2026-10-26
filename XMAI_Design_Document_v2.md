@@ -638,3 +638,23 @@ xmai/
 18. Dadoun H, et al. (2022). Deep learning for the detection, localization, and characterization of focal liver lesions on abdominal US images. Radiology: Artificial Intelligence, 4(3), e210110. https://doi.org/10.1148/ryai.210110
 19. Xu T, et al. (2026). Diagnosis of small focal liver lesions (≤2 cm): A deep learning approach based on B-mode ultrasound and contrast-enhanced ultrasound. Ultrasound in Medicine & Biology, 52(9), 1816-1825. https://doi.org/10.1016/j.ultrasmedbio.2026.01.002
 20. Lingamaiah SC, et al. (2026). Attention-based deep learning model for clinical assessment of focal liver lesions using ultrasound imaging. Biomedical Signal Processing and Control, 116, 109563. https://doi.org/10.1016/j.bspc.2026.109563
+
+---
+
+## Appendix F: Strategic Roadmap — 5-Class Multiclass Differential Diagnosis `[DESIGN: Roadmap]`
+
+Full strategic specification and clinical matrices are documented in [`docs/FIVE_CLASS_DIFFERENTIAL_DIAGNOSIS_PLAN.md`](docs/FIVE_CLASS_DIFFERENTIAL_DIAGNOSIS_PLAN.md).
+
+### F.1 Clinical Taxonomy & Target Classes
+1. **Hepatocellular Carcinoma (HCC)**: Malignant hepatocellular neoplasm with delayed mild washout (>60s) in cirrhotic background.
+2. **Cavernous Hemangioma (Hem)**: Benign vascular lesion with peripheral nodular discontinuous puddle enhancement and centripetal fill-in.
+3. **Focal Nodular Hyperplasia (FNH)**: Benign hyperplastic malformation with rapid arterial centrifugal spoke-wheel fill-in and strictly no washout.
+4. **Hepatic Adenoma (HCA)**: Premalignant benign epithelial neoplasm with oral contraceptive association, carrying rupture and transformation risks.
+5. **Intrahepatic Cholangiocarcinoma (ICC)**: Aggressive biliary malignancy with peripheral rim arterial enhancement and rapid early washout (<60s).
+*(Benchmark: **Simple Hepatic Cyst** — anechoic, imperceptible wall, non-enhancing).*
+
+### F.2 Key Architectural Pillars
+- **Harmonized Multi-Source Manifest**: Integrates SMC-LUD (B-mode/context), SYSU-CEUS (multiclass dynamic cine), and TCIA (external validation including confirmed ICC cases).
+- **Hierarchical Decision Tree**: Stage 1 Oncologic Safety Gate (Malignant vs. Benign, sensitivity $\ge 99\%$) followed by Stage 2A (Benign Subtypes) and Stage 2B (Malignant Subtypes), preventing catastrophic cross-tier diagnostic confusions.
+- **5-Class Subjective Logic Evidential Uncertainty**: Generates class beliefs $(b_1..b_5)$ and vacuous uncertainty $u = 5 / S$. Conflicts between visual kinetics and demographic priors drive certified referral triage ($u > 0.30$) to liver-specific contrast MRI.
+- **Class-Balanced Focal Loss**: Incorporates effective sample weighting ($\beta = 0.999$, $\gamma = 2.0$) to mitigate severe class imbalance for rare lesions (FNH, Adenoma).

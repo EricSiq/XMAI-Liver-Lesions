@@ -138,11 +138,26 @@ All 173 tests execute in under 28 seconds with a **100% pass rate** across all 2
 ---
 
 ## 5. References and Documentation
-
-- [XMAI Comprehensive Briefing Document (Word .docx)](XMAI_Comprehensive_Briefing_Document.docx) — Master briefing dossier with layer-by-layer first principles, glossary, clinical impact, and 20 mentor defense Q&As.
-- [XMAI Design Document v2.0](XMAI_Design_Document_v2.md) — Complete scientific specification & audit.
-- [Project Decisions & Change Control](decisions.md) — Architectural decision log (Phases 0–11).
-- [Requirements & Hardware Specs](requirements.md) — Environment prerequisites & hardware guidelines.
-- [Task Implementation Checklist](tasks.md) — Executable step-by-step implementation plan (Phases 0–11 complete).
-- [Scientific Manuscript Report](paper/manuscript_report.md) — Journal manuscript reproducibility report and LaTeX tables.
+ 
+ - [5-Class Differential Diagnosis Strategic Plan](docs/FIVE_CLASS_DIFFERENTIAL_DIAGNOSIS_PLAN.md) — Comprehensive clinical, architectural, and mathematical roadmap for expanding to 5 classes (HCC, Hemangioma, FNH, Adenoma, Cholangiocarcinoma).
+ - [XMAI Comprehensive Briefing Document (Word .docx)](XMAI_Comprehensive_Briefing_Document.docx) — Master briefing dossier with layer-by-layer first principles, glossary, clinical impact, and 20 mentor defense Q&As.
+ - [XMAI Design Document v2.0](XMAI_Design_Document_v2.md) — Complete scientific specification & audit.
+ - [Project Decisions & Change Control](decisions.md) — Architectural decision log (Phases 0–12).
+ - [Requirements & Hardware Specs](requirements.md) — Environment prerequisites & hardware guidelines.
+ - [Task Implementation Checklist](tasks.md) — Executable step-by-step implementation plan (Phases 0–12 complete).
+ - [Scientific Manuscript Report](paper/manuscript_report.md) — Journal manuscript reproducibility report and LaTeX tables.
+ 
+ ---
+ 
+ ## 6. Strategic Roadmap: 5-Class Differential Diagnosis
+ 
+ Phase III of XMAI expands beyond the initial binary triage (HCC vs. Hemangioma) to the complete 5-class clinical oncology differential spectrum:
+ 1. **Hepatocellular Carcinoma (HCC)**: Primary hepatocellular malignancy with late mild washout and cirrhosis association.
+ 2. **Cavernous Hemangioma (Hem)**: Benign vascular malformation with peripheral nodular discontinuous puddle enhancement.
+ 3. **Focal Nodular Hyperplasia (FNH)**: Benign hyperplastic lesion with rapid arterial centrifugal "spoke-wheel" fill-in and sustained enhancement (no washout).
+ 4. **Hepatic Adenoma (HCA)**: Benign epithelial neoplasm associated with oral contraceptive use, presenting high hemorrhage and malignant transformation risk.
+ 5. **Intrahepatic Cholangiocarcinoma (ICC)**: Aggressive primary biliary adenocarcinoma with peripheral rim enhancement and rapid early washout (<60s).
+ *(Reference: **Simple Hepatic Cysts** incorporated as the anechoic non-enhancing baseline).*
+ 
+ Full clinical pathophysiology matrices, hierarchical coarse-to-fine decision trees, Class-Balanced Focal Loss formulations, and 5-class Dirichlet Subjective Logic evidential uncertainty specifications are detailed in [`docs/FIVE_CLASS_DIFFERENTIAL_DIAGNOSIS_PLAN.md`](docs/FIVE_CLASS_DIFFERENTIAL_DIAGNOSIS_PLAN.md).
 
