@@ -287,9 +287,9 @@ function renderArchitectureView() {
             <div class="card-header">
                 <div>
                     <h3 class="card-title">Clinical-to-AI Rosetta Stone</h3>
-                    <p class="text-sm text-muted">A dedicated dictionary translating medical ultrasound oncology concepts into concrete Multimodal AI representation principles.</p>
+                    <p class="text-sm text-muted">A simple dictionary translating medical ultrasound concepts into concrete AI principles.</p>
                 </div>
-                <span class="badge badge-neutral">For Multimodal AI Researchers</span>
+                <span class="badge badge-neutral">Concepts Translation</span>
             </div>
 
             <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(310px, 1fr)); gap: 1rem; margin-top: 1rem;">
@@ -297,15 +297,15 @@ function renderArchitectureView() {
                 <div style="background: var(--surface-bg); border: 1px solid var(--border-light); border-radius: var(--radius-md); padding: 1rem 1.15rem; border-top: 3px solid #0284c7;">
                     <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 0.4rem;">
                         <span class="badge badge-neutral text-xs">Imaging Physics</span>
-                        <span class="font-mono text-xs" style="color: #0284c7; font-weight: 700;">Spatial Dropout</span>
+                        <span class="font-mono text-xs" style="color: #0284c7; font-weight: 700;">Missing Visual Data</span>
                     </div>
                     <div style="display: flex; align-items: center; gap: 0.5rem; margin-bottom: 0.4rem;">
                         <strong style="color: #0f172a; font-size: 0.92rem;">Acoustic Shadowing</strong>
                         <span style="color: var(--accent); font-weight: 800;">⇄</span>
-                        <strong style="color: #0284c7; font-size: 0.92rem;">Spatial SNR Dropout</strong>
+                        <strong style="color: #0284c7; font-size: 0.92rem;">Signal Dropout</strong>
                     </div>
                     <p style="font-size: 0.82rem; color: var(--text-secondary); line-height: 1.5; margin: 0;">
-                        When dense tissue reflects sound beams, pixels beneath receive zero echo. In unimodal CNNs, this manifests as zero-gradient spatial dropouts where features collapse to uninformative noise.
+                        Dense ribs or tissue block sound waves, creating dark shadow zones. Vision models see this as missing data and guess blindly; multimodal AI uses patient history to recover the missing context.
                     </p>
                 </div>
 
@@ -313,15 +313,15 @@ function renderArchitectureView() {
                 <div style="background: var(--surface-bg); border: 1px solid var(--border-light); border-radius: var(--radius-md); padding: 1rem 1.15rem; border-top: 3px solid #059669;">
                     <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 0.4rem;">
                         <span class="badge badge-neutral text-xs">Imaging Physics</span>
-                        <span class="font-mono text-xs" style="color: #059669; font-weight: 700;">Rayleigh Noise</span>
+                        <span class="font-mono text-xs" style="color: #059669; font-weight: 700;">Acoustic Noise</span>
                     </div>
                     <div style="display: flex; align-items: center; gap: 0.5rem; margin-bottom: 0.4rem;">
                         <strong style="color: #0f172a; font-size: 0.92rem;">Ultrasound Speckle</strong>
                         <span style="color: var(--accent); font-weight: 800;">⇄</span>
-                        <strong style="color: #059669; font-size: 0.92rem;">High-Freq Interference</strong>
+                        <strong style="color: #059669; font-size: 0.92rem;">High-Frequency Noise</strong>
                     </div>
                     <p style="font-size: 0.82rem; color: var(--text-secondary); line-height: 1.5; margin: 0;">
-                        Granular textures are phase interference artifacts rather than real anatomy. Standard vision models suffer from overfitting high-frequency speckle unless regularized via multi-scale residual pooling.
+                        The grainy texture on ultrasound is caused by sound wave interference, not true anatomy. Without regularization, standard vision models mistakenly learn this random noise instead of tumor shape.
                     </p>
                 </div>
 
@@ -329,15 +329,15 @@ function renderArchitectureView() {
                 <div style="background: var(--surface-bg); border: 1px solid var(--border-light); border-radius: var(--radius-md); padding: 1rem 1.15rem; border-top: 3px solid #10b981;">
                     <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 0.4rem;">
                         <span class="badge badge-neutral text-xs">Pathology Class</span>
-                        <span class="font-mono text-xs" style="color: #10b981; font-weight: 700;">Benign Manifold</span>
+                        <span class="font-mono text-xs" style="color: #10b981; font-weight: 700;">Benign Class</span>
                     </div>
                     <div style="display: flex; align-items: center; gap: 0.5rem; margin-bottom: 0.4rem;">
                         <strong style="color: #0f172a; font-size: 0.92rem;">Cavernous Hemangioma</strong>
                         <span style="color: var(--accent); font-weight: 800;">⇄</span>
-                        <strong style="color: #10b981; font-size: 0.92rem;">Smooth Latent Cluster</strong>
+                        <strong style="color: #10b981; font-size: 0.92rem;">Harmless Cluster (y = 0)</strong>
                     </div>
                     <p style="font-size: 0.82rem; color: var(--text-secondary); line-height: 1.5; margin: 0;">
-                        Non-cancerous vascular tangle showing uniform high-intensity echogenicity. Represents the benign class manifold ($y=0$), characterized by low spatial gradient variance and crisp margins.
+                        A harmless tangle of blood vessels that appears uniformly bright with sharp edges. It represents the benign class ($y=0$) and is most common in younger female patients.
                     </p>
                 </div>
 
@@ -345,47 +345,47 @@ function renderArchitectureView() {
                 <div style="background: var(--surface-bg); border: 1px solid var(--border-light); border-radius: var(--radius-md); padding: 1rem 1.15rem; border-top: 3px solid #e11d48;">
                     <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 0.4rem;">
                         <span class="badge badge-neutral text-xs">Pathology Class</span>
-                        <span class="font-mono text-xs" style="color: #e11d48; font-weight: 700;">Malignant Manifold</span>
+                        <span class="font-mono text-xs" style="color: #e11d48; font-weight: 700;">Malignant Class</span>
                     </div>
                     <div style="display: flex; align-items: center; gap: 0.5rem; margin-bottom: 0.4rem;">
                         <strong style="color: #0f172a; font-size: 0.92rem;">HCC (Liver Cancer)</strong>
                         <span style="color: var(--accent); font-weight: 800;">⇄</span>
-                        <strong style="color: #e11d48; font-size: 0.92rem;">Heterogeneous Manifold</strong>
+                        <strong style="color: #e11d48; font-size: 0.92rem;">Malignant Tumor (y = 1)</strong>
                     </div>
                     <p style="font-size: 0.82rem; color: var(--text-secondary); line-height: 1.5; margin: 0;">
-                        Primary malignant liver carcinoma ($y=1$). Exhibits chaotic internal vascularization, necrotic dark cores, and irregular boundary morphology requiring high-capacity spatial feature aggregation.
+                        Primary malignant liver cancer ($y=1$) with chaotic internal blood flow, dark necrotic centers, and irregular margins. It most frequently occurs in older male patients with cirrhosis.
                     </p>
                 </div>
 
                 <!-- Concept 5: Clinical Demographics -->
                 <div style="background: var(--surface-bg); border: 1px solid var(--border-light); border-radius: var(--radius-md); padding: 1rem 1.15rem; border-top: 3px solid #d97706;">
                     <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 0.4rem;">
-                        <span class="badge badge-neutral text-xs">Modality Prior</span>
-                        <span class="font-mono text-xs" style="color: #d97706; font-weight: 700;">Empirical Prior Vector</span>
+                        <span class="badge badge-neutral text-xs">Patient Context</span>
+                        <span class="font-mono text-xs" style="color: #d97706; font-weight: 700;">Prior Probability</span>
                     </div>
                     <div style="display: flex; align-items: center; gap: 0.5rem; margin-bottom: 0.4rem;">
                         <strong style="color: #0f172a; font-size: 0.92rem;">Patient Age & Sex</strong>
                         <span style="color: var(--accent); font-weight: 800;">⇄</span>
-                        <strong style="color: #d97706; font-size: 0.92rem;">Non-Spatial Bayesian Prior</strong>
+                        <strong style="color: #d97706; font-size: 0.92rem;">Demographic Prior</strong>
                     </div>
                     <p style="font-size: 0.82rem; color: var(--text-secondary); line-height: 1.5; margin: 0;">
-                        Epidemiological baseline: older males exhibit dramatically higher carcinoma incidence ($P(HCC) \sim 0.72$). Acts as a prior distribution vector that dynamically regularizes ambiguous vision.
+                        Patient background provides an initial probability baseline. When an ultrasound image is blurry or borderline, demographic risk helps break ties and prevent missed cancers.
                     </p>
                 </div>
 
                 <!-- Concept 6: Sonographer Calipers -->
                 <div style="background: var(--surface-bg); border: 1px solid var(--border-light); border-radius: var(--radius-md); padding: 1rem 1.15rem; border-top: 3px solid #8b5cf6;">
                     <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 0.4rem;">
-                        <span class="badge badge-neutral text-xs">Confounder Control</span>
-                        <span class="font-mono text-xs" style="color: #8b5cf6; font-weight: 700;">Spurious Shortcut</span>
+                        <span class="badge badge-neutral text-xs">Data Cleaning</span>
+                        <span class="font-mono text-xs" style="color: #8b5cf6; font-weight: 700;">Artificial Shortcut</span>
                     </div>
                     <div style="display: flex; align-items: center; gap: 0.5rem; margin-bottom: 0.4rem;">
                         <strong style="color: #0f172a; font-size: 0.92rem;">Measurement Calipers</strong>
                         <span style="color: var(--accent); font-weight: 800;">⇄</span>
-                        <strong style="color: #8b5cf6; font-size: 0.92rem;">High-Contrast Watermark</strong>
+                        <strong style="color: #8b5cf6; font-size: 0.92rem;">Visual Shortcut Artifact</strong>
                     </div>
                     <p style="font-size: 0.82rem; color: var(--text-secondary); line-height: 1.5; margin: 0;">
-                        Radiologist crosshairs and text annotations produce synthetic high-contrast edges. If not strictly filtered, models learn to detect calipers rather than lesions; XMAI enforces clean-only input.
+                        Doctor measurement crosshairs and text produce artificial sharp lines. If not cleaned during preprocessing, AI models learn to detect the doctor's marks instead of the actual tumor.
                     </p>
                 </div>
             </div>
