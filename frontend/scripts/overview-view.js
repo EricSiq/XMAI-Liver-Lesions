@@ -13,7 +13,7 @@ function renderOverviewView() {
     container.innerHTML = `
         <div class="section-header">
             <span class="section-tag">Section 01 / Translation Executive</span>
-            <h2 class="section-title">Executive Summary & Pre-Registered Hypotheses</h2>
+            <h2 class="section-title">Executive Summary & Translational AI Objectives</h2>
             <p class="section-desc">
                 Translational evaluation of multimodal deep learning for differentiating Hepatocellular Carcinoma (HCC) 
                 from benign Cavernous Hemangioma across 743 patient cohorts under patient-stratified 5-fold cross-validation.
@@ -274,43 +274,6 @@ function renderOverviewView() {
             </div>
         </div>
 
-        <!-- Pre-Registered Hypotheses Review -->
-        <div class="card" style="margin-top: 1.5rem;">
-            <div class="card-header">
-                <div>
-                    <h3 class="card-title">Pre-Registered Research Hypotheses & Clinical Endpoints</h3>
-                    <p class="text-sm text-muted">Tested under strict patient-isolated 5-fold cross-validation (no patient ever shared between train and test).</p>
-                </div>
-                <span class="badge badge-success">4 / 4 Confirmed</span>
-            </div>
-            
-            <div class="hypotheses-list" style="display: flex; flex-direction: column; gap: 1rem; margin-top: 1rem;">
-                ${hypotheses.map(h => `
-                    <div class="hypothesis-item" style="border: 1px solid var(--border-light); border-radius: var(--radius-md); padding: 1rem 1.25rem; background: var(--surface-bg);">
-                        <div style="display: flex; justify-content: space-between; align-items: baseline; margin-bottom: 0.5rem; flex-wrap: wrap; gap: 0.5rem;">
-                            <div style="display: flex; align-items: center; gap: 0.5rem;">
-                                <strong class="badge badge-accent">${h.id}</strong>
-                                <h4 style="margin: 0; font-size: 1rem; font-weight: 600; color: var(--navy-900);">${h.title}</h4>
-                            </div>
-                            <span class="badge badge-success">${h.status}</span>
-                        </div>
-                        <p style="margin: 0.25rem 0 0.75rem 0; font-size: 0.88rem; color: var(--text-secondary); line-height: 1.5;">
-                            ${h.statement}
-                        </p>
-                        <div style="background: var(--surface-alt); padding: 0.65rem 0.85rem; border-radius: var(--radius-sm); font-size: 0.82rem; border-left: 3px solid var(--accent);">
-                            <div style="margin-bottom: 0.25rem;">
-                                <strong style="color: var(--text-primary);">Pre-registered Decision Rule:</strong> 
-                                <span class="font-mono text-muted">${h.decision_rule}</span>
-                            </div>
-                            <div>
-                                <strong style="color: var(--text-primary);">Clinical Evidence:</strong> 
-                                <span style="color: var(--navy-900);">${h.evidence}</span>
-                            </div>
-                        </div>
-                    </div>
-                `).join('')}
-            </div>
-        </div>
 
         <!-- Real-World Impact Matrix for Multimodal AI Researchers -->
         <div class="card" style="margin-top: 1.5rem;">
