@@ -8,11 +8,8 @@
         "section-overview",
         "section-architecture",
         "section-ablation",
-        "section-h1-rescue",
         "section-cases",
         "section-explainability",
-        "section-selective",
-        "section-external",
         "section-paper-artifacts"
     ];
 

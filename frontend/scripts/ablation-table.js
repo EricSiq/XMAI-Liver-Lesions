@@ -44,29 +44,61 @@ function renderAblationView() {
         </div>
 
         <!-- Genuine Scientific Evaluation Figures from Artifacts -->
-        <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(360px, 1fr)); gap: 1.25rem; margin: 1.25rem 0;">
-            <div class="artifact-figure-card">
-                <div style="display: flex; justify-content: space-between; align-items: baseline; margin-bottom: 0.5rem;">
-                    <strong style="font-size: 0.92rem; color: var(--navy-900);">Multi-Model ROC Curves (9 Paradigms)</strong>
-                    <span class="badge badge-accent" style="font-size: 0.72rem;">Artifact Figure 3.1</span>
+        <!-- Artifact Figure 3.1: Multi-Model ROC Curves -->
+        <div class="artifact-figure-card" style="margin: 1.5rem 0; padding: 1.5rem; background: #ffffff; border: 1.5px solid var(--border-color); border-radius: 8px; box-shadow: 0 4px 12px rgba(0,0,0,0.06); text-align: center;">
+            <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 0.85rem; border-bottom: 1px solid var(--border-light); padding-bottom: 0.75rem; flex-wrap: wrap; gap: 0.5rem;">
+                <div style="text-align: left;">
+                    <h4 style="margin: 0; font-size: 1.15rem; color: var(--navy-900); font-weight: 700;">Multi-Model ROC Curves (9 Paradigms)</h4>
+                    <p style="margin: 4px 0 0 0; font-size: 0.85rem; color: var(--text-muted);">Receiver Operating Characteristic curves across 5-fold cross-validation showing diagnostic discrimination.</p>
                 </div>
-                <img src="/artifacts/evaluation_figures/multimodel_roc_curves.png" alt="Multi-Model ROC Curves" class="artifact-figure-img" />
-                <div class="visual-caption" style="margin-top: 0.5rem;">
-                    <span class="visual-caption-badge">ROC Benchmark</span>
-                    <span>Model A4 achieves AUC = 0.999 [0.997, 1.000], significantly outperforming unimodal vision (A1 AUC = 0.941) with zero false negatives at clinical operating thresholds.</span>
+                <div style="display: flex; gap: 0.5rem; align-items: center;">
+                    <span class="badge badge-accent" style="font-size: 0.75rem;">Artifact Figure 3.1</span>
+                    <span class="badge badge-success" style="font-size: 0.75rem;">A4 AUC: 0.999 [0.997, 1.000]</span>
+                </div>
+            </div>
+            <div style="width: 100%; text-align: center; background: #f8fafc; border-radius: 6px; padding: 0.75rem; border: 1px solid #e2e8f0;">
+                <img src="/artifacts/evaluation_figures/multimodel_roc_curves.png" alt="Multi-Model ROC Curves" style="max-height: 480px; width: auto; max-width: 100%; display: block; margin: 0 auto; object-fit: contain;" />
+            </div>
+            <div class="visual-caption" style="margin-top: 1rem; text-align: left; padding: 0.75rem 1rem; background: #f1f5f9; border-radius: 6px; border-left: 4px solid var(--color-primary);">
+                <div style="display: flex; align-items: baseline; gap: 0.5rem; margin-bottom: 4px;">
+                    <span class="visual-caption-badge" style="background: var(--navy-900); color: #fff;">ROC Benchmark</span>
+                    <strong style="color: var(--navy-900); font-size: 0.88rem;">Diagnostic Discrimination:</strong>
+                </div>
+                <p style="margin: 0; font-size: 0.85rem; line-height: 1.45; color: var(--navy-900);">
+                    Model A4 achieves AUC = 0.999 [0.997, 1.000], significantly outperforming unimodal vision (A1 AUC = 0.941) with zero false negatives at clinical operating thresholds.
+                </p>
+            </div>
+        </div>
+
+        <!-- Artifact Figure 3.2: Empirical Reliability Diagrams (Centered & Enlarged) -->
+        <div class="artifact-figure-card" style="margin: 2rem 0; padding: 1.75rem; background: #ffffff; border: 2px solid var(--color-primary); border-radius: 10px; box-shadow: 0 6px 18px rgba(0,0,0,0.08); text-align: center;">
+            <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 1rem; border-bottom: 1px solid var(--border-light); padding-bottom: 0.85rem; flex-wrap: wrap; gap: 0.5rem;">
+                <div style="text-align: left;">
+                    <h3 style="margin: 0; font-size: 1.3rem; color: var(--navy-900); font-weight: 800;">Empirical Reliability Diagrams & Expected Calibration Error</h3>
+                    <p style="margin: 4px 0 0 0; font-size: 0.9rem; color: var(--text-muted);">Comprehensive 9-paradigm probability calibration audit evaluating diagnostic confidence alignment against true empirical frequency.</p>
+                </div>
+                <div style="display: flex; gap: 0.6rem; align-items: center; flex-wrap: wrap;">
+                    <span class="badge badge-accent" style="font-size: 0.78rem; padding: 4px 8px;">Artifact Figure 3.2</span>
+                    <span class="badge badge-success" style="font-size: 0.78rem; padding: 4px 8px;">ECE = 0.024 (Optimal Calibration)</span>
+                    <span class="badge badge-outline" style="font-size: 0.78rem; padding: 4px 8px;">Calibration Audit</span>
                 </div>
             </div>
 
-            <div class="artifact-figure-card">
-                <div style="display: flex; justify-content: space-between; align-items: baseline; margin-bottom: 0.5rem;">
-                    <strong style="font-size: 0.92rem; color: var(--navy-900);">Empirical Reliability Diagrams & Expected Calibration Error</strong>
-                    <span class="badge badge-accent" style="font-size: 0.72rem;">Artifact Figure 3.2</span>
+            <!-- Full-width centered high-definition image container with horizontal scroll support -->
+            <div style="width: 100%; overflow-x: auto; padding: 1rem; background: #f8fafc; border-radius: 8px; border: 1.5px solid #cbd5e1; margin: 0 auto; text-align: center;">
+                <img src="/artifacts/evaluation_figures/reliability_diagrams.png" 
+                     alt="Empirical Reliability Diagrams and Expected Calibration Error across all 9 Models" 
+                     style="width: 100%; min-width: 950px; height: auto; display: block; margin: 0 auto; object-fit: contain; border-radius: 4px;" />
+            </div>
+
+            <div class="visual-caption" style="margin-top: 1.25rem; text-align: left; padding: 1rem 1.25rem; background: #f1f5f9; border-radius: 6px; border-left: 5px solid var(--color-primary);">
+                <div style="display: flex; align-items: baseline; gap: 0.5rem; margin-bottom: 6px;">
+                    <span class="visual-caption-badge" style="background: var(--navy-900); color: #fff; font-size: 0.75rem; padding: 3px 8px;">Calibration Audit</span>
+                    <strong style="color: var(--navy-900); font-size: 0.92rem;">First-Principles Probability Alignment:</strong>
                 </div>
-                <img src="/artifacts/evaluation_figures/reliability_diagrams.png" alt="Reliability Diagrams" class="artifact-figure-img" />
-                <div class="visual-caption" style="margin-top: 0.5rem;">
-                    <span class="visual-caption-badge">Calibration Audit</span>
-                    <span>Model A4 maintains tight diagonal alignment (ECE = 0.024), whereas late ensembling (A6) exhibits severe overconfidence (ECE = 0.191).</span>
-                </div>
+                <p style="margin: 0; font-size: 0.88rem; line-height: 1.5; color: var(--navy-900);">
+                    Model A4 maintains tight diagonal alignment (ECE = 0.024), whereas late ensembling (A6) exhibits severe overconfidence (ECE = 0.191). In high-stakes oncology, calibrated confidence ensures probability outputs reflect genuine clinical risk rather than artificial certainty.
+                </p>
             </div>
         </div>
 

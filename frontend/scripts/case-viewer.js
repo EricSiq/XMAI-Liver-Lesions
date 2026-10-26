@@ -13,7 +13,7 @@ function renderCaseView() {
 
     container.innerHTML = `
         <div class="section-header">
-            <span class="section-tag">Section 05 / Patient Verification</span>
+            <span class="section-tag">Section 04 / Patient Verification</span>
             <h2 class="section-title">Curated Clinical Case Gallery & Diagnostic Comparison</h2>
             <p class="section-desc">
                 In-depth audit of real patient cases from the SMC-LUD cohort, comparing unimodal B-mode ResNet-18 (A1) 

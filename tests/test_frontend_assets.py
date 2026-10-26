@@ -18,18 +18,15 @@ def test_frontend_structure_exists():
 
 
 def test_frontend_html_sections():
-    """Verify that index.html contains all 9 required scholarly presentation sections."""
+    """Verify that index.html contains all 6 required scholarly presentation sections."""
     html_content = (FRONTEND_DIR / "index.html").read_text(encoding="utf-8")
 
     expected_sections = [
         "section-overview",
         "section-architecture",
         "section-ablation",
-        "section-h1-rescue",
         "section-cases",
         "section-explainability",
-        "section-selective",
-        "section-external",
         "section-paper-artifacts",
     ]
 
@@ -48,11 +45,8 @@ def test_frontend_scripts_exist_and_linked():
         "scripts/overview-view.js",
         "scripts/architecture-diagram.js",
         "scripts/ablation-table.js",
-        "scripts/h1-rescue-chart.js",
         "scripts/case-viewer.js",
         "scripts/explainability-view.js",
-        "scripts/selective-triage.js",
-        "scripts/tcia-benchmark.js",
         "scripts/manuscript-exporter.js",
         "scripts/app.js",
     ]

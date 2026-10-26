@@ -11,7 +11,7 @@ function renderManuscriptView() {
 
     container.innerHTML = `
         <div class="section-header">
-            <span class="section-tag">Section 09 / Publication Ready</span>
+            <span class="section-tag">Section 06 / Publication Ready</span>
             <h2 class="section-title">Academic Publication Artifacts & LaTeX Exporter</h2>
             <p class="section-desc">
                 Journal-submission utilities formatted for *IEEE Transactions on Medical Imaging* and *Medical Image Analysis*. 

@@ -43,19 +43,16 @@ def run_audit():
         print(f"  ✖ Failed to reach {BASE_URL}: {e}")
         return False
 
-    # Check 9 core scientific sections
+    # Check 6 core scientific sections
     expected_sections = [
         ("section-overview", "Executive Overview & Hypotheses"),
         ("section-architecture", "Multimodal Architecture Visualizer"),
         ("section-ablation", "9-Model Ablation Explorer"),
-        ("section-h1-rescue", "Hypothesis H1 Decile Rescue"),
         ("section-cases", "Patient Case Gallery & Counterfactual"),
         ("section-explainability", "Multi-Level Explainability Suite"),
-        ("section-selective", "Clinical Selective Triage"),
-        ("section-external", "External TCIA Benchmark"),
         ("section-paper-artifacts", "Manuscript Exporters & Provenance"),
     ]
-    print("\n  Verifying 9 Interactive Scientific Sections:")
+    print("\n  Verifying 6 Interactive Scientific Sections:")
     for sid, sname in expected_sections:
         if f'id="{sid}"' in html:
             print(f"    ✔ [{sid}] {sname}")

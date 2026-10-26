@@ -14,7 +14,7 @@ function renderExplainabilityView() {
 
     container.innerHTML = `
         <div class="section-header">
-            <span class="section-tag">Section 06 / Interpretability & Trust</span>
+            <span class="section-tag">Section 05 / Interpretability & Trust</span>
             <h2 class="section-title">Multi-Level Explainability Console</h2>
             <p class="section-desc">
                 Four-tier explainability suite: Visual Spatial Grad-CAM (Level 1), Cross-Modal Attention (Level 2), 
