@@ -25,21 +25,48 @@ function renderAblationView() {
         <!-- First-Principles Explanation & Key Takeaway -->
         <div class="first-principles-box">
             <div class="first-principles-header">
-                <span>💡 What is an Ablation Study and Why Compare 9 Models?</span>
-                <span class="badge badge-accent" style="font-size: 10px;">First Principles</span>
+                <span>Ablation Study Objective: 9-Model Evaluation</span>
+                <span class="badge badge-accent" style="font-size: 10px;">Evaluation Paradigm</span>
             </div>
             <div class="first-principles-body">
-                In AI research, an <strong>ablation study</strong> means testing different ways of combining data to see what actually creates value. We compared 9 different architectures: looking at ultrasound images alone (A1), patient medical records alone (A2), simple gluing (A3), intelligent gating (A4), feature conditioning (A5), voting/averaging (A6), and shuffled control tests (A7&ndash;A9). This proves beyond doubt that intelligent cross-referencing—not just extra parameters—is why the system excels.
+                In scientific machine learning, an ablation study evaluates alternative representation architectures to isolate the mechanism driving performance gains. We benchmark 9 paradigms: unimodal ultrasound vision (A1), demographic prior alone (A2), linear concatenation (A3), mask-aware gated fusion (A4), FiLM modulation (A5), late probability averaging (A6), and negative control baselines (A7&ndash;A9).
             </div>
         </div>
 
         <div class="key-takeaway-box">
             <div class="key-takeaway-header">
-                <span>🏆 Key Clinical Safety Finding</span>
+                <span>Key Benchmark Finding: Safety and Calibration</span>
                 <span class="badge badge-success" style="font-size: 10px;">Safety Benchmark</span>
             </div>
             <div class="key-takeaway-body">
-                While several models score high overall accuracy, <strong>only Gated Fusion (Model A4) achieves 100% cancer sensitivity</strong> (zero missed tumors) while keeping prediction uncertainty extremely low (calibration error = 0.024). Naive gluing (A3) misses dangerous tumors, and simple voting (A6) creates dangerous overconfidence.
+                Model A4 (Mask-Aware Gated Fusion) is the only paradigm achieving <strong>100.0% HCC sensitivity</strong> (0 missed malignant tumors) while maintaining certified low Expected Calibration Error (<strong>0.024</strong>). Linear concatenation (A3) exhibits residual false negatives, and late averaging (A6) produces severe probability distortion.
+            </div>
+        </div>
+
+        <!-- Genuine Scientific Evaluation Figures from Artifacts -->
+        <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(360px, 1fr)); gap: 1.25rem; margin: 1.25rem 0;">
+            <div class="artifact-figure-card">
+                <div style="display: flex; justify-content: space-between; align-items: baseline; margin-bottom: 0.5rem;">
+                    <strong style="font-size: 0.92rem; color: var(--navy-900);">Multi-Model ROC Curves (9 Paradigms)</strong>
+                    <span class="badge badge-accent" style="font-size: 0.72rem;">Artifact Figure 3.1</span>
+                </div>
+                <img src="/artifacts/evaluation_figures/multimodel_roc_curves.png" alt="Multi-Model ROC Curves" class="artifact-figure-img" />
+                <div class="visual-caption" style="margin-top: 0.5rem;">
+                    <span class="visual-caption-badge">ROC Benchmark</span>
+                    <span>Model A4 achieves AUC = 0.999 [0.997, 1.000], significantly outperforming unimodal vision (A1 AUC = 0.941) with zero false negatives at clinical operating thresholds.</span>
+                </div>
+            </div>
+
+            <div class="artifact-figure-card">
+                <div style="display: flex; justify-content: space-between; align-items: baseline; margin-bottom: 0.5rem;">
+                    <strong style="font-size: 0.92rem; color: var(--navy-900);">Empirical Reliability Diagrams & Expected Calibration Error</strong>
+                    <span class="badge badge-accent" style="font-size: 0.72rem;">Artifact Figure 3.2</span>
+                </div>
+                <img src="/artifacts/evaluation_figures/reliability_diagrams.png" alt="Reliability Diagrams" class="artifact-figure-img" />
+                <div class="visual-caption" style="margin-top: 0.5rem;">
+                    <span class="visual-caption-badge">Calibration Audit</span>
+                    <span>Model A4 maintains tight diagonal alignment (ECE = 0.024), whereas late ensembling (A6) exhibits severe overconfidence (ECE = 0.191).</span>
+                </div>
             </div>
         </div>
 
@@ -68,7 +95,7 @@ function renderAblationView() {
                     <text x="10" y="80" font-size="10" font-weight="800" fill="#0284c7">A4 Gated</text>
                     <rect x="75" y="68" width="180" height="15" rx="3" fill="#e2e8f0" />
                     <rect x="75" y="68" width="179" height="15" rx="3" fill="#0284c7" />
-                    <text x="265" y="80" font-size="10" font-weight="800" fill="#0284c7">99.5% ★</text>
+                    <text x="265" y="80" font-size="10" font-weight="800" fill="#0284c7">99.5% (Optimal)</text>
 
                     <!-- A6: 99.5% -->
                     <text x="10" y="108" font-size="10" font-weight="600" fill="#64748b">A6 Late Avg</text>
@@ -111,7 +138,7 @@ function renderAblationView() {
                     <text x="10" y="80" font-size="10" font-weight="800" fill="#059669">A4 Gated</text>
                     <rect x="75" y="68" width="180" height="15" rx="3" fill="#d1fae5" />
                     <rect x="75" y="68" width="180" height="15" rx="3" fill="#059669" />
-                    <text x="265" y="80" font-size="10" font-weight="800" fill="#059669">100.0% ★ (0 Misses)</text>
+                    <text x="265" y="80" font-size="10" font-weight="800" fill="#059669">100.0% (Zero Misses)</text>
 
                     <!-- A5: 100.0% -->
                     <text x="10" y="108" font-size="10" font-weight="600" fill="#64748b">A5 FiLM</text>
@@ -166,7 +193,7 @@ function renderAblationView() {
                     <text x="10" y="136" font-size="10" font-weight="700" fill="#e11d48">A6 Late Avg</text>
                     <rect x="75" y="124" width="180" height="15" rx="3" fill="#fee2e2" />
                     <rect x="75" y="124" width="170" height="15" rx="3" fill="#e11d48" />
-                    <text x="255" y="136" font-size="10" font-weight="800" fill="#b91c1c">0.191 (Dangerous!)</text>
+                    <text x="255" y="136" font-size="10" font-weight="800" fill="#b91c1c">0.191 (Miscalibrated)</text>
                 </svg>
                 <div class="visual-caption" style="margin-top: 4px; padding: 4px 8px; font-size: 11px;">
                     <span class="visual-caption-badge">Overconfidence Warning</span>
@@ -233,7 +260,7 @@ function renderAblationView() {
                         <!-- Points -->
                         <!-- A4 (Champion): ECE 0.023 -> x ≈ 90, Acc 99.5% -> y ≈ 38 -->
                         <circle cx="90" cy="38" r="8" fill="#d97706" stroke="#ffffff" stroke-width="2" />
-                        <text x="90" y="24" text-anchor="middle" font-size="10" font-weight="800" fill="#b45309">★ A4 Gated (99.5%, 0.023)</text>
+                        <text x="90" y="24" text-anchor="middle" font-size="10" font-weight="800" fill="#b45309">A4 Gated (99.5%, 0.023)</text>
 
                         <!-- A9: ECE 0.026 -> x ≈ 96, Acc 99.4% -> y ≈ 42 -->
                         <circle cx="96" cy="42" r="5" fill="#0284c7" />
@@ -264,7 +291,7 @@ function renderAblationView() {
 
                         <!-- A6 (Late Fusion Trap): ECE 0.191 -> x ≈ 360, Acc 99.6% -> y ≈ 35 -->
                         <circle cx="360" cy="35" r="7" fill="#e11d48" stroke="#ffffff" stroke-width="1.5" />
-                        <text x="360" y="22" text-anchor="middle" font-size="8.5" font-weight="800" fill="#e11d48">⚠️ A6 Late Avg (ECE: 0.191!)</text>
+                        <text x="360" y="22" text-anchor="middle" font-size="8.5" font-weight="800" fill="#e11d48">A6 Late Avg (ECE: 0.191)</text>
 
                         <!-- Axis Labels -->
                         <text x="220" y="260" font-size="9.5" text-anchor="middle" font-weight="600" fill="#0f172a">Expected Calibration Error (ECE) &rarr; (Lower is Better)</text>
@@ -460,7 +487,7 @@ function renderAblationView() {
                     <!-- Clinical Caution: Model A6 Late Fusion Note -->
                     <div style="margin-top: 1rem; background: rgba(225, 29, 72, 0.05); border: 1px solid rgba(225, 29, 72, 0.2); border-radius: var(--radius-sm); padding: 0.75rem 1rem;">
                         <div style="display: flex; align-items: center; gap: 0.4rem; color: var(--color-danger); font-weight: 700; font-size: 0.85rem;">
-                            <span>⚠️ Critical Methodological Finding: Model A6 Late Fusion Failure</span>
+                            <span>Critical Methodological Finding: Model A6 Late Fusion Failure</span>
                         </div>
                         <p style="margin: 0.35rem 0 0 0; font-size: 0.8rem; color: var(--text-secondary); line-height: 1.45;">
                             Although naive late averaging (Model A6) attained 0.996 balanced accuracy, its ECE exploded to <strong>0.191</strong>. 

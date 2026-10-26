@@ -24,24 +24,24 @@ function renderCaseView() {
         <!-- First-Principles Explanation & Key Takeaway -->
         <div class="first-principles-box">
             <div class="first-principles-header">
-                <span>💡 Ultrasound Tumors from First Principles: Dark vs. Bright Echoes</span>
-                <span class="badge badge-accent" style="font-size: 10px;">First Principles</span>
+                <span>Ultrasound Echotexture: Hypoechoic vs Hyperechoic</span>
+                <span class="badge badge-accent" style="font-size: 10px;">Acoustic Principles</span>
             </div>
             <div class="first-principles-body">
-                Ultrasound works by sending high-frequency sound waves into the body and timing the echoes.
-                Malignant liver cancers (<strong>HCC</strong>) typically appear dark (hypoechoic) with irregular boundaries and acoustic sound shadows; they are most prevalent in older males with chronic hepatitis.
-                Benign blood vessel tangles (<strong>hemangiomas</strong>) typically reflect strong, bright echoes (hyperechoic); they are common in younger-to-middle-aged females.
-                When acoustic shadows or blurry edges make a cancer mimic a benign lump, our gating valve cross-references the patient's age and history to prevent misdiagnosis.
+                Ultrasound tissue differentiation relies on acoustic impedance mismatches.
+                Malignant Hepatocellular Carcinoma (HCC) lesions typically exhibit hypoechoic attenuation with infiltrative margins and posterior shadowing, with high incidence in older male cohorts with cirrhosis.
+                Benign Cavernous Hemangiomas exhibit hyperechoic uniform vascular pooling and posterior acoustic enhancement, more common in younger female cohorts.
+                When acoustic shadowing distorts margin echogenicity, multimodal gating conditions the prediction on demographic priors to prevent false-negative misclassifications.
             </div>
         </div>
 
         <div class="key-takeaway-box">
             <div class="key-takeaway-header">
-                <span>🎯 Clinical Case Verification & Fail-Safe Mode</span>
-                <span class="badge badge-success" style="font-size: 10px;">Verified Safety</span>
+                <span>Case Verification and Fail-Safe Evaluation</span>
+                <span class="badge badge-success" style="font-size: 10px;">Robustness Verified</span>
             </div>
             <div class="key-takeaway-body">
-                The interactive simulator below confirms that multimodal assistance changes smoothly with age and gender. If clinical data is completely missing (uncheck the mask switch), the model gracefully falls back to image-only diagnosis with zero errors or crashes.
+                The counterfactual engine demonstrates smooth probability transitions under covariate shifts. Under unrecorded clinical covariates (mask m = 0), the architecture executes safe single-modality fallback without numerical instability or regression.
             </div>
         </div>
 

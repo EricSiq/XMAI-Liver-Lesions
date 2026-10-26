@@ -22,7 +22,7 @@ function renderManuscriptView() {
         <!-- First-Principles Explanation & Key Takeaway -->
         <div class="first-principles-box">
             <div class="first-principles-header">
-                <span>💡 Publication Readiness from First Principles: Peer-Review Rigor</span>
+                <span>Publication Readiness from First Principles: Peer-Review Rigor</span>
                 <span class="badge badge-accent" style="font-size: 10px;">First Principles</span>
             </div>
             <div class="first-principles-body">
@@ -32,7 +32,7 @@ function renderManuscriptView() {
 
         <div class="key-takeaway-box">
             <div class="key-takeaway-header">
-                <span>🎯 Scientific Rigor & Reproducibility Audit</span>
+                <span>Scientific Rigor and Reproducibility Audit</span>
                 <span class="badge badge-success" style="font-size: 10px;">Publication Standard</span>
             </div>
             <div class="key-takeaway-body">
@@ -43,7 +43,7 @@ function renderManuscriptView() {
         <!-- Navigation Tabs -->
         <div style="display: flex; gap: 0.5rem; margin-bottom: 1.25rem; flex-wrap: wrap;">
             <button class="btn btn-sm ${activeArtifactTab === 'presentation' ? 'btn-primary' : 'btn-outline'} artifact-tab-btn" data-tab="presentation">
-                🎓 Clinical Defense & Q&A Guide
+                Clinical Defense & Q&A Guide
             </button>
             <button class="btn btn-sm ${activeArtifactTab === 'latex' ? 'btn-primary' : 'btn-outline'} artifact-tab-btn" data-tab="latex">
                 Camera-Ready LaTeX Tables
@@ -295,7 +295,7 @@ A9 & Evidential Dirichlet (EUF) & B-mode + Clin & 0.991 [0.983, 0.997] & 0.998 &
                                 <td class="font-mono" style="color: var(--color-primary);"><strong>A4</strong></td>
                                 <td>
                                     <strong>Mask-Aware Gated Fusion</strong>
-                                    <span class="badge badge-accent" style="font-size: 10px; margin-left: 6px; padding: 2px 6px;">★ Proposed</span>
+                                    <span class="badge badge-accent" style="font-size: 10px; margin-left: 6px; padding: 2px 6px;">Proposed</span>
                                 </td>
                                 <td><strong>B-mode + Clin</strong></td>
                                 <td style="text-align: center; color: var(--color-primary);" class="font-mono"><strong>0.995 [0.989, 1.000]</strong></td>

@@ -117,23 +117,22 @@ function renderArchitectureView() {
         <!-- Foundational Architecture Intuition & Safety Fallback -->
         <div class="first-principles-box">
             <div class="first-principles-tag">
-                <span>💡 Architecture Intuition from First Principles</span>
+                <span>Architecture Principles</span>
             </div>
             <div style="font-size: 0.9rem; color: var(--navy-900); line-height: 1.6;">
-                <strong>Why not just average guesses or glue features together?</strong><br>
-                In simple probability averaging (Model A6), when the image model is confused, its bad guess pollutes the right answer—causing calibration error to spike by <strong>+730%</strong>.<br>
-                In simple vector concatenation (Model A3), patient age acts like an unyielding bias that can distort obvious visual tumor features.<br>
-                <strong>Our Solution (Model A4):</strong> An intelligent gating valve that measures visual ambiguity. When the ultrasound is clear and obvious, the gate stays shut (clinical weight near 0%). When acoustic shadows blur the tumor boundary, the gate automatically opens up to 52%, using patient history to rescue the diagnosis without corrupting easy cases.
+                <strong>Representation Trade-Offs in Multimodal Fusion:</strong><br>
+                In unweighted probability averaging (Model A6), misclassified acoustic artifacts directly corrupt the output distribution, causing an 8.3-fold increase in calibration error.<br>
+                In naive feature concatenation (Model A3), high-capacity visual gradients (512 dimensions) overwhelm low-dimensional clinical embeddings (64 dimensions), ignoring vital patient history.<br>
+                <strong>Proposed Gated Fusion (Model A4):</strong> A dynamic context-aware gating unit evaluates visual representation certainty. When acoustic margins are sharp, clinical weighting remains minimal. When acoustic attenuation obscures lesion boundaries, gating dynamically allocates capacity to clinical covariates, preserving high-margin stability while rescuing borderline cases.
             </div>
         </div>
 
         <div class="key-takeaway-box">
             <div class="takeaway-tag">
-                <span>🛡️ Built-in Safe Fallback (Missing Data Proof)</span>
+                <span>Safe Fallback and Missing Data Handling</span>
             </div>
             <div style="font-size: 0.9rem; color: var(--navy-900); line-height: 1.6;">
-                If a patient arrives in the emergency department with missing health records or unknown age, the gating valve automatically sets the clinical contribution to zero. 
-                The model safely falls back to 100% pure image vision without crashing or guessing blindly (Hypothesis H3).
+                When clinical covariates are missing or unrecorded (mask m = 0), the gating mechanism mathematically sets clinical reliance to zero, providing guaranteed single-modality fallback to pure ultrasound vision without instability (Hypothesis H3).
             </div>
         </div>
 
@@ -141,12 +140,12 @@ function renderArchitectureView() {
         <div class="card" style="margin-top: 1.25rem; background: #f8fafc; border: 1px solid var(--border-medium); padding: 1rem 1.25rem;">
             <div style="display: flex; justify-content: space-between; align-items: center; flex-wrap: wrap; gap: 0.75rem; margin-bottom: 0.75rem;">
                 <div>
-                    <h4 style="margin: 0; font-size: 0.95rem; font-weight: 700; color: var(--navy-900);">⚡ Interactive Signal Routing Simulator</h4>
-                    <p style="margin: 0.2rem 0 0 0; font-size: 0.8rem; color: var(--text-muted);">Click below to see how our AI valve dynamically adjusts between clear scans and ambiguous shadowed tumors.</p>
+                    <h4 style="margin: 0; font-size: 0.95rem; font-weight: 700; color: var(--navy-900);">Interactive Signal Routing Simulator</h4>
+                    <p style="margin: 0.2rem 0 0 0; font-size: 0.8rem; color: var(--text-muted);">Inspect dynamic gating vector modulation between definitive and borderline acoustic morphologies.</p>
                 </div>
                 <div style="display: flex; gap: 0.5rem;" id="routing-mode-selector">
-                    <button class="btn btn-outline btn-sm active" id="btn-route-clear" style="font-size: 0.78rem;">🟢 Case A: Clear Ultrasound</button>
-                    <button class="btn btn-outline btn-sm" id="btn-route-borderline" style="font-size: 0.78rem;">🟡 Case B: Borderline Shadowed Scan</button>
+                    <button class="btn btn-outline btn-sm active" id="btn-route-clear" style="font-size: 0.78rem;">Case A: Clear Ultrasound</button>
+                    <button class="btn btn-outline btn-sm" id="btn-route-borderline" style="font-size: 0.78rem;">Case B: Borderline Shadowed Scan</button>
                 </div>
             </div>
             <div id="routing-flow-status" style="display: grid; grid-template-columns: repeat(auto-fit, minmax(200px, 1fr)); gap: 0.75rem; font-size: 0.82rem;">

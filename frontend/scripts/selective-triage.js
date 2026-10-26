@@ -24,21 +24,21 @@ function renderSelectiveView() {
         <!-- First-Principles Explanation & Key Takeaway -->
         <div class="first-principles-box">
             <div class="first-principles-header">
-                <span>💡 Selective Triage from First Principles: Knowing When to Ask a Human Doctor</span>
-                <span class="badge badge-accent" style="font-size: 10px;">First Principles</span>
+                <span>Selective Classification: Certified Referral Thresholds</span>
+                <span class="badge badge-accent" style="font-size: 10px;">Clinical Triage</span>
             </div>
             <div class="first-principles-body">
-                In hospital oncology, an AI that claims it is always 100% certain is dangerous. <strong>Selective triage</strong> means the AI handles clear cases automatically, but safely raises a flag to defer ambiguous or contradictory scans to a human specialist. Under any error budget, a trustworthy AI must truthfully rank its own confidence so that it only passes truly difficult cases to doctors.
+                In safety-critical oncology, automated systems must selectively defer ambiguous cases to expert radiologists. Selective classification evaluates risk-coverage dynamics: under a permitted diagnostic error budget, the network ranks cases by uncertainty and only defers high-entropy out-of-distribution presentations.
             </div>
         </div>
 
         <div class="key-takeaway-box">
             <div class="key-takeaway-header">
-                <span>🎯 Clinical Safety & Triage Benchmark</span>
+                <span>Deployment Safety and Autonomous Coverage</span>
                 <span class="badge badge-success" style="font-size: 10px;">Safety Audited</span>
             </div>
             <div class="key-takeaway-body">
-                At the standard hospital error tolerance of 0.5%, Model A4 safely achieves <strong>100% autonomous coverage</strong> across all 743 patients with zero deferrals. If doctors tighten the error tolerance to 0.1% (ultra-safe), the model defers only the most uncertain 4.4% of borderline scans, maintaining a near-optimal uncertainty ranking (Excess AURC = 0.053).
+                At the institutional 0.5% error tolerance, Model A4 achieves <strong>100.0% autonomous coverage</strong> across all 743 patients with zero deferrals. Under strict 0.1% tolerance, Dirichlet evidential uncertainty selectively routes only the most ambiguous 4.4% of borderline scans, maintaining a near-optimal ranking (Excess AURC = <strong>0.053</strong>).
             </div>
         </div>
 

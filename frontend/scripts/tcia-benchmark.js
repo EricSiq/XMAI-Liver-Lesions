@@ -22,21 +22,21 @@ function renderTciaView() {
         <!-- First-Principles Explanation & Key Takeaway -->
         <div class="first-principles-box">
             <div class="first-principles-header">
-                <span>💡 Multi-Hospital Testing from First Principles: The Sound Variance Problem</span>
-                <span class="badge badge-accent" style="font-size: 10px;">First Principles</span>
+                <span>Multi-Center Generalization: Acoustic Domain Shift</span>
+                <span class="badge badge-accent" style="font-size: 10px;">Domain Transfer</span>
             </div>
             <div class="first-principles-body">
-                An AI trained at Hospital A often fails at Hospital B because different ultrasound machines (GE, Philips, Siemens) produce slightly different sound frequencies, contrast levels, and image proportions. Worse, computer vision models often take "shortcuts"—learning to recognize the scanner's screen borders rather than the actual tumor. We rigorously tested Model A4 on 120 external patients from The Cancer Imaging Archive (TCIA) to prove true clinical generalization.
+                Computer vision architectures frequently suffer from cross-center distribution collapse due to vendor-specific beamforming profiles, post-processing gain curves, and transducer bandwidth variations. We evaluate zero-retraining generalization on 120 external clinical cases from The Cancer Imaging Archive (TCIA 253.1 GB DICOM) across multi-vendor hardware.
             </div>
         </div>
 
         <div class="key-takeaway-box">
             <div class="key-takeaway-header">
-                <span>🎯 100% External Cancer Detection with Zero Shortcuts</span>
+                <span>External Validation: Zero-Retraining Generalization</span>
                 <span class="badge badge-success" style="font-size: 10px;">Cross-Center Validated</span>
             </div>
             <div class="key-takeaway-body">
-                Model A4 achieves <strong>100.0% HCC sensitivity</strong> [96.5%, 100.0%] across 120 external patients without requiring any hospital-specific fine-tuning. Our shortcut audit proves correlation between screen shape and risk is statistically null (r = -0.075, p = 0.421), confirming the AI reads true biological anatomy.
+                Model A4 achieves <strong>100.0% HCC sensitivity</strong> [96.5%, 100.0%] across 120 external patients without requiring local center fine-tuning. Our negative shortcut diagnostic demonstrates that correlation between scan aspect ratio and prediction risk is statistically null (r = &minus;0.075, p = 0.421), confirming genuine lesion representation learning.
             </div>
         </div>
 
@@ -68,6 +68,33 @@ function renderTciaView() {
                 <div class="stat-value">Certified</div>
                 <div class="stat-ci">Transparent Reporting Boundary</div>
                 <div class="stat-desc">Definitive sensitivity reporting on HCC; descriptive handling of rare non-HCC.</div>
+            </div>
+        </div>
+
+        <!-- Genuine Scientific Contact Sheets from Artifacts -->
+        <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(360px, 1fr)); gap: 1.25rem; margin: 1.25rem 0;">
+            <div class="artifact-figure-card">
+                <div style="display: flex; justify-content: space-between; align-items: baseline; margin-bottom: 0.5rem;">
+                    <strong style="font-size: 0.92rem; color: var(--navy-900);">Internal Cohort Scans (SMC QA Sheet)</strong>
+                    <span class="badge badge-accent" style="font-size: 0.72rem;">Artifact Figure 8.1</span>
+                </div>
+                <img src="/artifacts/contact_sheets/smc_qa_contact_sheet.png" alt="SMC QA Contact Sheet" class="artifact-figure-img" />
+                <div class="visual-caption" style="margin-top: 0.5rem;">
+                    <span class="visual-caption-badge">Internal Cohort</span>
+                    <span>Representative B-mode scans from the 743-patient single-center development cohort, confirming lesion annotation consistency and caliper masking.</span>
+                </div>
+            </div>
+
+            <div class="artifact-figure-card">
+                <div style="display: flex; justify-content: space-between; align-items: baseline; margin-bottom: 0.5rem;">
+                    <strong style="font-size: 0.92rem; color: var(--navy-900);">External Multi-Center Scans (TCIA QA Sheet)</strong>
+                    <span class="badge badge-accent" style="font-size: 0.72rem;">Artifact Figure 8.2</span>
+                </div>
+                <img src="/artifacts/contact_sheets/tcia_qa_contact_sheet.png" alt="TCIA QA Contact Sheet" class="artifact-figure-img" />
+                <div class="visual-caption" style="margin-top: 0.5rem;">
+                    <span class="visual-caption-badge">External Validation</span>
+                    <span>120 external DICOM cases from TCIA exhibiting significant multi-vendor acoustic variance; Model A4 preserves 100.0% HCC sensitivity with zero fine-tuning.</span>
+                </div>
             </div>
         </div>
 

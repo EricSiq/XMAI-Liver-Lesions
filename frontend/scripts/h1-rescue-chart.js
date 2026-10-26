@@ -24,21 +24,21 @@ function renderH1RescueView() {
         <!-- First-Principles Explanation & Key Takeaway -->
         <div class="first-principles-box">
             <div class="first-principles-header">
-                <span>💡 Hypothesis H1 from First Principles: What is "Decile 1"?</span>
-                <span class="badge badge-accent" style="font-size: 10px;">First Principles</span>
+                <span>Hypothesis H1 Formulation: Margin Deciles</span>
+                <span class="badge badge-accent" style="font-size: 10px;">Hypothesis H1</span>
             </div>
             <div class="first-principles-body">
-                When an AI inspects an ultrasound image, it gives a confidence score. When the score is close to 50%, the image is blurry, dark, or distorted by sound shadows—the AI is essentially guessing. We sorted all cases into 10 buckets (deciles) by image clarity. <strong>Decile 1</strong> contains the hardest, most ambiguous 10% of scans. Hypothesis H1 tests: <em>Does the AI intelligently use patient history only when the scan is ambiguous (Decile 1), while leaving clear scans completely untouched?</em>
+                Ultrasound confidence margin is defined as |P(HCC) &minus; 0.5| &times; 2. When the margin is near zero, acoustic shadows and attenuation obscure diagnostic features. We partition the 743-patient clinical cohort into 10 confidence deciles. <strong>Decile 1</strong> contains the lowest 10% confidence lesions. Hypothesis H1 posits that multimodal gating selectively intervenes on Decile 1 without perturbing definitive high-margin classifications (Deciles 2&ndash;10).
             </div>
         </div>
 
         <div class="key-takeaway-box">
             <div class="key-takeaway-header">
-                <span>🎯 The Proof: Selective Tie-Breaker Validation</span>
-                <span class="badge badge-success" style="font-size: 10px;">Hypothesis H1 Passed</span>
+                <span>Selective Assistance Validation</span>
+                <span class="badge badge-success" style="font-size: 10px;">Hypothesis H1 Confirmed</span>
             </div>
             <div class="key-takeaway-body">
-                All 3 patient rescues occurred strictly in Decile 1 (p &lt; 0.001, Fisher's Exact Test). In Deciles 2 through 10 (where ultrasound is clear), stability was <strong>100%</strong> with zero false overrides. This proves the system acts as a safe, targeted tie-breaker rather than blindly meddling with clear diagnoses.
+                All 3 patient rescues occurred exclusively in Decile 1 (p &lt; 0.001, Fisher's Exact Test). Across Deciles 2 through 10, high-margin stability was <strong>100%</strong> with zero false overrides. This confirms that clinical priors operate as an intelligent tie-breaker strictly under acoustic uncertainty.
             </div>
         </div>
 
@@ -73,6 +73,19 @@ function renderH1RescueView() {
             </div>
         </div>
 
+        <!-- Genuine Scientific Artifact Figure: Hypothesis H1 Breakdown -->
+        <div class="artifact-figure-card" style="margin-top: 1.25rem;">
+            <div style="display: flex; justify-content: space-between; align-items: baseline; margin-bottom: 0.5rem;">
+                <strong style="font-size: 0.95rem; color: var(--navy-900);">Hypothesis H1 Decile Distribution (Artifact Figure 4.1)</strong>
+                <span class="badge badge-accent" style="font-size: 0.72rem;">Empirical Proof</span>
+            </div>
+            <img src="/artifacts/evaluation_figures/hypothesis_h1_breakdown.png" alt="Hypothesis H1 Decile Breakdown" class="artifact-figure-img" />
+            <div class="visual-caption" style="margin-top: 0.5rem;">
+                <span class="visual-caption-badge">Empirical Validation</span>
+                <span>All 3 patient rescues concentrate exclusively in Decile 1 (margin &lt; 0.25, p &lt; 0.001). Deciles 2 through 10 demonstrate 100% stability with zero false overrides.</span>
+            </div>
+        </div>
+
         <!-- Interactive Chart and Distribution -->
         <div class="card" style="margin-top: 1.5rem;">
             <div class="card-header" style="flex-wrap: wrap; gap: 0.75rem;">
@@ -81,8 +94,8 @@ function renderH1RescueView() {
                     <p class="text-sm text-muted">Click any decile bar below to inspect patient distribution and clinical behavior.</p>
                 </div>
                 <div style="display: flex; gap: 0.5rem;" id="decile-quick-filters">
-                    <button class="btn btn-outline btn-sm active" id="btn-focus-decile1" style="font-size: 0.78rem;">🎯 Focus Decile 1 (Rescues)</button>
-                    <button class="btn btn-outline btn-sm" id="btn-focus-decile-rest" style="font-size: 0.78rem;">🛡️ Focus Deciles 2–10 (Stable)</button>
+                    <button class="btn btn-outline btn-sm active" id="btn-focus-decile1" style="font-size: 0.78rem;">Focus Decile 1 (Rescues)</button>
+                    <button class="btn btn-outline btn-sm" id="btn-focus-decile-rest" style="font-size: 0.78rem;">Focus Deciles 2–10 (Stable)</button>
                 </div>
             </div>
 

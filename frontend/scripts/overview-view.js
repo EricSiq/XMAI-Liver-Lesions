@@ -23,23 +23,22 @@ function renderOverviewView() {
         <!-- Foundational Intuition & Clinical Reality -->
         <div class="first-principles-box">
             <div class="first-principles-tag">
-                <span>💡 The Clinical Dilemma from First Principles</span>
+                <span>Clinical Dilemma and First Principles</span>
             </div>
             <div style="font-size: 0.9rem; color: var(--navy-900); line-height: 1.6;">
-                Ultrasound works by sending high-frequency sound pulses into the body and recording the echoes that bounce back, like naval sonar. 
-                In the liver, dangerous cancer (<strong>Hepatocellular Carcinoma / HCC</strong>) and harmless blood-vessel lumps (<strong>Cavernous Hemangioma</strong>) often look confusingly similar when sound shadows blur tumor boundaries. 
-                Pure computer vision models looking at the picture alone miss roughly 1 out of every 10 subtle borderline tumors.
+                Ultrasound transmits high-frequency acoustic pulses and records reflected echoes. 
+                In hepatic imaging, malignant Hepatocellular Carcinoma (HCC) and benign Cavernous Hemangioma exhibit overlapping acoustic echotextures when posterior acoustic shadowing obscures lesion boundaries. 
+                Unimodal vision models relying solely on acoustic features miss approximately 10% of borderline lesions.
             </div>
         </div>
 
         <div class="key-takeaway-box">
             <div class="takeaway-tag">
-                <span>🩺 How Multimodal Gated AI Solves This</span>
+                <span>Multimodal Gated Fusion Solution</span>
             </div>
             <div style="font-size: 0.9rem; color: var(--navy-900); line-height: 1.6;">
-                Real doctors never rely on a grainy picture alone—they also check patient age, biological sex, and hepatitis history. 
-                Our system (<strong>Model A4: Gated Multimodal Fusion</strong>) mimics this clinical intuition: 
-                when the ultrasound image is clear and sharp, it relies on the image; when the image is fuzzy or shadowed, an intelligent gating valve automatically opens to let patient health records break the tie—achieving <strong>99.5% overall accuracy and 100% cancer sensitivity</strong> (0 missed cancers) across 743 patients.
+                Clinical practice cross-references sonographic features with patient demographics (age, sex, viral hepatitis etiology). 
+                Model A4 (Mask-Aware Gated Multimodal Fusion) operationalizes this workflow: when acoustic features are definitive, visual representations dominate; when acoustic ambiguity increases, dynamic gating allocates capacity to clinical covariates—achieving <strong>99.5% balanced accuracy</strong> and <strong>100% HCC sensitivity</strong> (0 missed cancers) across 743 patients.
             </div>
         </div>
 
@@ -320,7 +319,7 @@ function renderOverviewView() {
                     <h3 class="card-title">Real-World Clinical Impact: Why Multimodal AI Matters</h3>
                     <p class="text-sm text-muted">Translating everyday hospital challenges into clear machine learning solutions.</p>
                 </div>
-                <span class="badge badge-accent">Clinical ⟷ AI Translation</span>
+                <span class="badge badge-accent">Clinical to AI Translation</span>
             </div>
 
             <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(300px, 1fr)); gap: 1.25rem; margin-top: 1rem;">
