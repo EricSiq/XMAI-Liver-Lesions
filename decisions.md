@@ -25,6 +25,7 @@ When an AI coding agent makes a local implementation choice, it must add an entr
 | R-08 | Approve data/artefact policy | Who can access raw images, decoded frames, patient predictions, checkpoints, and explanation cards? | Project lead | Proposed |
 | R-09 | Approve reporting language | Confirm the prototype/research-only wording and no clinical-deployment claim | Project lead | Proposed |
 | R-10 | Approve 5-class differential expansion | Approve architectural roadmap expanding from binary (HCC vs. Hem) to 5-class (HCC, Hem, FNH, Hepatic Adenoma, Cholangiocarcinoma / Cyst) via hierarchical gating and dynamic CEUS | Clinical/modelling lead | Approved by design (Roadmap) |
+| R-11 | Approve 5-class implementation plan | Approve 20-commit phased implementation of 5-class differential diagnosis architecture, evaluation suite, and clinical demonstrator | Technical/project lead | Approved |
 
 ### Reviewer resolution template
 
@@ -60,6 +61,9 @@ These are already justified by the audited design and must not be relaxed withou
 | D-13 | Explanations describe model reliance, not clinical causality or diagnostic evidence. | Approved by design | Grad-CAM, attention, SHAP, and gating are model-dependent post-hoc evidence. |
 | D-14 | Track A primary patient prediction is the mean of calibrated per-image probability vectors. | Resolved — pending reviewer sign-off | It preserves all available clean images, reduces a single-frame idiosyncrasy, and yields a deterministic patient-level endpoint. Representative-image selection would add subjective/algorithmic selection bias. |
 | D-15 | The current 15 SYSU videos are integration fixtures only; Track B benchmark work is deferred. | Resolved — pending reviewer sign-off | Five videos per class cannot support reliable split, tuning, uncertainty, or performance claims. |
+| D-16 | Standardize 5-class differential diagnosis taxonomy and hierarchical safety architecture. | Approved by design | Expands diagnostic scope beyond binary triage to 5 clinically critical classes: HCC, Hemangioma, FNH, Hepatic Adenoma, Cholangiocarcinoma (with Cysts as benchmark). Employs hierarchical coarse-to-fine decision gating (Malignant vs. Benign safety gate sensitivity >= 99%) to eliminate catastrophic cross-tier errors. |
+| D-17 | Multi-source manifest protocol with provenance tracking and WFUMB reference compliance. | Approved by design | Integrates SMC-LUD, TCIA (confirmed ICC/benign), SYSU (FNH, HCC, Hem), and verified WFUMB acoustic reference cohorts. Enforces immutable provenance flags (`is_synthetic`, `data_source`, `verification_status`) with strict zero-leakage patient-level splits. |
+| D-18 | Generalize Subjective Logic Evidential Uncertainty to 5-class Dirichlet distributions with conflict-driven triage. | Approved by design | Formulates 5-dimensional Dirichlet concentration alpha = e + 1, belief masses b_1..b_5, and vacuous epistemic uncertainty u = 5 / S. Multimodal conflict spikes uncertainty (u > 0.30) to trigger certified safety referral to liver-specific MRI. |
 
 ## AI design decisions and rationale
 
