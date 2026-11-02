@@ -48,6 +48,7 @@ def test_frontend_scripts_exist_and_linked():
         "scripts/case-viewer.js",
         "scripts/explainability-view.js",
         "scripts/manuscript-exporter.js",
+        "scripts/multiclass-explorer.js",
         "scripts/app.js",
     ]
 

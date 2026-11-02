@@ -10,7 +10,8 @@
         "section-ablation",
         "section-cases",
         "section-explainability",
-        "section-paper-artifacts"
+        "section-paper-artifacts",
+        "section-5class-differential"
     ];
 
     let currentSectionIdx = 0;
