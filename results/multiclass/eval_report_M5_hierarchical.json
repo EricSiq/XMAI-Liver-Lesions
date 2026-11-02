@@ -1,0 +1,102 @@
+{
+  "num_patients": 1353,
+  "num_classes": 5,
+  "class_names": [
+    "HCC",
+    "Hemangioma",
+    "FNH",
+    "Adenoma",
+    "Cholangiocarcinoma"
+  ],
+  "macro_f1": 0.6539,
+  "macro_f1_ci95": [
+    0.6271,
+    0.6806
+  ],
+  "balanced_accuracy": 0.6253,
+  "balanced_accuracy_ci95": [
+    0.6002,
+    0.6503
+  ],
+  "accuracy": 0.6888,
+  "top2_accuracy": 0.8729,
+  "ece": 0.0719,
+  "malignant_undercall_rate": 0.0911,
+  "malignant_undercall_count": 57,
+  "total_malignancies": 626,
+  "confusion_matrix": [
+    [
+      409,
+      17,
+      0,
+      0,
+      0
+    ],
+    [
+      94,
+      231,
+      2,
+      0,
+      0
+    ],
+    [
+      39,
+      5,
+      146,
+      10,
+      0
+    ],
+    [
+      79,
+      69,
+      0,
+      52,
+      0
+    ],
+    [
+      66,
+      0,
+      0,
+      40,
+      94
+    ]
+  ],
+  "per_class_metrics": {
+    "HCC": {
+      "sensitivity": 0.9601,
+      "specificity": 0.7001,
+      "precision": 0.5953,
+      "f1_score": 0.735,
+      "support": 426
+    },
+    "Hemangioma": {
+      "sensitivity": 0.7064,
+      "specificity": 0.9113,
+      "precision": 0.7174,
+      "f1_score": 0.7119,
+      "support": 327
+    },
+    "FNH": {
+      "sensitivity": 0.73,
+      "specificity": 0.9983,
+      "precision": 0.9865,
+      "f1_score": 0.8391,
+      "support": 200
+    },
+    "Adenoma": {
+      "sensitivity": 0.26,
+      "specificity": 0.9566,
+      "precision": 0.5098,
+      "f1_score": 0.3444,
+      "support": 200
+    },
+    "Cholangiocarcinoma": {
+      "sensitivity": 0.47,
+      "specificity": 1.0,
+      "precision": 1.0,
+      "f1_score": 0.6395,
+      "support": 200
+    }
+  },
+  "model_type": "M5_hierarchical"
+}
