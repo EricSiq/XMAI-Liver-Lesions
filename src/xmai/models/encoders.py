@@ -100,6 +100,50 @@ class ClinicalEncoder(nn.Module):
         return self.net(clin)
 
 
+class MulticlassClinicalEncoder(nn.Module):
+    """
+    M3 Expanded Structured Clinical Context Encoder for 5-Class / 6-Class Differential Diagnosis.
+    Input: [B, 8] (age, sex, cirrhosis, hepatitis, oral contraceptives, metabolic syndrome, AFP, CA 19-9)
+    Output: z_T in R^128 with LayerNorm and residual connection.
+    """
+
+    def __init__(
+        self,
+        in_features: int = 8,
+        hidden_dim: int = 128,
+        out_dim: int = 128,
+        dropout: float = 0.25,
+    ):
+        super().__init__()
+        self.in_features = in_features
+        self.fc1 = nn.Linear(in_features, hidden_dim)
+        self.relu = nn.ReLU()
+        self.drop = nn.Dropout(p=dropout)
+        self.fc2 = nn.Linear(hidden_dim, out_dim)
+        self.ln = nn.LayerNorm(out_dim)
+        self.res = nn.Linear(in_features, out_dim) if in_features != out_dim else nn.Identity()
+
+    def forward(self, clin: torch.Tensor) -> torch.Tensor:
+        """
+        Input: [B, in_features]
+        Output: z_T in [B, out_dim]
+        """
+        if clin.ndim != 2:
+            raise ValueError(f"Expected 2D clinical tensor [B, in_features], got shape {tuple(clin.shape)}")
+        if clin.shape[1] != self.in_features:
+            raise ValueError(f"Expected {self.in_features} features, got {clin.shape[1]}")
+        if torch.isnan(clin).any() or torch.isinf(clin).any():
+            raise ValueError("MulticlassClinicalEncoder received tensor containing NaN or Inf values.")
+
+        residual = self.res(clin)
+        x = self.fc1(clin)
+        x = self.relu(x)
+        x = self.drop(x)
+        x = self.fc2(x)
+        out = self.ln(x + residual)
+        return out
+
+
 class TemporalAttentionAggregator(nn.Module):
     """
     Temporal attention pooling over T video frames.
