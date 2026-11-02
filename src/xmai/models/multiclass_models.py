@@ -261,3 +261,174 @@ class M5HierarchicalFusion(nn.Module):
         self.temp_ben.data.fill_(max(0.1, t_ben))
         self.temp_mal.data.fill_(max(0.1, t_mal))
 
+
+class M5EvidentialFusion(nn.Module):
+    """
+    Model M5_Evidential: Multiclass Evidential Multimodal Fusion (EUF).
+    Formulates K-class predictions under Subjective Logic & Dempster-Shafer theory.
+    
+    Produces explicit epistemic uncertainty mass u alongside class beliefs b_1..b_K:
+        sum_{k=1}^K b_k + u = 1.0
+    
+    When visual and clinical signals conflict across classes, the conflict metric C spikes,
+    elevating vacuous uncertainty u to trigger certified safety referral.
+    """
+
+    def __init__(
+        self,
+        num_classes: int = 5,
+        pretrained: bool = True,
+        dim_b: int = 256,
+        dim_t: int = 128,
+        class_names: Optional[List[str]] = None,
+    ):
+        super().__init__()
+        self.num_classes = num_classes
+        self.class_names = class_names or list(TAXONOMY_5CLASS)
+
+        # Modality Encoders
+        self.encoder_b = BModeEncoder(pretrained=pretrained, embed_dim=dim_b)
+        self.encoder_t = MulticlassClinicalEncoder(in_features=8, hidden_dim=dim_t, out_dim=dim_t)
+
+        # Modality Evidence Heads (Output non-negative evidence e_k >= 0 via Softplus)
+        self.evidence_head_b = nn.Sequential(
+            nn.Linear(dim_b, 128),
+            nn.ReLU(),
+            nn.Linear(128, num_classes),
+            nn.Softplus(),
+        )
+
+        self.evidence_head_t = nn.Sequential(
+            nn.Linear(dim_t, 128),
+            nn.ReLU(),
+            nn.Linear(128, num_classes),
+            nn.Softplus(),
+        )
+
+        self.temperature = nn.Parameter(torch.ones(1), requires_grad=False)
+
+    def _evidence_to_belief(self, evidence: torch.Tensor) -> Tuple[torch.Tensor, torch.Tensor, torch.Tensor]:
+        """
+        Converts non-negative evidence to Dirichlet concentration alpha, belief mass, and vacuous uncertainty.
+        Input: evidence [B, K] >= 0
+        Output: alpha [B, K], belief [B, K], uncertainty [B, 1]
+        """
+        alpha = evidence + 1.0
+        S = torch.sum(alpha, dim=1, keepdim=True).clamp(min=1e-7)  # Total Dirichlet strength
+        belief = evidence / S                                      # [B, K]
+        uncertainty = self.num_classes / S                         # [B, 1]
+        return alpha, belief, uncertainty
+
+    @staticmethod
+    def dempster_combination_multiclass(
+        b1: torch.Tensor, u1: torch.Tensor, b2: torch.Tensor, u2: torch.Tensor
+    ) -> Tuple[torch.Tensor, torch.Tensor]:
+        """
+        Dempster's Rule of Combination generalized to K classes.
+        Args:
+            b1, b2: [B, K] belief vectors
+            u1, u2: [B, 1] epistemic uncertainty scalars
+        Returns:
+            b_fused: [B, K] combined belief vector
+            u_fused: [B, 1] combined epistemic uncertainty
+        """
+        # Mutual agreement: b1_k * b2_k
+        diag_agree = b1 * b2  # [B, K]
+        sum_agree = torch.sum(diag_agree, dim=1, keepdim=True)  # [B, 1]
+
+        # Multi-class conflict: C = (sum b1_i)*(sum b2_j) - sum(b1_k * b2_k)
+        sum_b1 = torch.sum(b1, dim=1, keepdim=True)  # [B, 1]
+        sum_b2 = torch.sum(b2, dim=1, keepdim=True)  # [B, 1]
+        C = (sum_b1 * sum_b2) - sum_agree            # [B, 1]
+
+        scale = torch.clamp(1.0 - C, min=1e-6)       # [B, 1]
+
+        # Combined belief mass: b_k = (b1_k * b2_k + b1_k * u2 + b2_k * u1) / (1 - C)
+        b_fused = (diag_agree + b1 * u2 + b2 * u1) / scale
+
+        # Combined uncertainty: u = (u1 * u2) / (1 - C)
+        u_fused = (u1 * u2) / scale
+
+        # Strictly enforce sum-to-1.0 normalization against numerical precision drift
+        total = torch.sum(b_fused, dim=1, keepdim=True) + u_fused
+        b_fused = b_fused / total
+        u_fused = u_fused / total
+
+        return b_fused, u_fused
+
+    def forward(
+        self,
+        img: Optional[torch.Tensor] = None,
+        clin: Optional[torch.Tensor] = None,
+        mod_mask: Optional[torch.Tensor] = None,
+    ) -> Dict[str, Any]:
+        """Forward pass generating modality-specific and fused Dirichlet distributions."""
+        B = img.shape[0] if img is not None else (clin.shape[0] if clin is not None else 1)
+        device = img.device if img is not None else (clin.device if clin is not None else torch.device("cpu"))
+
+        # Modality B: B-mode
+        if img is not None:
+            z_b = self.encoder_b(img)
+            ev_b = self.evidence_head_b(z_b)
+        else:
+            z_b = torch.zeros(B, 256, device=device)
+            ev_b = torch.zeros(B, self.num_classes, device=device)
+
+        # Modality T: Clinical context
+        if clin is not None:
+            z_t = self.encoder_t(clin)
+            ev_t = self.evidence_head_t(z_t)
+        else:
+            z_t = torch.zeros(B, 128, device=device)
+            ev_t = torch.zeros(B, self.num_classes, device=device)
+
+        # Apply modality mask if provided
+        if mod_mask is not None:
+            m_b = mod_mask[:, 0:1]
+            m_t = mod_mask[:, 1:2] if mod_mask.shape[1] > 1 else torch.ones_like(m_b)
+            ev_b = ev_b * m_b
+            ev_t = ev_t * m_t
+
+        alpha_b, b_b, u_b = self._evidence_to_belief(ev_b)
+        alpha_t, b_t, u_t = self._evidence_to_belief(ev_t)
+
+        # Fuse beliefs via Dempster-Shafer combination
+        b_fused, u_fused = self.dempster_combination_multiclass(b_b, u_b, b_t, u_t)
+
+        # Expected class probability: p_k = alpha_k / S = b_k + u / K
+        probs = b_fused + (u_fused / self.num_classes)
+
+        # Surrogate logits for unified evaluation & temperature scaling
+        surrogate_logits = torch.log(probs.clamp(min=1e-7))
+        calibrated_logits = surrogate_logits / self.temperature
+        calibrated_probs = F.softmax(calibrated_logits, dim=-1)
+
+        # Reconstructed Dirichlet parameter alpha_fused = evidence + 1
+        # where evidence = b_fused * (K / u_fused)
+        S_fused = (self.num_classes / u_fused.clamp(min=1e-5))
+        alpha_fused = b_fused * S_fused + 1.0
+
+        return {
+            "logits": surrogate_logits,
+            "calibrated_logits": calibrated_logits,
+            "probs": calibrated_probs,
+            "expected_probs": probs,
+            "b_fused": b_fused,
+            "u_fused": u_fused,
+            "alpha_fused": alpha_fused,
+            "b_b": b_b,
+            "u_b": u_b,
+            "b_t": b_t,
+            "u_t": u_t,
+            "embeddings": {
+                "z_b": z_b,
+                "z_t": z_t,
+            },
+        }
+
+    def set_temperature(self, temp_val: float) -> None:
+        if temp_val <= 0:
+            raise ValueError(f"Temperature must be strictly positive, got {temp_val}")
+        self.temperature.data.fill_(temp_val)
+
+
