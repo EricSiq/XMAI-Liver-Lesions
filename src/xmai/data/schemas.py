@@ -13,6 +13,23 @@ SMCLabel = Literal["HCC", "Hemangioma"]
 SYSULabel = Literal["HCC", "Hemangioma", "FNH"]
 AULLabel = Literal["Benign", "Malignant", "Normal"]
 
+# 5-Class and 6-Class Differential Diagnosis Taxonomy
+FLL5ClassLabel = Literal["HCC", "Hemangioma", "FNH", "Adenoma", "Cholangiocarcinoma"]
+FLL6ClassLabel = Literal["HCC", "Hemangioma", "FNH", "Adenoma", "Cholangiocarcinoma", "Cyst"]
+
+TAXONOMY_5CLASS = ["HCC", "Hemangioma", "FNH", "Adenoma", "Cholangiocarcinoma"]
+TAXONOMY_5CLASS_WITH_CYST = ["HCC", "Hemangioma", "FNH", "Cholangiocarcinoma", "Cyst"]
+TAXONOMY_6CLASS = ["HCC", "Hemangioma", "FNH", "Adenoma", "Cholangiocarcinoma", "Cyst"]
+
+CLASS_TIER_MAPPING: Dict[str, Literal["Malignant", "Benign"]] = {
+    "HCC": "Malignant",
+    "Cholangiocarcinoma": "Malignant",
+    "Hemangioma": "Benign",
+    "FNH": "Benign",
+    "Adenoma": "Benign",
+    "Cyst": "Benign",
+}
+
 # Prohibited leakage field names that must never enter feature dictionaries
 PROHIBITED_FEATURE_FIELDS = {
     "t_stage",
@@ -96,6 +113,42 @@ class AULManifestRow(BaseModel):
     relative_liver_json: Optional[str] = Field(None, description="Path to liver outline polygon JSON")
     relative_mass_json: Optional[str] = Field(None, description="Path to mass/lesion polygon JSON")
     has_mass_mask: bool = Field(False, description="True if lesion polygon exists")
+
+
+class ClinicalCovariates8(BaseModel):
+    """Structured 8-variable clinical oncology covariate profile for FLL differential diagnosis."""
+    age: Optional[float] = Field(None, ge=0, le=120, description="Patient age in years")
+    sex: Optional[Literal["M", "F"]] = Field(None, description="Biological sex")
+    cirrhosis: Optional[Literal[0, 1]] = Field(None, description="Parenchymal cirrhosis (0: Absent, 1: Present)")
+    hepatitis: Optional[Literal[0, 1]] = Field(None, description="Viral hepatitis serology HBV/HCV (0: Neg, 1: Pos)")
+    oral_contraceptives: Optional[Literal[0, 1]] = Field(None, description="Oral contraceptive history >= 5 yrs")
+    metabolic_syndrome: Optional[Literal[0, 1]] = Field(None, description="Metabolic syndrome / NAFLD (0: No, 1: Yes)")
+    afp_level: Optional[float] = Field(None, ge=0, description="Serum Alpha-Fetoprotein in ng/mL")
+    ca19_9_level: Optional[float] = Field(None, ge=0, description="Serum CA 19-9 in U/mL")
+
+
+class MulticlassManifestRow(BaseModel):
+    """Schema for a unified multiclass focal liver lesion patient entry."""
+    patient_id: str = Field(..., description="Unique patient identifier")
+    relative_path: str = Field(..., description="Workspace-relative path to primary clean image or DICOM")
+    label: str = Field(..., description="Lesion diagnostic label in 5-class or 6-class taxonomy")
+    tier: Literal["Malignant", "Benign"] = Field(..., description="Oncologic safety tier")
+    fold: int = Field(..., ge=0, le=4, description="Stratified CV fold (0 to 4)")
+    data_source: str = Field(..., description="Originating repository: SMC-LUD, TCIA, SYSU-CEUS, WFUMB-Acoustic")
+    is_synthetic: bool = Field(False, description="True if generated as clinical acoustic reference fixture")
+    verification_status: Literal[
+        "VERIFIED_HISTOPATHOLOGY",
+        "VERIFIED_IMAGING_CONSENSUS",
+        "VALIDATED_REFERENCE_COHORT",
+    ] = Field(..., description="Diagnostic ground-truth verification standard")
+    clinical: ClinicalCovariates8 = Field(default_factory=ClinicalCovariates8)
+
+    @model_validator(mode="after")
+    def validate_tier_alignment(self) -> "MulticlassManifestRow":
+        expected_tier = CLASS_TIER_MAPPING.get(self.label)
+        if expected_tier and self.tier != expected_tier:
+            raise ValueError(f"Label '{self.label}' tier mismatch: expected {expected_tier}, got {self.tier}")
+        return self
 
 
 class PredictionRow(BaseModel):

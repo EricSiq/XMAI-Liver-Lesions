@@ -205,3 +205,59 @@ def test_clinical_feature_processor_invariants():
     assert mask[0].item() == 1.0
     assert mask[1].item() == 1.0
 
+
+def test_multiclass_schemas_and_taxonomy():
+    """Verify 5-class and 6-class schemas, tier validation, and clinical profiles."""
+    from xmai.data.schemas import (
+        TAXONOMY_5CLASS,
+        TAXONOMY_6CLASS,
+        CLASS_TIER_MAPPING,
+        ClinicalCovariates8,
+        MulticlassManifestRow,
+    )
+
+    assert len(TAXONOMY_5CLASS) == 5
+    assert len(TAXONOMY_6CLASS) == 6
+    assert set(TAXONOMY_5CLASS).issubset(set(TAXONOMY_6CLASS))
+
+    # Valid malignant row
+    row_hcc = MulticlassManifestRow(
+        patient_id="HCC_01",
+        relative_path="data/clean/HCC_01.png",
+        label="HCC",
+        tier="Malignant",
+        fold=0,
+        data_source="SMC-LUD",
+        verification_status="VERIFIED_HISTOPATHOLOGY",
+        clinical=ClinicalCovariates8(age=62, sex="M", cirrhosis=1, hepatitis=1, afp_level=240.0),
+    )
+    assert row_hcc.label == "HCC"
+    assert row_hcc.tier == "Malignant"
+
+    # Valid benign row
+    row_fnh = MulticlassManifestRow(
+        patient_id="FNH_01",
+        relative_path="data/clean/FNH_01.png",
+        label="FNH",
+        tier="Benign",
+        fold=1,
+        data_source="SYSU-CEUS",
+        verification_status="VERIFIED_IMAGING_CONSENSUS",
+        clinical=ClinicalCovariates8(age=34, sex="F", oral_contraceptives=1),
+    )
+    assert row_fnh.label == "FNH"
+    assert row_fnh.tier == "Benign"
+
+    # Mismatched tier must raise ValueError
+    with pytest.raises(ValueError, match="tier mismatch"):
+        MulticlassManifestRow(
+            patient_id="ERR_01",
+            relative_path="data/clean/ERR_01.png",
+            label="Cholangiocarcinoma",
+            tier="Benign",  # Error: Cholangiocarcinoma is Malignant!
+            fold=2,
+            data_source="TCIA",
+            verification_status="VERIFIED_HISTOPATHOLOGY",
+        )
+
+
