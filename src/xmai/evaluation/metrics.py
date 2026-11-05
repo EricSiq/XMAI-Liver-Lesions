@@ -22,7 +22,30 @@ from xmai.data.schemas import PredictionRow
 
 
 def compute_patient_metrics(predictions: List[PredictionRow]) -> Dict[str, Any]:
-    """Computes patient-level discriminative and probabilistic metrics."""
+    """
+    Computes patient-level discriminative and probabilistic calibration metrics.
+    
+    Guarantees:
+    - Empty input safety: Returns a valid zero-initialized dictionary when predictions list is empty.
+    - Robustness to single-class validation splits: ROC AUC falls back to 0.5 uninformative prior.
+    """
+    if len(predictions) == 0:
+        return {
+            "n_patients": 0,
+            "n_hcc": 0,
+            "n_hem": 0,
+            "accuracy": 0.0,
+            "balanced_accuracy": 0.0,
+            "precision": 0.0,
+            "recall_sensitivity": 0.0,
+            "specificity": 0.0,
+            "f1": 0.0,
+            "auc": 0.5,
+            "log_loss": 0.0,
+            "brier_score": 0.0,
+            "ece": 0.0,
+        }
+
     y_true = np.array([1 if p.true_label == "HCC" else 0 for p in predictions])
     y_pred = np.array([1 if p.pred_label == "HCC" else 0 for p in predictions])
     y_prob = np.array([p.prob_vector["HCC"] for p in predictions])

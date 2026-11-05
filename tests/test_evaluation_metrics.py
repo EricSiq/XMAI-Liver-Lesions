@@ -170,3 +170,12 @@ def test_scientific_manuscript_generation(mock_predictions, tmp_path):
     assert (tmp_path / "selective_classification.md").exists()
 
 
+def test_empty_predictions_handling():
+    """Verify empty prediction list produces valid zero-initialized metrics dict without throwing."""
+    m = compute_patient_metrics([])
+    assert m["n_patients"] == 0
+    assert m["accuracy"] == 0.0
+    assert m["auc"] == 0.5
+    assert m["ece"] == 0.0
+
+

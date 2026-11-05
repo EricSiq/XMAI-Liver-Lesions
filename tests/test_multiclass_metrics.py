@@ -99,3 +99,16 @@ def test_multiclass_evaluation_suite_complete_report():
     assert report["balanced_accuracy_ci95"][0] <= report["balanced_accuracy_ci95"][1]
     assert len(report["per_class_metrics"]) == 5
     assert "malignant_undercall_rate" in report
+
+
+def test_multiclass_evaluation_suite_input_guards():
+    """Verify input shape and non-empty guards on multiclass evaluation suite."""
+    with pytest.raises(ValueError, match="empty patient cohort"):
+        compute_multiclass_evaluation_suite([], [])
+
+    with pytest.raises(ValueError, match="Expected 2D probability matrix"):
+        compute_multiclass_evaluation_suite([0, 1], [0.5, 0.5])
+
+    with pytest.raises(ValueError, match="Number of classes in probs"):
+        compute_multiclass_evaluation_suite([0, 1], [[0.5, 0.5], [0.2, 0.8]], class_names=["A", "B", "C"])
+

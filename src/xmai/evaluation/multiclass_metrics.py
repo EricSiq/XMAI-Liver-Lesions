@@ -35,6 +35,9 @@ def compute_multiclass_ece(
     Computes Multiclass Expected Calibration Error (ECE).
     Evaluates alignment between confidence max_k p_k and empirical correctness.
     """
+    if len(y_true) == 0:
+        return 0.0
+
     confidences = np.max(probs, axis=-1)
     predictions = np.argmax(probs, axis=-1)
     accuracies = (predictions == y_true).astype(float)
@@ -129,6 +132,14 @@ def compute_multiclass_evaluation_suite(
 
     y_true_arr = np.asarray(y_true, dtype=int)
     probs_arr = np.asarray(probs, dtype=float)
+    N = len(y_true_arr)
+    if N == 0:
+        raise ValueError("Cannot evaluate multiclass metrics on empty patient cohort.")
+    if probs_arr.ndim != 2:
+        raise ValueError(f"Expected 2D probability matrix [N, K], got shape {probs_arr.shape}")
+    if probs_arr.shape[1] != len(class_names):
+        raise ValueError(f"Number of classes in probs ({probs_arr.shape[1]}) does not match class_names ({len(class_names)})")
+
     y_pred_arr = np.argmax(probs_arr, axis=-1)
     K = len(class_names)
 
@@ -195,3 +206,4 @@ def compute_multiclass_evaluation_suite(
         "confusion_matrix": cm.tolist(),
         "per_class_metrics": per_class,
     }
+
