@@ -81,6 +81,18 @@ class TestTemperatureScalerStress:
         assert opt_t > 1.0, f"Overconfident predictions must drive temperature > 1.0, got {opt_t}"
         assert calibrated_nll <= initial_nll, "Calibrated NLL must be less than or equal to initial NLL"
 
+    def test_empty_and_non_finite_validation_guards(self):
+        """Scaler must reject empty or non-finite inputs gracefully with ValueError."""
+        scaler = TemperatureScaler()
+        with pytest.raises(ValueError, match="empty validation set"):
+            scaler.fit(torch.empty(0, 2), torch.empty(0, dtype=torch.long))
+
+        with pytest.raises(ValueError, match="non-finite values"):
+            scaler.fit(torch.tensor([[float("nan"), 1.0]]), torch.tensor([0]))
+
+        with pytest.raises(ValueError, match="Expected 2D logits"):
+            scaler.fit(torch.tensor([1.0, 2.0]), torch.tensor([0]))
+
 
 class TestExpectedCalibrationErrorStress:
     """Stress testing Expected Calibration Error (ECE) metric."""
