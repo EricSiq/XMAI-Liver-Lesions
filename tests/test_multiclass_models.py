@@ -99,3 +99,4 @@ def test_m5_evidential_fusion_dempster_shafer_invariants():
     # All beliefs and uncertainties must be strictly non-negative and <= 1.0
     assert torch.all(b_fused >= 0.0) and torch.all(b_fused <= 1.0)
     assert torch.all(u_fused >= 0.0) and torch.all(u_fused <= 1.0)
+
