@@ -343,7 +343,7 @@ class EvidentialMultimodalFusion(nn.Module):
         sum_b2 = torch.sum(b2, dim=1, keepdim=True)  # [B, 1]
         C = (sum_b1 * sum_b2) - sum_agree            # [B, 1]
 
-        # Normalization scale factor: 1 - C
+        # Normalization scale factor: 1 - C (Dempster's normalization)
         scale = torch.clamp(1.0 - C, min=1e-6)       # [B, 1]
 
         # Fused belief mass: b_k = (b1_k * b2_k + b1_k * u2 + b2_k * u1) / (1 - C)
@@ -351,6 +351,12 @@ class EvidentialMultimodalFusion(nn.Module):
 
         # Fused uncertainty: u = (u1 * u2) / (1 - C)
         u_fused = (u1 * u2) / scale                         # [B, 1]
+
+        # Guarantee strict mathematical conservation: sum(b_k) + u == 1.0 to machine precision
+        total_mass = torch.sum(b_fused, dim=1, keepdim=True) + u_fused
+        total_clamped = torch.clamp(total_mass, min=1e-7)
+        b_fused = b_fused / total_clamped
+        u_fused = u_fused / total_clamped
 
         return b_fused, u_fused
 
