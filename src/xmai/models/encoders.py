@@ -73,13 +73,16 @@ class BModeEncoder(nn.Module):
 
 class ClinicalEncoder(nn.Module):
     """
-    M3 Structured clinical context encoder.
-    Input: [B, 2] (age_z, sex_binary)
-    Output: z_T in R^64
+    M3 Structured clinical context encoder for binary Track A (HCC vs. Hemangioma).
+    
+    Transforms 2-variable demographic profile (age_z, sex_binary) into
+    a rich representation vector z_C in R^64 using a 2-layer MLP with LayerNorm.
+    Supports optional modality masking for Hypothesis H3 graceful unimodal fallback.
     """
 
     def __init__(self, in_features: int = 2, hidden_dim: int = 64, out_dim: int = 64, dropout: float = 0.3):
         super().__init__()
+        self.in_features = in_features
         self.net = nn.Sequential(
             nn.Linear(in_features, hidden_dim),
             nn.ReLU(),
@@ -88,23 +91,35 @@ class ClinicalEncoder(nn.Module):
             nn.LayerNorm(out_dim),
         )
 
-    def forward(self, clin: torch.Tensor) -> torch.Tensor:
+    def forward(self, clin: torch.Tensor, mask: Optional[torch.Tensor] = None) -> torch.Tensor:
         """
-        Input: [B, in_features]
-        Output: z_T in [B, out_dim]
+        Args:
+            clin: Clinical feature tensor [B, in_features].
+            mask: Optional binary indicator [B] or [B, 1] (0 = missing modality, 1 = active).
+            
+        Returns:
+            z_C representation in [B, out_dim].
         """
         if clin.ndim != 2:
             raise ValueError(f"Expected 2D clinical tensor [B, in_features], got shape {tuple(clin.shape)}")
+        if clin.shape[1] != self.in_features:
+            raise ValueError(f"Expected {self.in_features} features, got {clin.shape[1]}")
         if torch.isnan(clin).any() or torch.isinf(clin).any():
             raise ValueError("ClinicalEncoder received tensor containing NaN or Inf values.")
-        return self.net(clin)
+            
+        z_C = self.net(clin)
+        if mask is not None:
+            z_C = z_C * mask.view(-1, 1)
+        return z_C
 
 
 class MulticlassClinicalEncoder(nn.Module):
     """
     M3 Expanded Structured Clinical Context Encoder for 5-Class / 6-Class Differential Diagnosis.
-    Input: [B, 8] (age, sex, cirrhosis, hepatitis, oral contraceptives, metabolic syndrome, AFP, CA 19-9)
-    Output: z_T in R^128 with LayerNorm and residual connection.
+    
+    Transforms 8-variable oncology profile into representation vector z_C in R^128:
+    Features: [age_z, sex_val, cirrhosis, hepatitis, oral_contraceptives, metabolic, afp_z, ca19_9_z].
+    Incorporates a linear residual connection, LayerNorm, and optional modality masking.
     """
 
     def __init__(
@@ -123,10 +138,14 @@ class MulticlassClinicalEncoder(nn.Module):
         self.ln = nn.LayerNorm(out_dim)
         self.res = nn.Linear(in_features, out_dim) if in_features != out_dim else nn.Identity()
 
-    def forward(self, clin: torch.Tensor) -> torch.Tensor:
+    def forward(self, clin: torch.Tensor, mask: Optional[torch.Tensor] = None) -> torch.Tensor:
         """
-        Input: [B, in_features]
-        Output: z_T in [B, out_dim]
+        Args:
+            clin: Clinical feature tensor [B, in_features].
+            mask: Optional binary indicator [B] or [B, 1] (0 = missing modality, 1 = active).
+            
+        Returns:
+            z_C in [B, out_dim].
         """
         if clin.ndim != 2:
             raise ValueError(f"Expected 2D clinical tensor [B, in_features], got shape {tuple(clin.shape)}")
@@ -141,6 +160,9 @@ class MulticlassClinicalEncoder(nn.Module):
         x = self.drop(x)
         x = self.fc2(x)
         out = self.ln(x + residual)
+
+        if mask is not None:
+            out = out * mask.view(-1, 1)
         return out
 
 

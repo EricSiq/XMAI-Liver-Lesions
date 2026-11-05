@@ -107,3 +107,19 @@ def test_multiclass_clinical_encoder_input_validation():
     nan_tensor[0, 0] = float("nan")
     with pytest.raises(ValueError, match="NaN or Inf"):
         encoder(nan_tensor)
+
+
+def test_multiclass_clinical_encoder_mask_zeroing():
+    """Verify Hypothesis H3: when mask=0, clinical representations are zeroed out."""
+    encoder = MulticlassClinicalEncoder(in_features=8, out_dim=128)
+    x = torch.randn(4, 8)
+    mask = torch.tensor([1.0, 0.0, 1.0, 0.0])
+
+    out = encoder(x, mask=mask)
+    assert out.shape == (4, 128)
+    assert not torch.all(out[0] == 0.0)
+    assert torch.all(out[1] == 0.0), "Sample with mask=0 must produce all-zero representation"
+    assert not torch.all(out[2] == 0.0)
+    assert torch.all(out[3] == 0.0), "Sample with mask=0 must produce all-zero representation"
+
+
