@@ -130,3 +130,28 @@ def test_zero_caliper_leakage_barrier(workspace_root, tmp_path):
         assert "with caliper" not in path.lower(), f"Forbidden caliper image found in manifest: {path}"
         assert "wo caliper" in path.lower() or "clean" in path.lower()
 
+
+def test_get_smc_splits_patient_isolation(workspace_root, tmp_path):
+    """Verify get_smc_splits enforces zero patient overlap and boundary handling."""
+    from xmai.data.smc_manifest import generate_smc_manifest, get_smc_splits
+
+    manifest_path = workspace_root / "data" / "manifests" / "smc_clean_manifest.csv"
+    if not manifest_path.exists():
+        manifest_path = tmp_path / "smc_test_manifest.csv"
+        generate_smc_manifest(workspace_root, manifest_path, seed=42)
+
+    for fold in range(5):
+        train_df, val_df = get_smc_splits(fold, manifest_path=manifest_path)
+        assert len(train_df) > 0
+        assert len(val_df) > 0
+        train_patients = set(train_df["patient_id"])
+        val_patients = set(val_df["patient_id"])
+        assert train_patients.isdisjoint(val_patients), f"Leakage in fold {fold}: {train_patients & val_patients}"
+
+    # Invalid fold boundary
+    with pytest.raises(ValueError, match="Fold index must be in"):
+        get_smc_splits(5, manifest_path=manifest_path)
+    with pytest.raises(ValueError, match="Fold index must be in"):
+        get_smc_splits(-1, manifest_path=manifest_path)
+
+

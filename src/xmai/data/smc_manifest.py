@@ -1,16 +1,18 @@
 """
 SMC-LUD data audit, metadata join, and patient-stratified fold generation.
+
 Strictly enforces:
-- Clean no-caliper images only.
-- Patient-level stratified 5-fold splitting (no patient in >1 fold).
-- Exclusion of label-leaking fields (T-stage, tumor size, etc.).
-- Image content hashing for duplicate detection.
+- Clean no-caliper images only (CLAIM Principle 3).
+- Patient-level stratified 5-fold splitting (no patient in >1 fold; CLAIM Principle 1).
+- Exclusion of label-leaking fields (T-stage, tumor size, etc.; CLAIM Principle 2).
+- Image content hashing (SHA-256) for duplicate auditing.
+- Strict fold disjointness and per-fold class representation assertions.
 """
 
 import hashlib
 import json
 from pathlib import Path
-from typing import Any, Dict, List, Tuple
+from typing import Any, Dict, List, Optional, Tuple
 
 import pandas as pd
 from sklearn.model_selection import StratifiedKFold
@@ -194,6 +196,9 @@ def generate_smc_manifest(
                     "image_sha256": sha,
                 })
 
+    if not patient_records:
+        raise ValueError(f"No valid clean patient image records found in {orig_root}.")
+
     # Stratified Patient-Level 5-Fold Splitting
     patient_df = pd.DataFrame(patient_records)
     skf = StratifiedKFold(n_splits=5, shuffle=True, random_state=seed)
@@ -201,6 +206,17 @@ def generate_smc_manifest(
 
     for fold_idx, (_, val_indices) in enumerate(skf.split(patient_df["patient_id"], patient_df["label"])):
         patient_df.loc[val_indices, "fold"] = fold_idx
+
+    # Invariant verification: Pairwise fold disjointness
+    for i in range(5):
+        p_i = set(patient_df[patient_df["fold"] == i]["patient_id"])
+        if not p_i:
+            raise ValueError(f"Degenerate partition: Fold {i} contains 0 patients.")
+        for j in range(i + 1, 5):
+            p_j = set(patient_df[patient_df["fold"] == j]["patient_id"])
+            overlap = p_i.intersection(p_j)
+            if overlap:
+                raise ValueError(f"CRITICAL PATIENT LEAKAGE DETECTED: Folds {i} and {j} share patients: {overlap}")
 
     pat_to_fold = dict(zip(patient_df["patient_id"], patient_df["fold"]))
 
@@ -245,3 +261,51 @@ def generate_smc_manifest(
     }
 
     return manifest_df, audit_stats
+
+
+def get_smc_splits(
+    fold: int,
+    manifest_path: Optional[Path] = None,
+) -> Tuple[pd.DataFrame, pd.DataFrame]:
+    """
+    Returns train and validation splits for a given fold index (0 to 4).
+    Guarantees strict zero-leakage patient isolation between train and validation.
+    
+    Args:
+        fold: Fold index from 0 to 4.
+        manifest_path: Path to SMC manifest CSV (defaults to data/manifests/smc_clean_manifest.csv).
+        
+    Returns:
+        Tuple of (train_df, val_df)
+        
+    Raises:
+        ValueError: If fold is out of range, split is empty, or patient leakage is detected.
+    """
+    if fold < 0 or fold > 4:
+        raise ValueError(f"Fold index must be in [0, 4], got {fold}")
+
+    if manifest_path is None:
+        workspace_root = Path(__file__).resolve().parent.parent.parent.parent
+        manifest_path = workspace_root / "data" / "manifests" / "smc_clean_manifest.csv"
+
+    if not manifest_path.exists():
+        raise FileNotFoundError(f"SMC manifest not found at {manifest_path}")
+
+    df = pd.read_csv(manifest_path)
+    val_df = df[df["fold"] == fold].copy().reset_index(drop=True)
+    train_df = df[df["fold"] != fold].copy().reset_index(drop=True)
+
+    if len(val_df) == 0:
+        raise ValueError(f"Validation split for fold {fold} is empty.")
+    if len(train_df) == 0:
+        raise ValueError(f"Train split for fold {fold} is empty.")
+
+    # Strict patient isolation verification
+    train_patients = set(train_df["patient_id"])
+    val_patients = set(val_df["patient_id"])
+    overlap = train_patients.intersection(val_patients)
+    if overlap:
+        raise ValueError(f"CRITICAL PATIENT LEAKAGE: Patients shared across fold {fold}: {overlap}")
+
+    return train_df, val_df
+
