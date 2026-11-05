@@ -106,3 +106,15 @@ def test_build_multiclass_dossier_referral_logic():
     )
     assert dossier_c["certified_referral_flag"]
     assert "Borderline acoustic margin" in dossier_c["referral_rationale"]
+
+
+def test_multiclass_gradcam_context_manager_lifecycle(model_5class):
+    """Verify MulticlassGradCAM context manager cleans up hooks cleanly."""
+    with MulticlassGradCAM(model=model_5class) as cam:
+        img = torch.randn(1, 3, 224, 224)
+        hm = cam.generate_heatmap(img=img, target_class=1)
+        assert hm.shape == (224, 224)
+    # After exit, hooks should be removed
+    assert cam.forward_handle is None
+    assert cam.backward_handle is None
+

@@ -42,8 +42,23 @@ class MulticlassGradCAM:
         def backward_hook(module, grad_in, grad_out):
             self.gradients = grad_out[0].detach()
 
-        target_layer.register_forward_hook(forward_hook)
-        target_layer.register_full_backward_hook(backward_hook)
+        self.forward_handle = target_layer.register_forward_hook(forward_hook)
+        self.backward_handle = target_layer.register_full_backward_hook(backward_hook)
+
+    def remove_hooks(self) -> None:
+        """Removes registered forward and backward hooks."""
+        if hasattr(self, "forward_handle") and self.forward_handle is not None:
+            self.forward_handle.remove()
+            self.forward_handle = None
+        if hasattr(self, "backward_handle") and self.backward_handle is not None:
+            self.backward_handle.remove()
+            self.backward_handle = None
+
+    def __enter__(self):
+        return self
+
+    def __exit__(self, exc_type, exc_val, exc_tb):
+        self.remove_hooks()
 
     def generate_heatmap(
         self,
@@ -205,3 +220,4 @@ def build_multiclass_dossier(
         "gradcam_in_box_ratio": round(gradcam_in_box_ratio, 4),
         "shap_attributions_top_class": {k: round(v, 4) for k, v in shap_attributions.items() if not k.startswith("_")},
     }
+

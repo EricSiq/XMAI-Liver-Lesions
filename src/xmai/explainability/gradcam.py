@@ -75,5 +75,13 @@ class GradCAM:
 
     def remove_hooks(self):
         """Removes registered hooks."""
-        self.forward_handle.remove()
-        self.backward_handle.remove()
+        if hasattr(self, "forward_handle"):
+            self.forward_handle.remove()
+        if hasattr(self, "backward_handle"):
+            self.backward_handle.remove()
+
+    def __enter__(self):
+        return self
+
+    def __exit__(self, exc_type, exc_val, exc_tb):
+        self.remove_hooks()
