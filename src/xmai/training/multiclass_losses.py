@@ -44,7 +44,7 @@ class ClassBalancedFocalLoss(nn.Module):
             targets: [B] class indices in [0, K-1]
         """
         probs = F.softmax(logits, dim=-1)
-        targets_one_hot = F.one_hot(targets, num_classes=self.num_classes).float()
+        targets_one_hot = F.one_hot(targets, num_classes=self.num_classes).float().to(logits.device)
 
         # Class-specific probability p_t
         p_t = (probs * targets_one_hot).sum(dim=-1).clamp(min=1e-7, max=1.0 - 1e-7)
@@ -55,8 +55,9 @@ class ClassBalancedFocalLoss(nn.Module):
         # Cross entropy component -log(p_t)
         ce = -torch.log(p_t)
 
-        # Class weights w_y
-        class_weights = (self.weights.unsqueeze(0) * targets_one_hot).sum(dim=-1)
+        # Class weights w_y on correct device
+        w = self.weights.to(logits.device)
+        class_weights = (w.unsqueeze(0) * targets_one_hot).sum(dim=-1)
 
         loss = class_weights * modulating_factor * ce
         return loss.mean()
@@ -83,8 +84,7 @@ class HierarchicalSafetyLoss(nn.Module):
         self.ben_indices = ben_indices if ben_indices is not None else [1, 2, 3]  # Hemangioma, FNH, Adenoma
 
         # Asymmetric weights on Stage 1 to penalize false negatives for cancer
-        stage1_weights = torch.tensor([1.0, mal_weight], dtype=torch.float32)
-        self.stage1_criterion = nn.CrossEntropyLoss(weight=stage1_weights)
+        self.register_buffer("stage1_weights", torch.tensor([1.0, mal_weight], dtype=torch.float32))
         self.ce_criterion = nn.CrossEntropyLoss()
 
     def forward(
@@ -105,7 +105,11 @@ class HierarchicalSafetyLoss(nn.Module):
             is_mal = is_mal | (targets == idx)
         stage1_targets = is_mal.long()
 
-        loss_stage1 = self.stage1_criterion(out_dict["logits_stage1"], stage1_targets)
+        loss_stage1 = F.cross_entropy(
+            out_dict["logits_stage1"],
+            stage1_targets,
+            weight=self.stage1_weights.to(device),
+        )
 
         # 2. Stage 2B: Malignant subtyping loss (computed on malignant samples)
         mal_mask = (stage1_targets == 1)
@@ -177,7 +181,8 @@ class MulticlassDirichletEvidentialLoss(nn.Module):
             targets: [B] class indices
             epoch: current training epoch for KL annealing
         """
-        targets_one_hot = F.one_hot(targets, num_classes=self.num_classes).float()
+        alpha = torch.clamp(alpha, min=1.0 + 1e-7, max=1e5)
+        targets_one_hot = F.one_hot(targets, num_classes=self.num_classes).float().to(alpha.device)
         S = torch.sum(alpha, dim=1, keepdim=True)
 
         # Expected cross-entropy under Dirichlet: sum y_k (digamma(S) - digamma(alpha_k))
@@ -194,3 +199,4 @@ class MulticlassDirichletEvidentialLoss(nn.Module):
         annealing_coef = min(1.0, float(epoch) / float(max(1, self.kl_anneal_epochs)))
         loss = ace + annealing_coef * kl
         return loss.mean()
+

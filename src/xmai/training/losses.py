@@ -96,8 +96,8 @@ class EvidentialBayesLoss(nn.Module):
         B, K = alpha.shape
         device = alpha.device
 
-        # Numerical safety guard: alpha must be >= 1.0
-        alpha = torch.clamp(alpha, min=1.0)
+        # Numerical safety guard: clamp alpha to avoid digamma/lgamma overflow or undefined values
+        alpha = torch.clamp(alpha, min=1.0 + 1e-7, max=1e5)
 
         # One-hot target vector: [B, K]
         y = F.one_hot(targets, num_classes=K).float().to(device)

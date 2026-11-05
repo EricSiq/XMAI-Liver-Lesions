@@ -82,3 +82,4 @@ def test_multiclass_dirichlet_loss_annealing():
     # Both allow backprop
     loss_ep10.backward()
     assert alpha.grad is not None
+
