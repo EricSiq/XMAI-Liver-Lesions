@@ -255,6 +255,8 @@ def run_track_a_fold(
     )
 
     if results_dir:
+        results_dir = Path(results_dir)
+        results_dir.mkdir(parents=True, exist_ok=True)
         ckpt_path = results_dir / f"checkpoint_{model_id}_fold_{fold}.pt"
         torch.save({"model_state": model.state_dict(), "temperature": opt_temp, "fold": fold}, ckpt_path)
 
