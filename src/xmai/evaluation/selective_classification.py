@@ -32,7 +32,22 @@ def compute_risk_coverage_curve(
     Confidence score is defined as the margin |P(HCC) - P(Hemangioma)|.
     Risk = Error rate on covered patients.
     Coverage = Fraction of cohort with confidence >= threshold.
+    
+    Guarantees:
+    - Empty input safety: Returns empty curve structure with 0.0 metrics.
+    - Constant margins: Safely handles degenerate cases without dividing by zero.
     """
+    if len(predictions) == 0:
+        return {
+            "coverages": [],
+            "risks": [],
+            "aurc": 0.0,
+            "opt_aurc": 0.0,
+            "e_aurc": 0.0,
+            "total_cohort_size": 0,
+            "full_coverage_error": 0.0,
+        }
+
     margins = np.array([p.margin for p in predictions])
     errors = np.array([1.0 if p.is_error else 0.0 for p in predictions])
     N = len(predictions)
@@ -42,7 +57,10 @@ def compute_risk_coverage_curve(
     sorted_margins = margins[sorted_indices]
     sorted_errors = errors[sorted_indices]
 
-    thresholds = np.linspace(sorted_margins.min(), sorted_margins.max(), n_thresholds)
+    if sorted_margins.min() == sorted_margins.max():
+        thresholds = np.array([sorted_margins.min()])
+    else:
+        thresholds = np.linspace(sorted_margins.min(), sorted_margins.max(), n_thresholds)
     coverages = []
     risks = []
 
@@ -99,6 +117,14 @@ def compute_clinical_referral_rate(
     Finds the maximum coverage (and required referral rate) to guarantee
     an error rate no greater than target_risk (default: 0.5% clinical safety budget).
     """
+    if len(predictions) == 0:
+        return {
+            "target_risk": target_risk,
+            "max_autonomous_coverage": 0.0,
+            "required_referral_rate": 1.0,
+            "full_coverage_risk": 0.0,
+        }
+
     rc = compute_risk_coverage_curve(predictions, n_thresholds=200)
     covs = np.array(rc["coverages"])
     risks = np.array(rc["risks"])

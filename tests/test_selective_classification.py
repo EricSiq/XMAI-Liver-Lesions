@@ -129,3 +129,30 @@ def test_completely_failing_model_bounds():
     assert ref["max_autonomous_coverage"] == pytest.approx(0.0)
     assert ref["required_referral_rate"] == pytest.approx(1.0)
 
+
+def test_empty_and_constant_margin_predictions():
+    """Verify empty predictions and constant margins do not crash selective classification."""
+    empty_rc = compute_risk_coverage_curve([])
+    assert empty_rc["aurc"] == 0.0
+    assert empty_rc["total_cohort_size"] == 0
+
+    empty_ref = compute_clinical_referral_rate([])
+    assert empty_ref["max_autonomous_coverage"] == 0.0
+    assert empty_ref["required_referral_rate"] == 1.0
+
+    # Constant margin
+    const_preds = [
+        PredictionRow(
+            patient_id=f"CONST_{i}",
+            track="A", fold=0, seed=42, model_id="Const",
+            true_label="HCC", pred_label="HCC",
+            prob_vector={"Hemangioma": 0.3, "HCC": 0.7},
+            margin=0.40, is_calibrated=True, is_error=False,
+            is_low_margin=False, modality_mask=[1, 0, 1]
+        )
+        for i in range(5)
+    ]
+    const_rc = compute_risk_coverage_curve(const_preds)
+    assert const_rc["aurc"] == 0.0
+    assert len(const_rc["coverages"]) > 0
+
