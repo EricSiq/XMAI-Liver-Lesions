@@ -260,4 +260,30 @@ def test_multiclass_schemas_and_taxonomy():
             verification_status="VERIFIED_HISTOPATHOLOGY",
         )
 
+    # Invalid label outside taxonomy must raise ValueError
+    with pytest.raises(ValueError, match="not in valid taxonomy"):
+        MulticlassManifestRow(
+            patient_id="ERR_02",
+            relative_path="data/clean/ERR_02.png",
+            label="Melanoma",  # Not an FLL class
+            tier="Malignant",
+            fold=2,
+            data_source="TCIA",
+            verification_status="VERIFIED_HISTOPATHOLOGY",
+        )
+
+
+def test_leakage_delimiter_evasion_blocked():
+    """Verify that camelCase, dots, and slashes cannot evade the leakage barrier."""
+    evasions = [
+        {"tumorSize": "4.5cm"},
+        {"tace.response": "complete"},
+        {"pathologic/t/stage": "T3"},
+        {"MaxDiameter": 5.2},
+    ]
+    for evasion in evasions:
+        with pytest.raises(ValueError, match="LEAKAGE ASSERTION FAILED"):
+            assert_no_leakage_fields(evasion)
+
+
 
