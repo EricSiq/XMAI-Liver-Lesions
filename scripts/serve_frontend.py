@@ -622,11 +622,18 @@ class XMAIHTTPHandler(http.server.SimpleHTTPRequestHandler):
                 self.wfile.write(json.dumps({"error": "Invalid JSON body"}).encode("utf-8"))
                 return
 
-            model_id = payload.get("model_id", "A4")
-            age = payload.get("age", 55)
-            sex = payload.get("sex", "Male")
-            mask = payload.get("mask", 1)
-            visual_prior = payload.get("visual_prior", 0.50)
+            try:
+                model_id = str(payload.get("model_id", "A4"))
+                age = int(payload.get("age", 55))
+                sex = str(payload.get("sex", "Male"))
+                mask = int(payload.get("mask", 1))
+                visual_prior = float(payload.get("visual_prior", 0.50))
+            except (ValueError, TypeError) as err:
+                self.send_response(400)
+                self.send_header("Content-Type", "application/json")
+                self.end_headers()
+                self.wfile.write(json.dumps({"error": f"Invalid parameter type: {err}"}).encode("utf-8"))
+                return
 
             prediction = compute_live_prediction(
                 model_id=model_id,
@@ -654,17 +661,26 @@ class XMAIHTTPHandler(http.server.SimpleHTTPRequestHandler):
                 self.wfile.write(json.dumps({"error": "Invalid JSON body"}).encode("utf-8"))
                 return
 
-            model_id = payload.get("model_id", "M5_gated")
-            age = payload.get("age", 55)
-            sex = payload.get("sex", "Male")
-            cirrhosis = payload.get("cirrhosis", 0)
-            hepatitis = payload.get("hepatitis", 0)
-            afp_elevated = payload.get("afp_elevated", 0)
-            ca19_9_elevated = payload.get("ca19_9_elevated", 0)
-            ocp_use = payload.get("ocp_use", 0)
-            lesion_size_cm = payload.get("lesion_size_cm", 3.5)
-            mask = payload.get("mask", 1)
-            visual_priors = payload.get("visual_priors", None)
+            try:
+                model_id = str(payload.get("model_id", "M5_gated"))
+                age = int(payload.get("age", 55))
+                sex = str(payload.get("sex", "Male"))
+                cirrhosis = int(payload.get("cirrhosis", 0))
+                hepatitis = int(payload.get("hepatitis", 0))
+                afp_elevated = int(payload.get("afp_elevated", 0))
+                ca19_9_elevated = int(payload.get("ca19_9_elevated", 0))
+                ocp_use = int(payload.get("ocp_use", 0))
+                lesion_size_cm = float(payload.get("lesion_size_cm", 3.5))
+                mask = int(payload.get("mask", 1))
+                visual_priors = payload.get("visual_priors", None)
+                if visual_priors is not None:
+                    visual_priors = [float(x) for x in visual_priors]
+            except (ValueError, TypeError) as err:
+                self.send_response(400)
+                self.send_header("Content-Type", "application/json")
+                self.end_headers()
+                self.wfile.write(json.dumps({"error": f"Invalid parameter type: {err}"}).encode("utf-8"))
+                return
 
             prediction = compute_live_multiclass_prediction(
                 model_id=model_id,

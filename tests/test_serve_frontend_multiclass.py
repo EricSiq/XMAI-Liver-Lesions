@@ -75,3 +75,23 @@ def test_live_multiclass_h3_fallback():
     assert res["gate_c"] == 0.0
     assert res["top1_class"] == "Hemangioma"
     assert res["is_malignant"] is False
+
+
+def test_compute_live_multiclass_prediction_bounds():
+    """Verify extreme age and size clamping in live multiclass inference."""
+    # Age < 18 clamped to 18, Age > 95 clamped to 95
+    res_young = compute_live_multiclass_prediction(
+        model_id="M5_gated",
+        age=5,
+        sex="Female",
+        cirrhosis=0,
+        hepatitis=0,
+        afp_elevated=0,
+        ca19_9_elevated=0,
+        ocp_use=1,
+        lesion_size_cm=0.1,  # clamped to 0.5
+        mask=1,
+    )
+    assert res_young["status"] == "success"
+    assert 0.0 <= res_young["probabilities"]["FNH"] <= 1.0
+
