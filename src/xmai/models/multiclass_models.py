@@ -95,7 +95,8 @@ class M5FlatGatedFusion(nn.Module):
         gate_weights = gate_weights / gate_sum
 
         logits = self.head(z_f)
-        calibrated_logits = logits / self.temperature
+        temp = torch.clamp(self.temperature, min=0.01, max=100.0)
+        calibrated_logits = torch.clamp(logits / temp, min=-50.0, max=50.0)
         probs = F.softmax(calibrated_logits, dim=-1)
 
         return {
@@ -215,16 +216,19 @@ class M5HierarchicalFusion(nn.Module):
 
         # Stage 1: Malignant vs Benign
         logits_stage1 = self.stage1_gate(z_f)
-        probs_stage1 = F.softmax(logits_stage1 / self.temp_stage1, dim=-1)  # [B, 2]: [p_ben, p_mal]
+        temp1 = torch.clamp(self.temp_stage1, min=0.01, max=100.0)
+        probs_stage1 = F.softmax(torch.clamp(logits_stage1 / temp1, min=-50.0, max=50.0), dim=-1)  # [B, 2]: [p_ben, p_mal]
         p_benign = probs_stage1[:, 0:1]
         p_malignant = probs_stage1[:, 1:2]
 
         # Stage 2: Subtyping
         logits_ben = self.stage2_benign(z_f)
-        probs_sub_ben = F.softmax(logits_ben / self.temp_ben, dim=-1)  # [B, num_ben]
+        temp_b = torch.clamp(self.temp_ben, min=0.01, max=100.0)
+        probs_sub_ben = F.softmax(torch.clamp(logits_ben / temp_b, min=-50.0, max=50.0), dim=-1)  # [B, num_ben]
 
         logits_mal = self.stage2_malignant(z_f)
-        probs_sub_mal = F.softmax(logits_mal / self.temp_mal, dim=-1)  # [B, num_mal]
+        temp_m = torch.clamp(self.temp_mal, min=0.01, max=100.0)
+        probs_sub_mal = F.softmax(torch.clamp(logits_mal / temp_m, min=-50.0, max=50.0), dim=-1)  # [B, num_mal]
 
         # Compose full K-class distribution via Law of Total Probability
         B = z_f.shape[0]
@@ -234,6 +238,9 @@ class M5HierarchicalFusion(nn.Module):
 
         for idx_in_sub, global_idx in enumerate(self.mal_indices):
             full_probs[:, global_idx] = (p_malignant * probs_sub_mal[:, idx_in_sub:idx_in_sub+1]).squeeze(1)
+
+        # Numerical safety: re-normalize to ensure strictly sum-to-1.0
+        full_probs = full_probs / full_probs.sum(dim=-1, keepdim=True).clamp(min=1e-7)
 
         # Surrogate logits for unified metrics
         surrogate_logits = torch.log(full_probs.clamp(min=1e-7))
