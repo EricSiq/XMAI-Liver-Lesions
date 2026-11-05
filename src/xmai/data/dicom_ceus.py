@@ -100,6 +100,8 @@ def sample_t16_frames(
     Returns (sampled_frames, sampled_timestamps).
     """
     n = len(frames)
+    if n == 0:
+        raise ValueError("Cannot sample frames from empty frame sequence.")
     if n <= target_t:
         # Repeat or pad last frame if shorter than target_t
         indices = np.pad(np.arange(n), (0, max(0, target_t - n)), mode="edge")

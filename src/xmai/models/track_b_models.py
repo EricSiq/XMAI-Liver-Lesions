@@ -32,6 +32,10 @@ class B1MeanPooling(nn.Module):
         """
         Input video: [B, T, 3, 224, 224]
         """
+        if video.ndim != 5:
+            raise ValueError(f"Expected 5D video tensor [B, T, C, H, W], got {tuple(video.shape)}")
+        if video.shape[1] == 0:
+            raise ValueError("Video sequence contains zero temporal frames.")
         z_c = self.encoder(video)  # [B, embed_dim]
         logits = self.head(z_c)
         calibrated_logits = logits / self.temperature
@@ -67,6 +71,10 @@ class B2TemporalAttention(nn.Module):
         """
         Input video: [B, T, 3, 224, 224]
         """
+        if video.ndim != 5:
+            raise ValueError(f"Expected 5D video tensor [B, T, C, H, W], got {tuple(video.shape)}")
+        if video.shape[1] == 0:
+            raise ValueError("Video sequence contains zero temporal frames.")
         z_c = self.encoder(video)  # [B, embed_dim]
         logits = self.head(z_c)
         calibrated_logits = logits / self.temperature
@@ -102,6 +110,10 @@ class B3BiLSTM(nn.Module):
         """
         Input video: [B, T, 3, 224, 224]
         """
+        if video.ndim != 5:
+            raise ValueError(f"Expected 5D video tensor [B, T, C, H, W], got {tuple(video.shape)}")
+        if video.shape[1] == 0:
+            raise ValueError("Video sequence contains zero temporal frames.")
         z_c = self.encoder(video)  # [B, embed_dim]
         logits = self.head(z_c)
         calibrated_logits = logits / self.temperature
@@ -139,6 +151,10 @@ class B4ArterialOnly(nn.Module):
         Input video: [B, T, 3, 224, 224]
         Slices early arterial frames [B, :early_t, 3, 224, 224]
         """
+        if video.ndim != 5:
+            raise ValueError(f"Expected 5D video tensor [B, T, C, H, W], got {tuple(video.shape)}")
+        if video.shape[1] == 0:
+            raise ValueError("Video sequence contains zero temporal frames.")
         early_video = video[:, :self.early_t]
         z_c = self.encoder(early_video)
         logits = self.head(z_c)
