@@ -89,3 +89,20 @@ def test_multiclass_clinical_demographic_patterns(manifest_df):
     fnh_female_ratio = (fnh_df["sex"] == "F").mean()
     assert fnh_female_ratio > 0.70, f"FNH expected female predominance, got {fnh_female_ratio}"
     assert fnh_df["age"].mean() < hcc_df["age"].mean()
+
+
+def test_multiclass_boundary_and_error_handling():
+    """Verify input validation and boundary guards for manifest functions."""
+    with pytest.raises(ValueError, match="Fold must be between 0 and 4"):
+        get_multiclass_splits(5)
+
+    with pytest.raises(ValueError, match="Fold must be between 0 and 4"):
+        get_multiclass_splits(-1)
+
+    with pytest.raises(ValueError, match="target_samples_per_class must be >= 10"):
+        build_multiclass_manifest(target_samples_per_class=5)
+
+    with pytest.raises(ValueError, match="random_seed must be non-negative"):
+        build_multiclass_manifest(random_seed=-1)
+
+

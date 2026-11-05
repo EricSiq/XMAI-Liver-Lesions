@@ -107,6 +107,13 @@ def build_multiclass_manifest(
     """
     Builds and validates the unified multiclass focal liver lesion manifest.
     
+    Harmonizes multi-center cohorts:
+    - HCC: SMC-LUD clean B-mode (n=421) + TCIA external cases (n=5).
+    - Hemangioma: SMC-LUD clean B-mode (n=322) + SYSU-CEUS (n=5).
+    - FNH: SYSU-CEUS (n=5) + WFUMB validated reference cohort.
+    - Adenoma: WFUMB validated reference cohort.
+    - Cholangiocarcinoma: TCIA confirmed cases (n=4) + WFUMB validated reference cohort.
+    
     Args:
         target_classes: List of class labels (default: TAXONOMY_5CLASS).
         output_csv: Destination CSV path (default: data/manifests/multiclass_5class_manifest.csv).
@@ -115,6 +122,11 @@ def build_multiclass_manifest(
     """
     if target_classes is None:
         target_classes = list(TAXONOMY_5CLASS)
+
+    if target_samples_per_class < 10:
+        raise ValueError(f"target_samples_per_class must be >= 10, got {target_samples_per_class}")
+    if random_seed < 0:
+        raise ValueError(f"random_seed must be non-negative, got {random_seed}")
 
     rng = np.random.RandomState(random_seed)
     manifest_rows: List[Dict] = []
@@ -272,16 +284,37 @@ def get_multiclass_splits(
 ) -> Tuple[pd.DataFrame, pd.DataFrame]:
     """
     Returns train and test patient-isolated splits for a given fold (0 to 4).
-    Guarantees 100% patient isolation: zero patient overlap between train and test.
+    
+    Guarantees:
+    - 100% patient isolation: zero patient overlap between train and test partitions.
+    - Non-empty train and test sets across all 5 folds.
+    
+    Args:
+        fold: Fold index in [0, 4].
+        manifest_path: Path to multiclass manifest CSV.
+        
+    Returns:
+        Tuple of (train_df, test_df)
+        
+    Raises:
+        ValueError: If fold is out of range, partition is empty, or patient leakage occurs.
     """
     if fold < 0 or fold > 4:
         raise ValueError(f"Fold must be between 0 and 4, got {fold}")
 
     df = load_multiclass_manifest(manifest_path)
+    if len(df) == 0:
+        raise ValueError("Multiclass manifest is empty.")
+
     test_df = df[df["fold"] == fold].copy().reset_index(drop=True)
     train_df = df[df["fold"] != fold].copy().reset_index(drop=True)
 
-    # Patient isolation assertion
+    if len(test_df) == 0:
+        raise ValueError(f"Test split for fold {fold} is empty.")
+    if len(train_df) == 0:
+        raise ValueError(f"Train split for fold {fold} is empty.")
+
+    # Patient isolation assertion (CLAIM Principle 1)
     train_patients = set(train_df["patient_id"])
     test_patients = set(test_df["patient_id"])
     overlap = train_patients.intersection(test_patients)
@@ -289,3 +322,4 @@ def get_multiclass_splits(
         raise ValueError(f"CRITICAL LEAKAGE DETECTED: Patients shared across fold {fold}: {overlap}")
 
     return train_df, test_df
+
