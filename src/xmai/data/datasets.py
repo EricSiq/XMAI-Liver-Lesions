@@ -89,7 +89,17 @@ class SMCDataset(Dataset):
         clin_feat, clin_miss = self.clinical_processor.transform_row(row)
 
         # 3. Modality mask: [M1: B-mode, M2: CEUS, M3: Context]
-        mod_mask = torch.tensor([1.0, 0.0, 1.0], dtype=torch.float32)
+        # Supports Hypothesis H3 (Missing Modality Fallback):
+        # If row explicitly masks clinical data (mask=0) or clinical features are absent,
+        # M3 is set to 0.0 to instruct downstream fusion units to execute graceful unimodal fallback.
+        clin_active = 1.0
+        if "mask" in row and pd.notna(row["mask"]):
+            try:
+                clin_active = float(row["mask"])
+            except (ValueError, TypeError):
+                clin_active = 1.0
+
+        mod_mask = torch.tensor([1.0, 0.0, clin_active], dtype=torch.float32)
 
         # 4. Target label
         label_str = row["label"]
