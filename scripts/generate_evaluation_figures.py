@@ -28,20 +28,21 @@ def main() -> None:
     out_dir.mkdir(parents=True, exist_ok=True)
 
     print("=== Generating XMAI Evaluation Figures ===")
-    models = ["A1", "A2", "A3", "A4", "A5", "A6_late_fusion", "A7"]
+    models = ["A1", "A2", "A3", "A4", "A5", "A6", "A7", "A8", "A9"]
     preds_dict = {}
 
     for m in models:
         json_file = results_dir / f"oof_predictions_{m}.json"
+        if not json_file.exists():
+            json_file = results_dir / f"oof_predictions_{m}_late_fusion.json"
         if not json_file.exists():
             print(f"[WARN] File not found: {json_file}")
             continue
         with open(json_file, "r") as f:
             raw_data = json.load(f)
         preds = [PredictionRow(**item) for item in raw_data]
-        key = "A6" if "A6" in m else m
-        preds_dict[key] = preds
-        print(f"Loaded {len(preds)} predictions for model {key}")
+        preds_dict[m] = preds
+        print(f"Loaded {len(preds)} predictions for model {m}")
 
     if not preds_dict:
         print("[ERROR] No predictions found to visualize!")

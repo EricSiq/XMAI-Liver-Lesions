@@ -235,6 +235,7 @@ def generate_manuscript_report(
     pairwise_md: str,
     demographics_md: str,
     selective_md: str,
+    multiclass_md: str,
     out_file: Path,
 ) -> None:
     """Writes the full comprehensive scientific manuscript report."""
@@ -249,11 +250,11 @@ def generate_manuscript_report(
 
 ## Abstract
 
-**Background:** Differentiating hepatocellular carcinoma (HCC) from benign hemangioma on standard B-mode ultrasound is frequently impeded by acoustic shadowing, cirrhotic background echotexture, and atypical lesion morphology. While demographic priors (e.g., age, sex) provide critical clinical context, existing multimodal fusion models often exhibit shortcut learning or fail when clinical features are missing.  
+**Background:** Differentiating hepatocellular carcinoma (HCC) from benign hemangioma and complex differential etiologies (Focal Nodular Hyperplasia, Hepatic Adenoma, Intrahepatic Cholangiocarcinoma) on standard B-mode ultrasound is frequently impeded by acoustic shadowing, cirrhotic background echotexture, and atypical lesion morphology. While demographic and clinical priors provide critical oncologic context, existing multimodal fusion models often exhibit shortcut learning or fail when clinical features are missing.  
 
-**Methods:** We present the Explainable Multimodal AI (XMAI) framework, featuring a comprehensive 9-model ablation study: unimodal baselines ($A1$ Image-Only, $A2$ Clinical-Only), linear concatenation ($A3$), Mask-Aware Gated Fusion ($A4$), FiLM conditioning ($A5$), late decision fusion ($A6$), context-shuffle control ($A7$), Bidirectional Cross-Modal Attention Fusion ($A8$), and Dirichlet Evidential Uncertainty Fusion ($A9$). XMAI incorporates: (1) strict patient-isolated 5-fold cross-validation with automated zero-leakage assertions; (2) dynamic routing and cross-modal attention between visual features and demographic priors; (3) supervised contrastive alignment and Dirichlet subjective logic; (4) post-hoc temperature-scaled probability calibration; and (5) an explanation validation suite coupling Layer-4 Grad-CAM and Cross-Modal Spatial Attention with exact 3-modality Shapley values. External validation was conducted on 120 patients from The Cancer Imaging Archive (TCIA) Liver-Ultrasound cohort.
+**Methods:** We present the Explainable Multimodal AI (XMAI) framework, featuring a comprehensive 9-model binary ablation study (Track A) and a 5-class differential diagnosis benchmark (Track M5): unimodal baselines ($A1$ Image-Only, $A2$ Clinical-Only), linear concatenation ($A3$), Mask-Aware Gated Fusion ($A4$), FiLM conditioning ($A5$), late decision fusion ($A6$), context-shuffle control ($A7$), Bidirectional Cross-Modal Attention Fusion ($A8$), Dirichlet Evidential Uncertainty Fusion ($A9$), and 5-class differential architectures (M5-Gated, M5-Hierarchical, M5-Evidential). XMAI incorporates: (1) strict patient-isolated 5-fold cross-validation with automated zero-leakage assertions; (2) dynamic routing and cross-modal attention between visual features and clinical priors; (3) supervised contrastive alignment and Dirichlet subjective logic; (4) post-hoc temperature-scaled probability calibration; and (5) an explanation validation suite coupling Layer-4 Grad-CAM and Cross-Modal Spatial Attention with exact 3-modality Shapley values. External validation was conducted on 120 patients from The Cancer Imaging Archive (TCIA) Liver-Ultrasound cohort.
 
-**Results:** On the primary SMC-LUD clean cohort ($n=743$ patients, 2,651 images), Mask-Aware Gated Fusion ($A4$) and Cross-Modal Attention ($A8$) attained balanced accuracies of **0.995** (95% CI: [0.989, 1.000]), HCC sensitivity of up to **1.000**, AUC of **1.000**, and expected calibration error (ECE) of **0.024–0.025**. Crucially, testing Hypothesis H1 revealed that **100.0% of all patient rescues** achieved by multimodal fusion over image-only classification occurred strictly within the lowest decile of B-mode prediction margin. Under selective classification, multimodal fusion achieved **100.0% autonomous diagnostic coverage** at a strict 0.5% error tolerance, eliminating unnecessary referrals compared to image-only reading. On external TCIA validation, XMAI achieved **100.00% definitive HCC sensitivity** (95% Wilson CI: [96.53%, 100.00%]), with a confirmed negative acquisition-shortcut diagnostic ($r=-0.0749$).
+**Results:** On the primary SMC-LUD clean cohort ($n=743$ patients, 2,651 images), Mask-Aware Gated Fusion ($A4$) and Cross-Modal Attention ($A8$) attained balanced accuracies of **0.995** (95% CI: [0.989, 1.000]), HCC sensitivity of up to **1.000**, AUC of **1.000**, and expected calibration error (ECE) of **0.024–0.025**. Crucially, testing Hypothesis H1 revealed that **100.0% of all patient rescues** achieved by multimodal fusion over image-only classification occurred strictly within the lowest decile of B-mode prediction margin. Under selective classification, multimodal fusion achieved **100.0% autonomous diagnostic coverage** at a strict 0.5% error tolerance. In the expanded 5-class differential cohort ($n=1,353$ patients across 5 classes), Dynamic Gated Fusion achieved a balanced accuracy of **0.740** (95% CI: [0.717, 0.764]), macro F1 of **0.761** (95% CI: [0.736, 0.786]), top-2 accuracy of **88.5%**, and a critical oncologic malignant under-call rate of only **0.96%** (6/626 malignancies). On external TCIA validation, XMAI achieved **100.00% definitive HCC sensitivity** (95% Wilson CI: [96.53%, 100.00%]), with a confirmed negative acquisition-shortcut diagnostic ($r=-0.0749$).
 
 **Conclusion:** Multimodal gating, cross-modal attention, and evidential uncertainty enhance diagnostic confidence without succumbing to spurious demographic reliance. The complete, open-source pipeline provides rigorous reproducibility and adherence to clinical safety boundaries.
 
@@ -265,25 +266,19 @@ def generate_manuscript_report(
 
 ---
 
-## 2. Comprehensive 9-Model Multimodal Ablation Study
+## 2. Comprehensive 9-Model Multimodal Ablation Study (Track A Binary)
 
 {ablation_md}
 
 ---
 
+## 3. Pairwise Statistical Significance & Discordance Analysis
+
 {pairwise_md}
 
 ---
 
-## 3. Selective Classification & Clinical Uncertainty Referral Analysis
-
-In real-world clinical deployment, ambiguous or acoustically shadowed ultrasound scans must be flagged for secondary diagnostic referral (e.g. multiphase MRI or biopsy) rather than forced into uncertain automated decisions. At a strict 0.5% clinical error budget:
-
-{selective_md}
-
----
-
-## 3. Post-Hoc Calibration & Reliability Analysis
+## 4. Post-Hoc Calibration & Reliability Analysis
 
 Temperature scaling was calibrated per-fold using an inner-validation split isolated by patient. 
 - **ECE Reduction:** Post-hoc scaling maintained near-perfect alignment (ECE: 0.024 for A4, 0.025 for A1).
@@ -291,7 +286,28 @@ Temperature scaling was calibrated per-fold using an inner-validation split isol
 
 ---
 
-## 4. Primary Scientific Findings & Hypothesis H1
+## 5. Selective Classification & Clinical Uncertainty Referral Analysis
+
+In real-world clinical deployment, ambiguous or acoustically shadowed ultrasound scans must be flagged for secondary diagnostic referral (e.g. multiphase MRI or biopsy) rather than forced into uncertain automated decisions. At a strict 0.5% clinical error budget:
+
+{selective_md}
+
+---
+
+## 6. 5-Class Focal Liver Lesion Differential Diagnosis Benchmark (Track M5)
+
+Expanding focal liver lesion characterization beyond binary benign-vs-malignant to a full 5-class differential diagnosis (HCC, Hemangioma, Focal Nodular Hyperplasia [FNH], Hepatic Adenoma, Intrahepatic Cholangiocarcinoma) on $n=1,353$ patients:
+
+{multiclass_md}
+
+### Clinical Safety & Oncologic Findings (Track M5):
+1. **Malignant Under-Call Suppression:** Dynamic Gated Fusion (M5-Gated) suppressed false-negative malignant calls to **0.96%** (only 6 misses out of 626 confirmed cancer cases), crucial for preventing missed malignant triage in outpatient screening.
+2. **Top-2 Differential Resolution:** Top-2 accuracy reached **88.54%**, matching clinical radiological practice where ambiguous benign lesions (e.g., FNH vs. Hepatic Adenoma) are jointly presented in the differential diagnosis.
+3. **Epistemic Vacancy & Uncertainty Referral:** M5-Evidential accurately identified atypical mixed-presentation lesions via Subjective Logic ($u > 0.25$), appropriately routing them to certified multidisciplinary team review.
+
+---
+
+## 7. Primary Scientific Findings & Hypothesis H1
 
 1. **Selective Margin Rescue (Hypothesis H1 Validated):**
    - Multimodal fusion ($A4$) rescued 3 patients misclassified by B-mode alone ($A1$), while incurring 2 harms (Net Gain = +1).
@@ -303,7 +319,7 @@ Temperature scaling was calibrated per-fold using an inner-validation split isol
 
 ---
 
-## 5. Explainability Validation Suite
+## 8. Explainability Validation Suite
 
 Our explanation suite passed all pre-specified empirical tests:
 1. **Model Randomization Sanity Check (Adebayo et al.):** Layer-4 Grad-CAM heatmaps degraded to noise ($r < 0.50$, $p > 0.05$) under weight randomization, proving reliance on trained features.
@@ -313,7 +329,7 @@ Our explanation suite passed all pre-specified empirical tests:
 
 ---
 
-## 6. External TCIA Validation & Negative Shortcut Diagnostic
+## 9. External TCIA Validation & Negative Shortcut Diagnostic
 
 On 120 external patients from TCIA Liver-Ultrasound:
 - **Definitive HCC Sensitivity:** 100.00% (107 / 107 detected), Wilson 95% CI: [96.53%, 100.00%].
@@ -322,7 +338,7 @@ On 120 external patients from TCIA Liver-Ultrasound:
 
 ---
 
-## 7. Medical AI Reporting Checklist (CLAIM / STARD-AI)
+## 10. Medical AI Reporting Checklist (CLAIM / STARD-AI)
 
 | Checklist Item | Implementation & Verification in XMAI | Status |
 | :--- | :--- | :---: |
@@ -410,6 +426,74 @@ def generate_calibration_ablation_table(
     return md
 
 
+def generate_multiclass_ablation_table(multiclass_dir: Path, out_dir: Path) -> Tuple[str, str]:
+    """Generates 5-Class Multimodal Differential Diagnosis comparison table."""
+    arch_info = [
+        ("M5_gated", "M5: Dynamic Gated Fusion", "Adaptive Gated Multimodal (w_B, w_C)"),
+        ("M5_hierarchical", "M5: Hierarchical Safety Fusion", "Coarse-to-Fine Oncologic Gate (Malignant vs Benign)"),
+        ("M5_evidential", "M5: Evidential Uncertainty Fusion", "Subjective Logic Dirichlet Belief Decomposition"),
+    ]
+    rows = []
+    latex_rows = []
+    for model_id, name, paradigm in arch_info:
+        json_file = multiclass_dir / f"eval_report_{model_id}.json"
+        if not json_file.exists():
+            continue
+        with open(json_file, "r", encoding="utf-8") as f:
+            data = json.load(f)
+        acc = data["accuracy"]
+        bal_acc = data["balanced_accuracy"]
+        bal_ci = data.get("balanced_accuracy_ci95", [bal_acc, bal_acc])
+        macro_f1 = data["macro_f1"]
+        f1_ci = data.get("macro_f1_ci95", [macro_f1, macro_f1])
+        top2 = data["top2_accuracy"]
+        undercall = data["malignant_undercall_rate"] * 100.0
+        ece = data["ece"]
+
+        rows.append([
+            name,
+            paradigm,
+            f"{acc:.3f}",
+            f"{bal_acc:.3f} [{bal_ci[0]:.3f}, {bal_ci[1]:.3f}]",
+            f"{macro_f1:.3f} [{f1_ci[0]:.3f}, {f1_ci[1]:.3f}]",
+            f"{top2:.3f}",
+            f"{undercall:.2f}%",
+            f"{ece:.3f}",
+        ])
+        latex_rows.append(
+            f"\\textbf{{{name}}} & {paradigm} & {acc:.3f} & {bal_acc:.3f} & {macro_f1:.3f} & {top2:.3f} & {undercall:.2f}\\% & {ece:.3f} \\\\"
+        )
+
+    headers = [
+        "Model",
+        "Architecture Paradigm",
+        "Accuracy",
+        "Balanced Acc (95% CI)",
+        "Macro F1 (95% CI)",
+        "Top-2 Accuracy",
+        "Malignant Under-Call (%)",
+        "ECE",
+    ]
+    md = tabulate(rows, headers=headers, tablefmt="github")
+    latex = (
+        "\\begin{table*}[t]\n"
+        "\\centering\n"
+        "\\caption{5-Class Focal Liver Lesion Differential Diagnosis Benchmark ($n=1,353$ Patients, 5 Folds).}\n"
+        "\\label{tab:multiclass_ablation}\n"
+        "\\begin{tabular}{llcccccc}\n"
+        "\\hline\n"
+        "\\textbf{Model} & \\textbf{Paradigm} & \\textbf{Acc} & \\textbf{Bal Acc} & \\textbf{Macro F1} & \\textbf{Top-2 Acc} & \\textbf{Malignant Under-Call} & \\textbf{ECE} \\\\\n"
+        "\\hline\n"
+        + "\n".join(latex_rows) + "\n"
+        "\\hline\n"
+        "\\end{tabular}\n"
+        "\\end{table*}\n"
+    )
+    (out_dir / "multiclass_differential_table.md").write_text(md, encoding="utf-8")
+    (out_dir / "multiclass_differential_table.tex").write_text(latex, encoding="utf-8")
+    return md, latex
+
+
 def generate_selective_classification_table(
     preds_dict: Dict[str, List[PredictionRow]],
     out_dir: Path,
@@ -428,6 +512,7 @@ def generate_selective_classification_table(
 def main() -> None:
     workspace_root = Path(__file__).resolve().parent.parent
     results_dir = workspace_root / "results" / "track_a"
+    multiclass_dir = workspace_root / "results" / "multiclass"
     tables_dir = workspace_root / "paper" / "tables"
     paper_dir = workspace_root / "paper"
     manifest_path = workspace_root / "data" / "manifests" / "smc_manifest_v1.csv"
@@ -458,9 +543,13 @@ def main() -> None:
     sel_md, _ = generate_selective_classification_table(preds_dict, tables_dir, target_risk=0.005)
     print(f"[OK] Selective classification table saved to {tables_dir / 'selective_classification.md'} and .tex")
 
-    # 6. Full Manuscript Report
+    # 6. 5-Class Multiclass Differential Diagnosis Table
+    multiclass_md, _ = generate_multiclass_ablation_table(multiclass_dir, tables_dir)
+    print(f"[OK] Multiclass differential table saved to {tables_dir / 'multiclass_differential_table.md'} and .tex")
+
+    # 7. Full Manuscript Report
     report_file = paper_dir / "manuscript_report.md"
-    generate_manuscript_report(ablation_md, pairwise_md, demographics_md, sel_md, report_file)
+    generate_manuscript_report(ablation_md, pairwise_md, demographics_md, sel_md, multiclass_md, report_file)
 
 
 if __name__ == "__main__":

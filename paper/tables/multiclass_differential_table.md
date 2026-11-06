@@ -1,0 +1,5 @@
+| Model                             | Architecture Paradigm                               |   Accuracy | Balanced Acc (95% CI)   | Macro F1 (95% CI)    |   Top-2 Accuracy | Malignant Under-Call (%)   |   ECE |
+|-----------------------------------|-----------------------------------------------------|------------|-------------------------|----------------------|------------------|----------------------------|-------|
+| M5: Dynamic Gated Fusion          | Adaptive Gated Multimodal (w_B, w_C)                |      0.797 | 0.740 [0.717, 0.764]    | 0.761 [0.736, 0.786] |            0.885 | 0.96%                      | 0.143 |
+| M5: Hierarchical Safety Fusion    | Coarse-to-Fine Oncologic Gate (Malignant vs Benign) |      0.689 | 0.625 [0.600, 0.650]    | 0.654 [0.627, 0.681] |            0.873 | 9.11%                      | 0.072 |
+| M5: Evidential Uncertainty Fusion | Subjective Logic Dirichlet Belief Decomposition     |      0.619 | 0.534 [0.515, 0.554]    | 0.520 [0.500, 0.540] |            0.809 | 6.39%                      | 0.179 |
